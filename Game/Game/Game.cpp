@@ -30,8 +30,8 @@ LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D
 
 LPDIRECT3DTEXTURE9 texBrick;				// texture object to store brick image
 
-int brick_x = 100;
-int brick_y = 100;
+int brick_x = 0;
+int brick_y = 0;
 
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -47,7 +47,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-void DebugOut(wchar_t *fmt, ...)
+void DebugOut(const wchar_t *fmt, ...)
 {
 	va_list argp;
 	va_start(argp, fmt);
@@ -108,7 +108,7 @@ void LoadResources()
 	HRESULT result = D3DXGetImageInfoFromFile(BRICK_TEXTURE_PATH, &info);
 	if (result != D3D_OK)
 	{
-		//DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", BRICK_TEXTURE_PATH);
+		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", BRICK_TEXTURE_PATH);
 		return;
 	}
 
@@ -134,15 +134,72 @@ void LoadResources()
 		return;
 	}
 
-	//DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
+	DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
 }
 
+D3DXVECTOR3 position((float)brick_x, (float)brick_y, 0);
+bool isTopLeft = true, isTopRight = false, isBottomLeft = false, isBottomRight = false;
+#define SPEED 0.08
+#define SPACING_FROM_BORDER 60
 /*
 	Update world status for this frame
 	dt: time period between beginning of last frame and beginning of this frame
 */
 void Update(DWORD dt)
 {
+	if (isTopLeft) {
+		position.x += SPEED * dt;
+	}
+	else if (isTopRight) {
+		position.y += SPEED * dt;
+	}
+	else if (isBottomRight) {
+		position.x -= SPEED * dt;
+	}
+	else {
+		position.y -= SPEED * dt;
+	}
+
+	if (position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && position.y == 0) {
+		position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
+		position.y = 0;
+		isTopRight = true;
+
+		isBottomRight = false;
+		isBottomLeft = false;
+		isTopLeft = false;
+		return;
+	}
+	if (position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
+		position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
+		position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
+		isBottomRight = true;
+
+		isTopRight = false;
+		isBottomLeft = false;
+		isTopLeft = false;
+		return;
+	}
+	if (position.x <= 0 && position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
+		position.x = 0;
+		position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
+		isBottomLeft = true;
+
+		isTopRight = false;
+		isBottomRight = false;
+		isTopLeft = false;
+		return;
+	}
+	if (position.x == 0 && position.y <= 0) {
+		position.x = 0;
+		position.y = 0;
+		isTopLeft = true;
+
+		isBottomLeft = false;
+		isBottomRight = false;
+		isTopRight = false;
+		return;
+	}
 }
 
 /*
@@ -157,8 +214,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		D3DXVECTOR3 p((float)brick_x, (float)brick_y, 0);
-		spriteHandler->Draw(texBrick, NULL, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
+		spriteHandler->Draw(texBrick, NULL, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
 
 		spriteHandler->End();
 		d3ddv->EndScene();
