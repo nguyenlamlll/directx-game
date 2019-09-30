@@ -1,14 +1,6 @@
 #include "stdafx.h"
-#include <windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
+#include "Game.h"
 
-#include <signal.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include <stdlib.h>
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"00 - Intro"
@@ -22,30 +14,16 @@
 #define MAX_FRAME_RATE 10
 
 
-LPDIRECT3D9 d3d = NULL;						// Direct3D handle
-LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
-
-LPDIRECT3DSURFACE9 backBuffer = NULL;
-LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
-
+//LPDIRECT3D9 d3d = NULL;						// Direct3D handle
+//LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
+//
+//LPDIRECT3DSURFACE9 backBuffer = NULL;
+//LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
+//
 LPDIRECT3DTEXTURE9 texBrick;				// texture object to store brick image
 
 int brick_x = 0;
 int brick_y = 0;
-
-
-LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-
-	return 0;
-}
 
 void DebugOut(const wchar_t *fmt, ...)
 {
@@ -57,52 +35,10 @@ void DebugOut(const wchar_t *fmt, ...)
 	OutputDebugString(dbg_out);
 }
 
-void InitDirectX(HWND hWnd)
-{
-	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
-
-	D3DPRESENT_PARAMETERS d3dpp;
-
-	ZeroMemory(&d3dpp, sizeof(d3dpp));
-
-	d3dpp.Windowed = TRUE;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-	d3dpp.BackBufferCount = 1;
-
-	RECT r;
-	GetClientRect(hWnd, &r);	// retrieve Window width & height 
-
-	d3dpp.BackBufferHeight = r.bottom + 1;
-	d3dpp.BackBufferWidth = r.right + 1;
-
-	d3d->CreateDevice(
-		D3DADAPTER_DEFAULT,
-		D3DDEVTYPE_HAL,
-		hWnd,
-		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-		&d3dpp,
-		&d3ddv);
-
-	if (d3ddv == NULL)
-	{
-		OutputDebugString(L"[ERROR] CreateDevice failed\n");
-		return;
-	}
-
-	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
-
-	// Initialize sprite helper from Direct3DX helper library
-	D3DXCreateSprite(d3ddv, &spriteHandler);
-
-	OutputDebugString(L"[INFO] InitGame is done\n");
-
-}
-
 /*
-	Load all game resources. In this example, only load brick image
+	Load all game resources.
 */
-void LoadResources()
+void Game::LoadResources()
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(BRICK_TEXTURE_PATH, &info);
@@ -113,10 +49,10 @@ void LoadResources()
 	}
 
 	result = D3DXCreateTextureFromFileEx(
-		d3ddv,								// Pointer to Direct3D device object
-		BRICK_TEXTURE_PATH,					// Path to the image to load
-		info.Width,							// Texture width
-		info.Height,						// Texture height
+		Global::GetInstance()->g_DirectDevice,	// Pointer to Direct3D device object
+		BRICK_TEXTURE_PATH,						// Path to the image to load
+		info.Width,								// Texture width
+		info.Height,							// Texture height
 		1,
 		D3DUSAGE_DYNAMIC,
 		D3DFMT_UNKNOWN,
@@ -137,15 +73,142 @@ void LoadResources()
 	DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
 }
 
+int Game::InitWindow()
+{
+	WNDCLASSEX wc;
+	ZeroMemory(&wc, sizeof(WNDCLASSEX));
+	wc.cbClsExtra = 0;
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.cbWndExtra = 0;
+	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hInstance = GLOBAL->g_hInstance;
+	wc.lpfnWndProc = WinProc;
+	wc.lpszClassName = CLASS_NAME;
+	wc.lpszMenuName = NULL;
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+
+	RegisterClassEx(&wc);
+	DWORD style;
+	if (GLOBAL->g_IsWindowed) {
+		style = WS_OVERLAPPEDWINDOW;
+	}
+	else
+	{
+		style = WS_EX_TOPMOST | WS_POPUP;
+	}
+
+	HWND hwnd = CreateWindow(
+		CLASS_NAME,
+		GAME_TITLE,
+		style,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		GLOBAL->g_ScreenWidth,
+		GLOBAL->g_ScreenHeight,
+		NULL, NULL,
+		GLOBAL->g_hInstance,
+		NULL
+	);
+	if (hwnd == NULL)
+	{
+		MessageBox(NULL, L"Failed to create Window", L"Error", MB_OK);
+		return 0;
+	}
+	GLOBAL->g_HWND = hwnd;
+	//Sound::create(hwnd);
+	ShowWindow(hwnd, _nCmdShow);
+	return 1;
+}
+
+int Game::InitDirectX()
+{
+	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
+	if (d3d != NULL)
+	{
+		//GlobalVar::SetDirect3D(d3d);
+	}
+	else
+	{
+		MessageBox(NULL, L"Failed to create Direct3D", L"Error", MB_OK);
+		return 0;
+	}
+
+	D3DPRESENT_PARAMETERS d3dpp;
+	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
+	d3dpp.BackBufferCount = 1;
+	d3dpp.BackBufferWidth = GLOBAL->g_ScreenWidth;
+	d3dpp.BackBufferHeight = GLOBAL->g_ScreenHeight;
+	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;//D3DFMT_A8B8G8R8;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dpp.hDeviceWindow = GLOBAL->g_HWND;
+	d3dpp.Windowed = GLOBAL->g_IsWindowed;
+
+
+	LPDIRECT3DDEVICE9 dev;
+	d3d->CreateDevice(
+		D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL,
+		GLOBAL->g_HWND,
+		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+		&d3dpp,
+		&dev
+	);
+	if (dev == NULL)
+	{
+		MessageBox(NULL, L"Failed to create Direct3D Device", L"Error", MB_OK);
+		return 0;
+	}
+	GLOBAL->g_DirectDevice = dev;
+
+	//Create Sprite
+	LPD3DXSPRITE sprite;
+	if (FAILED(D3DXCreateSprite(GLOBAL->g_DirectDevice, &sprite)))
+	{
+		MessageBox(NULL, L"Cannot create sprite", L"Error", MB_OK);
+		return 0;
+	}
+	GLOBAL->g_SpriteHandler = sprite;
+	//Get back buffer
+	LPDIRECT3DSURFACE9 backbuffer;
+	if (FAILED(dev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer)))
+	{
+		MessageBox(NULL, L"Cannot create Back Buffer", L"Error", MB_OK);
+		return 0;
+	}
+	GLOBAL->g_BackBuffer = backbuffer;
+	return 1;
+}
+
+int Game::InitKeyboard()
+{
+	return 0;
+}
+
+LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	case WM_KEYDOWN:
+		//SCENES->GetCurrentScene()->OnKeyDown(wParam);
+		break;
+	case WM_KEYUP:
+		//SCENES->GetCurrentScene()->OnKeyUp(wParam);
+		break;
+	default:
+		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	}
+	return 0;
+}
+
 D3DXVECTOR3 position((float)brick_x, (float)brick_y, 0);
 bool isTopLeft = true, isTopRight = false, isBottomLeft = false, isBottomRight = false;
 #define SPEED 0.08
-#define SPACING_FROM_BORDER 60
-/*
-	Update world status for this frame
-	dt: time period between beginning of last frame and beginning of this frame
-*/
-void Update(DWORD dt)
+#define SPACING_FROM_BORDER 20
+void MoveBrickAroundCorners(float dt) 
 {
 	if (isTopLeft) {
 		position.x += SPEED * dt;
@@ -203,77 +266,67 @@ void Update(DWORD dt)
 }
 
 /*
-Render a frame
+	Update game status for this frame.
+	dt: Time period between beginning of last frame and beginning of this frame
 */
-void Render()
+void Game::GameUpdate(float dt)
 {
+	MoveBrickAroundCorners(dt);
+}
+
+/*
+	Render a frame
+*/
+void Game::GameRender()
+{
+	auto d3ddv = GLOBAL->g_DirectDevice;
+	auto spriteHandler = GLOBAL->g_SpriteHandler;
 	if (d3ddv->BeginScene())
 	{
 		// Clear screen (back buffer) with a color
-		d3ddv->ColorFill(backBuffer, NULL, BACKGROUND_COLOR);
+		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		spriteHandler->Draw(texBrick, NULL, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
+		spriteHandler->Draw(texBrick, nullptr, nullptr, &position, D3DCOLOR_XRGB(255, 255, 255));
 
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
 
 	// Display back buffer content to the screen
-	d3ddv->Present(NULL, NULL, NULL, NULL);
+	d3ddv->Present(nullptr, nullptr, nullptr, nullptr);
 }
 
-HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
+Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
-	WNDCLASSEX wc;
-	wc.cbSize = sizeof(WNDCLASSEX);
+	Global::GetInstance()->g_hInstance = hInstance;
+	this->_nCmdShow = nCmdShow;
+}
 
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.hInstance = hInstance;
-
-	wc.lpfnWndProc = (WNDPROC)WinProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hIcon = NULL;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = NULL;
-	wc.lpszClassName = WINDOW_CLASS_NAME;
-	wc.hIconSm = NULL;
-
-	RegisterClassEx(&wc);
-
-	HWND hWnd =
-		CreateWindow(
-			WINDOW_CLASS_NAME,
-			MAIN_WINDOW_TITLE,
-			WS_OVERLAPPEDWINDOW, // WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
-			CW_USEDEFAULT,
-			CW_USEDEFAULT,
-			ScreenWidth,
-			ScreenHeight,
-			NULL,
-			NULL,
-			hInstance,
-			NULL);
-
-	if (!hWnd)
+bool Game::GameInit()
+{
+	if (InitWindow())
 	{
-		OutputDebugString(L"[ERROR] CreateWindow failed");
-		DWORD ErrCode = GetLastError();
-		return FALSE;
+		if (!InitDirectX())
+			return false;
+	}
+	else
+	{
+		return false;
 	}
 
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+	// TODO: Add scene and start a scene here
 
-	return hWnd;
+	LoadResources();
+	return true;
 }
 
-int Run()
+void Game::GameRun()
 {
 	MSG msg;
+	ZeroMemory(&msg, sizeof(MSG));
+
 	int done = 0;
 	DWORD frameStart = GetTickCount();
 	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
@@ -297,23 +350,15 @@ int Run()
 		if (dt >= tickPerFrame)
 		{
 			frameStart = now;
-			Update(dt);
-			Render();
+			GameUpdate(dt);
+			GameRender();
 		}
 		else
 			Sleep(tickPerFrame - dt);
 	}
-
-	return 1;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+void Game::GameEnd()
 {
-	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	InitDirectX(hWnd);
-
-	LoadResources();
-	Run();
-
-	return 0;
+	// TODO: Finish closing the game here.
 }
