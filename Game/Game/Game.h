@@ -2,14 +2,10 @@
 
 #include "resource.h"
 
-#include <signal.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include <stdlib.h>
-
 #include "Global.h"
+
+#include "KeyboardInput.h"
+#include "MouseInput.h"
 
 class Game
 {

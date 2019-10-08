@@ -11,7 +11,7 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define MAX_FRAME_RATE 10
+#define MAX_FRAME_RATE 60
 
 
 //LPDIRECT3D9 d3d = NULL;						// Direct3D handle
@@ -187,6 +187,15 @@ int Game::InitKeyboard()
 
 LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+
+	RECT rcClient;                 // client area rectangle 
+	POINT ptClientUL;              // client upper left corner 
+	POINT ptClientLR;              // client lower right corner 
+	static POINTS ptsBegin;        // beginning point 
+	static POINTS ptsEnd;          // new endpoint 
+	static POINTS ptsPrevEnd;      // previous endpoint 
+	static BOOL fPrevLine = FALSE; // previous line flag 
+
 	switch (uMsg)
 	{
 	case WM_DESTROY:
@@ -194,10 +203,27 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_KEYDOWN:
 		//SCENES->GetCurrentScene()->OnKeyDown(wParam);
+		KeyboardInput::GetInstance()->keyDown(wParam);
 		break;
 	case WM_KEYUP:
 		//SCENES->GetCurrentScene()->OnKeyUp(wParam);
+		KeyboardInput::GetInstance()->keyUp(wParam);
 		break;
+
+		
+	case WM_LBUTTONDOWN:
+		MouseInput::getInstance()->leftMouseButtonDown(hwnd);
+		break;
+
+	case WM_MOUSEMOVE:
+	{
+		MouseInput::getInstance()->mouseMove(hwnd, lParam);
+		break;
+	}
+	case WM_LBUTTONUP:
+		MouseInput::getInstance()->leftMouseButtonUp();
+		break;
+
 	default:
 		return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
@@ -206,9 +232,9 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 D3DXVECTOR3 position((float)brick_x, (float)brick_y, 0);
 bool isTopLeft = true, isTopRight = false, isBottomLeft = false, isBottomRight = false;
-#define SPEED 0.08
+#define SPEED 0.05
 #define SPACING_FROM_BORDER 20
-void MoveBrickAroundCorners(float dt) 
+void MoveBrickAroundCorners(float dt)
 {
 	if (isTopLeft) {
 		position.x += SPEED * dt;
