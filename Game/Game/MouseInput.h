@@ -5,7 +5,7 @@ class MouseInput
 private:
 	static MouseInput* instance;
 	
-	// Current position of the mouse. Relative to the top left corner of the window.
+	// Current m_position of the mouse. Relative to the top left corner of the window.
 	POINTS m_currentPosition;
 
 	// Client area rectangle 

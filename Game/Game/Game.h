@@ -7,9 +7,14 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 
+#include "Sprite.h"
+
 class Game
 {
 private:
+	Sprite* m_sprite;
+
+
 	void LoadResources();
 	int InitWindow();
 	int InitDirectX();

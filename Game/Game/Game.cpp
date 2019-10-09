@@ -25,15 +25,6 @@ LPDIRECT3DTEXTURE9 texBrick;				// texture object to store brick image
 int brick_x = 0;
 int brick_y = 0;
 
-void DebugOut(const wchar_t *fmt, ...)
-{
-	va_list argp;
-	va_start(argp, fmt);
-	wchar_t dbg_out[4096];
-	vswprintf_s(dbg_out, fmt, argp);
-	va_end(argp);
-	OutputDebugString(dbg_out);
-}
 
 /*
 	Load all game resources.
@@ -44,7 +35,7 @@ void Game::LoadResources()
 	HRESULT result = D3DXGetImageInfoFromFile(BRICK_TEXTURE_PATH, &info);
 	if (result != D3D_OK)
 	{
-		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", BRICK_TEXTURE_PATH);
+		DebugHelper::DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", BRICK_TEXTURE_PATH);
 		return;
 	}
 
@@ -70,7 +61,11 @@ void Game::LoadResources()
 		return;
 	}
 
-	DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
+	DebugHelper::DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
+
+	m_sprite = new Sprite(BRICK_TEXTURE_PATH);
+	m_sprite->setPositionX(50);
+	m_sprite->setPositionY(100);
 }
 
 int Game::InitWindow()
@@ -162,13 +157,13 @@ int Game::InitDirectX()
 	GLOBAL->g_DirectDevice = dev;
 
 	//Create Sprite
-	LPD3DXSPRITE sprite;
-	if (FAILED(D3DXCreateSprite(GLOBAL->g_DirectDevice, &sprite)))
+	LPD3DXSPRITE m_sprite;
+	if (FAILED(D3DXCreateSprite(GLOBAL->g_DirectDevice, &m_sprite)))
 	{
 		MessageBox(NULL, L"Cannot create sprite", L"Error", MB_OK);
 		return 0;
 	}
-	GLOBAL->g_SpriteHandler = sprite;
+	GLOBAL->g_SpriteHandler = m_sprite;
 	//Get back buffer
 	LPDIRECT3DSURFACE9 backbuffer;
 	if (FAILED(dev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer)))
@@ -230,28 +225,28 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-D3DXVECTOR3 position((float)brick_x, (float)brick_y, 0);
+D3DXVECTOR3 m_position((float)brick_x, (float)brick_y, 0);
 bool isTopLeft = true, isTopRight = false, isBottomLeft = false, isBottomRight = false;
 #define SPEED 0.05
 #define SPACING_FROM_BORDER 20
 void MoveBrickAroundCorners(float dt)
 {
 	if (isTopLeft) {
-		position.x += SPEED * dt;
+		m_position.x += SPEED * dt;
 	}
 	else if (isTopRight) {
-		position.y += SPEED * dt;
+		m_position.y += SPEED * dt;
 	}
 	else if (isBottomRight) {
-		position.x -= SPEED * dt;
+		m_position.x -= SPEED * dt;
 	}
 	else {
-		position.y -= SPEED * dt;
+		m_position.y -= SPEED * dt;
 	}
 
-	if (position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && position.y == 0) {
-		position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
-		position.y = 0;
+	if (m_position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && m_position.y == 0) {
+		m_position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
+		m_position.y = 0;
 		isTopRight = true;
 
 		isBottomRight = false;
@@ -259,9 +254,9 @@ void MoveBrickAroundCorners(float dt)
 		isTopLeft = false;
 		return;
 	}
-	if (position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
-		position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
-		position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
+	if (m_position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && m_position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
+		m_position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
+		m_position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
 		isBottomRight = true;
 
 		isTopRight = false;
@@ -269,9 +264,9 @@ void MoveBrickAroundCorners(float dt)
 		isTopLeft = false;
 		return;
 	}
-	if (position.x <= 0 && position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
-		position.x = 0;
-		position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
+	if (m_position.x <= 0 && m_position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
+		m_position.x = 0;
+		m_position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
 		isBottomLeft = true;
 
 		isTopRight = false;
@@ -279,9 +274,9 @@ void MoveBrickAroundCorners(float dt)
 		isTopLeft = false;
 		return;
 	}
-	if (position.x == 0 && position.y <= 0) {
-		position.x = 0;
-		position.y = 0;
+	if (m_position.x == 0 && m_position.y <= 0) {
+		m_position.x = 0;
+		m_position.y = 0;
 		isTopLeft = true;
 
 		isBottomLeft = false;
@@ -313,10 +308,11 @@ void Game::GameRender()
 		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
-		spriteHandler->Draw(texBrick, nullptr, nullptr, &position, D3DCOLOR_XRGB(255, 255, 255));
-
+		spriteHandler->Draw(texBrick, nullptr, nullptr, &m_position, D3DCOLOR_XRGB(255, 255, 255));
 		spriteHandler->End();
+
+		m_sprite->Draw();
+
 		d3ddv->EndScene();
 	}
 
