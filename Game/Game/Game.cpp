@@ -6,10 +6,12 @@
 #define MAIN_WINDOW_TITLE L"00 - Intro"
 
 #define BRICK_TEXTURE_PATH L"brick.png"
+#define PAD_TEXTURE_PATH L"Resources\\pad.png"
+#define BALL_TEXTURE_PATH L"Resources\\ball.png"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 0, 0)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
+#define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
+#define SCREEN_HEIGHT Global::GetInstance()->g_ScreenHeight
 
 #define MAX_FRAME_RATE 60
 
@@ -31,41 +33,29 @@ int brick_y = 0;
 */
 void Game::LoadResources()
 {
-	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(BRICK_TEXTURE_PATH, &info);
-	if (result != D3D_OK)
-	{
-		DebugHelper::DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", BRICK_TEXTURE_PATH);
-		return;
-	}
+	m_rightPadSprite = new Sprite(PAD_TEXTURE_PATH);
+	m_rightPadSprite->setPositionX(SCREEN_WIDTH - 50);
+	m_rightPadSprite->setPositionY(SCREEN_HEIGHT / 2);
 
-	result = D3DXCreateTextureFromFileEx(
-		Global::GetInstance()->g_DirectDevice,	// Pointer to Direct3D device object
-		BRICK_TEXTURE_PATH,						// Path to the image to load
-		info.Width,								// Texture width
-		info.Height,							// Texture height
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 255, 255),			// Transparent color
-		&info,
-		NULL,
-		&texBrick);								// Created texture pointer
+	m_leftPadSprite = new Sprite(PAD_TEXTURE_PATH);
+	m_leftPadSprite->setPositionX(20);
+	m_leftPadSprite->setPositionY(SCREEN_HEIGHT / 2);
 
-	if (result != D3D_OK)
-	{
-		OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
-		return;
-	}
+	m_ballSprite = new Sprite(BALL_TEXTURE_PATH);
+	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
+	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
+}
 
-	DebugHelper::DebugOut(L"[INFO] Texture loaded Ok: %s \n", BRICK_TEXTURE_PATH);
+void Game::setDefaultSpritePositions()
+{
+	m_rightPadSprite->setPositionX(SCREEN_WIDTH - 50);
+	m_rightPadSprite->setPositionY(SCREEN_HEIGHT / 2);
 
-	m_sprite = new Sprite(BRICK_TEXTURE_PATH);
-	m_sprite->setPositionX(50);
-	m_sprite->setPositionY(100);
+	m_leftPadSprite->setPositionX(20);
+	m_leftPadSprite->setPositionY(SCREEN_HEIGHT / 2);
+
+	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
+	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
 }
 
 int Game::InitWindow()
@@ -157,13 +147,14 @@ int Game::InitDirectX()
 	GLOBAL->g_DirectDevice = dev;
 
 	//Create Sprite
-	LPD3DXSPRITE m_sprite;
-	if (FAILED(D3DXCreateSprite(GLOBAL->g_DirectDevice, &m_sprite)))
+	LPD3DXSPRITE sprite;
+	if (FAILED(D3DXCreateSprite(GLOBAL->g_DirectDevice, &sprite)))
 	{
 		MessageBox(NULL, L"Cannot create sprite", L"Error", MB_OK);
 		return 0;
 	}
-	GLOBAL->g_SpriteHandler = m_sprite;
+	GLOBAL->g_SpriteHandler = sprite;
+
 	//Get back buffer
 	LPDIRECT3DSURFACE9 backbuffer;
 	if (FAILED(dev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer)))
@@ -182,15 +173,6 @@ int Game::InitKeyboard()
 
 LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-
-	RECT rcClient;                 // client area rectangle 
-	POINT ptClientUL;              // client upper left corner 
-	POINT ptClientLR;              // client lower right corner 
-	static POINTS ptsBegin;        // beginning point 
-	static POINTS ptsEnd;          // new endpoint 
-	static POINTS ptsPrevEnd;      // previous endpoint 
-	static BOOL fPrevLine = FALSE; // previous line flag 
-
 	switch (uMsg)
 	{
 	case WM_DESTROY:
@@ -205,7 +187,7 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		KeyboardInput::GetInstance()->keyUp(wParam);
 		break;
 
-		
+
 	case WM_LBUTTONDOWN:
 		MouseInput::getInstance()->leftMouseButtonDown(hwnd);
 		break;
@@ -286,13 +268,122 @@ void MoveBrickAroundCorners(float dt)
 	}
 }
 
+float ballSpeed = 0.f;
+float ballVerticalSpeed = 0.f;
+bool isMovingRight = true;
+bool isLeftMovingUp = false;
+bool isLeftMovingDown = false;
+bool isRightMovingUp = false;
+bool isRightMovingDown = false;
+bool isRoundPlaying = true;
 /*
 	Update game status for this frame.
 	dt: Time period between beginning of last frame and beginning of this frame
 */
 void Game::GameUpdate(float dt)
 {
-	MoveBrickAroundCorners(dt);
+	// Check if round is finished.
+	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) isRoundPlaying = false;
+	if (m_ballSprite->getPositionX() <= 0) isRoundPlaying = false;
+	if (!isRoundPlaying) {
+		if (KeyboardInput::GetInstance()->isKeyDown(VK_T)) {
+			setDefaultSpritePositions();
+			isRoundPlaying = true;
+		}
+		return;
+	}
+
+	// Otherwise, keep running the round.
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_W)) {
+		isLeftMovingUp = true;
+		isLeftMovingDown = false;
+		m_leftPadSprite->setPositionY(m_leftPadSprite->getPositionY() - .2f*dt);
+	}
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_S)) {
+		isLeftMovingUp = false;
+		isLeftMovingDown = true;
+		m_leftPadSprite->setPositionY(m_leftPadSprite->getPositionY() + .2f*dt);
+	}
+
+	if (MouseInput::getInstance()->getCurrentMousePosition().y < m_rightPadSprite->getPositionY()) {
+		isRightMovingUp = true;
+		isRightMovingDown = false;
+		m_rightPadSprite->setPositionY(m_rightPadSprite->getPositionY() - .2f*dt);
+	}
+	if (MouseInput::getInstance()->getCurrentMousePosition().y > m_rightPadSprite->getPositionY()) {
+		isRightMovingUp = false;
+		isRightMovingDown = true;
+		m_rightPadSprite->setPositionY(m_rightPadSprite->getPositionY() + .2f*dt);
+	}
+
+	// Move the ball
+	if (m_ballSprite->getPositionX() >= m_leftPadSprite->getPositionX()
+		|| m_ballSprite->getPositionX() <= m_rightPadSprite->getPositionX()) {
+		if (isMovingRight) {
+			ballSpeed = 0.3 * dt;
+		}
+		else {
+			ballSpeed = -0.3 * dt;
+		}
+	}
+	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH - 50 - 20) // RIGHT PAD COLLISION HANDLER
+	{
+		// Check if ball hits pad or hit goal line.
+		if (m_ballSprite->getPositionY() > m_rightPadSprite->getPositionY() + 89) // Ball is lower than right pad
+		{
+			// Let the ball cross right border
+			isMovingRight = true;
+		}
+		else if (m_ballSprite->getPositionY() + 22 < m_rightPadSprite->getPositionY()) // Ball is higher than right pad
+		{
+			isMovingRight = true;
+		}
+		else {
+			isMovingRight = false;
+			if (isRightMovingUp) {
+				ballVerticalSpeed = -0.1 * dt;
+			}
+			if (isRightMovingDown) {
+				ballVerticalSpeed = 0.1 * dt;
+			}
+		}
+	}
+	else if (m_ballSprite->getPositionX() <= 20 + 40) // LEFT PAD COLLISION HANDLER
+	{
+		// Check if ball hits pad or hit goal line.
+		if (m_ballSprite->getPositionY() > m_leftPadSprite->getPositionY() + 89) // Ball is lower than right pad
+		{
+			// Let the ball cross right border
+			isMovingRight = false;
+		}
+		else if (m_ballSprite->getPositionY() + 22 < m_leftPadSprite->getPositionY()) // Ball is higher than right pad
+		{
+			isMovingRight = false;
+		}
+		else 
+		{
+			isMovingRight = true;
+			if (isLeftMovingUp) {
+				ballVerticalSpeed = -0.1 * dt;
+			}
+			if (isLeftMovingDown) {
+				ballVerticalSpeed = 0.1 * dt;
+			}
+		}
+	}
+	// If ball hits upper border
+	if (m_ballSprite->getPositionY() <= 0) {
+		ballVerticalSpeed = -ballVerticalSpeed;
+	}
+	// If ball hits lower border
+	if (m_ballSprite->getPositionY() >= SCREEN_HEIGHT - 25) {
+		ballVerticalSpeed = -ballVerticalSpeed;
+	}
+	// Finally, apply.
+	m_ballSprite->setPositionX(m_ballSprite->getPositionX() + ballSpeed);
+	m_ballSprite->setPositionY(m_ballSprite->getPositionY() + ballVerticalSpeed);
+
+
 }
 
 /*
@@ -306,12 +397,15 @@ void Game::GameRender()
 	{
 		// Clear screen (back buffer) with a color
 		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
+		/*
+				spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+				spriteHandler->Draw(texBrick, nullptr, nullptr, &m_position, D3DCOLOR_XRGB(255, 255, 255));
+				spriteHandler->End();
+				*/
 
-		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		spriteHandler->Draw(texBrick, nullptr, nullptr, &m_position, D3DCOLOR_XRGB(255, 255, 255));
-		spriteHandler->End();
-
-		m_sprite->Draw();
+		m_rightPadSprite->Draw();
+		m_leftPadSprite->Draw();
+		m_ballSprite->Draw();
 
 		d3ddv->EndScene();
 	}

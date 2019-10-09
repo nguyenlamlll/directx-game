@@ -12,8 +12,10 @@
 class Game
 {
 private:
-	Sprite* m_sprite;
-
+	Sprite* m_rightPadSprite;
+	Sprite* m_leftPadSprite;
+	Sprite* m_ballSprite;
+	void setDefaultSpritePositions();
 
 	void LoadResources();
 	int InitWindow();

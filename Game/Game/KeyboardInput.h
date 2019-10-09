@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <XInput.h>
 #include <string>
+#include "VirtualKeys.h"
 
 namespace InputHelpers
 {
