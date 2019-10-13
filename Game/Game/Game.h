@@ -17,6 +17,10 @@ private:
 	Sprite* m_ballSprite;
 	void setDefaultSpritePositions();
 
+	Sprite* m_newMatchSprite = nullptr;
+	Sprite* m_leftWinSprite = nullptr;
+	Sprite* m_rightWinSprite = nullptr;
+
 	void LoadResources();
 	int InitWindow();
 	int InitDirectX();

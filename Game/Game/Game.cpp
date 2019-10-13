@@ -8,6 +8,9 @@
 #define BRICK_TEXTURE_PATH L"brick.png"
 #define PAD_TEXTURE_PATH L"Resources\\pad.png"
 #define BALL_TEXTURE_PATH L"Resources\\ball.png"
+#define LEFT_WIN_TEXTURE_PATH L"Resources\\LeftWon.png"
+#define RIGHT_WIN_TEXTURE_PATH L"Resources\\RightWon.png"
+#define NEW_MATCH_TEXTURE_PATH L"Resources\\NewMatch.png"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
@@ -44,6 +47,20 @@ void Game::LoadResources()
 	m_ballSprite = new Sprite(BALL_TEXTURE_PATH);
 	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
 	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
+
+
+	m_newMatchSprite = new Sprite(NEW_MATCH_TEXTURE_PATH);
+	m_newMatchSprite->setPositionX(-1000);
+	m_newMatchSprite->setPositionY(SCREEN_HEIGHT / 2 + 50);
+
+	m_leftWinSprite = new Sprite(LEFT_WIN_TEXTURE_PATH);
+	m_leftWinSprite->setPositionX(-1000);
+	m_leftWinSprite->setPositionY(SCREEN_HEIGHT / 2);
+
+	m_rightWinSprite = new Sprite(RIGHT_WIN_TEXTURE_PATH);
+	m_rightWinSprite->setPositionX(-1000);
+	m_rightWinSprite->setPositionY(SCREEN_HEIGHT / 2);
+
 }
 
 void Game::setDefaultSpritePositions()
@@ -56,6 +73,13 @@ void Game::setDefaultSpritePositions()
 
 	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
 	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
+
+	m_newMatchSprite->setPositionX(-1000);
+	m_newMatchSprite->setPositionY(SCREEN_HEIGHT / 2 + 50);
+	m_leftWinSprite->setPositionX(-1000);
+	m_leftWinSprite->setPositionY(SCREEN_HEIGHT / 2);
+	m_rightWinSprite->setPositionX(-1000);
+	m_rightWinSprite->setPositionY(SCREEN_HEIGHT / 2);
 }
 
 int Game::InitWindow()
@@ -276,6 +300,8 @@ bool isLeftMovingDown = false;
 bool isRightMovingUp = false;
 bool isRightMovingDown = false;
 bool isRoundPlaying = true;
+bool isLeftWon = false;
+
 /*
 	Update game status for this frame.
 	dt: Time period between beginning of last frame and beginning of this frame
@@ -283,11 +309,25 @@ bool isRoundPlaying = true;
 void Game::GameUpdate(float dt)
 {
 	// Check if round is finished.
-	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) isRoundPlaying = false;
-	if (m_ballSprite->getPositionX() <= 0) isRoundPlaying = false;
+	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) {
+		isRoundPlaying = false;
+		isLeftWon = true;
+	}
+	if (m_ballSprite->getPositionX() <= 0) {
+		isRoundPlaying = false;
+		isLeftWon = false;
+	}
 	if (!isRoundPlaying) {
+		if (isLeftWon) {
+			m_leftWinSprite->setPositionX(60);
+		}
+		else {
+			m_rightWinSprite->setPositionX(60);
+		}
+		m_newMatchSprite->setPositionX(60);
 		if (KeyboardInput::GetInstance()->isKeyDown(VK_T)) {
 			setDefaultSpritePositions();
+
 			isRoundPlaying = true;
 		}
 		return;
@@ -360,7 +400,7 @@ void Game::GameUpdate(float dt)
 		{
 			isMovingRight = false;
 		}
-		else 
+		else
 		{
 			isMovingRight = true;
 			if (isLeftMovingUp) {
@@ -406,6 +446,12 @@ void Game::GameRender()
 		m_rightPadSprite->Draw();
 		m_leftPadSprite->Draw();
 		m_ballSprite->Draw();
+
+		if (!isRoundPlaying) {
+			m_leftWinSprite->Draw(); 
+			m_rightWinSprite->Draw(); 
+			m_newMatchSprite->Draw();
+		}
 
 		d3ddv->EndScene();
 	}
