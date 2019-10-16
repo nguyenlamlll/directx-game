@@ -16,7 +16,7 @@
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
 #define SCREEN_HEIGHT Global::GetInstance()->g_ScreenHeight
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 90
 
 
 //LPDIRECT3D9 d3d = NULL;						// Direct3D handle
@@ -36,17 +36,31 @@ int brick_y = 0;
 */
 void Game::LoadResources()
 {
-	m_rightPadSprite = new Sprite(PAD_TEXTURE_PATH);
-	m_rightPadSprite->setPositionX(SCREEN_WIDTH - 50);
-	m_rightPadSprite->setPositionY(SCREEN_HEIGHT / 2);
+	m_ball = new Ball(
+		SCREEN_WIDTH / 2, 
+		SCREEN_HEIGHT / 2, 
+		22.f,
+		22.f,
+		BALL_TEXTURE_PATH);
+	
+	m_leftPad = new Pad(
+		20,
+		SCREEN_HEIGHT / 2,
+		43.f,
+		89.f,
+		PAD_TEXTURE_PATH
+	);
+	m_leftPad->SetControlDevice(ControlDevice::Keyboard);
+	m_rightPad = new Pad(
+		SCREEN_WIDTH - 50,
+		SCREEN_HEIGHT / 2,
+		43.f,
+		89.f,
+		PAD_TEXTURE_PATH
+	);
+	m_rightPad->SetControlDevice(ControlDevice::Mouse);
 
-	m_leftPadSprite = new Sprite(PAD_TEXTURE_PATH);
-	m_leftPadSprite->setPositionX(20);
-	m_leftPadSprite->setPositionY(SCREEN_HEIGHT / 2);
-
-	m_ballSprite = new Sprite(BALL_TEXTURE_PATH);
-	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
-	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
+	m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
 
 
 	m_newMatchSprite = new Sprite(NEW_MATCH_TEXTURE_PATH);
@@ -63,24 +77,6 @@ void Game::LoadResources()
 
 }
 
-void Game::setDefaultSpritePositions()
-{
-	m_rightPadSprite->setPositionX(SCREEN_WIDTH - 50);
-	m_rightPadSprite->setPositionY(SCREEN_HEIGHT / 2);
-
-	m_leftPadSprite->setPositionX(20);
-	m_leftPadSprite->setPositionY(SCREEN_HEIGHT / 2);
-
-	m_ballSprite->setPositionX(SCREEN_WIDTH / 2);
-	m_ballSprite->setPositionY(SCREEN_HEIGHT / 2);
-
-	m_newMatchSprite->setPositionX(-1000);
-	m_newMatchSprite->setPositionY(SCREEN_HEIGHT / 2 + 50);
-	m_leftWinSprite->setPositionX(-1000);
-	m_leftWinSprite->setPositionY(SCREEN_HEIGHT / 2);
-	m_rightWinSprite->setPositionX(-1000);
-	m_rightWinSprite->setPositionY(SCREEN_HEIGHT / 2);
-}
 
 int Game::InitWindow()
 {
@@ -308,122 +304,39 @@ bool isLeftWon = false;
 */
 void Game::GameUpdate(float dt)
 {
-	// Check if round is finished.
-	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) {
-		isRoundPlaying = false;
-		isLeftWon = true;
-	}
-	if (m_ballSprite->getPositionX() <= 0) {
-		isRoundPlaying = false;
-		isLeftWon = false;
-	}
-	if (!isRoundPlaying) {
-		if (isLeftWon) {
-			m_leftWinSprite->setPositionX(60);
-		}
-		else {
-			m_rightWinSprite->setPositionX(60);
-		}
-		m_newMatchSprite->setPositionX(60);
-		if (KeyboardInput::GetInstance()->isKeyDown(VK_T)) {
-			setDefaultSpritePositions();
+	//if (Collision::getInstance()->willCollide(m_))
 
-			isRoundPlaying = true;
-		}
-		return;
-	}
+	// Check if round is finished.
+	//if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) {
+	//	isRoundPlaying = false;
+	//	isLeftWon = true;
+	//}
+	//if (m_ballSprite->getPositionX() <= 0) {
+	//	isRoundPlaying = false;
+	//	isLeftWon = false;
+	//}
+	//if (!isRoundPlaying) {
+	//	if (isLeftWon) {
+	//		m_leftWinSprite->setPositionX(60);
+	//	}
+	//	else {
+	//		m_rightWinSprite->setPositionX(60);
+	//	}
+	//	m_newMatchSprite->setPositionX(60);
+	//	if (KeyboardInput::GetInstance()->isKeyDown(VK_T)) {
+
+	//		isRoundPlaying = true;
+	//	}
+	//	return;
+	//}
 
 	// Otherwise, keep running the round.
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_W)) {
-		isLeftMovingUp = true;
-		isLeftMovingDown = false;
-		m_leftPadSprite->setPositionY(m_leftPadSprite->getPositionY() - .2f*dt);
-	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_S)) {
-		isLeftMovingUp = false;
-		isLeftMovingDown = true;
-		m_leftPadSprite->setPositionY(m_leftPadSprite->getPositionY() + .2f*dt);
-	}
+	m_leftPad->Update(dt);
+	m_rightPad->Update(dt);
 
-	if (MouseInput::getInstance()->getCurrentMousePosition().y < m_rightPadSprite->getPositionY()) {
-		isRightMovingUp = true;
-		isRightMovingDown = false;
-		m_rightPadSprite->setPositionY(m_rightPadSprite->getPositionY() - .2f*dt);
-	}
-	if (MouseInput::getInstance()->getCurrentMousePosition().y > m_rightPadSprite->getPositionY()) {
-		isRightMovingUp = false;
-		isRightMovingDown = true;
-		m_rightPadSprite->setPositionY(m_rightPadSprite->getPositionY() + .2f*dt);
-	}
 
 	// Move the ball
-	if (m_ballSprite->getPositionX() >= m_leftPadSprite->getPositionX()
-		|| m_ballSprite->getPositionX() <= m_rightPadSprite->getPositionX()) {
-		if (isMovingRight) {
-			ballSpeed = 0.3 * dt;
-		}
-		else {
-			ballSpeed = -0.3 * dt;
-		}
-	}
-	if (m_ballSprite->getPositionX() >= SCREEN_WIDTH - 50 - 20) // RIGHT PAD COLLISION HANDLER
-	{
-		// Check if ball hits pad or hit goal line.
-		if (m_ballSprite->getPositionY() > m_rightPadSprite->getPositionY() + 89) // Ball is lower than right pad
-		{
-			// Let the ball cross right border
-			isMovingRight = true;
-		}
-		else if (m_ballSprite->getPositionY() + 22 < m_rightPadSprite->getPositionY()) // Ball is higher than right pad
-		{
-			isMovingRight = true;
-		}
-		else {
-			isMovingRight = false;
-			if (isRightMovingUp) {
-				ballVerticalSpeed = -0.1 * dt;
-			}
-			if (isRightMovingDown) {
-				ballVerticalSpeed = 0.1 * dt;
-			}
-		}
-	}
-	else if (m_ballSprite->getPositionX() <= 20 + 40) // LEFT PAD COLLISION HANDLER
-	{
-		// Check if ball hits pad or hit goal line.
-		if (m_ballSprite->getPositionY() > m_leftPadSprite->getPositionY() + 89) // Ball is lower than right pad
-		{
-			// Let the ball cross right border
-			isMovingRight = false;
-		}
-		else if (m_ballSprite->getPositionY() + 22 < m_leftPadSprite->getPositionY()) // Ball is higher than right pad
-		{
-			isMovingRight = false;
-		}
-		else
-		{
-			isMovingRight = true;
-			if (isLeftMovingUp) {
-				ballVerticalSpeed = -0.1 * dt;
-			}
-			if (isLeftMovingDown) {
-				ballVerticalSpeed = 0.1 * dt;
-			}
-		}
-	}
-	// If ball hits upper border
-	if (m_ballSprite->getPositionY() <= 0) {
-		ballVerticalSpeed = -ballVerticalSpeed;
-	}
-	// If ball hits lower border
-	if (m_ballSprite->getPositionY() >= SCREEN_HEIGHT - 25) {
-		ballVerticalSpeed = -ballVerticalSpeed;
-	}
-	// Finally, apply.
-	m_ballSprite->setPositionX(m_ballSprite->getPositionX() + ballSpeed);
-	m_ballSprite->setPositionY(m_ballSprite->getPositionY() + ballVerticalSpeed);
-
-
+	m_ball->Update(dt);
 }
 
 /*
@@ -437,15 +350,10 @@ void Game::GameRender()
 	{
 		// Clear screen (back buffer) with a color
 		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
-		/*
-				spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-				spriteHandler->Draw(texBrick, nullptr, nullptr, &m_position, D3DCOLOR_XRGB(255, 255, 255));
-				spriteHandler->End();
-				*/
 
-		m_rightPadSprite->Draw();
-		m_leftPadSprite->Draw();
-		m_ballSprite->Draw();
+		m_ball->Draw();
+		m_leftPad->Draw();
+		m_rightPad->Draw();
 
 		if (!isRoundPlaying) {
 			m_leftWinSprite->Draw(); 

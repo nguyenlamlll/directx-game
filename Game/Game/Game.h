@@ -8,14 +8,17 @@
 #include "MouseInput.h"
 
 #include "Sprite.h"
+#include "Collision.h"
+
+#include "Ball.h"
+#include "Pad.h"
 
 class Game
 {
 private:
-	Sprite* m_rightPadSprite;
-	Sprite* m_leftPadSprite;
-	Sprite* m_ballSprite;
-	void setDefaultSpritePositions();
+	Ball* m_ball;
+	Pad* m_leftPad;
+	Pad* m_rightPad;
 
 	Sprite* m_newMatchSprite = nullptr;
 	Sprite* m_leftWinSprite = nullptr;
