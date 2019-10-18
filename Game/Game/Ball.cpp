@@ -58,6 +58,8 @@ void Ball::Update(float deltaTime)
 		vx = -0.3 * deltaTime;
 		if (abs(normalY) > 0.0001f)
 			vy = -vy;
+
+		vy = m_rightPad->getVelocity().y;
 	}
 
 	auto leftPadCollisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), m_leftPad->GetBoundingBox(), normalX, normalY, deltaTime);
@@ -66,6 +68,8 @@ void Ball::Update(float deltaTime)
 		vx = 0.3 * deltaTime;
 		if (abs(normalY) > 0.0001f)
 			vy = -vy;
+
+		vy = m_leftPad->getVelocity().y;
 	}
 
 	// If ball hits upper border
@@ -77,9 +81,9 @@ void Ball::Update(float deltaTime)
 		vy = -vy;
 	}
 
+
 	m_ballSprite->setPositionX(m_ballSprite->getPositionX() + vx);
 	m_ballSprite->setPositionY(m_ballSprite->getPositionY() + vy);
-
 	x = m_ballSprite->getPositionX();
 	y = m_ballSprite->getPositionY();
 

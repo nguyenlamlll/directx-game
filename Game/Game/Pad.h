@@ -20,6 +20,8 @@ public:
 
 	Box GetBoundingBox();
 
+	D3DXVECTOR2 getVelocity();
+
 	void Update(float deltaTime);
 	void Draw();
 };
