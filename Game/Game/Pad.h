@@ -12,6 +12,7 @@ class Pad : public GameObject
 private:
 	Sprite* m_padSprite;
 	ControlDevice m_controlDevice;
+	float speed;
 public:
 	Pad(float x, float y, float width, float height, LPCWSTR spritePath);
 	~Pad();

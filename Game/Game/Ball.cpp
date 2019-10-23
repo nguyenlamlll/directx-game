@@ -8,6 +8,9 @@ Ball::Ball(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_ballSprite->setPositionX(x);
 	m_ballSprite->setPositionY(y);
 	isFirstStarted = true;
+
+	ballSpeed = 0.6;
+	ballVerticalSpeed = 0.4;
 }
 
 Ball::~Ball()
@@ -16,8 +19,8 @@ Ball::~Ball()
 
 void Ball::setRandomInitialSpeed(float deltaTime)
 {
-	vx = 0.3 * deltaTime;
-	vy = 0.2 * deltaTime;
+	vx = ballSpeed * deltaTime;
+	vy = ballVerticalSpeed * deltaTime;
 }
 
 void Ball::assignPadsCanCollideBall(Pad* leftPad, Pad* rightPad)
@@ -55,7 +58,7 @@ void Ball::Update(float deltaTime)
 	auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), m_rightPad->GetBoundingBox(), normalX, normalY, deltaTime);
 	if (collisionResult.isCollide)
 	{
-		vx = -0.3 * deltaTime;
+		vx = - ballSpeed * deltaTime;
 		if (abs(normalY) > 0.0001f)
 			vy = -vy;
 
@@ -65,7 +68,7 @@ void Ball::Update(float deltaTime)
 	auto leftPadCollisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), m_leftPad->GetBoundingBox(), normalX, normalY, deltaTime);
 	if (leftPadCollisionResult.isCollide)
 	{
-		vx = 0.3 * deltaTime;
+		vx = ballSpeed * deltaTime;
 		if (abs(normalY) > 0.0001f)
 			vy = -vy;
 

@@ -9,6 +9,7 @@ Pad::Pad(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_padSprite->setPositionX(x);
 	m_padSprite->setPositionY(y);
 
+	speed = 0.5f;
 }
 
 
@@ -48,10 +49,10 @@ void Pad::Update(float deltaTime)
 	case Mouse:
 	{
 		if (MouseInput::getInstance()->getCurrentMousePosition().y < m_padSprite->getPositionY()) {
-			vy = -.2f*deltaTime;
+			vy = - speed *deltaTime;
 		}
 		else if (MouseInput::getInstance()->getCurrentMousePosition().y > m_padSprite->getPositionY()) {
-			vy = .2f*deltaTime;
+			vy = speed *deltaTime;
 		}
 		else
 		{
@@ -63,10 +64,10 @@ void Pad::Update(float deltaTime)
 	case Keyboard:
 	{
 		if (KeyboardInput::GetInstance()->isKeyDown(VK_W)) {
-			vy = -.2f*deltaTime;
+			vy = - speed *deltaTime;
 		}
 		else if (KeyboardInput::GetInstance()->isKeyDown(VK_S)) {
-			vy = .2f*deltaTime;
+			vy = speed*deltaTime;
 		}
 		else 
 		{

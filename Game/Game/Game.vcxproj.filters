@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Game\GameObjects">
       <UniqueIdentifier>{d8726d40-a63b-4d4f-a441-75f5d0a75d97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Framework\Grid">
+      <UniqueIdentifier>{9a081e1c-6b39-4426-8bb3-fc97b10c1178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Framework\Grid">
+      <UniqueIdentifier>{3a6ca896-4e93-422c-97e3-56a674cc1684}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
