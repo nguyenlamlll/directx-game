@@ -17,5 +17,9 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Draw();
 
+	virtual D3DXVECTOR2 getPosition() 
+	{
+		return D3DXVECTOR2(x, y);
+	}
 };
 

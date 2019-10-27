@@ -13,6 +13,8 @@
 #include "Ball.h"
 #include "Pad.h"
 
+#include "Grid.h"
+
 class Game
 {
 private:

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
-
+#include <vector>
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"00 - Intro"
@@ -37,7 +37,7 @@ int brick_y = 0;
 void Game::LoadResources()
 {
 	m_ball = new Ball(
-		SCREEN_WIDTH / 2, 
+		SCREEN_WIDTH / 2 + 50, 
 		SCREEN_HEIGHT / 2, 
 		22.f,
 		22.f,
@@ -62,6 +62,14 @@ void Game::LoadResources()
 
 	m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
 
+	Grid* grid = new Grid();
+	grid->add(1, m_ball);
+	grid->add(2, m_leftPad);
+	grid->add(3, m_rightPad);
+
+	std::map<int, GameObject*>* listCanCollideWithBall = new std::map<int, GameObject*>();
+	auto ballPositionOnGrid = grid->calculateObjectPositionOnGrid(m_ball);
+	grid->getCollidableObjects(listCanCollideWithBall, ballPositionOnGrid.x, ballPositionOnGrid.y);
 
 	m_newMatchSprite = new Sprite(NEW_MATCH_TEXTURE_PATH);
 	m_newMatchSprite->setPositionX(-1000);

@@ -6,6 +6,9 @@
 #define KEYBOARD_BUFFER_SIZE	1024
 #define FRAME_PER_SEC			60.0f
 
+#define MAP_WIDTH 2720
+#define MAP_HEIGHT 2720
+
 class Global
 {
 private:
@@ -27,4 +30,7 @@ public:
 	int					g_Scene1_EndMap = 2000;
 	int					g_Scene2_EndMap = 240;
 	int					g_ChangeScene_Delay = 3.0f;
+
+	const UINT			g_MapWidth = MAP_WIDTH;
+	const UINT			g_MapHeight = MAP_HEIGHT;
 };
