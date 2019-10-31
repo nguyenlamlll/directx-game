@@ -8,9 +8,7 @@
 #define BRICK_TEXTURE_PATH L"brick.png"
 #define PAD_TEXTURE_PATH L"Resources\\pad.png"
 #define BALL_TEXTURE_PATH L"Resources\\ball.png"
-#define LEFT_WIN_TEXTURE_PATH L"Resources\\LeftWon.png"
-#define RIGHT_WIN_TEXTURE_PATH L"Resources\\RightWon.png"
-#define NEW_MATCH_TEXTURE_PATH L"Resources\\NewMatch.png"
+#define PLAYER_TEXTURE_PATH L"Resources\\player.png"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
@@ -50,7 +48,7 @@ void Game::LoadResources()
 		89.f,
 		PAD_TEXTURE_PATH
 	);
-	m_leftPad->SetControlDevice(ControlDevice::Keyboard);
+	m_leftPad->SetControlDevice(ControlDevice::None);
 	m_rightPad = new Pad(
 		SCREEN_WIDTH - 50,
 		SCREEN_HEIGHT / 2,
@@ -58,31 +56,46 @@ void Game::LoadResources()
 		89.f,
 		PAD_TEXTURE_PATH
 	);
-	m_rightPad->SetControlDevice(ControlDevice::Mouse);
+	m_rightPad->SetControlDevice(ControlDevice::None);
+
+	m_pad03 = new Pad(
+		SCREEN_WIDTH + 150,
+		SCREEN_HEIGHT / 2 + 50,
+		43.f,
+		89.f,
+		PAD_TEXTURE_PATH
+	);
+	m_pad03->SetControlDevice(ControlDevice::None);
+	m_pad04 = new Pad(
+		SCREEN_WIDTH + 600,
+		SCREEN_HEIGHT / 2 + 200,
+		43.f,
+		89.f,
+		PAD_TEXTURE_PATH
+	);
+	m_pad04->SetControlDevice(ControlDevice::None);
 
 	m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
 
-	Grid* grid = new Grid();
+	grid = new Grid();
 	grid->add(1, m_ball);
 	grid->add(2, m_leftPad);
 	grid->add(3, m_rightPad);
+	grid->add(4, m_pad03);
+	grid->add(5, m_pad04);
 
 	std::map<int, GameObject*>* listCanCollideWithBall = new std::map<int, GameObject*>();
 	auto ballPositionOnGrid = grid->calculateObjectPositionOnGrid(m_ball);
 	grid->getCollidableObjects(listCanCollideWithBall, ballPositionOnGrid.x, ballPositionOnGrid.y);
 
-	m_newMatchSprite = new Sprite(NEW_MATCH_TEXTURE_PATH);
-	m_newMatchSprite->setPositionX(-1000);
-	m_newMatchSprite->setPositionY(SCREEN_HEIGHT / 2 + 50);
-
-	m_leftWinSprite = new Sprite(LEFT_WIN_TEXTURE_PATH);
-	m_leftWinSprite->setPositionX(-1000);
-	m_leftWinSprite->setPositionY(SCREEN_HEIGHT / 2);
-
-	m_rightWinSprite = new Sprite(RIGHT_WIN_TEXTURE_PATH);
-	m_rightWinSprite->setPositionX(-1000);
-	m_rightWinSprite->setPositionY(SCREEN_HEIGHT / 2);
-
+	m_player = new Player(
+		SCREEN_WIDTH / 2 - 20,
+		SCREEN_HEIGHT / 2 - 20,
+		106.f,
+		106.f,
+		PLAYER_TEXTURE_PATH
+	);
+	Camera::getInstance()->setPosition(m_player->getPosition());
 }
 
 
@@ -235,116 +248,21 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-D3DXVECTOR3 m_position((float)brick_x, (float)brick_y, 0);
-bool isTopLeft = true, isTopRight = false, isBottomLeft = false, isBottomRight = false;
-#define SPEED 0.05
-#define SPACING_FROM_BORDER 20
-void MoveBrickAroundCorners(float dt)
-{
-	if (isTopLeft) {
-		m_position.x += SPEED * dt;
-	}
-	else if (isTopRight) {
-		m_position.y += SPEED * dt;
-	}
-	else if (isBottomRight) {
-		m_position.x -= SPEED * dt;
-	}
-	else {
-		m_position.y -= SPEED * dt;
-	}
-
-	if (m_position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && m_position.y == 0) {
-		m_position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
-		m_position.y = 0;
-		isTopRight = true;
-
-		isBottomRight = false;
-		isBottomLeft = false;
-		isTopLeft = false;
-		return;
-	}
-	if (m_position.x >= SCREEN_WIDTH - SPACING_FROM_BORDER && m_position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
-		m_position.x = SCREEN_WIDTH - SPACING_FROM_BORDER;
-		m_position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
-		isBottomRight = true;
-
-		isTopRight = false;
-		isBottomLeft = false;
-		isTopLeft = false;
-		return;
-	}
-	if (m_position.x <= 0 && m_position.y >= SCREEN_HEIGHT - SPACING_FROM_BORDER) {
-		m_position.x = 0;
-		m_position.y = SCREEN_HEIGHT - SPACING_FROM_BORDER;
-		isBottomLeft = true;
-
-		isTopRight = false;
-		isBottomRight = false;
-		isTopLeft = false;
-		return;
-	}
-	if (m_position.x == 0 && m_position.y <= 0) {
-		m_position.x = 0;
-		m_position.y = 0;
-		isTopLeft = true;
-
-		isBottomLeft = false;
-		isBottomRight = false;
-		isTopRight = false;
-		return;
-	}
-}
-
-float ballSpeed = 0.f;
-float ballVerticalSpeed = 0.f;
-bool isMovingRight = true;
-bool isLeftMovingUp = false;
-bool isLeftMovingDown = false;
-bool isRightMovingUp = false;
-bool isRightMovingDown = false;
-bool isRoundPlaying = true;
-bool isLeftWon = false;
-
 /*
 	Update game status for this frame.
 	dt: Time period between beginning of last frame and beginning of this frame
 */
 void Game::GameUpdate(float dt)
 {
-	//if (Collision::getInstance()->willCollide(m_))
-
-	// Check if round is finished.
-	//if (m_ballSprite->getPositionX() >= SCREEN_WIDTH) {
-	//	isRoundPlaying = false;
-	//	isLeftWon = true;
-	//}
-	//if (m_ballSprite->getPositionX() <= 0) {
-	//	isRoundPlaying = false;
-	//	isLeftWon = false;
-	//}
-	//if (!isRoundPlaying) {
-	//	if (isLeftWon) {
-	//		m_leftWinSprite->setPositionX(60);
-	//	}
-	//	else {
-	//		m_rightWinSprite->setPositionX(60);
-	//	}
-	//	m_newMatchSprite->setPositionX(60);
-	//	if (KeyboardInput::GetInstance()->isKeyDown(VK_T)) {
-
-	//		isRoundPlaying = true;
-	//	}
-	//	return;
-	//}
-
 	// Otherwise, keep running the round.
 	m_leftPad->Update(dt);
 	m_rightPad->Update(dt);
-
+	m_pad03->Update(dt);
 
 	// Move the ball
 	m_ball->Update(dt);
+
+	m_player->Update(dt);
 }
 
 /*
@@ -359,15 +277,14 @@ void Game::GameRender()
 		// Clear screen (back buffer) with a color
 		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
 
-		m_ball->Draw();
-		m_leftPad->Draw();
-		m_rightPad->Draw();
-
-		if (!isRoundPlaying) {
-			m_leftWinSprite->Draw(); 
-			m_rightWinSprite->Draw(); 
-			m_newMatchSprite->Draw();
+		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+		auto visibleObjects = grid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+		{
+			it->second->Draw();
 		}
+		m_player->Draw();
+		spriteHandler->End();
 
 		d3ddv->EndScene();
 	}

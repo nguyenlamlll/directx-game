@@ -68,7 +68,7 @@ void Grid::CheckAndAddOversizedObject(GameObject * object, int x, int y, D3DXVEC
 void Grid::add(int id, GameObject * object)
 {
 	auto objectPositionOnGrid = calculateObjectPositionOnGrid(object);
-
+	
 	cells[(int)objectPositionOnGrid.x][(int)objectPositionOnGrid.y]->add(id, object);
 
 	// If an object is bigger than a cell, add that object to all cells which it resides.
@@ -127,4 +127,43 @@ void Grid::getCollidableObjects(std::map<int, GameObject*>* result, int column, 
 		objects = cells[column - 1][row + 1]->getAllObjects();
 		result->insert(objects->begin(), objects->end());
 	}
+}
+
+std::map<int, GameObject*>* Grid::getVisibleObjects()
+{
+	std::map<int, GameObject*>* visibleObjects = new std::map<int, GameObject*>();
+
+	std::vector<Cell*> visibleCells;
+	int cellX = (int)(Camera::getInstance()->getPosition().x / Grid::CELL_SIZE);
+	int cellY = (int)(Camera::getInstance()->getPosition().y / Grid::CELL_SIZE);
+	D3DXVECTOR2 objectPositionOnGrid(cellX, cellY);
+	auto width = Camera::getInstance()->getWidth();
+	auto height = Camera::getInstance()->getHeight();
+	auto bottomRightPositionOnGrid = calculateObjectPositionOnGrid(
+		Camera::getInstance()->getPosition().x + width,
+		Camera::getInstance()->getPosition().y - height // TODO: Check with the map to see if this axis is correct
+	);
+	if ((objectPositionOnGrid.x != bottomRightPositionOnGrid.x) || (objectPositionOnGrid.y != bottomRightPositionOnGrid.y))
+	{
+		for (int i = objectPositionOnGrid.x; i <= bottomRightPositionOnGrid.x; i++)
+		{
+			for (int j = objectPositionOnGrid.y; j >= bottomRightPositionOnGrid.y; j--) // From top-left go down to bottom right.
+			{
+				visibleCells.push_back(cells[i][j]);
+			}
+		}
+	}
+
+	for (auto cell : visibleCells)
+	{
+		auto objects = cell->getAllObjects();
+		for (auto it = objects->begin(); it != objects->end(); it++)
+		{
+			//if (Collision::getInstance()->isColliding(Camera::getInstance()->getBox(), it->second->GetBoundingBox()))
+			//{
+				visibleObjects->insert(std::pair<int, GameObject*>(it->first, it->second));
+			//}
+		}
+	}
+	return visibleObjects;
 }

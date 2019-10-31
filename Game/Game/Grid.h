@@ -2,7 +2,11 @@
 #include "Cell.h"
 #include "GameObject.h"
 #include "Global.h"
+#include "Camera.h"
+
 #include <map>
+#include <vector>
+
 class Grid
 {
 public:
@@ -11,7 +15,7 @@ public:
 	~Grid();
 
 	// Edge size of a cell
-	static const int CELL_SIZE = 200;
+	static const int CELL_SIZE = 400;
 
 	// Total number of columns based on prefixed map width
 	static const int NUM_COLUMNS = MAP_WIDTH / CELL_SIZE;
@@ -32,6 +36,11 @@ public:
 	// We scan 4 others adjacent cells as well.
 	// Pass a cell position to the function to retrieve collidable objects in that cell and 4 adjacent cells.
 	void getCollidableObjects(std::map<int, GameObject*>* result, int column, int row);
+
+	// Get objects from cells that collide with the camera viewport.
+	// Objects outside camera view is obviously not seen, hence they are not visible.
+	// Only visible objects should be drawn to save computer resource.
+	std::map<int, GameObject*>* getVisibleObjects();
 
 private:
 	Cell* cells[NUM_COLUMNS][NUM_ROWS];

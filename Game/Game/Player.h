@@ -3,15 +3,15 @@
 #include "Sprite.h";
 #include "Input.h"
 
-class Pad : public GameObject
+class Player : public GameObject
 {
 private:
-	Sprite* m_padSprite;
-	ControlDevice m_controlDevice;
+	Sprite* m_playerSprite;
+	ControlDevice m_controlDevice{ ControlDevice::Keyboard };
 	float speed;
 public:
-	Pad(float x, float y, float width, float height, LPCWSTR spritePath);
-	~Pad();
+	Player(float x, float y, float width, float height, LPCWSTR spritePath);
+	~Player();
 
 	void SetControlDevice(ControlDevice device);
 

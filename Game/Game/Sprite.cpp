@@ -33,6 +33,9 @@ Sprite::Sprite(LPCWSTR filePath)
 		return;
 	}
 
+	m_textureWidth = info.Width;
+	m_textureHeight = info.Height;
+
 	result = D3DXCreateTextureFromFileEx(
 		Global::GetInstance()->g_DirectDevice,	// Pointer to Direct3D device object
 		filePath,								// Path to the image to load
@@ -58,46 +61,60 @@ Sprite::Sprite(LPCWSTR filePath)
 	DebugHelper::DebugOut(L"[INFO] Texture loaded Ok: %s \n", filePath);
 
 	m_sprite = GLOBAL->g_SpriteHandler;
-
-	////Same functionality as D3DXCreateTextureFromFile EXCEPT width and height are manually entered
-	//if (!SUCCEEDED(D3DXCreateTextureFromFileEx(
-	//	device, 
-	//	file.c_str(),
-	//	width, 
-	//	height, 
-	//	D3DX_DEFAULT, 
-	//	0, 
-	//	D3DFMT_UNKNOWN, 
-	//	D3DPOOL_MANAGED, 
-	//	D3DX_DEFAULT,
-	//	D3DX_DEFAULT, 
-	//	0, 
-	//	NULL, 
-	//	NULL, 
-	//	&m_texture)))
-	//{
-	//	std::wstring fileStr(file);
-	//	std::wstring output = "There was an issue creating the Texture.  Make sure the requested image is available.  Requested image: " + fileStr;
-	//	MessageBox(NULL, output.c_str(), NULL, NULL);
-	//	return false;
-	//}
-
-	////Attempt to create the m_sprite
-	//if (!SUCCEEDED(D3DXCreateSprite(device, &m_sprite)))
-	//{
-	//	MessageBox(NULL, L"There was an issue creating the Sprite.", NULL, NULL);
-	//}
 }
 
 void Sprite::Draw()
 {
 	if (m_sprite && m_texture)
+
 	{
-		m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
+		//m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-		m_sprite->Draw(m_texture, NULL, NULL, &m_position, color);
+		//m_sprite->Draw(m_texture, NULL, NULL, &m_position, color);
 
-		m_sprite->End();
+		D3DXMATRIX mt;
+		D3DXMatrixIdentity(&mt);
+		//mt._22 = -1.0f;
+		//mt._11 = mt._33 = mt._44 = 1.0f;
+		mt._41 = -(float)(Camera::getInstance()->getBound().left);
+		mt._42 = (float)Camera::getInstance()->getBound().top;
+
+		D3DXVECTOR4 vp_pos;
+		D3DXVECTOR3 drawingPosition((float)m_position.x, (float)m_position.y, 0);
+		D3DXVec3Transform(&vp_pos, &drawingPosition, &mt);
+
+		D3DXVECTOR3 p = { vp_pos.x, vp_pos.y, 0 };
+
+		D3DXVECTOR3 pos(vp_pos.x, vp_pos.y, 0);
+		D3DXVECTOR3 center((float)m_textureWidth / 2, (float)m_textureHeight / 2, 0);
+
+		D3DXMATRIX old, m; //temp var
+		Global::GetInstance()->g_SpriteHandler->GetTransform(&old); //Save the old matrix
+		//Flip image if exist
+		if (m_flipHorizontal)
+		{
+			D3DXMatrixScaling(&m, -1, 1, 1);
+			p.x *= -1.0f;
+			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
+		}
+		if (m_flipVertical)
+		{
+			D3DXMatrixScaling(&m, 1, -1, 1);
+			p.y *= -1.0f;
+			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
+		}
+
+		m_sprite->Draw(
+			m_texture, 
+			nullptr, 
+			&center,
+			&pos,
+			color);
+
+		//Reset to old matrix
+		Global::GetInstance()->g_SpriteHandler->SetTransform(&old);
+
+		//m_sprite->End();
 	}
 }
 

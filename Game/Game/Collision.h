@@ -48,5 +48,21 @@ public:
 	bool AABBCheck(Box b1, Box b2);
 
 	bool willCollide(Box box, Box block, float &returnCollisionTime);
+
+	// Return true if two objects are colliding with each other. Return false if otherwise.
+	bool isColliding(const Box& object, const Box& other)
+	{
+		float left = other.x - (object.x + object.width);
+		float top = (other.y + other.height) - object.y;
+		float right = (other.x + other.width) - object.x;
+		float bottom = other.y - (object.y + object.height);
+
+		return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+	}
+
+	bool isColliding(const RECT& object, const RECT& other)
+	{
+		
+	}
 };
 

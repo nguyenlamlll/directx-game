@@ -12,6 +12,7 @@
 
 #include "Ball.h"
 #include "Pad.h"
+#include "Player.h"
 
 #include "Grid.h"
 
@@ -21,10 +22,11 @@ private:
 	Ball* m_ball;
 	Pad* m_leftPad;
 	Pad* m_rightPad;
+	Pad* m_pad03;
+	Pad* m_pad04;
+	Player* m_player;
 
-	Sprite* m_newMatchSprite = nullptr;
-	Sprite* m_leftWinSprite = nullptr;
-	Sprite* m_rightWinSprite = nullptr;
+	Grid* grid;
 
 	void LoadResources();
 	int InitWindow();
