@@ -134,8 +134,8 @@ std::map<int, GameObject*>* Grid::getVisibleObjects()
 	std::map<int, GameObject*>* visibleObjects = new std::map<int, GameObject*>();
 
 	std::vector<Cell*> visibleCells;
-	int cellX = (int)(Camera::getInstance()->getPosition().x / Grid::CELL_SIZE);
-	int cellY = (int)(Camera::getInstance()->getPosition().y / Grid::CELL_SIZE);
+	int cellX = (int)((Camera::getInstance()->getPosition().x - Global::GetInstance()->g_ScreenWidth / 2) / Grid::CELL_SIZE);
+	int cellY = (int)((Camera::getInstance()->getPosition().y - Global::GetInstance()->g_ScreenHeight / 2) / Grid::CELL_SIZE);
 	D3DXVECTOR2 objectPositionOnGrid(cellX, cellY);
 	auto width = Camera::getInstance()->getWidth();
 	auto height = Camera::getInstance()->getHeight();
