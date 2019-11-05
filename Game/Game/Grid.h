@@ -43,6 +43,6 @@ public:
 	std::map<int, GameObject*>* getVisibleObjects();
 
 private:
-	Cell* cells[NUM_COLUMNS][NUM_ROWS];
+	Cell* cells[NUM_COLUMNS][NUM_ROWS] = {};
 };
 

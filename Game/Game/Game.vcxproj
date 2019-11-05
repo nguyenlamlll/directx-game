@@ -162,6 +162,9 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="KeyboardInput.h" />
@@ -182,6 +185,9 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />

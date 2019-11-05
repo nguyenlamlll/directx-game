@@ -34,68 +34,6 @@ int brick_y = 0;
 */
 void Game::LoadResources()
 {
-	m_ball = new Ball(
-		SCREEN_WIDTH / 2 + 50, 
-		SCREEN_HEIGHT / 2, 
-		22.f,
-		22.f,
-		BALL_TEXTURE_PATH);
-	
-	m_leftPad = new Pad(
-		20,
-		SCREEN_HEIGHT / 2,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_leftPad->SetControlDevice(ControlDevice::None);
-	m_rightPad = new Pad(
-		SCREEN_WIDTH - 50,
-		SCREEN_HEIGHT / 2,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_rightPad->SetControlDevice(ControlDevice::None);
-
-	m_pad03 = new Pad(
-		SCREEN_WIDTH + 150,
-		SCREEN_HEIGHT / 2 + 50,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_pad03->SetControlDevice(ControlDevice::None);
-	m_pad04 = new Pad(
-		SCREEN_WIDTH + 600,
-		SCREEN_HEIGHT / 2 + 200,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_pad04->SetControlDevice(ControlDevice::None);
-
-	m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
-
-	grid = new Grid();
-	grid->add(1, m_ball);
-	grid->add(2, m_leftPad);
-	grid->add(3, m_rightPad);
-	grid->add(4, m_pad03);
-	grid->add(5, m_pad04);
-
-	std::map<int, GameObject*>* listCanCollideWithBall = new std::map<int, GameObject*>();
-	auto ballPositionOnGrid = grid->calculateObjectPositionOnGrid(m_ball);
-	grid->getCollidableObjects(listCanCollideWithBall, ballPositionOnGrid.x, ballPositionOnGrid.y);
-
-	m_player = new Player(
-		SCREEN_WIDTH / 2 - 20,
-		SCREEN_HEIGHT / 2 - 20,
-		106.f,
-		106.f,
-		PLAYER_TEXTURE_PATH
-	);
-	Camera::getInstance()->setPosition(m_player->getPosition());
 }
 
 
@@ -254,15 +192,7 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 */
 void Game::GameUpdate(float dt)
 {
-	// Otherwise, keep running the round.
-	m_leftPad->Update(dt);
-	m_rightPad->Update(dt);
-	m_pad03->Update(dt);
-
-	// Move the ball
-	m_ball->Update(dt);
-
-	m_player->Update(dt);
+	SceneManager::getInstance()->getCurrentScene()->Update(dt);
 }
 
 /*
@@ -278,12 +208,7 @@ void Game::GameRender()
 		d3ddv->ColorFill(Global::GetInstance()->g_BackBuffer, nullptr, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		auto visibleObjects = grid->getVisibleObjects();
-		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
-		{
-			it->second->Draw();
-		}
-		m_player->Draw();
+		SceneManager::getInstance()->getCurrentScene()->Draw();
 		spriteHandler->End();
 
 		d3ddv->EndScene();
@@ -311,9 +236,9 @@ bool Game::GameInit()
 		return false;
 	}
 
-	// TODO: Add scene and start a scene here
-
+	SceneManager::getInstance()->changeScene(new PlayScene());
 	LoadResources();
+
 	return true;
 }
 
@@ -356,4 +281,5 @@ void Game::GameRun()
 void Game::GameEnd()
 {
 	// TODO: Finish closing the game here.
+	SceneManager::getInstance()->getCurrentScene()->ReleaseAll();
 }

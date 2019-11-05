@@ -15,6 +15,9 @@
 #include "Player.h"
 
 #include "Grid.h"
+#include "SceneManager.h"
+
+#include "PlayScene.h"
 
 class Game
 {
@@ -25,8 +28,9 @@ private:
 	Pad* m_pad03;
 	Pad* m_pad04;
 	Player* m_player;
-
 	Grid* grid;
+
+	std::map<int, GameObject*>* listCanCollideWithPlayer;
 
 	void LoadResources();
 	int InitWindow();

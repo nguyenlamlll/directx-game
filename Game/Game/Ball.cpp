@@ -10,7 +10,7 @@ Ball::Ball(float x, float y, float width, float height, LPCWSTR spritePath)
 	isFirstStarted = true;
 
 	ballSpeed = 0.6;
-	ballVerticalSpeed = 0.4;
+	ballVerticalSpeed = 0.0;
 }
 
 Ball::~Ball()
@@ -44,9 +44,9 @@ Box Ball::GetBoundingBox()
 void Ball::Update(float deltaTime)
 {
 #ifdef _DEBUG
-	std::wstring raw = L"[INFO] Ball position: (" + std::to_wstring(x) + L", " + std::to_wstring(y) + L")";
-	OutputDebugString(raw.c_str());
-	OutputDebugString(L"\n");
+	//std::wstring raw = L"[INFO] Ball position: (" + std::to_wstring(x) + L", " + std::to_wstring(y) + L")";
+	//OutputDebugString(raw.c_str());
+	//OutputDebugString(L"\n");
 #endif
 	if (isFirstStarted)
 	{
@@ -91,9 +91,9 @@ void Ball::Update(float deltaTime)
 	y = m_ballSprite->getPositionY();
 
 #ifdef _DEBUG
-	std::wstring info = L"[INFO] Ball vx, vy: " + std::to_wstring(vx) + L", " + std::to_wstring(vy) + L")";
-	OutputDebugString(info.c_str());
-	OutputDebugString(L"\n");
+	//std::wstring info = L"[INFO] Ball vx, vy: " + std::to_wstring(vx) + L", " + std::to_wstring(vy) + L")";
+	//OutputDebugString(info.c_str());
+	//OutputDebugString(L"\n");
 #endif
 }
 

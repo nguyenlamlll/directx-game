@@ -21,3 +21,10 @@ void Cell::add(int id, GameObject * object)
 {
 	listOfObjects->insert(std::pair<int, GameObject*>(id, object));
 }
+
+std::map<int, GameObject*>* Cell::getAllObjects()
+{
+	if (listOfObjects) {
+		return listOfObjects;
+	}
+}

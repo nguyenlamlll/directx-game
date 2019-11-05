@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Sprite.h";
 #include "Input.h"
-
+#include <map>
 class Player : public GameObject
 {
 private:
@@ -20,6 +20,7 @@ public:
 	D3DXVECTOR2 getVelocity();
 
 	void Update(float deltaTime);
+	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void Draw();
 };
 

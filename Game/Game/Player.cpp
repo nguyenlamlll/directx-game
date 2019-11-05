@@ -8,7 +8,7 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_playerSprite->setPositionX(x);
 	m_playerSprite->setPositionY(y);
 
-	speed = 0.5f;
+	speed = 0.3f;
 }
 
 Player::~Player()
@@ -53,7 +53,6 @@ void Player::Update(float deltaTime)
 	{
 		vx = 0.0f;
 	}
-	m_playerSprite->setPositionX(m_playerSprite->getPositionX() + vx);
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_W)) {
 		vy = -speed * deltaTime;
@@ -65,6 +64,8 @@ void Player::Update(float deltaTime)
 	{
 		vy = 0.0f;
 	}
+
+	m_playerSprite->setPositionX(m_playerSprite->getPositionX() + vx);
 	m_playerSprite->setPositionY(m_playerSprite->getPositionY() + vy);
 
 	x = m_playerSprite->getPositionX();
@@ -74,6 +75,20 @@ void Player::Update(float deltaTime)
 	cameraOldPosition.x += vx;
 	cameraOldPosition.y -= vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
+}
+
+void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
+{
+	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
+	{
+		float normalX, normalY;
+		auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
+		if (collisionResult.isCollide)
+		{
+			vx = vy = 0;
+			OutputDebugString(L"Player collide with something. \n");
+		}
+	}
 }
 
 void Player::Draw()

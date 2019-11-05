@@ -1,6 +1,6 @@
 #pragma once
 #include "Collision.h"
-
+#include <map>
 class GameObject
 {
 protected:
@@ -15,6 +15,7 @@ public:
 	virtual Box GetBoundingBox();
 
 	virtual void Update(float deltaTime);
+	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	virtual void Draw();
 
 	virtual D3DXVECTOR2 getPosition() 

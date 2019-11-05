@@ -39,6 +39,10 @@ void GameObject::Update(float deltaTime)
 {
 }
 
+void GameObject::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
+{
+}
+
 void GameObject::Draw()
 {
 }

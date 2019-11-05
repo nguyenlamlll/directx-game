@@ -4,12 +4,12 @@
 class Cell
 {
 private: 
-	std::map<int, GameObject*>* listOfObjects;
+	std::map<int, GameObject*>* listOfObjects = nullptr;
 public:
 	Cell();
 	~Cell();
 
 	void add(int id, GameObject* object);
-	std::map<int, GameObject*>* getAllObjects() { return listOfObjects; }
+	std::map<int, GameObject*>* getAllObjects();
 };
 

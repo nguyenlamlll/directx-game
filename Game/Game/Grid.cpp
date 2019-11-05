@@ -68,7 +68,7 @@ void Grid::CheckAndAddOversizedObject(GameObject * object, int x, int y, D3DXVEC
 void Grid::add(int id, GameObject * object)
 {
 	auto objectPositionOnGrid = calculateObjectPositionOnGrid(object);
-	
+
 	cells[(int)objectPositionOnGrid.x][(int)objectPositionOnGrid.y]->add(id, object);
 
 	// If an object is bigger than a cell, add that object to all cells which it resides.
@@ -104,6 +104,9 @@ D3DXVECTOR2 Grid::calculateObjectPositionOnGrid(int x, int y)
 void Grid::getCollidableObjects(std::map<int, GameObject*>* result, int column, int row)
 {
 	// References: https://gameprogrammingpatterns.com/spatial-partition.html?fbclid=IwAR3KCo4gASEb1z0P3pgGv_Ttb7nQP_-58MCYzyvOlo6_ft3IjEuTXuozZWQ
+	if (column >= NUM_COLUMNS) return;
+	if (row >= NUM_ROWS) return;
+
 	auto objects = cells[column][row]->getAllObjects();
 	result->insert(objects->begin(), objects->end());
 
@@ -147,8 +150,10 @@ std::map<int, GameObject*>* Grid::getVisibleObjects()
 	{
 		for (int i = objectPositionOnGrid.x; i <= bottomRightPositionOnGrid.x; i++)
 		{
+			if (i < 0 || i >= NUM_COLUMNS) continue;
 			for (int j = objectPositionOnGrid.y; j >= bottomRightPositionOnGrid.y; j--) // From top-left go down to bottom right.
 			{
+				if (j < 0 || j >= NUM_ROWS ) continue;
 				visibleCells.push_back(cells[i][j]);
 			}
 		}
@@ -159,10 +164,7 @@ std::map<int, GameObject*>* Grid::getVisibleObjects()
 		auto objects = cell->getAllObjects();
 		for (auto it = objects->begin(); it != objects->end(); it++)
 		{
-			//if (Collision::getInstance()->isColliding(Camera::getInstance()->getBox(), it->second->GetBoundingBox()))
-			//{
-				visibleObjects->insert(std::pair<int, GameObject*>(it->first, it->second));
-			//}
+			visibleObjects->insert(std::pair<int, GameObject*>(it->first, it->second));
 		}
 	}
 	return visibleObjects;

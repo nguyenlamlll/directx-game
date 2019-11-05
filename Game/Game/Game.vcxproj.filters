@@ -43,6 +43,18 @@
     <Filter Include="Source Files\Framework\Input">
       <UniqueIdentifier>{02e3fce5-d44f-470e-ae62-25d2890598a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Framework\Scene">
+      <UniqueIdentifier>{6b47a933-c499-4ab7-8af6-c63576527729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Framework\Scene">
+      <UniqueIdentifier>{e2de5721-06e9-4442-abd6-a7d19d0bed29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Scenes">
+      <UniqueIdentifier>{12b05dc8-fe72-4774-a033-2db39fc17b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Scenes">
+      <UniqueIdentifier>{ee7af6d7-6392-49f5-a4c3-3cc2819a2126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -56,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Framework</Filter>
@@ -99,6 +108,18 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\Game\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -134,9 +155,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
@@ -151,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
