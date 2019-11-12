@@ -6,7 +6,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float x, float y, float width, float height)
+GameObject::GameObject(float x, float y, float width, float height, Tag tag)
 {
 	this->x = x;
 	this->y = y;
@@ -14,6 +14,7 @@ GameObject::GameObject(float x, float y, float width, float height)
 	this->height = height;
 	vx = 0;
 	vy = 0;
+	m_tag = tag;
 }
 
 
@@ -45,4 +46,10 @@ void GameObject::OnCollision(std::map<int, GameObject*>* colliableObjects, float
 
 void GameObject::Draw()
 {
+}
+
+void GameObject::setPosition(D3DXVECTOR2 value)
+{
+	x = value.x;
+	y = value.y;
 }

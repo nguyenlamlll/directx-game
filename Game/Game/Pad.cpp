@@ -3,13 +3,15 @@
 
 
 Pad::Pad(float x, float y, float width, float height, LPCWSTR spritePath)
-	: GameObject(x, y, width, height)
+	: GameObject(x, y, width, height, Tag::PadTag)
 {
 	m_padSprite = new Sprite(spritePath);
 	m_padSprite->setPositionX(x);
 	m_padSprite->setPositionY(y);
 
 	speed = 0.5f;
+
+	this->SetControlDevice(ControlDevice::None);
 }
 
 

@@ -12,6 +12,10 @@
 PlayScene::PlayScene()
 {
 	loadResources();
+
+	m_map = new GameMap(16, 16, 1504 / 16, 816 / 16, 
+		L"Resources/Map2Level2-tileset.png", 
+		L"Resources/Map2Level2.csv");
 }
 
 
@@ -35,6 +39,7 @@ void PlayScene::Update(float deltaTime)
 
 void PlayScene::Draw()
 {
+	m_map->RenderMap();
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
@@ -57,74 +62,125 @@ void PlayScene::ReleaseAll()
 
 void PlayScene::loadResources()
 {
-	auto m_ball = new Ball(
-		SCREEN_WIDTH / 2 + 50,
-		SCREEN_HEIGHT / 2,
-		22.f,
-		22.f,
-		BALL_TEXTURE_PATH);
+	//auto m_ball = new Ball(
+	//	SCREEN_WIDTH / 2 + 50,
+	//	SCREEN_HEIGHT / 2,
+	//	22.f,
+	//	22.f,
+	//	BALL_TEXTURE_PATH);
 
-	auto m_leftPad = new Pad(
-		20,
-		SCREEN_HEIGHT / 2,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_leftPad->SetControlDevice(ControlDevice::None);
-
-	auto m_rightPad = new Pad(
-		SCREEN_WIDTH - 50,
-		SCREEN_HEIGHT / 2,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_rightPad->SetControlDevice(ControlDevice::None);
-
-	auto m_pad03 = new Pad(
-		SCREEN_WIDTH + 150,
-		SCREEN_HEIGHT / 2 + 50,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_pad03->SetControlDevice(ControlDevice::None);
-	auto m_pad04 = new Pad(
-		SCREEN_WIDTH + 600,
-		SCREEN_HEIGHT / 2 + 200,
-		43.f,
-		89.f,
-		PAD_TEXTURE_PATH
-	);
-	m_pad04->SetControlDevice(ControlDevice::None);
-
-	m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
+	//m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
 
 	m_player = new Player(
-		SCREEN_WIDTH / 2 - 20,
-		SCREEN_HEIGHT / 2 - 20,
+		- 100,
+		SCREEN_HEIGHT/2,
 		106.f,
 		106.f,
 		PLAYER_TEXTURE_PATH
 	);
-	Camera::getInstance()->setPosition(m_player->getPosition());
+	//Camera::getInstance()->setPosition(m_player->getPosition());
+	Camera::getInstance();
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();
 	//m_grid->add(0, m_player);
-	m_grid->add(1, m_ball);
-	m_grid->add(2, m_leftPad);
-	m_grid->add(3, m_rightPad);
-	m_grid->add(4, m_pad03);
-	m_grid->add(5, m_pad04);
+	//m_grid->add(1, m_ball);
+	//m_grid->add(2, m_leftPad);
+	//m_grid->add(3, m_rightPad);
+	//m_grid->add(4, m_pad03);
+	//m_grid->add(5, m_pad04);
 
 	m_objectList = new std::map<int, GameObject*>();
 	//m_objectList->insert(std::pair<int, GameObject*>(0, m_player));
-	m_objectList->insert(std::pair<int, GameObject*>(1, m_ball));
-	m_objectList->insert(std::pair<int, GameObject*>(2, m_leftPad));
-	m_objectList->insert(std::pair<int, GameObject*>(3, m_rightPad));
-	m_objectList->insert(std::pair<int, GameObject*>(4, m_pad03));
-	m_objectList->insert(std::pair<int, GameObject*>(5, m_pad04));
+	//m_objectList->insert(std::pair<int, GameObject*>(1, m_ball));
+	//m_objectList->insert(std::pair<int, GameObject*>(2, m_leftPad));
+	//m_objectList->insert(std::pair<int, GameObject*>(3, m_rightPad));
+	//m_objectList->insert(std::pair<int, GameObject*>(4, m_pad03));
+	//m_objectList->insert(std::pair<int, GameObject*>(5, m_pad04));
 
+	//this->SaveGridToFile();
+	this->LoadGridFromFile();
+}
+
+void PlayScene::SaveGridToFile()
+{
+	std::ofstream file;
+	std::string filename = "Resources/grid/playscene.txt";
+	file.open(filename);
+	auto allObjects = m_grid->getAllObjects();
+	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
+	{
+		switch (it->second->getTag())
+		{
+		case Tag::GroundTag:
+		{
+			file << "\nground ";
+			file << it->second->getPosition().x 
+				<< " " << it->second->getPosition().y
+				<< " " << it->second->getWidth()
+				<< " " << it->second->getHeight();
+			break;
+		}
+		case Tag::PadTag:
+		{
+			file << "\npad ";
+			file << it->second->getPosition().x
+				<< " " << it->second->getPosition().y
+				<< " " << it->second->getWidth()
+				<< " " << it->second->getHeight();
+			break;
+		}
+		case Tag::UnclassifiedTag:
+		{
+			file << "\nunclassified ";
+			file << it->second->getPosition().x
+				<< " " << it->second->getPosition().y
+				<< " " << it->second->getWidth()
+				<< " " << it->second->getHeight();
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
+}
+
+void PlayScene::LoadGridFromFile()
+{
+	std::ifstream file;
+	std::string filename = "Resources/grid/playscene.txt";
+	file.open(filename);
+
+	int count = 0;
+	while (!file.eof())
+	{
+		std::string objectName;
+		file >> objectName;
+		if (objectName._Equal(""))
+		{
+			break;
+		}
+		count++;
+		if (objectName._Equal("ground"))
+		{
+			//int x, y, w, h;
+			//file >> x;
+			//file >> y;
+			//file >> w;
+			//file >> h;
+			//m_grid->add(new Ground(x, y, w, h));
+		}
+		else if (objectName._Equal("pad"))
+		{
+			int x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			m_grid->add(count, new Pad(x, y, w, h, PAD_TEXTURE_PATH));
+		}
+	}
+	file.close();
 }

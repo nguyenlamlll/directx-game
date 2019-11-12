@@ -20,7 +20,7 @@ public:
 	HWND				g_HWND;				//HWND of the game
 	bool				g_IsWindowed = true;		//true if windowed
 	int					g_ScreenWidth = 640;
-	int					g_ScreenHeight = 320;
+	int					g_ScreenHeight = 640;
 	LPDIRECT3DDEVICE9	g_DirectDevice = NULL;		//Direct X device
 	LPD3DXSPRITE		g_SpriteHandler = NULL;		//Direct X Sprite handler
 	LPDIRECT3DSURFACE9	g_BackBuffer = NULL;		//Back buffer

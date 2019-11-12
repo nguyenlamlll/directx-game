@@ -14,7 +14,7 @@
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
 #define SCREEN_HEIGHT Global::GetInstance()->g_ScreenHeight
 
-#define MAX_FRAME_RATE 90
+#define MAX_FRAME_RATE 60
 
 
 //LPDIRECT3D9 d3d = NULL;						// Direct3D handle
@@ -246,10 +246,11 @@ void Game::GameRun()
 {
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
+	srand(time(NULL));
 
 	int done = 0;
-	DWORD frameStart = GetTickCount();
-	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
+	auto frameStart = GetTickCount();
+	auto tickPerFrame = 1000.0f / MAX_FRAME_RATE;
 
 	while (!done)
 	{
@@ -261,11 +262,11 @@ void Game::GameRun()
 			DispatchMessage(&msg);
 		}
 
-		DWORD now = GetTickCount();
+		auto now = GetTickCount();
 
 		// dt: the time between (beginning of last frame) and now
 		// this frame: the frame we are about to render
-		DWORD dt = now - frameStart;
+		auto dt = now - frameStart;
 
 		if (dt >= tickPerFrame)
 		{

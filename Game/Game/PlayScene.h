@@ -7,12 +7,16 @@
 #include "Pad.h"
 #include "Ball.h"
 
+#include "GameMap.h"
 
 #include <map>
+#include <iostream>
 class PlayScene :
 	public Scene
 {
 private:
+	GameMap* m_map;
+
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Player* m_player;
@@ -32,5 +36,8 @@ public:
 	virtual void ReleaseAll() override;
 
 	void loadResources();
+
+	void SaveGridToFile();
+	void LoadGridFromFile();
 };
 

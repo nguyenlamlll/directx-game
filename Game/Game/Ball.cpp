@@ -2,7 +2,7 @@
 #include "Ball.h"
 
 Ball::Ball(float x, float y, float width, float height, LPCWSTR spritePath)
-	: GameObject(x, y, width, height)
+	: GameObject(x, y, width, height, Tag::UnclassifiedTag)
 {
 	m_ballSprite = new Sprite(spritePath);
 	m_ballSprite->setPositionX(x);

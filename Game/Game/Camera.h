@@ -29,6 +29,6 @@ public:
 	RECT getBound();
 	Box getBox();
 
-	void updateCamera();
+	void updateCamera(D3DXVECTOR2 playerPosition);
 };
 

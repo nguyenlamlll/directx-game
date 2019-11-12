@@ -36,6 +36,11 @@ Sprite::Sprite(LPCWSTR filePath)
 	m_textureWidth = info.Width;
 	m_textureHeight = info.Height;
 
+	m_sourceRect.left = 0;
+	m_sourceRect.right = info.Width;
+	m_sourceRect.top = 0;
+	m_sourceRect.bottom = info.Height;
+
 	result = D3DXCreateTextureFromFileEx(
 		Global::GetInstance()->g_DirectDevice,	// Pointer to Direct3D device object
 		filePath,								// Path to the image to load
@@ -61,6 +66,8 @@ Sprite::Sprite(LPCWSTR filePath)
 	DebugHelper::DebugOut(L"[INFO] Texture loaded Ok: %s \n", filePath);
 
 	m_sprite = GLOBAL->g_SpriteHandler;
+
+	m_center = D3DXVECTOR3((float)m_textureWidth / 2, (float)m_textureHeight / 2, 0);;
 }
 
 void Sprite::Draw()
@@ -76,17 +83,15 @@ void Sprite::Draw()
 		D3DXMatrixIdentity(&mt);
 		//mt._22 = -1.0f;
 		//mt._11 = mt._33 = mt._44 = 1.0f;
-		mt._41 = -(float)(Camera::getInstance()->getBound().left);
-		mt._42 = (float)Camera::getInstance()->getBound().top;
+		mt._41 = -(float)(Camera::getInstance()->getPosition().x - GLOBAL->g_ScreenWidth / 2);
+		mt._42 = -(float)(Camera::getInstance()->getPosition().y - GLOBAL->g_ScreenHeight/2);
 
-		D3DXVECTOR4 vp_pos;
+		D3DXVECTOR4 transformedPos;
 		D3DXVECTOR3 drawingPosition((float)m_position.x, (float)m_position.y, 0);
-		D3DXVec3Transform(&vp_pos, &drawingPosition, &mt);
+		D3DXVec3Transform(&transformedPos, &drawingPosition, &mt);
 
-		D3DXVECTOR3 p = { vp_pos.x, vp_pos.y, 0 };
-
-		D3DXVECTOR3 pos(vp_pos.x, vp_pos.y, 0);
-		D3DXVECTOR3 center((float)m_textureWidth / 2, (float)m_textureHeight / 2, 0);
+		D3DXVECTOR3 p = { transformedPos.x, transformedPos.y, 0 };
+		//D3DXVECTOR3 center((float)m_textureWidth / 2, (float)m_textureHeight / 2, 0);
 
 		D3DXMATRIX old, m; //temp var
 		Global::GetInstance()->g_SpriteHandler->GetTransform(&old); //Save the old matrix
@@ -106,9 +111,9 @@ void Sprite::Draw()
 
 		m_sprite->Draw(
 			m_texture, 
-			nullptr, 
-			&center,
-			&pos,
+			&m_sourceRect, 
+			&m_center,
+			&p,
 			color);
 
 		//Reset to old matrix

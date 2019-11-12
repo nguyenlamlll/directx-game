@@ -47,6 +47,30 @@ Box Camera::getBox()
 	return box;
 }
 
-void Camera::updateCamera()
+void Camera::updateCamera(D3DXVECTOR2 playerPosition)
 {
+
+	//if (m_position.x + GLOBAL->g_ScreenWidth / 2 >= GLOBAL->g_WorldMapWidth)
+	//{
+	//	//Set camera position to end of map
+	//	m_position.x = GLOBAL->g_WorldMapWidth - GLOBAL->g_ScreenWidth / 2;
+	//}
+	//if (m_position.x - GLOBAL->g_ScreenWidth / 2 < 0)
+	//{
+	//	//Set camera position to the first
+	//	m_position.x = GLOBAL->g_ScreenWidth / 2;
+	//}
+
+
+	// Hard-coded to not let camera goes below the map
+	//if (m_position.y <= 0) // Global::GetInstance()->g_WorldMapHeight/2)
+	//{
+	//	m_position.y = 0; //GLOBAL->g_WorldMapHeight - GLOBAL->g_ScreenHeight / 2;
+	//}
+
+	// If the camera goes up and hit the map boundary.
+	//if (m_position.y >= Global::GetInstance()->g_ScreenHeight / 2)
+	//{
+	//	m_position.y = Global::GetInstance()->g_ScreenHeight / 2;
+	//}
 }

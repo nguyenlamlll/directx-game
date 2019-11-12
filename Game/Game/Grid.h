@@ -31,6 +31,7 @@ public:
 	D3DXVECTOR2 calculateObjectPositionOnGrid(int x, int y);
 
 	std::map<int, GameObject*>* getAllObjects(int column, int row) { return cells[column][row]->getAllObjects(); }
+	std::map<int, GameObject*>* getAllObjects();
 
 	// Return a list of colliable objects of an object sitting in one cell. 
 	// We scan 4 others adjacent cells as well.

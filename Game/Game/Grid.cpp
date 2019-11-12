@@ -101,6 +101,20 @@ D3DXVECTOR2 Grid::calculateObjectPositionOnGrid(int x, int y)
 	return D3DXVECTOR2(cellX, cellY);
 }
 
+std::map<int, GameObject*>* Grid::getAllObjects()
+{
+	auto result = new std::map<int, GameObject*>();
+	for (int x = 0; x < NUM_COLUMNS; x++)
+	{
+		for (int y = 0; y < NUM_ROWS; y++)
+		{
+			auto objects = cells[x][y]->getAllObjects();
+			result->insert(objects->begin(), objects->end());
+		}
+	}
+	return result;
+}
+
 void Grid::getCollidableObjects(std::map<int, GameObject*>* result, int column, int row)
 {
 	// References: https://gameprogrammingpatterns.com/spatial-partition.html?fbclid=IwAR3KCo4gASEb1z0P3pgGv_Ttb7nQP_-58MCYzyvOlo6_ft3IjEuTXuozZWQ

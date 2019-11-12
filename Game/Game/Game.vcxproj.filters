@@ -55,6 +55,12 @@
     <Filter Include="Header Files\Game\Scenes">
       <UniqueIdentifier>{ee7af6d7-6392-49f5-a4c3-3cc2819a2126}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Framework\Map">
+      <UniqueIdentifier>{d4129f3d-ba5e-47e5-87c7-500b56cc09cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Framework\Map">
+      <UniqueIdentifier>{980babb2-c20f-405d-81c4-04a91a4703ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -120,6 +126,27 @@
     <ClInclude Include="Global.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Header Files\Framework\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tileset.h">
+      <Filter>Header Files\Framework\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Framework\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandingState.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovingState.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +208,27 @@
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Source Files\Framework\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Tileset.cpp">
+      <Filter>Source Files\Framework\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Framework\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStandingState.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovingState.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
