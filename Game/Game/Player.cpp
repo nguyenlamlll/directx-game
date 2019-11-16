@@ -23,6 +23,8 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	//m_currentAnimation = m_animationStand;
 
 	changeState(PlayerStates::Moving);
+
+	
 }
 
 Player::~Player()
@@ -59,7 +61,6 @@ void Player::Update(float deltaTime)
 {
 	//m_currentAnimation->Update(deltaTime);
 	m_currentState->Update(deltaTime);
-
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D)) {
 		vx = speed * deltaTime;
 		changeState(PlayerStates::Moving);

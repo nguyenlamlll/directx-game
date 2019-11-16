@@ -17,6 +17,9 @@ void PlayerMovingState::Update(float deltaTime)
 	{
 		//m_player->changeState(PlayerStates::Standing);
 	}
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_J)) {
+		m_animation->setFlipHorizontal(!m_animation->getFlipHorizontal());
+	}
 
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);

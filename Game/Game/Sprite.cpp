@@ -75,10 +75,6 @@ void Sprite::Draw()
 	if (m_sprite && m_texture)
 
 	{
-		//m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-		//m_sprite->Draw(m_texture, NULL, NULL, &m_position, color);
-
 		D3DXMATRIX mt;
 		D3DXMatrixIdentity(&mt);
 		//mt._22 = -1.0f;
@@ -91,7 +87,6 @@ void Sprite::Draw()
 		D3DXVec3Transform(&transformedPos, &drawingPosition, &mt);
 
 		D3DXVECTOR3 p = { transformedPos.x, transformedPos.y, 0 };
-		//D3DXVECTOR3 center((float)m_textureWidth / 2, (float)m_textureHeight / 2, 0);
 
 		D3DXMATRIX old, m; //temp var
 		Global::GetInstance()->g_SpriteHandler->GetTransform(&old); //Save the old matrix
@@ -108,7 +103,8 @@ void Sprite::Draw()
 			p.y *= -1.0f;
 			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
 		}
-
+		m_center.x = m_textureWidth / 2;
+		m_center.y = m_textureHeight / 2;
 		m_sprite->Draw(
 			m_texture, 
 			&m_sourceRect, 

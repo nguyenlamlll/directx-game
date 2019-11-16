@@ -13,6 +13,11 @@ PlayScene::PlayScene()
 {
 	loadResources();
 
+	m_sprite = new Sprite(L"Resources/map/dungeon.png");
+	//m_sprite->setCenter(D3DXVECTOR3(3200.f/2, 1600.f/2,0));
+	//m_sprite->setFlipHorizontal(true);
+	m_sprite->setPositionX(1000);
+	m_sprite->setPositionY(-150);
 	m_map = new GameMap(16, 16, 1504 / 16, 816 / 16, 
 		L"Resources/Map2Level2-tileset.png", 
 		L"Resources/Map2Level2.csv");
@@ -40,6 +45,7 @@ void PlayScene::Update(float deltaTime)
 void PlayScene::Draw()
 {
 	m_map->RenderMap();
+	m_sprite->Draw();
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
@@ -72,18 +78,19 @@ void PlayScene::loadResources()
 	//m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
 
 	m_player = new Player(
-		- 100,
-		SCREEN_HEIGHT/2,
+		150,
+		250,
 		106.f,
 		106.f,
 		PLAYER_TEXTURE_PATH
 	);
-	//Camera::getInstance()->setPosition(m_player->getPosition());
 	Camera::getInstance();
+	D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 250);
+	Camera::getInstance()->setPosition(position);
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();
-	//m_grid->add(0, m_player);
+	//m_grid->add(9999, m_player);
 	//m_grid->add(1, m_ball);
 	//m_grid->add(2, m_leftPad);
 	//m_grid->add(3, m_rightPad);

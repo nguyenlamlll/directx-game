@@ -12,13 +12,14 @@ protected:
 	RECT m_sourceRect;
 
 	D3DXVECTOR3 m_position;
+	D3DXVECTOR3 m_scale{ D3DXVECTOR3(1,1,1) };
 	D3DCOLOR color;
 	bool initialized;
 
 	int m_textureWidth;
 	int m_textureHeight;
 
-	bool m_flipHorizontal{ false };
+	bool m_flipHorizontal = false;
 	bool m_flipVertical{ false };
 
 	D3DXVECTOR3 m_center;

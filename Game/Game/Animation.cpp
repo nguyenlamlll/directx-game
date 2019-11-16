@@ -24,7 +24,7 @@ Animation::Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, b
 	m_rect.right = m_frameWidth;
 	m_rect.bottom = m_frameHeight;
 	m_sourceRect = m_rect;
-	m_flipHorizontal = true;
+	m_flipHorizontal = false;
 	m_isFinished = false;
 }
 
