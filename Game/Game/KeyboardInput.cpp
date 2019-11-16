@@ -3,6 +3,12 @@
 
 KeyboardInput* KeyboardInput::instance = nullptr;
 
+KeyboardInput::KeyboardInput()
+{
+	memset(keysDown, false, sizeof(bool) * InputHelpers::KEYS_ARRAY_LEN);
+	memset(m_previousKeysDown, false, sizeof(bool) * InputHelpers::KEYS_ARRAY_LEN);
+}
+
 KeyboardInput * KeyboardInput::GetInstance()
 {
 	if (instance)
@@ -66,4 +72,16 @@ LPCWSTR KeyboardInput::getKeyPressedString(UCHAR vKey)
 	LONG lParamValue = (scanCode << 16);
 	auto result = GetKeyNameTextW(lParamValue, name, 1024);
 	return name;
+}
+
+// Return true if in the previous frame, key isn't down. But in the current frame, the key is down.
+// Meaning, when the user presses a key, the key is triggered one time.
+bool KeyboardInput::isKeyTriggered(UCHAR vKey) const
+{
+	return !m_previousKeysDown[vKey] && keysDown[vKey];
+}
+
+void KeyboardInput::PostUpdate()
+{
+	memcpy(m_previousKeysDown, keysDown, sizeof(bool) * InputHelpers::KEYS_ARRAY_LEN);
 }

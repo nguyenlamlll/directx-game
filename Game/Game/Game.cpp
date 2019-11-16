@@ -273,6 +273,8 @@ void Game::GameRun()
 			frameStart = now;
 			GameUpdate(dt);
 			GameRender();
+			
+			KeyboardInput::GetInstance()->PostUpdate();
 		}
 		else
 			Sleep(tickPerFrame - dt);

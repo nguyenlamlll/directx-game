@@ -17,7 +17,8 @@ void PlayerMovingState::Update(float deltaTime)
 	{
 		//m_player->changeState(PlayerStates::Standing);
 	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_J)) {
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J)) {
+		OutputDebugString(L"\n[INFO] J key is just triggered. \n");
 		m_animation->setFlipHorizontal(!m_animation->getFlipHorizontal());
 	}
 

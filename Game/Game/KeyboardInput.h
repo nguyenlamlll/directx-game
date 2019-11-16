@@ -18,9 +18,11 @@ namespace InputHelpers
 class KeyboardInput
 {
 private:
+	KeyboardInput();
 	static KeyboardInput* instance;
 
 	bool keysDown[InputHelpers::KEYS_ARRAY_LEN];     // true if specified key is down
+	bool m_previousKeysDown[InputHelpers::KEYS_ARRAY_LEN];
 
 public:
 	static KeyboardInput* GetInstance();
@@ -32,5 +34,9 @@ public:
 	bool isKeyUp(UCHAR) const;
 
 	LPCWSTR getKeyPressedString(UCHAR);
+
+	bool isKeyTriggered(UCHAR) const;
+
+	void PostUpdate();
 };
 
