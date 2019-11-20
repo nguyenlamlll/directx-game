@@ -4,7 +4,7 @@
 Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	: GameObject(x, y, width, height, Tag::PlayerTag)
 {
-	this->setPosition(D3DXVECTOR2(x,y));
+	this->setPosition(D3DXVECTOR2(x, y));
 
 	speed = 0.4f;
 
@@ -45,7 +45,7 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationSitDown->setPositionX(x);
 	m_animationSitDown->setPositionY(y);
 	// Look up
-	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, true, 100.f);
+	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 200.f);
 	m_animationLookUp->setPositionX(x);
 	m_animationLookUp->setPositionY(y);
 	//Falling
@@ -81,40 +81,40 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationSitDownAttackThrow->setPositionY(y);
 
 	// Push Wall
-	 m_animationPushWall = new Animation(L"Resources/animations/aladdin/push-wall.png", 9, 1, 9, true, 100.f);
-	 m_animationPushWall->setPositionX(x);
-	 m_animationPushWall->setPositionY(y);
+	m_animationPushWall = new Animation(L"Resources/animations/aladdin/push-wall.png", 9, 1, 9, true, 100.f);
+	m_animationPushWall->setPositionX(x);
+	m_animationPushWall->setPositionY(y);
 
-	 // End Game
-	 m_animationEndGame = new Animation(L"Resources/animations/aladdin/end-level.png", 8, 1, 8, true, 100.f);
-	 m_animationEndGame->setPositionX(x);
-	 m_animationEndGame->setPositionY(y);
+	// End Game
+	m_animationEndGame = new Animation(L"Resources/animations/aladdin/end-level.png", 8, 1, 8, true, 100.f);
+	m_animationEndGame->setPositionX(x);
+	m_animationEndGame->setPositionY(y);
 
-	 // Climb
-	 m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 100.f);
-	 m_animationClimb->setPositionX(x);
-	 m_animationClimb->setPositionY(y);
+	// Climb
+	m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 100.f);
+	m_animationClimb->setPositionX(x);
+	m_animationClimb->setPositionY(y);
 
-	 // Swing
-	 m_animationSwing = new Animation(L"Resources/animations/aladdin/swing.png", 10, 1, 10, true, 100.f);
-	 m_animationSwing->setPositionX(x);
-	 m_animationSwing->setPositionY(y);
+	// Swing
+	m_animationSwing = new Animation(L"Resources/animations/aladdin/swing.png", 10, 1, 10, true, 100.f);
+	m_animationSwing->setPositionX(x);
+	m_animationSwing->setPositionY(y);
 
-	 // Swing Stop
-	 m_animationSwingStop = new Animation(L"Resources/animations/aladdin/swing-stop.png", 5, 1, 5, true, 100.f);
-	 m_animationSwingStop->setPositionX(x);
-	 m_animationSwingStop->setPositionY(y);
+	// Swing Stop
+	m_animationSwingStop = new Animation(L"Resources/animations/aladdin/swing-stop.png", 5, 1, 5, true, 100.f);
+	m_animationSwingStop->setPositionX(x);
+	m_animationSwingStop->setPositionY(y);
 
-	 // Swing Attack
-	 m_animationSwingAttack = new Animation(L"Resources/animations/aladdin/swing-attack.png", 7, 1, 7, true, 100.f);
-	 m_animationSwingAttack->setPositionX(x);
-	 m_animationSwingAttack->setPositionY(y);
+	// Swing Attack
+	m_animationSwingAttack = new Animation(L"Resources/animations/aladdin/swing-attack.png", 7, 1, 7, true, 100.f);
+	m_animationSwingAttack->setPositionX(x);
+	m_animationSwingAttack->setPositionY(y);
 
-	 // Swing Attack Throw
-	 m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 100.f);
-	 m_animationSwingAttackThrow->setPositionX(x);
-	 m_animationSwingAttackThrow->setPositionY(y);
-	
+	// Swing Attack Throw
+	m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 100.f);
+	m_animationSwingAttackThrow->setPositionX(x);
+	m_animationSwingAttackThrow->setPositionY(y);
+
 
 	m_currentAnimation = m_animationStand;
 	changeState(PlayerStates::Standing);
@@ -122,7 +122,6 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 
 Player::~Player()
 {
-	if (m_playerSprite) delete m_playerSprite;
 }
 
 void Player::SetControlDevice(ControlDevice device)
@@ -153,15 +152,19 @@ D3DXVECTOR2 Player::getVelocity()
 void Player::Update(float deltaTime)
 {
 	m_currentState->Update(deltaTime);
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_D) || KeyboardInput::GetInstance()->isKeyTriggered(VK_A))
-	{
-		changeState(PlayerStates::Moving);
-	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D)) {
+
+
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
+		(m_currentState->GetState() == PlayerStates::Standing ||
+			m_currentState->GetState() == PlayerStates::Moving ||
+			m_currentState->GetState() == PlayerStates::JumpStand)
+		)
+	{
 		vx = speed * deltaTime;
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A)) {
+	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
+	{
 		vx = -speed * deltaTime;
 	}
 	else
@@ -169,12 +172,13 @@ void Player::Update(float deltaTime)
 		vx = 0.0f;
 	}
 
-
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_W)) {
-		vy = -speed * deltaTime;
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
+	{
+		//vy = -speed * deltaTime;
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S)) {
-		vy = speed * deltaTime;
+	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
+	{
+		//vy = speed * deltaTime;
 	}
 	else
 	{
@@ -198,9 +202,9 @@ void Player::Update(float deltaTime)
 	Camera::getInstance()->setPosition(cameraOldPosition);
 	Camera::getInstance()->updateCamera(D3DXVECTOR2(x, y));
 
-	m_currentAnimation->setPositionX(this->getPosition().x);
-	m_currentAnimation->setPositionY(this->getPosition().y);
-	m_currentAnimation->Update(deltaTime);
+	//m_currentAnimation->setPositionX(this->getPosition().x);
+	//m_currentAnimation->setPositionY(this->getPosition().y);
+	//m_currentAnimation->Update(deltaTime);
 }
 
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
@@ -221,111 +225,118 @@ void Player::Draw()
 {
 	//m_playerSprite->Draw();
 	m_currentState->Draw();
-	m_currentAnimation->Draw();
+	//m_currentAnimation->Draw();
 }
 
+// This method should be call at the end of an update loop. 
+// Because it will delete the running state and replace with a new one.
 void Player::changeState(PlayerStates state)
 {
 	if (m_currentState != nullptr)
 		delete m_currentState;
 
+	PlayerState* newState = nullptr;
 	switch (state) {
 	case PlayerStates::Moving:
 	{
-		m_currentState = new PlayerMovingState(this, m_animationMoving);
-		m_currentAnimation = m_animationMoving;
+		newState = new PlayerMovingState(this, m_animationMoving);
+		//m_currentAnimation = m_animationMoving;
 		break;
 	}
 	case PlayerStates::MovingStop:
 	{
-		m_currentState = new PlayerMovingStopState(this, m_animationMovingStop);
+		newState = new PlayerMovingStopState(this, m_animationMovingStop);
 		break;
 	}
 	case PlayerStates::Standing:
 	{
-		m_currentState = new PlayerStandingState(this, m_animationStand);
-		m_currentAnimation = m_animationStand;
+		newState = new PlayerStandingState(this, m_animationStand);
+		//m_currentAnimation = m_animationStand;
 		break;
 	}
 	case PlayerStates::StandingLookAround: {
-		m_currentState = new PlayerStandLookAround(this, m_animationStandLookAround);
+		newState = new PlayerStandLookAround(this, m_animationStandLookAround);
 		break;
 	}
 	case PlayerStates::StandingThrow: {
-		m_currentState = new PlayerStandThrowState(this, m_animationStandThrow);
+		newState = new PlayerStandThrowState(this, m_animationStandThrow);
 		break;
 	}
 	case PlayerStates::StandAttack: {
-		m_currentState = new PlayerStandAttackState(this, m_animationStandAttack);
+		newState = new PlayerStandAttackState(this, m_animationStandAttack);
 		break;
 	}
 	case PlayerStates::StandAttackThrow: {
-		m_currentState = new PlayerStandAttackThrowState(this, m_animationStandAttackThrow);
+		newState = new PlayerStandAttackThrowState(this, m_animationStandAttackThrow);
 		break;
 	}
 	case PlayerStates::SitDown: {
-		m_currentState = new PlayerSitDownState(this, m_animationSitDown);
+		newState = new PlayerSitDownState(this, m_animationSitDown);
 		break;
 	}
 	case PlayerStates::LookUp: {
-		m_currentState = new PlayerLookUpState(this, m_animationLookUp);
+		newState = new PlayerLookUpState(this, m_animationLookUp);
 		break;
 	}
 	case PlayerStates::Falling: {
-		m_currentState = new PlayerLookUpState(this, m_animationFalling);
+		newState = new PlayerLookUpState(this, m_animationFalling);
 		break;
 	}
 	case PlayerStates::JumpAttack: {
-		m_currentState = new PlayerJumpAttackState(this, m_animationJumpAttack);
+		newState = new PlayerJumpAttackState(this, m_animationJumpAttack);
 		break;
 	}
 	case PlayerStates::JumpAttackThrow: {
-		m_currentState = new PlayerJumpAttackThrowState(this, m_animationJumpAttackThrow);
+		newState = new PlayerJumpAttackThrowState(this, m_animationJumpAttackThrow);
 		break;
 	}
 	case PlayerStates::JumpMoving: {
-		m_currentState = new PlayerJumpMovingState(this, m_animationJumpMoving);
+		newState = new PlayerJumpMovingState(this, m_animationJumpMoving);
 		break;
 	}
 	case PlayerStates::JumpStand: {
-		m_currentState = new PlayerJumpStandSate(this, m_animationJumpStand);
+		newState = new PlayerJumpStandSate(this, m_animationJumpStand);
 		break;
 	}
 	case PlayerStates::SitDownAttack: {
-		m_currentState = new PlayerSitDownAttack(this, m_animationSitDownAttack);
+		newState = new PlayerSitDownAttack(this, m_animationSitDownAttack);
 		break;
 	}
 	case PlayerStates::SitDownAttackThrow: {
-		m_currentState = new PlayerSitDownAttackThrowState(this, m_animationSitDownAttackThrow);
+		newState = new PlayerSitDownAttackThrowState(this, m_animationSitDownAttackThrow);
 		break;
 	}
 	case PlayerStates::PushWall: {
-		m_currentState = new PlayerPushWallState(this, m_animationPushWall);
+		newState = new PlayerPushWallState(this, m_animationPushWall);
 		break;
 	}
 	case PlayerStates::EndLevel: {
-		m_currentState = new PlayerEndGameState(this, m_animationEndGame);
+		newState = new PlayerEndGameState(this, m_animationEndGame);
 		break;
 	}
 	case PlayerStates::Climb: {
-		m_currentState = new PlayerClimbState(this, m_animationClimb);
+		newState = new PlayerClimbState(this, m_animationClimb);
 		break;
 	}
 	case PlayerStates::Swing: {
-		m_currentState = new PlayerSwingState(this, m_animationSwing);
+		newState = new PlayerSwingState(this, m_animationSwing);
 		break;
 	}
 	case PlayerStates::SwingStop: {
-		m_currentState = new PlayerSwingStopState(this, m_animationSwingStop);
+		newState = new PlayerSwingStopState(this, m_animationSwingStop);
 		break;
 	}
 	case PlayerStates::SwingAttack: {
-		m_currentState = new PlayerSwingAttackState(this, m_animationSwingAttack);
+		newState = new PlayerSwingAttackState(this, m_animationSwingAttack);
 		break;
 	}
 	case PlayerStates::SwingAttackThrow: {
-		m_currentState = new PlayerSwingAttackThrowState(this, m_animationSwingAttackThrow);
+		newState = new PlayerSwingAttackThrowState(this, m_animationSwingAttackThrow);
+		break;
+	}
+	default: {
 		break;
 	}
 	}
+	m_currentState = newState;
 }

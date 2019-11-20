@@ -5,6 +5,9 @@ PlayerLookUpState::PlayerLookUpState(Player* player, Animation* animation)
 {
 	m_player = player;
 	m_animation = animation;
+	m_animation->Reset();
+	m_animation->setPositionX(m_player->getPosition().x);
+	m_animation->setPositionY(m_player->getPosition().y);
 }
 
 
@@ -17,6 +20,12 @@ void PlayerLookUpState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
+
+	if (KeyboardInput::GetInstance()->isKeyReleased(VK_W))
+	{
+		m_player->changeState(PlayerStates::Standing);
+		return;
+	}
 }
 
 void PlayerLookUpState::Draw()

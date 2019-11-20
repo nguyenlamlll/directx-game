@@ -79,7 +79,7 @@ void PlayScene::loadResources()
 
 	m_player = new Player(
 		150,
-		250,
+		280,
 		106.f,
 		106.f,
 		PLAYER_TEXTURE_PATH

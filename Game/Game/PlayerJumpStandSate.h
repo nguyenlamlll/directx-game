@@ -9,6 +9,12 @@ class PlayerJumpStandSate : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+
+	float m_initialY;
+
+	float m_travelledJumpDistance;
+	float m_longestJumpDistance;
+
 public:
 	PlayerJumpStandSate(Player* player, Animation* animation);
 	~PlayerJumpStandSate();

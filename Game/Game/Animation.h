@@ -25,5 +25,7 @@ public:
 	void Update(float deltaTime);
 
 	void Reset();
+
+	bool getIsFinished();
 };
 

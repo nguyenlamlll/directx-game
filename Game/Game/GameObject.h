@@ -27,13 +27,12 @@ public:
 	virtual void Draw();
 
 	virtual void setPosition(D3DXVECTOR2);
-	virtual D3DXVECTOR2 getPosition() 
-	{
-		return D3DXVECTOR2(x, y);
-	}
+	virtual D3DXVECTOR2 getPosition() { return D3DXVECTOR2(x, y); }
 
 	virtual Tag getTag() { return m_tag; }
 	virtual float getWidth() { return width; }
 	virtual float getHeight() { return height; }
+
+	virtual D3DXVECTOR2 getVelocity() { return D3DXVECTOR2(vx, vy); }
 };
 

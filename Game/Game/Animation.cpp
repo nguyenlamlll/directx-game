@@ -85,3 +85,8 @@ void Animation::Reset()
 	m_sourceRect = m_rect;
 	m_isFinished = false;
 }
+
+bool Animation::getIsFinished()
+{
+	return m_isFinished;
+}
