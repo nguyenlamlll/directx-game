@@ -13,18 +13,19 @@ PlayerMovingState::~PlayerMovingState()
 
 void PlayerMovingState::Update(float deltaTime)
 {
-	if (KeyboardInput::GetInstance()->isKeyUp(VK_D)) 
+	if (KeyboardInput::GetInstance()->isKeyReleased(VK_D) ||
+		KeyboardInput::GetInstance()->isKeyReleased(VK_A))
 	{
-		//m_player->changeState(PlayerStates::Standing);
+		m_player->changeState(PlayerStates::Standing);
 	}
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J)) {
 		OutputDebugString(L"\n[INFO] J key is just triggered. \n");
 		m_animation->setFlipHorizontal(!m_animation->getFlipHorizontal());
 	}
 
-	m_animation->setPositionX(m_player->getPosition().x);
-	m_animation->setPositionY(m_player->getPosition().y);
-	m_animation->Update(deltaTime);
+	//m_animation->setPositionX(m_player->getPosition().x);
+	//m_animation->setPositionY(m_player->getPosition().y);
+	//m_animation->Update(deltaTime);
 }
 
 void PlayerMovingState::Draw()

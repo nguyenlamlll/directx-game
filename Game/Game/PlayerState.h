@@ -3,8 +3,29 @@
 
 enum PlayerStates {
 	Standing,
+	StandingLookAround,
+	StandingThrow,
 	Moving,
-	Jumping
+	MovingStop,
+	SitDown,
+	LookUp,
+	StandAttack,
+	StandAttackThrow,
+	JumpStand,
+	JumpMoving,
+	JumpAttack,
+	JumpAttackThrow,
+	Falling,
+	SitDownAttack,
+	SitDownAttackThrow,
+	PushWall,
+	EndLevel,
+	Climb,
+	Swing,
+	SwingStop,
+	SwingAttack,
+	SwingAttackThrow
+
 };
 class Player;
 class PlayerState

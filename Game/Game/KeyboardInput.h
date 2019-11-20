@@ -36,6 +36,7 @@ public:
 	LPCWSTR getKeyPressedString(UCHAR);
 
 	bool isKeyTriggered(UCHAR) const;
+	bool isKeyReleased(UCHAR) const;
 
 	void PostUpdate();
 };

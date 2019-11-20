@@ -81,6 +81,11 @@ bool KeyboardInput::isKeyTriggered(UCHAR vKey) const
 	return !m_previousKeysDown[vKey] && keysDown[vKey];
 }
 
+bool KeyboardInput::isKeyReleased(UCHAR vKey) const
+{
+	return m_previousKeysDown[vKey] && !keysDown[vKey];
+}
+
 void KeyboardInput::PostUpdate()
 {
 	memcpy(m_previousKeysDown, keysDown, sizeof(bool) * InputHelpers::KEYS_ARRAY_LEN);
