@@ -8,6 +8,11 @@ class PlayerStandingState : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+	Animation* m_animationStand;
+	Animation* m_animationStandLookAround;
+
+	float m_idleTime = 0.0f;
+
 public:
 	PlayerStandingState(Player* player, Animation* animation);
 	~PlayerStandingState();

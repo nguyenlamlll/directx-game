@@ -1,5 +1,5 @@
-pad 20 300 43 89
-pad 20 160 43 89
-pad 590 160 43 89
-pad 790 210 43 89
-pad 1240 360 43 89
+thin-guard 500 270 100 100
+thin-guard 700 270 100 100
+
+mustache-guard 900 270 100 100
+mustache-guard 250 270 100 100

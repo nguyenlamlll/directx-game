@@ -16,7 +16,7 @@
 #include "PlayerStandAttackThrowState.h"
 #include "PlayerFallingState.h"
 #include "PlayerJumpAttackState.h"
-#include "PlayerJumpStandSate.h"
+#include "PlayerJumpStandState.h"
 #include "PlayerJumpMovingState.h"
 #include "PlayerJumpAttackThrowState.h"
 #include "PlayerSitDownAttack.h"
@@ -35,9 +35,12 @@ class PlayerState;
 class Player : public GameObject
 {
 public:
+	D3DXVECTOR2 m_basePosition;
+
 	Sprite* m_playerSprite;
 	ControlDevice m_controlDevice{ ControlDevice::Keyboard };
 	float speed;
+	bool m_isFacingRight = true;
 
 	Animation* m_currentAnimation;
 	Animation* m_animationStand;
@@ -64,7 +67,13 @@ public:
 	Animation* m_animationSwingAttack;
 	Animation* m_animationSwingAttackThrow;
 
+private:
+	PlayerState* m_previousState;
 	PlayerState* m_currentState;
+public:
+	PlayerState* getPreviousState();
+	PlayerState* getCurrentState();
+
 public:
 	Player(float x, float y, float width, float height, LPCWSTR spritePath);
 	~Player();

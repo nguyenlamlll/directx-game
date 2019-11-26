@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Animation.h"
 
-Animation::Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, bool infinite, float timePerFrame)
-	: Sprite(filePath)
+Animation::Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, bool infinite, float timePerFrame, D3DCOLOR transparentColor)
+	: Sprite(filePath, transparentColor)
 {
 	m_columns = columns;
 	m_rows = rows;

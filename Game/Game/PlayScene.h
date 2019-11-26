@@ -7,6 +7,9 @@
 #include "Pad.h"
 #include "Ball.h"
 
+#include "ThinGuard.h"
+#include "MustacheGuard.h"
+
 #include "GameMap.h"
 
 #include <map>

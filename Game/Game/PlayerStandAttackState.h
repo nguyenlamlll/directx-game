@@ -10,6 +10,8 @@ class PlayerStandAttackState : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+
+	bool m_isFinished = false;
 public:
 	PlayerStandAttackState(Player* player, Animation* animation);
 	~PlayerStandAttackState();

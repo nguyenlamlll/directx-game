@@ -188,6 +188,28 @@ void PlayScene::LoadGridFromFile()
 			file >> h;
 			m_grid->add(count, new Pad(x, y, w, h, PAD_TEXTURE_PATH));
 		}
+		else if (objectName._Equal("thin-guard"))
+		{
+			int x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			ThinGuard* thinGuard = new ThinGuard(x, y, w, h);
+			thinGuard->attachPlayer(m_player);
+			m_grid->add(count, thinGuard);
+		}
+		else if (objectName._Equal("mustache-guard"))
+		{
+			int x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			MustacheGuard* mustacheGuard = new MustacheGuard(x, y, w, h);
+			mustacheGuard->attachPlayer(m_player);
+			m_grid->add(count, mustacheGuard);
+		}
 	}
 	file.close();
 }

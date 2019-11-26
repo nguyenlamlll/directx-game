@@ -16,6 +16,10 @@ Sprite::Sprite()
 }
 
 Sprite::Sprite(LPCWSTR filePath)
+	: Sprite(filePath, 0)
+{ }
+
+Sprite::Sprite(LPCWSTR filePath, D3DCOLOR transparentColor)
 {
 	//Default the m_sprite to m_position (0, 0, 0)
 	m_position.x = 0;
@@ -52,7 +56,7 @@ Sprite::Sprite(LPCWSTR filePath)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 255, 255),			// Transparent color
+		transparentColor, //D3DCOLOR_XRGB(255, 255, 255),			// Transparent color
 		&info,
 		NULL,
 		&m_texture);								// Created texture pointer

@@ -27,6 +27,7 @@ protected:
 public:
 	Sprite();
 	Sprite(LPCWSTR file);
+	Sprite(LPCWSTR file, D3DCOLOR color);
 	~Sprite();
 
 	void setPositionX(float value) {

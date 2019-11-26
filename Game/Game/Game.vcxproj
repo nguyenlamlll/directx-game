@@ -162,6 +162,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="MustacheGuard.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerClimbState.h" />
@@ -170,7 +171,7 @@
     <ClInclude Include="PlayerJumpAttackState.h" />
     <ClInclude Include="PlayerJumpAttackThrowState.h" />
     <ClInclude Include="PlayerJumpMovingState.h" />
-    <ClInclude Include="PlayerJumpStandSate.h" />
+    <ClInclude Include="PlayerJumpStandState.h" />
     <ClInclude Include="PlayerLookUpState.h" />
     <ClInclude Include="PlayerMovingState.h" />
     <ClInclude Include="PlayerMovingStopState.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ThinGuard.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="VirtualKeys.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="MustacheGuard.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerClimbState.cpp" />
@@ -221,7 +224,7 @@
     <ClCompile Include="PlayerJumpAttackState.cpp" />
     <ClCompile Include="PlayerJumpAttackThrowState.cpp" />
     <ClCompile Include="PlayerJumpMovingState.cpp" />
-    <ClCompile Include="PlayerJumpStandSate.cpp" />
+    <ClCompile Include="PlayerJumpStandState.cpp" />
     <ClCompile Include="PlayerLookUpState.cpp" />
     <ClCompile Include="PlayerMovingState.cpp" />
     <ClCompile Include="PlayerMovingStopState.cpp" />
@@ -253,6 +256,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ThinGuard.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tileset.cpp" />
     <ClCompile Include="VirtualKeys.cpp" />

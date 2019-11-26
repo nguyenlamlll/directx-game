@@ -1,12 +1,22 @@
 #include "stdafx.h"
 #include "Player.h"
 
+PlayerState * Player::getPreviousState()
+{
+	return m_previousState;
+}
+
+PlayerState * Player::getCurrentState()
+{
+	return m_currentState;
+}
+
 Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	: GameObject(x, y, width, height, Tag::PlayerTag)
 {
-	this->setPosition(D3DXVECTOR2(x, y));
-
-	speed = 0.4f;
+	m_basePosition = D3DXVECTOR2(x, y);
+	this->setPosition(m_basePosition);
+	speed = 0.25f;
 
 	// Stand
 	m_animationStand = new Animation(L"Resources/animations/aladdin/stand.png", 1, 1, 1);
@@ -17,17 +27,17 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationStandLookAround->setPositionX(x);
 	m_animationStandLookAround->setPositionY(y);
 	// Stand Throw Apple
-	m_animationStandThrow = new Animation(L"Resources/animations/aladdin/stand-throw.png", 12, 1, 12, true, 100.f);
+	m_animationStandThrow = new Animation(L"Resources/animations/aladdin/stand-throw.png", 12, 1, 12, true, 40.f);
 	m_animationStandThrow->setPositionX(x);
 	m_animationStandThrow->setPositionY(y);
 
 	// Stand Attack
-	m_animationStandAttack = new Animation(L"Resources/animations/aladdin/stand-attack.png", 5, 1, 5, true, 100.f);
+	m_animationStandAttack = new Animation(L"Resources/animations/aladdin/stand-attack.png", 5, 1, 5, false, 40.f);
 	m_animationStandAttack->setPositionX(x);
 	m_animationStandAttack->setPositionY(y);
 
 	// Stand Attack Throw
-	m_animationStandAttackThrow = new Animation(L"Resources/animations/aladdin/stand-attack-throw.png", 6, 1, 6, true, 100.f);
+	m_animationStandAttackThrow = new Animation(L"Resources/animations/aladdin/stand-attack-throw.png", 6, 1, 6, false, 60.f);
 	m_animationStandAttackThrow->setPositionX(x);
 	m_animationStandAttackThrow->setPositionY(y);
 
@@ -41,7 +51,7 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationMovingStop->setPositionX(x);
 	m_animationMovingStop->setPositionY(y);
 	// Sit Down
-	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, true, 100.f);
+	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, false, 60.f);
 	m_animationSitDown->setPositionX(x);
 	m_animationSitDown->setPositionY(y);
 	// Look up
@@ -53,11 +63,11 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationFalling->setPositionX(x);
 	m_animationFalling->setPositionY(y);
 	// Jump Attack
-	m_animationJumpAttack = new Animation(L"Resources/animations/aladdin/jump-attack.png", 6, 1, 6, true, 100.f);
+	m_animationJumpAttack = new Animation(L"Resources/animations/aladdin/jump-attack.png", 6, 1, 6, false, 40.f);
 	m_animationJumpAttack->setPositionX(x);
 	m_animationJumpAttack->setPositionY(y);
 	// Jump Attack Throw
-	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, true, 100.f);
+	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, false, 40);
 	m_animationJumpAttackThrow->setPositionX(x);
 	m_animationJumpAttackThrow->setPositionY(y);
 	// Jump Moving
@@ -71,12 +81,12 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationJumpStand->setPositionY(y);
 
 	//Sit Down Attack
-	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, true, 100.f);
+	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 100.f);
 	m_animationSitDownAttack->setPositionX(x);
 	m_animationSitDownAttack->setPositionY(y);
 
 	//Sit Down Attack Throw
-	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, true, 100.f);
+	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 100.f);
 	m_animationSitDownAttackThrow->setPositionX(x);
 	m_animationSitDownAttackThrow->setPositionY(y);
 
@@ -158,16 +168,30 @@ void Player::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
-			m_currentState->GetState() == PlayerStates::JumpStand)
+			m_currentState->GetState() == PlayerStates::JumpStand ||
+			m_currentState->GetState() == PlayerStates::JumpMoving ||
+			m_currentState->GetState() == PlayerStates::JumpAttack || 
+			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
 		)
 	{
 		vx = speed * deltaTime;
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
+	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
+		(m_currentState->GetState() == PlayerStates::Standing ||
+			m_currentState->GetState() == PlayerStates::Moving ||
+			m_currentState->GetState() == PlayerStates::JumpStand ||
+			m_currentState->GetState() == PlayerStates::JumpMoving ||
+			m_currentState->GetState() == PlayerStates::JumpAttack ||
+			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
+		)
 	{
 		vx = -speed * deltaTime;
 	}
 	else
+	{
+		vx = 0.0f;
+	}
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
 	{
 		vx = 0.0f;
 	}
@@ -185,13 +209,6 @@ void Player::Update(float deltaTime)
 		vy = 0.0f;
 	}
 
-	/*if (KeyboardInput::GetInstance()->isKeyDown(VK_J)) {
-		m_currentAnimation = m_animationAttack;
-	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_K)) {
-		m_currentAnimation = m_animationJump;
-	}*/
-
 	x = x + vx;
 	y = y + vy;
 	this->setPosition(D3DXVECTOR2(x, y));
@@ -201,10 +218,6 @@ void Player::Update(float deltaTime)
 	cameraOldPosition.y += vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
 	Camera::getInstance()->updateCamera(D3DXVECTOR2(x, y));
-
-	//m_currentAnimation->setPositionX(this->getPosition().x);
-	//m_currentAnimation->setPositionY(this->getPosition().y);
-	//m_currentAnimation->Update(deltaTime);
 }
 
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
@@ -215,17 +228,15 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 		auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
 		if (collisionResult.isCollide)
 		{
-			vx = vy = 0;
-			OutputDebugString(L"Player collide with something. \n");
+			OutputDebugString(L"[INFO] Player collided with something!!! \n");
+			m_currentState->OnCollision(it->second, deltaTime);
 		}
 	}
 }
 
 void Player::Draw()
 {
-	//m_playerSprite->Draw();
 	m_currentState->Draw();
-	//m_currentAnimation->Draw();
 }
 
 // This method should be call at the end of an update loop. 
@@ -233,7 +244,13 @@ void Player::Draw()
 void Player::changeState(PlayerStates state)
 {
 	if (m_currentState != nullptr)
-		delete m_currentState;
+	{
+		if (m_previousState != nullptr)
+		{
+			delete m_previousState;
+		}
+		m_previousState = m_currentState;
+	}
 
 	PlayerState* newState = nullptr;
 	switch (state) {
@@ -295,7 +312,7 @@ void Player::changeState(PlayerStates state)
 		break;
 	}
 	case PlayerStates::JumpStand: {
-		newState = new PlayerJumpStandSate(this, m_animationJumpStand);
+		newState = new PlayerJumpStandState(this, m_animationJumpStand);
 		break;
 	}
 	case PlayerStates::SitDownAttack: {

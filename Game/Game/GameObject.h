@@ -5,6 +5,8 @@ enum Tag {
 	PlayerTag,
 	GroundTag,
 	PadTag,
+	ThinGuardTag,
+	MustaheGuardTag,
 	UnclassifiedTag
 };
 class GameObject

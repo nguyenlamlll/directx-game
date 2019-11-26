@@ -9,6 +9,12 @@ class PlayerJumpMovingState : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+
+	float m_initialY;
+
+	float m_travelledJumpDistance;
+	float m_longestJumpDistance;
+
 public:
 	PlayerJumpMovingState(Player* player, Animation* animation);
 	~PlayerJumpMovingState();
@@ -17,4 +23,8 @@ public:
 	virtual void Draw() override;
 	virtual PlayerStates GetState() override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
+
+	float getInitialY();
+	float getTravelledJumpDistance();
+	float getLongestJumpDistance();
 };

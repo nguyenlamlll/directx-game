@@ -9,6 +9,10 @@ class PlayerJumpAttackState : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+	float m_initialY;
+	float m_travelledJumpDistance;
+	float m_longestJumpDistance;
+
 public:
 	PlayerJumpAttackState(Player* player, Animation* animation);
 	~PlayerJumpAttackState();

@@ -61,6 +61,18 @@
     <Filter Include="Source Files\Framework\Map">
       <UniqueIdentifier>{980babb2-c20f-405d-81c4-04a91a4703ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Enemies">
+      <UniqueIdentifier>{5081004e-dbde-4288-a181-bd79aa64953a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Enemies">
+      <UniqueIdentifier>{459b2499-3060-4b38-96cb-05304f74c51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Player">
+      <UniqueIdentifier>{0a53188b-5fcc-4e3c-8f39-ad54078cae2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player">
+      <UniqueIdentifier>{4b6e091d-2c3f-47db-b93c-f7a46f797473}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -111,9 +123,6 @@
     <ClInclude Include="Input.h">
       <Filter>Header Files\Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Framework\Scene</Filter>
     </ClInclude>
@@ -135,80 +144,89 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files\Framework\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandingState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovingState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandLookAround.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandThrowState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovingStopState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSitDownState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerLookUpState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFallingState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerJumpAttackState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerJumpAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerJumpMovingState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerJumpStandSate.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+    <ClInclude Include="PlayerLookUpState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStandAttackState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+    <ClInclude Include="PlayerMovingState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStandAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+    <ClInclude Include="PlayerMovingStopState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSitDownAttack.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSitDownAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerPushWallState.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerSitDownState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerEndGameState.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerStandAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandAttackThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandingState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandLookAround.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerClimbState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerSwingState.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerEndGameState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerSwingStopState.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayerPushWallState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSwingAttackState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSwingAttackThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSwingState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSwingStopState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ThinGuard.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MustacheGuard.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpStandState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,9 +275,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source Files\Framework\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\Framework\Scene</Filter>
     </ClCompile>
@@ -281,80 +296,89 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files\Framework\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStandingState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMovingState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStandLookAround.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStandThrowState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMovingStopState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSitDownState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerLookUpState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFallingState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJumpAttackState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJumpAttackThrowState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerJumpMovingState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerJumpStandSate.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="PlayerLookUpState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStandAttackState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="PlayerMovingState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStandAttackThrowState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="PlayerMovingStopState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSitDownAttack.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSitDownAttackThrowState.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerPushWallState.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerSitDownState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerEndGameState.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerStandAttackState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStandAttackThrowState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStandingState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStandLookAround.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStandThrowState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerClimbState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSwingState.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerEndGameState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSwingStopState.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayerPushWallState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSwingAttackState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSwingAttackThrowState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSwingState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSwingStopState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ThinGuard.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MustacheGuard.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpStandState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
