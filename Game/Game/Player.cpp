@@ -81,7 +81,7 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 	m_animationJumpStand->setPositionY(y);
 
 	//Sit Down Attack
-	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 100.f);
+	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 50.f);
 	m_animationSitDownAttack->setPositionX(x);
 	m_animationSitDownAttack->setPositionY(y);
 

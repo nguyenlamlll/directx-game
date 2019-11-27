@@ -2,6 +2,7 @@
 #include "PlayerStandingState.h"
 
 #define IDLE_TIME 1500
+constexpr auto idle_sprite_offset = 3;
 
 PlayerStandingState::PlayerStandingState(Player* player, Animation* animation)
 {
@@ -12,6 +13,8 @@ PlayerStandingState::PlayerStandingState(Player* player, Animation* animation)
 	m_animation->setPositionY(m_player->getPosition().y);
 
 	m_animationStandLookAround = DBG_NEW Animation(L"Resources/animations/aladdin/stand-look-around.png", 7, 1, 7, true, 150.f);
+	m_animationStandLookAround->setPositionX(m_player->getPosition().x);
+	m_animationStandLookAround->setPositionY(m_player->getPosition().y - idle_sprite_offset);
 
 	if (m_player->m_isFacingRight == false)
 	{
@@ -35,15 +38,20 @@ void PlayerStandingState::Update(float deltaTime)
 {
 	if (m_idleTime >= IDLE_TIME)
 	{
-		m_animationStandLookAround->Reset();
-		m_animation = m_animationStandLookAround;
-		if (m_player->m_isFacingRight == false)
+		if (m_isIdling01 == false)
 		{
-			m_animation->setFlipHorizontal(true);
+			m_animationStandLookAround->Reset();
+			m_animation = m_animationStandLookAround;
+			if (m_player->m_isFacingRight == false)
+			{
+				m_animation->setFlipHorizontal(true);
+			}
+			else {
+				m_animation->setFlipHorizontal(false);
+			}
+			m_isIdling01 = true;
 		}
-		else {
-			m_animation->setFlipHorizontal(false);
-		}
+		
 		m_idleTime = 0;
 	}
 	else 
@@ -51,9 +59,18 @@ void PlayerStandingState::Update(float deltaTime)
 		m_idleTime += deltaTime;
 	}
 
-	m_animation->setPositionX(m_player->getPosition().x);
-	m_animation->setPositionY(m_player->getPosition().y);
-	m_animation->Update(deltaTime);
+	if (m_isIdling01 == true) // Idle 01's animation is a bit lower than the default stand. Render it a bit up.
+	{
+		m_animation->setPositionX(m_player->getPosition().x);
+		m_animation->setPositionY(m_player->getPosition().y - idle_sprite_offset);
+		m_animation->Update(deltaTime);
+	}
+	else // Default stand
+	{
+		m_animation->setPositionX(m_player->getPosition().x);
+		m_animation->setPositionY(m_player->getPosition().y);
+		m_animation->Update(deltaTime);
+	}
 
 	// Prevent moving when pressing both A and D keys.
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))

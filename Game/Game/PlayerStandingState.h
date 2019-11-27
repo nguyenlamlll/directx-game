@@ -13,6 +13,8 @@ private:
 
 	float m_idleTime = 0.0f;
 
+	bool m_isIdling01 = false;
+
 public:
 	PlayerStandingState(Player* player, Animation* animation);
 	~PlayerStandingState();

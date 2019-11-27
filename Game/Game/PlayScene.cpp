@@ -85,7 +85,7 @@ void PlayScene::loadResources()
 		PLAYER_TEXTURE_PATH
 	);
 	Camera::getInstance();
-	D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 250);
+	D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	Camera::getInstance()->setPosition(position);
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
