@@ -19,8 +19,8 @@ public:
 	HINSTANCE			g_hInstance = NULL;			//hInstance of the game
 	HWND				g_HWND;				//HWND of the game
 	bool				g_IsWindowed = true;		//true if windowed
-	int					g_ScreenWidth = 400; //640/2;
-	int					g_ScreenHeight = 640/2;
+	int					g_ScreenWidth = 400;//400; //640/2;
+	int					g_ScreenHeight = 320;//640/2;
 	LPDIRECT3DDEVICE9	g_DirectDevice = NULL;		//Direct X device
 	LPD3DXSPRITE		g_SpriteHandler = NULL;		//Direct X Sprite handler
 	LPDIRECT3DSURFACE9	g_BackBuffer = NULL;		//Back buffer

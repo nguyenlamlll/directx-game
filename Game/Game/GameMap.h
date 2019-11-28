@@ -14,6 +14,8 @@ struct MapCell
 class GameMap
 {
 private:
+	D3DXVECTOR2 m_mapPosition;
+
 	//list of rectangle use for mapCell
 	std::vector<RECT*> *listRectOfMapCell;
 	//two dimension array : represent map

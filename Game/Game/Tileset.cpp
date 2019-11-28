@@ -38,7 +38,7 @@ void Tileset::DrawTile(int tileId, D3DXVECTOR3 posToDraw, D3DXVECTOR3 cameraPos)
 	m_tileset->setPositionX(posToDraw.x);
 	m_tileset->setPositionY(posToDraw.y);
 	m_tileset->setSourceRect(m_tile->getSourceRect());
-	m_tileset->setCenter(D3DXVECTOR3(0,0,0));
+	//m_tileset->setCenter(D3DXVECTOR3(0,0,0));
 	m_tileset->Draw();
 
 	delete m_tile;

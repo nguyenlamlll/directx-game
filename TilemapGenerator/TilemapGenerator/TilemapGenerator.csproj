@@ -16,6 +16,9 @@
     <None Update="basic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="dungeon-500-500.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="dungeon-raw.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

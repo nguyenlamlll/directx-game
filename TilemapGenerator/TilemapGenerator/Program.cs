@@ -10,16 +10,16 @@ namespace TilemapGenerator
 {
     class Program
     {
-        public static int tileWidth = 16;
-        public static int tileHeight = 16;
+        public static int tileWidth = 500;
+        public static int tileHeight = 500;
 
         public Dictionary<int, Bitmap> lstTileSet = new Dictionary<int, Bitmap>();
         public static string enviroment = System.Environment.CurrentDirectory;
         public string projectDirectory = Directory.GetCurrentDirectory();
         //public string projectDirectory = Directory.GetParent(enviroment).Parent.FullName;
-        public static string InputFileName = "Map2Level2.png";
-        public static string CsvFileName = "Map2Level2.csv";
-        public static string OutputFileName = "Map2Level2-tileset.png";
+        public static string InputFileName = "dungeon-500-500.png";
+        public static string CsvFileName = "dungeon-500-500.csv";
+        public static string OutputFileName = "dungeon-500-500-tileset.png";
         
         public bool Equals(Bitmap bmp1, Bitmap bmp2)
         {
@@ -79,7 +79,7 @@ namespace TilemapGenerator
             }
             foreach (var b in source)
             {
-                if (Equals(b.Value, bitmap))
+                if (IsEqual(b.Value, bitmap))
                 {
                     return b.Key;
                 }

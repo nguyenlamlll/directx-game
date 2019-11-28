@@ -24,6 +24,8 @@ protected:
 
 	D3DXVECTOR3 m_center;
 
+	bool IsRect(RECT rect);
+
 public:
 	Sprite();
 	Sprite(LPCWSTR file);

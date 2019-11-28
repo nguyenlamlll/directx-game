@@ -1,6 +1,17 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
+bool Sprite::IsRect(RECT rect)
+{
+	if (rect.left == rect.right)
+		return false;
+
+	if (rect.top == rect.bottom)
+		return false;
+
+	return true;
+}
+
 Sprite::Sprite()
 {
 	//Default the m_sprite to m_position (0, 0, 0)
@@ -34,6 +45,7 @@ Sprite::Sprite(LPCWSTR filePath, D3DCOLOR transparentColor)
 	if (result != D3D_OK)
 	{
 		DebugHelper::DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
+		OutputDebugStringW(filePath);
 		return;
 	}
 
@@ -81,8 +93,6 @@ void Sprite::Draw()
 	{
 		D3DXMATRIX mt;
 		D3DXMatrixIdentity(&mt);
-		//mt._22 = -1.0f;
-		//mt._11 = mt._33 = mt._44 = 1.0f;
 		mt._41 = -(float)(Camera::getInstance()->getPosition().x - GLOBAL->g_ScreenWidth / 2);
 		mt._42 = -(float)(Camera::getInstance()->getPosition().y - GLOBAL->g_ScreenHeight/2);
 
@@ -107,11 +117,13 @@ void Sprite::Draw()
 			p.y *= -1.0f;
 			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
 		}
+
 		m_center.x = m_textureWidth / 2;
 		m_center.y = m_textureHeight / 2;
+
 		m_sprite->Draw(
 			m_texture, 
-			&m_sourceRect, 
+			&m_sourceRect,
 			&m_center,
 			&p,
 			color);

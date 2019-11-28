@@ -52,6 +52,10 @@ GameMap::GameMap(
 	//Initialize game world map width and height
 	GLOBAL->g_WorldMapWidth = numTilesWidth * tileWidth;
 	GLOBAL->g_WorldMapHeight = numTileHeight * tileHeight;
+
+	// Map is spawned with top-left position is (-246, -238). So we move by that amount in an opposite vector to move the top-left back to (0, 0).
+	// So that the render map algorithm would work.
+	m_mapPosition = D3DXVECTOR2(246, 238);
 }
 
 GameMap::~GameMap()
@@ -62,28 +66,40 @@ void GameMap::RenderMap()
 {
 	// Calculate offset
 	int offX = floor(Camera::getInstance()->getBound().left / m_tileWidth);
-	int offY = floor(Camera::getInstance()->getBound().top / m_tileHeight); // Reverted because the y axis is reverted.
+	int offY = floor(Camera::getInstance()->getBound().top / m_tileHeight);
 
 	// Caculate number of columns and rows that will be drawn
-	int columnsDraw = ceil(Camera::getInstance()->getWidth() / m_tileWidth);
-	int rowsDraw = ceil(Camera::getInstance()->getHeight() / m_tileHeight);
+	int columnsDraw = ceil((float)Camera::getInstance()->getWidth() / m_tileWidth);
+	int rowsDraw = ceil((float)Camera::getInstance()->getHeight() / m_tileHeight);
+
+	// To draw entire map without checking
+	//int columnsDraw = m_numTilesWidth;
+	//int rowsDraw = m_numTilesHeight;
+
+	//int columnBegin = (int)(abs(Camera::getInstance()->getBound().left) / m_tileWidth);
+	//int rowBegin = (int)(abs(Camera::getInstance()->getBound().top) / m_tileWidth);
+	//int columnsDraw = columnBegin + ceil(Camera::getInstance()->getWidth() / m_tileWidth) + 1;
+	//int rowsDraw = rowBegin + ceil(Camera::getInstance()->getHeight() / m_tileHeight) + 1;
+
 	int count = 0;
-	for (int y = 0; y <= rowsDraw; y++)
+	//for (int y = rowBegin; y <= rowsDraw; y++) 
+	for (int y = 0; y <= rowsDraw + 1; y++)
 	{
-		for (int x = 0; x <= columnsDraw; x++)
+		// for (int x = columnBegin; x <= columnsDraw; x++) 
+		for (int x = 0; x <= columnsDraw + 1; x++)
 		{
 			// If not check, the map will loop.
-			if ((x + offX) * m_tileWidth < 0 || (x + offX) * m_tileWidth > GLOBAL->g_WorldMapWidth) continue;
+			//if ((x + offX) * m_tileWidth < 0 || (x + offX) * m_tileWidth > GLOBAL->g_WorldMapWidth) continue;
 
 			int pos = (offY + y) * m_numTilesWidth + (offX + x);
 			if (pos < 0 || pos >= m_data.size())
 			{
-				return;
+				continue;
 			}
 			int tileID = m_data.at(pos);
 			if (tileID < 0)
 			{
-				return;
+				continue;
 			}
 			if (tileID == 16) {
 				int kk = 0;
@@ -91,7 +107,10 @@ void GameMap::RenderMap()
 
 			m_tileset->DrawTile(
 				tileID,
-				D3DXVECTOR3((x + offX) * m_tileWidth, (y + offY) * m_tileHeight, 0),
+				D3DXVECTOR3(
+					(x + offX) * m_tileWidth + m_mapPosition.x,
+					(y + offY) * m_tileHeight + m_mapPosition.y,
+					0),
 				D3DXVECTOR3(Camera::getInstance()->getPosition().x, Camera::getInstance()->getPosition().y, 0)
 			);
 
