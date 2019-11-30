@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "PlayScene.h"
 
-#define BRICK_TEXTURE_PATH L"brick.png"
-#define PAD_TEXTURE_PATH L"Resources\\pad.png"
-#define BALL_TEXTURE_PATH L"Resources\\ball.png"
-#define PLAYER_TEXTURE_PATH L"Resources\\player.png"
-
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
 #define SCREEN_HEIGHT Global::GetInstance()->g_ScreenHeight
 
@@ -13,11 +8,6 @@ PlayScene::PlayScene()
 {
 	loadResources();
 
-	m_sprite = new Sprite(L"Resources/map/dungeon.png");
-	//m_sprite->setCenter(D3DXVECTOR3(3200.f/2, 1600.f/2,0));
-	//m_sprite->setFlipHorizontal(true);
-	m_sprite->setPositionX(1000);
-	m_sprite->setPositionY(-150);
 	m_map = new GameMap(500, 500, 3000 / 500, 2000 / 500, 
 		L"Resources/map/dungeon-500-500-tileset.png", 
 		L"Resources/map/dungeon-500-500.csv");
@@ -30,6 +20,12 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update(float deltaTime)
 {
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F1))
+	{
+		this->LoadGridFromFile();
+		return;
+	}
+
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
@@ -38,6 +34,7 @@ void PlayScene::Update(float deltaTime)
 
 	m_player->Update(deltaTime);
 	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
+	m_listCanCollideWithPlayer->clear();
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
 	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
 }
@@ -45,7 +42,6 @@ void PlayScene::Update(float deltaTime)
 void PlayScene::Draw()
 {
 	m_map->RenderMap();
-	//m_sprite->Draw();
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
@@ -68,22 +64,11 @@ void PlayScene::ReleaseAll()
 
 void PlayScene::loadResources()
 {
-	//auto m_ball = new Ball(
-	//	SCREEN_WIDTH / 2 + 50,
-	//	SCREEN_HEIGHT / 2,
-	//	22.f,
-	//	22.f,
-	//	BALL_TEXTURE_PATH);
-
-	//m_ball->assignPadsCanCollideBall(m_leftPad, m_rightPad);
-
 	m_player = new Player(
 		630,
 		1580.5,
 		106.f,
-		106.f,
-		PLAYER_TEXTURE_PATH
-	);
+		106.f);
 	Camera::getInstance();
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	D3DXVECTOR2 position(704.25, 1463.75);
@@ -91,20 +76,6 @@ void PlayScene::loadResources()
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();
-	//m_grid->add(9999, m_player);
-	//m_grid->add(1, m_ball);
-	//m_grid->add(2, m_leftPad);
-	//m_grid->add(3, m_rightPad);
-	//m_grid->add(4, m_pad03);
-	//m_grid->add(5, m_pad04);
-
-	m_objectList = new std::map<int, GameObject*>();
-	//m_objectList->insert(std::pair<int, GameObject*>(0, m_player));
-	//m_objectList->insert(std::pair<int, GameObject*>(1, m_ball));
-	//m_objectList->insert(std::pair<int, GameObject*>(2, m_leftPad));
-	//m_objectList->insert(std::pair<int, GameObject*>(3, m_rightPad));
-	//m_objectList->insert(std::pair<int, GameObject*>(4, m_pad03));
-	//m_objectList->insert(std::pair<int, GameObject*>(5, m_pad04));
 
 	//this->SaveGridToFile();
 	this->LoadGridFromFile();
@@ -157,6 +128,15 @@ void PlayScene::SaveGridToFile()
 
 void PlayScene::LoadGridFromFile()
 {
+	// Reset the grid and clean up resources.
+	auto allObjects = m_grid->getAllObjects();
+	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
+	{
+		delete it->second;
+	}
+	m_grid->reset();
+
+	// Open file and read object positions, load them into the grid.
 	std::ifstream file;
 	std::string filename = "Resources/grid/playscene.txt";
 	file.open(filename);
@@ -173,25 +153,16 @@ void PlayScene::LoadGridFromFile()
 		count++;
 		if (objectName._Equal("ground"))
 		{
-			//int x, y, w, h;
+			//float x, y, w, h;
 			//file >> x;
 			//file >> y;
 			//file >> w;
 			//file >> h;
 			//m_grid->add(new Ground(x, y, w, h));
 		}
-		else if (objectName._Equal("pad"))
-		{
-			int x, y, w, h;
-			file >> x;
-			file >> y;
-			file >> w;
-			file >> h;
-			m_grid->add(count, new Pad(x, y, w, h, PAD_TEXTURE_PATH));
-		}
 		else if (objectName._Equal("thin-guard"))
 		{
-			int x, y, w, h;
+			float x, y, w, h;
 			file >> x;
 			file >> y;
 			file >> w;
@@ -202,7 +173,7 @@ void PlayScene::LoadGridFromFile()
 		}
 		else if (objectName._Equal("mustache-guard"))
 		{
-			int x, y, w, h;
+			float x, y, w, h;
 			file >> x;
 			file >> y;
 			file >> w;

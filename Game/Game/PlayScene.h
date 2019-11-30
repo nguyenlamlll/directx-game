@@ -18,7 +18,6 @@ class PlayScene :
 	public Scene
 {
 private:
-	Sprite* m_sprite;
 	GameMap* m_map;
 
 	std::map<int, GameObject*>* m_objectList;

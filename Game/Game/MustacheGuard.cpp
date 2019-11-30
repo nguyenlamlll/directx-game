@@ -38,6 +38,10 @@ MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 
 MustacheGuard::~MustacheGuard()
 {
+	delete m_animations[MustacheGuardStates::Standing];
+	delete m_animations[MustacheGuardStates::Attacking1];
+	delete m_animations[MustacheGuardStates::Attacking2];
+	delete m_animations[MustacheGuardStates::Moving];
 }
 
 void MustacheGuard::attachPlayer(Player * player)

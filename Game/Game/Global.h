@@ -6,8 +6,8 @@
 #define KEYBOARD_BUFFER_SIZE	1024
 #define FRAME_PER_SEC			60.0f
 
-#define MAP_WIDTH 28000
-#define MAP_HEIGHT 28000
+#define MAP_WIDTH 3000
+#define MAP_HEIGHT 2000
 
 class Global
 {

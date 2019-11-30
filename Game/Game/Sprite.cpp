@@ -137,14 +137,15 @@ void Sprite::Draw()
 
 Sprite::~Sprite()
 {
-	if (m_sprite)
-	{
-		m_sprite->Release();
-		m_sprite = 0;
-	}
+	//if (m_sprite)
+	//{
+	//	m_sprite->Release();
+	//	m_sprite = 0;
+	//}
 
 	if (m_texture)
 	{
+		
 		m_texture->Release();
 		m_texture = 0;
 	}

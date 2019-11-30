@@ -31,6 +31,11 @@ void PlayerStandAttackThrowState::Update(float deltaTime)
 
 	if (m_animation->getIsFinished() == true)
 	{
+		if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+		{
+			m_player->changeState(PlayerStates::Moving);
+			return;
+		}
 		m_player->changeState(PlayerStates::Standing);
 		return;
 	}

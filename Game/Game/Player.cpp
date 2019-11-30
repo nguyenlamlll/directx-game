@@ -11,7 +11,7 @@ PlayerState * Player::getCurrentState()
 	return m_currentState;
 }
 
-Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
+Player::Player(float x, float y, float width, float height)
 	: GameObject(x, y, width, height, Tag::PlayerTag)
 {
 	m_basePosition = D3DXVECTOR2(x, y);
@@ -20,110 +20,59 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 
 	// Stand
 	m_animationStand = new Animation(L"Resources/animations/aladdin/stand.png", 1, 1, 1);
-	m_animationStand->setPositionX(x);
-	m_animationStand->setPositionY(y);
 	// Stand Look Around
 	m_animationStandLookAround = new Animation(L"Resources/animations/aladdin/stand-look-around.png", 7, 1, 7, true, 100.f);
-	m_animationStandLookAround->setPositionX(x);
-	m_animationStandLookAround->setPositionY(y);
 	// Stand Throw Apple
 	m_animationStandThrow = new Animation(L"Resources/animations/aladdin/stand-throw.png", 12, 1, 12, true, 40.f);
-	m_animationStandThrow->setPositionX(x);
-	m_animationStandThrow->setPositionY(y);
-
 	// Stand Attack
 	m_animationStandAttack = new Animation(L"Resources/animations/aladdin/stand-attack.png", 5, 1, 5, false, 40.f);
-	m_animationStandAttack->setPositionX(x);
-	m_animationStandAttack->setPositionY(y);
-
 	// Stand Attack Throw
 	m_animationStandAttackThrow = new Animation(L"Resources/animations/aladdin/stand-attack-throw.png", 6, 1, 6, false, 60.f);
-	m_animationStandAttackThrow->setPositionX(x);
-	m_animationStandAttackThrow->setPositionY(y);
 
 	// Moving
 	m_animationMoving = new Animation(L"Resources/animations/aladdin/Aladdin_Running.png", 13, 1, 13, true, 70.f);
-	m_animationMoving->setPositionX(x);
-	m_animationMoving->setPositionY(y);
-
 	//Moving Stop
 	m_animationMovingStop = new Animation(L"Resources/animations/aladdin/moving-stop.png", 9, 1, 9, true, 100.f);
-	m_animationMovingStop->setPositionX(x);
-	m_animationMovingStop->setPositionY(y);
+
 	// Sit Down
 	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, false, 60.f);
-	m_animationSitDown->setPositionX(x);
-	m_animationSitDown->setPositionY(y);
-	// Look up
-	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 200.f);
-	m_animationLookUp->setPositionX(x);
-	m_animationLookUp->setPositionY(y);
-	//Falling
-	m_animationFalling = new Animation(L"Resources/animations/aladdin/falling.png", 4, 1, 4, true, 100.f);
-	m_animationFalling->setPositionX(x);
-	m_animationFalling->setPositionY(y);
-	// Jump Attack
-	m_animationJumpAttack = new Animation(L"Resources/animations/aladdin/jump-attack.png", 6, 1, 6, false, 40.f);
-	m_animationJumpAttack->setPositionX(x);
-	m_animationJumpAttack->setPositionY(y);
-	// Jump Attack Throw
-	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, false, 40);
-	m_animationJumpAttackThrow->setPositionX(x);
-	m_animationJumpAttackThrow->setPositionY(y);
-	// Jump Moving
-	m_animationJumpMoving = new Animation(L"Resources/animations/aladdin/jump-moving.png", 6, 1, 6, true, 100.f);
-	m_animationJumpMoving->setPositionX(x);
-	m_animationJumpMoving->setPositionY(y);
-
-	//Jump Stand
-	m_animationJumpStand = new Animation(L"Resources/animations/aladdin/jump-stand.png", 5, 1, 5, true, 100.f);
-	m_animationJumpStand->setPositionX(x);
-	m_animationJumpStand->setPositionY(y);
-
 	//Sit Down Attack
 	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 50.f);
-	m_animationSitDownAttack->setPositionX(x);
-	m_animationSitDownAttack->setPositionY(y);
-
 	//Sit Down Attack Throw
 	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 100.f);
-	m_animationSitDownAttackThrow->setPositionX(x);
-	m_animationSitDownAttackThrow->setPositionY(y);
+
+	// Look up
+	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 200.f);
+
+	//Falling
+	m_animationFalling = new Animation(L"Resources/animations/aladdin/falling.png", 4, 1, 4, true, 100.f);
+
+	// Jump Attack
+	m_animationJumpAttack = new Animation(L"Resources/animations/aladdin/jump-attack.png", 6, 1, 6, false, 40.f);
+	// Jump Attack Throw
+	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, false, 40);
+	// Jump Moving
+	m_animationJumpMoving = new Animation(L"Resources/animations/aladdin/jump-moving.png", 6, 1, 6, true, 100.f);
+	//Jump Stand
+	m_animationJumpStand = new Animation(L"Resources/animations/aladdin/jump-stand.png", 5, 1, 5, true, 100.f);
 
 	// Push Wall
 	m_animationPushWall = new Animation(L"Resources/animations/aladdin/push-wall.png", 9, 1, 9, true, 100.f);
-	m_animationPushWall->setPositionX(x);
-	m_animationPushWall->setPositionY(y);
 
 	// End Game
 	m_animationEndGame = new Animation(L"Resources/animations/aladdin/end-level.png", 8, 1, 8, true, 100.f);
-	m_animationEndGame->setPositionX(x);
-	m_animationEndGame->setPositionY(y);
 
 	// Climb
 	m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 100.f);
-	m_animationClimb->setPositionX(x);
-	m_animationClimb->setPositionY(y);
 
 	// Swing
 	m_animationSwing = new Animation(L"Resources/animations/aladdin/swing.png", 10, 1, 10, true, 100.f);
-	m_animationSwing->setPositionX(x);
-	m_animationSwing->setPositionY(y);
-
 	// Swing Stop
 	m_animationSwingStop = new Animation(L"Resources/animations/aladdin/swing-stop.png", 5, 1, 5, true, 100.f);
-	m_animationSwingStop->setPositionX(x);
-	m_animationSwingStop->setPositionY(y);
-
 	// Swing Attack
 	m_animationSwingAttack = new Animation(L"Resources/animations/aladdin/swing-attack.png", 7, 1, 7, true, 100.f);
-	m_animationSwingAttack->setPositionX(x);
-	m_animationSwingAttack->setPositionY(y);
-
 	// Swing Attack Throw
 	m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 100.f);
-	m_animationSwingAttackThrow->setPositionX(x);
-	m_animationSwingAttackThrow->setPositionY(y);
 
 
 	m_currentAnimation = m_animationStand;
@@ -132,11 +81,29 @@ Player::Player(float x, float y, float width, float height, LPCWSTR spritePath)
 
 Player::~Player()
 {
-}
-
-void Player::SetControlDevice(ControlDevice device)
-{
-	m_controlDevice = device;
+	delete m_animationStand;
+	delete m_animationStandLookAround;
+	delete m_animationStandThrow;
+	delete m_animationStandAttack;
+	delete m_animationStandAttackThrow;
+	delete m_animationMoving;
+	delete m_animationMovingStop;
+	delete m_animationSitDown;
+	delete m_animationSitDownAttack;
+	delete m_animationSitDownAttackThrow;
+	delete m_animationLookUp;
+	delete m_animationFalling;
+	delete m_animationJumpAttack;
+	delete m_animationJumpAttackThrow;
+	delete m_animationJumpMoving;
+	delete m_animationJumpStand;
+	delete m_animationPushWall;
+	delete m_animationEndGame;
+	delete m_animationClimb;
+	delete m_animationSwing;
+	delete m_animationSwingStop;
+	delete m_animationSwingAttack;
+	delete m_animationSwingAttackThrow;
 }
 
 Box Player::GetBoundingBox()
@@ -198,11 +165,11 @@ void Player::Update(float deltaTime)
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
 	{
-		vy = -speed * deltaTime;
+		//vy = -speed * deltaTime;
 	}
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
 	{
-		vy = speed * deltaTime;
+		//vy = speed * deltaTime;
 	}
 	else
 	{
@@ -257,7 +224,6 @@ void Player::changeState(PlayerStates state)
 	case PlayerStates::Moving:
 	{
 		newState = new PlayerMovingState(this, m_animationMoving);
-		//m_currentAnimation = m_animationMoving;
 		break;
 	}
 	case PlayerStates::MovingStop:
@@ -268,7 +234,6 @@ void Player::changeState(PlayerStates state)
 	case PlayerStates::Standing:
 	{
 		newState = new PlayerStandingState(this, m_animationStand);
-		//m_currentAnimation = m_animationStand;
 		break;
 	}
 	case PlayerStates::StandingLookAround: {

@@ -17,6 +17,26 @@ Grid::Grid()
 
 Grid::~Grid()
 {
+	for (int x = 0; x < NUM_COLUMNS; x++)
+	{
+		for (int y = 0; y < NUM_ROWS; y++)
+		{
+			delete cells[x][y];
+			cells[x][y] = nullptr;
+		}
+	}
+}
+
+void Grid::reset()
+{
+	for (int x = 0; x < NUM_COLUMNS; x++)
+	{
+		for (int y = 0; y < NUM_ROWS; y++)
+		{
+			delete cells[x][y];
+			cells[x][y] = new Cell();
+		}
+	}
 }
 
 void Grid::CheckAndAddOversizedObject(GameObject * object, D3DXVECTOR2 &objectPositionOnGrid, int id)

@@ -39,6 +39,10 @@ ThinGuard::ThinGuard(float x, float y, float width, float height)
 
 ThinGuard::~ThinGuard()
 {
+	delete m_animations[ThinGuardStates::Standing];
+	delete m_animations[ThinGuardStates::Running];
+	delete m_animations[ThinGuardStates::Attacking];
+	delete m_animations[ThinGuardStates::BeingHit];
 }
 
 void ThinGuard::attachPlayer(Player * player)

@@ -13,9 +13,10 @@ public:
 	// Create a grid for a prefixed map.
 	Grid();
 	~Grid();
+	void reset();
 
 	// Edge size of a cell
-	static const int CELL_SIZE = 400;
+	static const int CELL_SIZE = 500;
 
 	// Total number of columns based on prefixed map width
 	static const int NUM_COLUMNS = MAP_WIDTH / CELL_SIZE;

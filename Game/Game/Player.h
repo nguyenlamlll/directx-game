@@ -37,7 +37,6 @@ class Player : public GameObject
 public:
 	D3DXVECTOR2 m_basePosition;
 
-	Sprite* m_playerSprite;
 	ControlDevice m_controlDevice{ ControlDevice::Keyboard };
 	float speed;
 	bool m_isFacingRight = true;
@@ -75,10 +74,8 @@ public:
 	PlayerState* getCurrentState();
 
 public:
-	Player(float x, float y, float width, float height, LPCWSTR spritePath);
+	Player(float x, float y, float width, float height);
 	~Player();
-
-	void SetControlDevice(ControlDevice device);
 
 	Box GetBoundingBox();
 

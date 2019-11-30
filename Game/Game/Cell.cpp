@@ -4,17 +4,19 @@
 
 Cell::Cell()
 {
-	listOfObjects = new std::map<int, GameObject*>();
+	listOfObjects = DBG_NEW std::map<int, GameObject*>();
 }
 
 
 Cell::~Cell()
 {
-	//for (list<BaseObject*>::const_iterator it = listOfObjects.begin(); it != listOfObjects.end(); ++it)
+	//for (auto it = listOfObjects->begin(); it != listOfObjects->end(); it++)
 	//{
-	//	delete *it;
+	//	delete it->second;
+	//	it->second = nullptr;
 	//}
-	//listOfObjects.clear();
+	listOfObjects->clear();
+	delete listOfObjects;
 }
 
 void Cell::add(int id, GameObject * object)

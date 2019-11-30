@@ -158,11 +158,11 @@ LRESULT Game::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
-		//SCENES->GetCurrentScene()->OnKeyDown(wParam);
+		//SceneManager::getInstance()->getCurrentScene()->OnKeyDown(wParam);
 		KeyboardInput::GetInstance()->keyDown(wParam);
 		break;
 	case WM_KEYUP:
-		//SCENES->GetCurrentScene()->OnKeyUp(wParam);
+		//SceneManager::getInstance()->getCurrentScene()->OnKeyUp(wParam);
 		KeyboardInput::GetInstance()->keyUp(wParam);
 		break;
 
