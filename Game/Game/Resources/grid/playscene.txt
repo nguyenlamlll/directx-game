@@ -3,4 +3,6 @@ thin-guard 700 1000 100 100
 mustache-guard 880 1580 100 100
 mustache-guard 1200 1580 100 100
 
-thin-guard 1700 1570 100 100
+thin-guard 1750 1570 100 100
+apple-item 920 1365 16 16
+apple-item 1900 1565 20 20

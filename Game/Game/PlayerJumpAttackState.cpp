@@ -9,11 +9,11 @@ PlayerJumpAttackState::PlayerJumpAttackState(Player* player, Animation* animatio
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 
-	if (m_player->m_isFacingRight == true)
+	if (m_player->getIsFacingRight() == true)
 	{
 		m_animation->setFlipHorizontal(false);
 	}
-	if (m_player->m_isFacingRight == false)
+	if (m_player->getIsFacingRight() == false)
 	{
 		m_animation->setFlipHorizontal(true);
 	}

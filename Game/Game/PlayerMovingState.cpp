@@ -26,12 +26,12 @@ void PlayerMovingState::Update(float deltaTime)
 	m_animation->setPositionY(m_player->getPosition().y - SPRITE_OFFSET);
 	m_animation->Update(deltaTime);
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A)) {
-		m_player->m_isFacingRight = false;
+	if (m_player->getIsFacingRight() == false) 
+	{
 		m_animation->setFlipHorizontal(true);
 	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D)) {
-		m_player->m_isFacingRight = true;
+	if (m_player->getIsFacingRight() == true) 
+	{
 		m_animation->setFlipHorizontal(false);
 	}
 

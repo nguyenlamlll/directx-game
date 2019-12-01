@@ -6,6 +6,7 @@
 
 #include "Pad.h"
 #include "Ball.h"
+#include "AppleItem.h"
 
 #include "ThinGuard.h"
 #include "MustacheGuard.h"

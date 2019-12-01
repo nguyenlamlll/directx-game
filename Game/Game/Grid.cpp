@@ -178,14 +178,14 @@ std::map<int, GameObject*>* Grid::getVisibleObjects()
 	auto height = Camera::getInstance()->getHeight();
 	auto bottomRightPositionOnGrid = calculateObjectPositionOnGrid(
 		Camera::getInstance()->getPosition().x + width,
-		Camera::getInstance()->getPosition().y - height // TODO: Check with the map to see if this axis is correct
+		Camera::getInstance()->getPosition().y + height // TODO: Check with the map to see if this axis is correct
 	);
 	if ((objectPositionOnGrid.x != bottomRightPositionOnGrid.x) || (objectPositionOnGrid.y != bottomRightPositionOnGrid.y))
 	{
 		for (int i = objectPositionOnGrid.x; i <= bottomRightPositionOnGrid.x; i++)
 		{
 			if (i < 0 || i >= NUM_COLUMNS) continue;
-			for (int j = objectPositionOnGrid.y; j >= bottomRightPositionOnGrid.y; j--) // From top-left go down to bottom right.
+			for (int j = objectPositionOnGrid.y; j <= bottomRightPositionOnGrid.y; j++) // From top-left go down to bottom right.
 			{
 				if (j < 0 || j >= NUM_ROWS ) continue;
 				visibleCells.push_back(cells[i][j]);

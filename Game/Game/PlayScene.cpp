@@ -182,6 +182,16 @@ void PlayScene::LoadGridFromFile()
 			mustacheGuard->attachPlayer(m_player);
 			m_grid->add(count, mustacheGuard);
 		}
+		else if (objectName._Equal("apple-item"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			AppleItem* appleItem = new AppleItem(x, y, w, h);
+			m_grid->add(count, appleItem);
+		}
 	}
 	file.close();
 }

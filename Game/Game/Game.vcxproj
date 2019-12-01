@@ -153,17 +153,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AppleBullet.h" />
+    <ClInclude Include="AppleItem.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BlueHeartItem.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GenieFaceItem.h" />
+    <ClInclude Include="GenieJarItem.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MustacheGuard.h" />
     <ClInclude Include="Pad.h" />
+    <ClInclude Include="Peddler.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerClimbState.h" />
     <ClInclude Include="PlayerEndGameState.h" />
@@ -190,6 +197,7 @@
     <ClInclude Include="PlayerSwingState.h" />
     <ClInclude Include="PlayerSwingStopState.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="RubyItem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
@@ -206,17 +214,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AppleBullet.cpp" />
+    <ClCompile Include="AppleItem.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="BlueHeartItem.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GenieFaceItem.cpp" />
+    <ClCompile Include="GenieJarItem.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
     <ClCompile Include="Pad.cpp" />
+    <ClCompile Include="Peddler.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerClimbState.cpp" />
     <ClCompile Include="PlayerEndGameState.cpp" />
@@ -243,6 +258,7 @@
     <ClCompile Include="PlayerSwingState.cpp" />
     <ClCompile Include="PlayerSwingStopState.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="RubyItem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />

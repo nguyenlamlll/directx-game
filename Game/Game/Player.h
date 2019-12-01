@@ -39,7 +39,6 @@ public:
 
 	ControlDevice m_controlDevice{ ControlDevice::Keyboard };
 	float speed;
-	bool m_isFacingRight = true;
 
 	Animation* m_currentAnimation;
 	Animation* m_animationStand;

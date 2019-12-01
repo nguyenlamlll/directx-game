@@ -61,6 +61,24 @@
     <Filter Include="Source Files\Framework\Map">
       <UniqueIdentifier>{980babb2-c20f-405d-81c4-04a91a4703ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Items">
+      <UniqueIdentifier>{8907a119-72ca-4577-8c20-2bea3a41a129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Items">
+      <UniqueIdentifier>{4e0f6e7c-7214-4de1-b6d6-95b4909eb0b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Bullet">
+      <UniqueIdentifier>{1852d525-f718-42ba-820a-cd24c3f10581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Bullet">
+      <UniqueIdentifier>{dd7388c6-21e3-4925-87d2-c55536688a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Peddler">
+      <UniqueIdentifier>{c0493976-f708-43cb-9097-fcc4dadcb417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Peddler">
+      <UniqueIdentifier>{8a7ee3e2-cd27-4ab7-998e-e6a009c031ee}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Game\GameObjects\Enemies">
       <UniqueIdentifier>{5081004e-dbde-4288-a181-bd79aa64953a}</UniqueIdentifier>
     </Filter>
@@ -228,6 +246,30 @@
     <ClInclude Include="MustacheGuard.h">
       <Filter>Header Files\Game\GameObjects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="RubyItem.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieJarItem.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieFaceItem.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueHeartItem.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleItem.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleBullet.h">
+      <Filter>Header Files\Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Header Files\Game\Peddler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -379,6 +421,30 @@
     </ClCompile>
     <ClCompile Include="MustacheGuard.cpp">
       <Filter>Source Files\Game\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieFaceItem.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieJarItem.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="RubyItem.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueHeartItem.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleItem.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleBullet.cpp">
+      <Filter>Source Files\Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Source Files\Game\Peddler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,11 +13,11 @@ PlayerJumpStandState::PlayerJumpStandState(Player* player, Animation* animation)
 	m_travelledJumpDistance = 0.0f;
 	m_longestJumpDistance = 120.0f;
 
-	if (m_player->m_isFacingRight == true)
+	if (m_player->getIsFacingRight() == true)
 	{
 		m_animation->setFlipHorizontal(false);
 	}
-	if (m_player->m_isFacingRight == false)
+	if (m_player->getIsFacingRight() == false)
 	{
 		m_animation->setFlipHorizontal(true);
 	}

@@ -10,7 +10,7 @@ PlayerSitDownState::PlayerSitDownState(Player* player, Animation* animation)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 
-	if (m_player->m_isFacingRight == false)
+	if (m_player->getIsFacingRight() == false)
 	{
 		m_animation->setFlipHorizontal(true);
 	}

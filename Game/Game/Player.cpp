@@ -74,7 +74,6 @@ Player::Player(float x, float y, float width, float height)
 	// Swing Attack Throw
 	m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 100.f);
 
-
 	m_currentAnimation = m_animationStand;
 	changeState(PlayerStates::Standing);
 }
@@ -141,6 +140,7 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
 		)
 	{
+		this->setIsFacingRight(true);
 		vx = speed * deltaTime;
 	}
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
@@ -152,6 +152,7 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
 		)
 	{
+		this->setIsFacingRight(false);
 		vx = -speed * deltaTime;
 	}
 	else

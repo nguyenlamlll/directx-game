@@ -53,3 +53,34 @@ void GameObject::setPosition(D3DXVECTOR2 value)
 	x = value.x;
 	y = value.y;
 }
+
+float GameObject::top() const
+{
+	return y;
+}
+
+float GameObject::bottom() const
+{
+	return y + height;
+}
+
+float GameObject::left() const
+{
+	return x;
+}
+
+float GameObject::right() const
+{
+	return x + width;
+}
+
+bool GameObject::getIsFacingRight() const
+{
+	return m_isFacingRight;
+}
+
+void GameObject::setIsFacingRight(bool value)
+{
+	m_isFacingRight = value;
+}
+
