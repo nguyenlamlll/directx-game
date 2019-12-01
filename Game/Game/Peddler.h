@@ -3,7 +3,7 @@
 #include "../Game/Animation.h"
 #include "../Game/Sprite.h"
 
-enum PeddlerStatus
+enum class PeddlerStatus
 {
 	NonActive,
 	Active

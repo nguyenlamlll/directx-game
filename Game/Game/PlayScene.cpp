@@ -146,10 +146,21 @@ void PlayScene::LoadGridFromFile()
 	{
 		std::string objectName;
 		file >> objectName;
+
+		// If file is empty, don't bother loading.
 		if (objectName._Equal(""))
 		{
 			break;
 		}
+
+		// Ignore comments (strings begin with #)
+		std::string line;
+		if (objectName._Equal("#")) 
+		{
+			std::getline(file, line);
+			continue;
+		}
+
 		count++;
 		if (objectName._Equal("ground"))
 		{
@@ -191,6 +202,56 @@ void PlayScene::LoadGridFromFile()
 			file >> h;
 			AppleItem* appleItem = new AppleItem(x, y, w, h);
 			m_grid->add(count, appleItem);
+		}
+		else if (objectName._Equal("blue-heart-item"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			BlueHeartItem* blueHeartItem = new BlueHeartItem(x, y, w, h);
+			m_grid->add(count, blueHeartItem);
+		}
+		else if (objectName._Equal("genie-face-item"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			GenieFaceItem* genieFaceItem = new GenieFaceItem(x, y, w, h);
+			m_grid->add(count, genieFaceItem);
+		}
+		else if (objectName._Equal("genie-jar-item"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			GenieJarItem* genieJarItem = new GenieJarItem(x, y, w, h);
+			m_grid->add(count, genieJarItem);
+		}
+		else if (objectName._Equal("ruby-item"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			RubyItem* rubyItem = new RubyItem(x, y, w, h);
+			m_grid->add(count, rubyItem);
+		}
+		else if (objectName._Equal("peddler"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			Peddler* peddler = new Peddler(x, y, w, h);
+			m_grid->add(count, peddler);
 		}
 	}
 	file.close();

@@ -7,6 +7,11 @@
 #include "Pad.h"
 #include "Ball.h"
 #include "AppleItem.h"
+#include "BlueHeartItem.h"
+#include "GenieFaceItem.h"
+#include "GenieJarItem.h"
+#include "RubyItem.h"
+#include "Peddler.h"
 
 #include "ThinGuard.h"
 #include "MustacheGuard.h"

@@ -2,7 +2,7 @@
 #include "Peddler.h"
 
 Peddler::Peddler(float x, float y, float width, float height) : GameObject(x, y, width, height, Tag::PeddlerTag) {
-	status = NonActive;
+	status = PeddlerStatus::NonActive;
 	this->setPosition(D3DXVECTOR2(x, y));
 
 	isUsed = false;
@@ -52,11 +52,11 @@ D3DXVECTOR2 Peddler::getVelocity() {
 void Peddler::Update(float deltaTime) {
 	switch (status)
 	{
-	case NonActive:
+	case PeddlerStatus::NonActive:
 		NonActiveAction();
 		image1->Update(deltaTime);
 		break;
-	case Active:
+	case PeddlerStatus::Active:
 		ActiveAction();
 		if (!isDead) {
 			image1->Update(deltaTime);
@@ -73,8 +73,8 @@ void Peddler::Update(float deltaTime) {
 
 void Peddler::Draw() {
 	if (!isDead) {
-		image1->Draw();
-		image2->Draw();
+		if (image1) image1->Draw();
+		if (image2) image2->Draw();
 	}
 }
 
@@ -128,7 +128,7 @@ void Peddler::ActiveAction() {
 	// when happen collision, change animation, then delete this
 	switch (status)
 	{
-	case Active:
+	case PeddlerStatus::Active:
 	{
 		switch (state)
 		{
@@ -167,7 +167,7 @@ void Peddler::ActiveAction() {
 		changeState(PeddlerTransform_1);
 		isDied = true;
 		isUsed = true;
-		status = Active;
+		status = PeddlerStatus::Active;
 		break;
 	}
 	}
@@ -190,7 +190,7 @@ void Peddler::NonActiveAction() {
 
 
 void Peddler::resetPeddler() {
-	status = NonActive;
+	status = PeddlerStatus::NonActive;
 
 	isUsed = false;
 	isDead = false;
