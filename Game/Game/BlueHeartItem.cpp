@@ -51,7 +51,7 @@ void BlueHeartItem::NonActiveAction() {
 	{
 		// get current time
 		DWORD now = GetTickCount();
-		if (now - start_wait > 2500)
+		if (now - start_wait > 5000)
 		{
 			// reset animation
 			image->Reset();
