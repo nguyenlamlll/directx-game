@@ -61,4 +61,16 @@ PlayerStates PlayerStandAttackState::GetState()
 
 void PlayerStandAttackState::OnCollision(GameObject* entity, float deltaTime)
 {
+	if (entity->getTag() == Tag::MustaheGuardTag)
+	{
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), dynamic_cast<MustacheGuard*>(entity)->GetBoundingBox()))
+		{
+			OutputDebugString(L"[INFO] Player began colliding with Mustache Guard. \n");
+			if (isAttackingHit == false)
+			{
+				dynamic_cast<MustacheGuard*>(entity)->takeDamage(5);
+				isAttackingHit = true;
+			}
+		}
+	}
 }

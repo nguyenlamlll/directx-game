@@ -1,13 +1,8 @@
 #include "stdafx.h"
 #include "MustacheGuard.h"
 
-
-MustacheGuard::MustacheGuard()
-{
-}
-
 MustacheGuard::MustacheGuard(float x, float y, float width, float height)
-	: GameObject(x, y, width, height, Tag::MustaheGuardTag)
+	: GameObject(x, y, width, height, Tag::MustaheGuardTag), Health(15)
 {
 	this->setPosition(D3DXVECTOR2(x, y));
 
@@ -57,7 +52,7 @@ Box MustacheGuard::GetBoundingBox()
 {
 	Box box;
 
-	box.x = x - width / 2;
+	box.x = x - width / 2 - 20;
 	box.y = y - height / 2;
 	box.width = width;
 	box.height = height;
@@ -69,8 +64,10 @@ Box MustacheGuard::GetBoundingBox()
 
 void MustacheGuard::Update(float deltaTime)
 {
-
-	m_currentAnimation->Update(deltaTime);
+	if (m_currentHealth > 0)
+	{
+		m_currentAnimation->Update(deltaTime);
+	}
 }
 
 void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
@@ -79,5 +76,8 @@ void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, fl
 
 void MustacheGuard::Draw()
 {
-	m_currentAnimation->Draw();
+	if (m_currentHealth > 0)
+	{
+		m_currentAnimation->Draw();
+	}
 }

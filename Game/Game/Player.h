@@ -29,15 +29,16 @@
 #include "PlayerSwingAttackState.h"
 #include "PlayerSwingAttackThrowState.h"
 
+#include "Health.h"
+
 #include <map>
 
 class PlayerState;
-class Player : public GameObject
+class Player : public GameObject, public Health
 {
 public:
 	D3DXVECTOR2 m_basePosition;
 
-	ControlDevice m_controlDevice{ ControlDevice::Keyboard };
 	float speed;
 
 	Animation* m_currentAnimation;
@@ -85,5 +86,10 @@ public:
 	void Draw();
 
 	void changeState(PlayerStates state);
+
+private:
+	Health* m_health;
+public:
+	Health* getHealth();
 };
 

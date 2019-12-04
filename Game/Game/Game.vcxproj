@@ -172,6 +172,7 @@
     <ClInclude Include="GenieFaceItem.h" />
     <ClInclude Include="GenieJarItem.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Health.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MustacheGuard.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="GenieFaceItem.cpp" />
     <ClCompile Include="GenieJarItem.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />

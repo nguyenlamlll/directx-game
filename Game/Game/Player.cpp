@@ -12,7 +12,7 @@ PlayerState * Player::getCurrentState()
 }
 
 Player::Player(float x, float y, float width, float height)
-	: GameObject(x, y, width, height, Tag::PlayerTag)
+	: GameObject(x, y, width, height, Tag::PlayerTag), Health(100)
 {
 	m_basePosition = D3DXVECTOR2(x, y);
 	this->setPosition(m_basePosition);
@@ -109,8 +109,8 @@ Box Player::GetBoundingBox()
 {
 	Box box;
 
-	box.x = x;
-	box.y = y;
+	box.x = x - width/2;
+	box.y = y - height/2;
 	box.width = width;
 	box.height = height;
 	box.vx = vx;
@@ -192,13 +192,21 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 {
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
-		float normalX, normalY;
-		auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
-		if (collisionResult.isCollide)
-		{
-			OutputDebugString(L"[INFO] Player collided with something!!! \n");
-			m_currentState->OnCollision(it->second, deltaTime);
-		}
+		m_currentState->OnCollision(it->second, deltaTime);
+
+		//float normalX, normalY;
+		//auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
+		//if (collisionResult.isCollide)
+		//{
+		//	OutputDebugString(L"[INFO] Player began colliding with something!!! \n");
+		//	m_currentState->OnCollision(it->second, deltaTime);
+		//}
+
+		//if (Collision::getInstance()->isColliding(this->GetBoundingBox(), it->second->GetBoundingBox()))
+		//{
+		//	OutputDebugString(L"[INFO] Player is colliding with something!!! \n");
+		//	m_currentState->OnCollision(it->second, deltaTime);
+		//}
 	}
 }
 
@@ -322,4 +330,9 @@ void Player::changeState(PlayerStates state)
 	}
 	}
 	m_currentState = newState;
+}
+
+Health * Player::getHealth()
+{
+	return m_health;
 }

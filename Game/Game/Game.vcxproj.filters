@@ -61,24 +61,6 @@
     <Filter Include="Source Files\Framework\Map">
       <UniqueIdentifier>{980babb2-c20f-405d-81c4-04a91a4703ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Items">
-      <UniqueIdentifier>{8907a119-72ca-4577-8c20-2bea3a41a129}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\Items">
-      <UniqueIdentifier>{4e0f6e7c-7214-4de1-b6d6-95b4909eb0b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Bullet">
-      <UniqueIdentifier>{1852d525-f718-42ba-820a-cd24c3f10581}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\Bullet">
-      <UniqueIdentifier>{dd7388c6-21e3-4925-87d2-c55536688a96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game\Peddler">
-      <UniqueIdentifier>{c0493976-f708-43cb-9097-fcc4dadcb417}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Peddler">
-      <UniqueIdentifier>{8a7ee3e2-cd27-4ab7-998e-e6a009c031ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game\GameObjects\Enemies">
       <UniqueIdentifier>{5081004e-dbde-4288-a181-bd79aa64953a}</UniqueIdentifier>
     </Filter>
@@ -91,23 +73,41 @@
     <Filter Include="Header Files\Game\GameObjects\Player">
       <UniqueIdentifier>{4b6e091d-2c3f-47db-b93c-f7a46f797473}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\FloatingBrick">
-      <UniqueIdentifier>{59cab4da-fe32-4c7a-a517-d86d0d035338}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game\GameObjects\FloatingBrick">
       <UniqueIdentifier>{0fa98611-bda2-4589-9e71-a81b05258f2f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Game\GameObjects\Spike">
       <UniqueIdentifier>{80c3bde2-0526-46c5-85ce-68a7f595ba53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Spike">
-      <UniqueIdentifier>{7ddd13f6-9dee-4dc0-b07b-522e9f64400f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\HangingMorningStar">
-      <UniqueIdentifier>{5bde5ab8-1842-47c9-a995-9602354f4fcb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game\GameObjects\HangingMorningStar">
       <UniqueIdentifier>{d13d775d-d5a0-4aa8-9a81-5e8d2639db59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\HangingMorningStar">
+      <UniqueIdentifier>{5bde5ab8-1842-47c9-a995-9602354f4fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\FloatingBrick">
+      <UniqueIdentifier>{59cab4da-fe32-4c7a-a517-d86d0d035338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Bullet">
+      <UniqueIdentifier>{1852d525-f718-42ba-820a-cd24c3f10581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Items">
+      <UniqueIdentifier>{8907a119-72ca-4577-8c20-2bea3a41a129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Peddler">
+      <UniqueIdentifier>{8a7ee3e2-cd27-4ab7-998e-e6a009c031ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Items">
+      <UniqueIdentifier>{4e0f6e7c-7214-4de1-b6d6-95b4909eb0b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Peddler">
+      <UniqueIdentifier>{c0493976-f708-43cb-9097-fcc4dadcb417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Bullet">
+      <UniqueIdentifier>{dd7388c6-21e3-4925-87d2-c55536688a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Spike">
+      <UniqueIdentifier>{7ddd13f6-9dee-4dc0-b07b-522e9f64400f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -265,31 +265,28 @@
       <Filter>Header Files\Game\GameObjects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="RubyItem.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="GenieJarItem.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="GenieFaceItem.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="BlueHeartItem.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="AppleItem.h">
-      <Filter>Header Files\Game\Items</Filter>
+      <Filter>Header Files\Game\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="AppleBullet.h">
-      <Filter>Header Files\Game\Bullet</Filter>
+      <Filter>Header Files\Game\GameObjects\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Peddler.h">
-      <Filter>Header Files\Game\Peddler</Filter>
-    </ClInclude>
-    <ClInclude Include="ForegroundChains.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game\GameObjects\Peddler</Filter>
     </ClInclude>
     <ClInclude Include="FloatingBrick.h">
       <Filter>Header Files\Game\GameObjects\FloatingBrick</Filter>
@@ -299,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="HangingMorningStar.h">
       <Filter>Header Files\Game\GameObjects\HangingMorningStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ForegroundChains.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -453,40 +456,43 @@
       <Filter>Source Files\Game\GameObjects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="GenieFaceItem.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="GenieJarItem.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="RubyItem.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="BlueHeartItem.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="AppleItem.cpp">
-      <Filter>Source Files\Game\Items</Filter>
+      <Filter>Source Files\Game\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="AppleBullet.cpp">
-      <Filter>Source Files\Game\Bullet</Filter>
+      <Filter>Source Files\Game\GameObjects\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Peddler.cpp">
-      <Filter>Source Files\Game\Peddler</Filter>
-    </ClCompile>
-    <ClCompile Include="ForegroundChains.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game\GameObjects\Peddler</Filter>
     </ClCompile>
     <ClCompile Include="FloatingBrick.cpp">
-      <Filter>Source Files\Game\FloatingBrick</Filter>
+      <Filter>Source Files\Game\GameObjects\FloatingBrick</Filter>
     </ClCompile>
     <ClCompile Include="Spike.cpp">
-      <Filter>Source Files\Game\Spike</Filter>
+      <Filter>Source Files\Game\GameObjects\Spike</Filter>
     </ClCompile>
     <ClCompile Include="HangingMorningStar.cpp">
-      <Filter>Source Files\Game\HangingMorningStar</Filter>
+      <Filter>Source Files\Game\GameObjects\HangingMorningStar</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ForegroundChains.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

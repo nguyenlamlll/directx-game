@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Player.h"
+#include "Health.h"
 
 #include <unordered_map>
 
@@ -15,7 +16,8 @@ enum class MustacheGuardStates {
 };
 
 class MustacheGuard :
-	public GameObject
+	public GameObject,
+	public Health
 {
 protected:
 	Player* m_player = nullptr;
@@ -24,7 +26,6 @@ public:
 	MustacheGuardStates m_currentState;
 	std::unordered_map<MustacheGuardStates, Animation*> m_animations;
 
-	MustacheGuard();
 	MustacheGuard(float x, float y, float width, float height);
 	~MustacheGuard();
 
