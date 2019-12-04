@@ -28,6 +28,34 @@ Animation::Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, b
 	m_isFinished = false;
 }
 
+Animation::Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, int indexFrame, bool infinite, float timePerFrame, D3DCOLOR transparentColor)
+	: Sprite(filePath, transparentColor)
+{
+	m_columns = columns;
+	m_rows = rows;
+	m_curIndex = indexFrame;
+	m_curCol = m_curRow = m_curTotalTime = 0;
+	m_frameWidth = m_textureWidth / columns;
+	m_frameHeight = m_textureHeight / rows;
+
+	// Set texture width/height to frame wid/height
+	m_textureWidth = m_frameWidth;
+	m_textureHeight = m_frameHeight;
+
+	m_totalFrames = totalFrames;
+	m_timePerFrame = timePerFrame;
+	m_infiniteAnim = infinite;
+
+	// Set source rect for texture
+	m_rect.left = 0;
+	m_rect.top = 0;
+	m_rect.right = m_frameWidth;
+	m_rect.bottom = m_frameHeight;
+	m_sourceRect = m_rect;
+	m_flipHorizontal = false;
+	m_isFinished = false;
+}
+
 
 Animation::~Animation()
 {
@@ -73,6 +101,10 @@ void Animation::Update(float deltaTime)
 	{
 		m_curTotalTime += deltaTime;
 	}
+}
+
+int Animation::getIndexFrame() {
+	return m_curIndex;
 }
 
 void Animation::Reset()

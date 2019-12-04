@@ -8,8 +8,8 @@ PlayScene::PlayScene()
 {
 	loadResources();
 
-	m_map = new GameMap(500, 500, 3000 / 500, 2000 / 500, 
-		L"Resources/map/dungeon-500-500-tileset.png", 
+	m_map = new GameMap(500, 500, 3000 / 500, 2000 / 500,
+		L"Resources/map/dungeon-500-500-tileset.png",
 		L"Resources/map/dungeon-500-500.csv");
 }
 
@@ -94,7 +94,7 @@ void PlayScene::SaveGridToFile()
 		case Tag::GroundTag:
 		{
 			file << "\nground ";
-			file << it->second->getPosition().x 
+			file << it->second->getPosition().x
 				<< " " << it->second->getPosition().y
 				<< " " << it->second->getWidth()
 				<< " " << it->second->getHeight();
@@ -155,7 +155,7 @@ void PlayScene::LoadGridFromFile()
 
 		// Ignore comments (strings begin with #)
 		std::string line;
-		if (objectName._Equal("#")) 
+		if (objectName._Equal("#"))
 		{
 			std::getline(file, line);
 			continue;
@@ -236,11 +236,13 @@ void PlayScene::LoadGridFromFile()
 		else if (objectName._Equal("ruby-item"))
 		{
 			float x, y, w, h;
+			int indexFrame;
 			file >> x;
 			file >> y;
 			file >> w;
 			file >> h;
-			RubyItem* rubyItem = new RubyItem(x, y, w, h);
+			file >> indexFrame;
+			RubyItem* rubyItem = new RubyItem(x, y, w, h, indexFrame);
 			m_grid->add(count, rubyItem);
 		}
 		else if (objectName._Equal("peddler"))
@@ -252,6 +254,42 @@ void PlayScene::LoadGridFromFile()
 			file >> h;
 			Peddler* peddler = new Peddler(x, y, w, h);
 			m_grid->add(count, peddler);
+		}
+		else if (objectName._Equal("floating-brick"))
+		{
+			float x, y, w, h;
+			int type;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> type;
+			FloatingBrick* floatingbrick = new FloatingBrick(x, y, w, h, type);
+			m_grid->add(count, floatingbrick);
+		}
+		else if (objectName._Equal("hanging-morning-star"))
+		{
+			float x, y, w, h;
+			int indexFrame;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> indexFrame;
+			HangingMorningStar* hangingmorningstar = new HangingMorningStar(x, y, w, h, indexFrame);
+			m_grid->add(count, hangingmorningstar);
+		}
+		else if (objectName._Equal("spike-spike"))
+		{
+			float x, y, w, h;
+			int type;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> type;
+			Spike* spike = new Spike(x, y, w, h, type);
+			m_grid->add(count, spike);
 		}
 	}
 	file.close();

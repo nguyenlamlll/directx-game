@@ -166,11 +166,11 @@ void Player::Update(float deltaTime)
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
 	{
-		//vy = -speed * deltaTime;
+		vy = -speed * deltaTime;
 	}
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
 	{
-		//vy = speed * deltaTime;
+		vy = speed * deltaTime;
 	}
 	else
 	{

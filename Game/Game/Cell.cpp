@@ -29,4 +29,7 @@ std::map<int, GameObject*>* Cell::getAllObjects()
 	if (listOfObjects) {
 		return listOfObjects;
 	}
+	else {
+		return NULL;
+	}
 }

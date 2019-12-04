@@ -10,7 +10,7 @@ AppleItem::AppleItem(float x, float y, float width, float height) : Item(x, y, w
 
 
 	// apple
-	image = new Animation(L"Resources/Items/PNG/apple-item_16_16_1.png", 1, 1, 1);
+	image = new Animation(L"Resources/Items/PNG/apple_11_11_1.png", 1, 1, 1);
 	image->setPositionX(x);
 	image->setPositionY(y);
 }

@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -80,6 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,12 +127,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,6 +161,7 @@
     <ClInclude Include="AppleItem.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="BlueHeartItem.h" />
+    <ClInclude Include="FloatingBrick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Collision.h" />
@@ -169,8 +174,10 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MustacheGuard.h" />
+    <ClInclude Include="Spike.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Peddler.h" />
+    <ClInclude Include="HangingMorningStar.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerClimbState.h" />
     <ClInclude Include="PlayerEndGameState.h" />
@@ -218,6 +225,7 @@
     <ClCompile Include="AppleItem.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
+    <ClCompile Include="FloatingBrick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -230,8 +238,10 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
+    <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Peddler.cpp" />
+    <ClCompile Include="HangingMorningStar.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerClimbState.cpp" />
     <ClCompile Include="PlayerEndGameState.cpp" />

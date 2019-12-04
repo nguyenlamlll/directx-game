@@ -11,7 +11,10 @@ enum Tag {
 	BulletAppleTag,
 	PeddlerTag,
 	ThinGuardTag,
-	MustaheGuardTag
+	MustaheGuardTag,
+	BrickTag,
+	SpikeTag,
+	HangingMorningStarTag,
 };
 
 class GameObject

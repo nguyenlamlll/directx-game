@@ -20,12 +20,13 @@ private:
 
 public:
 	Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, bool infinite = true, float timePerFrame = 0.1f, D3DCOLOR transparentColor = 0);
+	Animation(LPCWSTR filePath, int totalFrames, int rows, int columns, int indexFrame, bool infinite = true, float timePerFrame = 0.1f, D3DCOLOR transparentColor = 0);
 	~Animation();
 
 	void Update(float deltaTime);
 
 	void Reset();
-
+	int getIndexFrame();
 	bool getIsFinished();
 };
 

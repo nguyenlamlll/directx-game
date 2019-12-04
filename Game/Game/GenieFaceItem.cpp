@@ -12,7 +12,7 @@ GenieFaceItem::GenieFaceItem(float x, float y, float width, float height) : Item
 	start_wait = GetTickCount();
 
 	// Ruby
-	image = new Animation(L"Resources/Items/PNG/genie-face_45_52_4.png", 4, 1, 4, false, 40.f);
+	image = new Animation(L"Resources/Items/PNG/genie-face_45_52_4.png", 4, 1, 4, false, 150.f);
 	image->setPositionX(x);
 	image->setPositionY(y);
 }
@@ -33,13 +33,13 @@ void GenieFaceItem::ActiveAction() {
 	}
 	default:
 	{
-		image = new Animation(L"Resources/Items/PNG/Explosions-genieFace_43_43_7.png", 5, 1, 5, false, 60.f);
+		image = new Animation(L"Resources/Items/PNG/Explosions-genieFace_43_43_7.png", 5, 1, 5, false, 40.f);
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;
 		vx = 0;
 		isDied = true;
-		isUsed= true;
+		isUsed = true;
 		status = Active;
 		break;
 	}

@@ -91,6 +91,24 @@
     <Filter Include="Header Files\Game\GameObjects\Player">
       <UniqueIdentifier>{4b6e091d-2c3f-47db-b93c-f7a46f797473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\FloatingBrick">
+      <UniqueIdentifier>{59cab4da-fe32-4c7a-a517-d86d0d035338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\FloatingBrick">
+      <UniqueIdentifier>{0fa98611-bda2-4589-9e71-a81b05258f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Spike">
+      <UniqueIdentifier>{80c3bde2-0526-46c5-85ce-68a7f595ba53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Spike">
+      <UniqueIdentifier>{7ddd13f6-9dee-4dc0-b07b-522e9f64400f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\HangingMorningStar">
+      <UniqueIdentifier>{5bde5ab8-1842-47c9-a995-9602354f4fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\HangingMorningStar">
+      <UniqueIdentifier>{d13d775d-d5a0-4aa8-9a81-5e8d2639db59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -270,6 +288,15 @@
     <ClInclude Include="Peddler.h">
       <Filter>Header Files\Game\Peddler</Filter>
     </ClInclude>
+    <ClInclude Include="FloatingBrick.h">
+      <Filter>Header Files\Game\GameObjects\FloatingBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="Spike.h">
+      <Filter>Header Files\Game\GameObjects\Spike</Filter>
+    </ClInclude>
+    <ClInclude Include="HangingMorningStar.h">
+      <Filter>Header Files\Game\GameObjects\HangingMorningStar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -445,6 +472,15 @@
     </ClCompile>
     <ClCompile Include="Peddler.cpp">
       <Filter>Source Files\Game\Peddler</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingBrick.cpp">
+      <Filter>Source Files\Game\FloatingBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="Spike.cpp">
+      <Filter>Source Files\Game\Spike</Filter>
+    </ClCompile>
+    <ClCompile Include="HangingMorningStar.cpp">
+      <Filter>Source Files\Game\HangingMorningStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

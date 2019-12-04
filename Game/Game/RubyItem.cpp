@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RubyItem.h"
 
-RubyItem::RubyItem(float x, float y, float width, float height) : Item(x, y, width, height) {
+RubyItem::RubyItem(float x, float y, float width, float height, int indexFrame) : Item(x, y, width, height) {
 	this->setPosition(D3DXVECTOR2(x, y));
 
 	isUsed= false;
@@ -12,7 +12,7 @@ RubyItem::RubyItem(float x, float y, float width, float height) : Item(x, y, wid
 	start_wait = GetTickCount();
 
 	// Ruby
-	image = new Animation(L"Resources/Items/PNG/ruby_32_25_9.png", 9, 1, 9, true, 40.f);
+	image = new Animation(L"Resources/Items/PNG/ruby_32_25_9.png", 9, 1, 9, indexFrame, false, 40.f);
 	image->setPositionX(x);
 	image->setPositionY(y);
 }

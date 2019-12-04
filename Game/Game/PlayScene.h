@@ -16,6 +16,10 @@
 #include "ThinGuard.h"
 #include "MustacheGuard.h"
 
+#include "FloatingBrick.h"
+#include "Spike.h"
+#include "HangingMorningStar.h"
+
 #include "GameMap.h"
 
 #include <map>

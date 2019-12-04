@@ -1,17 +1,224 @@
-# General items
-peddler 400 1580 60 60
-blue-heart-item 450 1580 50 50
-genie-face-item 550 1580 50 50
-genie-jar-item 650 1580 50 50
-ruby-item 700 1580 50 50
-
-# Enemies type GUARD
+# Enemies type: 2 thin guard 
 thin-guard 800 1320 100 100
 thin-guard 700 1000 100 100
+
+#Enemies type: 10 mustache guard
 mustache-guard 880 1580 100 100
 mustache-guard 1200 1580 100 100
-thin-guard 1750 1570 100 100
 
-# Collectible apples
-apple-item 920 1365 16 16
-apple-item 1900 1565 20 20
+#Enemies type: 9 skeleton guard
+
+#Enemies type: 16 spike
+spike-spike 2237 1315 49 35 1
+spike-spike 2237 1348 49 35 1
+spike-spike 2237 1381 49 35 1
+spike-spike 2237 1414 49 35 1
+spike-spike 2237 1447 49 35 1
+
+spike-spike 2490 810 49 35 1
+spike-spike 2028 756 49 35 0
+
+spike-spike 1850 1080 49 35 0
+spike-spike 1850 1115 49 35 0
+
+spike-spike 1532 1170 49 35 1
+spike-spike 1580 1170 49 35 1
+
+spike-spike 1240 1540 49 35 1
+spike-spike 1240 1580 49 35 1
+spike-spike 1295 1540 49 35 0
+spike-spike 1295 1580 49 35 0
+
+spike-spike 639 1155 49 35 0
+
+#Enemies type: 7 hanging morning star
+hanging-morning-star 1485 1530 49 35 0
+hanging-morning-star 1545 1530 49 35 5
+hanging-morning-star 1620 1530 49 35 10
+
+hanging-morning-star 1085 1020 49 35 8
+hanging-morning-star 1200 1020 49 35 1
+hanging-morning-star 1085 1135 49 35 8
+hanging-morning-star 1200 1135 49 35 14
+
+#Enemies type: 6 bat
+
+# Item type: 38 floating brick
+floating-brick 805 1145 40 24 1
+floating-brick 815 1237 40 24 1
+floating-brick 875 1192 40 24 0
+floating-brick 875 1292 40 24 0
+
+floating-brick 1170 1352 40 24 0
+
+floating-brick 1075 760 40 24 0
+floating-brick 1125 715 40 24 1
+floating-brick 1170 680 40 24 0
+floating-brick 1125 635 40 24 1
+floating-brick 1065 600 40 24 0
+
+floating-brick 1812 1527 40 24 0
+floating-brick 1765 1480 40 24 1
+floating-brick 1830 1445 40 24 0
+floating-brick 1735 1370 40 24 0
+
+floating-brick 1810 1160 40 24 0
+floating-brick 1880 1050 40 24 1
+floating-brick 1810 1000 40 24 0
+
+floating-brick 1957 825 40 24 0
+floating-brick 2100 825 40 24 0
+floating-brick 2150 780 40 24 1
+floating-brick 2100 729 40 24 0
+floating-brick 2150 680 40 24 1
+floating-brick 2100 632 40 24 0
+floating-brick 2165 600 40 24 1
+
+floating-brick 2180 1435 40 24 1
+floating-brick 2148 1385 40 24 0
+
+floating-brick 2500 1527 40 24 1
+floating-brick 2565 1480 40 24 0
+floating-brick 2630 1450 40 24 1
+floating-brick 2580 1400 40 24 0
+floating-brick 2630 1365 40 24 1
+floating-brick 2567 1320 40 24 0
+floating-brick 2505 1270 40 24 1
+floating-brick 2565 1220 40 24 0
+
+floating-brick 2500 1050 40 24 0
+floating-brick 2470 1000 40 24 1
+floating-brick 2485 870 40 24 1
+floating-brick 2340 810 40 24 0
+
+# Item type: 1 peddler
+peddler 850 833 60 60
+# Item type: 2 blue heart
+blue-heart-item 2095 1310 50 50
+blue-heart-item 1290 800 50 50
+# Item type:: 5 genie gace
+genie-face-item 520 825 50 50
+genie-face-item 770 1320 50 50
+genie-face-item 1650 780 50 50
+genie-face-item 1670 1250 50 50
+genie-face-item 2070 545 50 50
+# Item type: 6 genie jar
+genie-jar-item 975 1295 50 50
+genie-jar-item 1665 960 50 50
+genie-jar-item 2160 847 50 50
+genie-jar-item 2405 847 50 50
+genie-jar-item 2367 1326 50 50
+genie-jar-item 1231 847 50 50
+# Item type: 10 ruby
+ruby-item 1375 760 50 50 2
+ruby-item 1840 715 50 50 5
+ruby-item 2095 762 50 50 8
+ruby-item 2145 715 50 50 1
+ruby-item 2195 505 50 50 3
+ruby-item 2242 565 50 50 6
+ruby-item 2610 890 50 50 9
+ruby-item 2627 873 50 50 7
+ruby-item 2627 907 50 50 4
+ruby-item 2644 890 50 50 5
+# Collectible apples: 99
+apple-item 515 1513 16 16
+apple-item 545 1498 16 16
+apple-item 545 1533 16 16
+apple-item 575 1513 16 16
+apple-item 845 1513 16 16
+apple-item 875 1498 16 16
+apple-item 875 1533 16 16
+apple-item 905 1513 16 16
+apple-item 1823 1390 16 16
+apple-item 2082 1548 16 16
+apple-item 2100 1530 16 16
+apple-item 2100 1565 16 16
+apple-item 2120 1548 16 16
+apple-item 2287 1532 16 16
+apple-item 2702 1548 16 16
+apple-item 2719 1530 16 16
+apple-item 2737 1548 16 16
+apple-item 2718 1275 16 16
+apple-item 2735 1258 16 16
+apple-item 2735 1293 16 16
+apple-item 2752 1275 16 16
+apple-item 2450 1275 16 16
+apple-item 2450 1323 16 16
+apple-item 2670 1020 16 16
+apple-item 2705 1003 16 16
+apple-item 2740 1020 16 16
+apple-item 2625 670 16 16
+apple-item 510 715 16 16
+apple-item 525 700 16 16
+apple-item 525 730 16 16
+apple-item 540 715 16 16
+apple-item 675 670 16 16
+apple-item 690 655 16 16
+apple-item 690 685 16 16
+apple-item 705 670 16 16
+apple-item 515 940 16 16
+apple-item 545 925 16 16
+apple-item 575 940 16 16
+apple-item 653 1200 16 16
+apple-item 670 1185 16 16
+apple-item 670 1215 16 16
+apple-item 687 1200 16 16
+apple-item 800 1085 16 16
+apple-item 845 1035 16 16
+apple-item 960 1015 16 16
+apple-item 1008 1358 16 16
+apple-item 930 605 16 16
+apple-item 950 560 16 16
+apple-item 980 525 16 16
+apple-item 1025 525 16 16
+apple-item 1070 700 16 16
+apple-item 1120 655 16 16
+apple-item 1170 620 16 16
+apple-item 1117 572 16 16
+apple-item 1295 668 16 16
+apple-item 1325 650 16 16
+apple-item 1355 668 16 16
+apple-item 1408 638 16 16
+apple-item 1440 618 16 16
+apple-item 1470 655 16 16
+apple-item 1295 940 16 16
+apple-item 1262 972 16 16
+apple-item 1280 1162 16 16
+apple-item 1312 1147 16 16
+apple-item 1344 1162 16 16
+apple-item 1375 1355 16 16
+apple-item 1235 1325 16 16
+apple-item 1265 1308 16 16
+apple-item 1295 1325 16 16
+apple-item 1470 875 16 16
+apple-item 1505 860 16 16
+apple-item 1540 875 16 16
+apple-item 1840 812 16 16
+apple-item 1872 795 16 16
+apple-item 1904 812 16 16
+apple-item 1938 655 16 16
+apple-item 1970 638 16 16
+apple-item 2002 655 16 16
+apple-item 2162 540 16 16
+apple-item 2225 540 16 16
+apple-item 2240 605 16 16
+apple-item 2240 650 16 16
+apple-item 2240 745 16 16
+apple-item 2240 845 16 16
+apple-item 2207 988 16 16
+apple-item 2223 970 16 16
+apple-item 2240 988 16 16
+apple-item 2080 1065 16 16
+apple-item 2080 1165 16 16
+apple-item 2095 1150 16 16
+apple-item 2095 1180 16 16
+apple-item 2110 1165 16 16
+apple-item 1569 1292 16 16
+apple-item 1552 1227 16 16
+apple-item 1567 1210 16 16
+apple-item 1582 1227 16 16
+apple-item 1665 1132 16 16
+apple-item 1810 940 16 16
+apple-item 1872 990 16 16
+
+
