@@ -1,3 +1,39 @@
+# Map details
+first-column 692 1430 32 300
+second-column 1008 1524 32 300
+third-column 1328 1233 32 300
+fourth-column 1680 1507 32 300
+
+chains-ui 750 1400 100 100 1 2
+chains-ui 1263 1400 100 100 1 2
+chains-ui 1776 1400 100 100 1 2
+chains-ui 2289 1400 100 100 1 2
+chains-ui 2802 1400 100 100 1 2
+
+chains-ui 750 1144 100 100 1 2
+chains-ui 1263 1144 100 100 1 2
+chains-ui 1776 1144 100 100 1 2
+chains-ui 2289 1144 100 100 1 2
+chains-ui 2802 1144 100 100 1 2
+
+chains-ui 750 888 100 100 1 2
+chains-ui 1263 888 100 100 1 2
+chains-ui 1776 888 100 100 1 2
+chains-ui 2289 888 100 100 1 2
+chains-ui 2802 888 100 100 1 2
+
+chains-ui 750 632 100 100 1 2
+chains-ui 1263 632 100 100 1 2
+chains-ui 1776 632 100 100 1 2
+chains-ui 2289 632 100 100 1 2
+chains-ui 2802 632 100 100 1 2
+
+chains-ui 750 376 100 100 1 2
+chains-ui 1263 376 100 100 1 2
+chains-ui 1776 376 100 100 1 2
+chains-ui 2289 376 100 100 1 2
+chains-ui 2802 376 100 100 1 2
+
 # Enemies type: 2 thin guard 
 thin-guard 800 1320 100 100
 thin-guard 700 1000 100 100

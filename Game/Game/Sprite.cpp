@@ -89,7 +89,6 @@ Sprite::Sprite(LPCWSTR filePath, D3DCOLOR transparentColor)
 void Sprite::Draw()
 {
 	if (m_sprite && m_texture)
-
 	{
 		D3DXMATRIX mt;
 		D3DXMatrixIdentity(&mt);
@@ -103,20 +102,28 @@ void Sprite::Draw()
 		D3DXVECTOR3 p = { transformedPos.x, transformedPos.y, 0 };
 
 		D3DXMATRIX old, m; //temp var
+		//D3DXMatrixIdentity(&m);
 		Global::GetInstance()->g_SpriteHandler->GetTransform(&old); //Save the old matrix
 		//Flip image if exist
 		if (m_flipHorizontal)
 		{
-			D3DXMatrixScaling(&m, -1, 1, 1);
+			D3DXMatrixScaling(&m, m_scale.x * -1, m_scale.y * 1, m_scale.z * 1);
 			p.x *= -1.0f;
 			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
 		}
+		else
+		{
+			D3DXMatrixScaling(&m, m_scale.x, m_scale.y, m_scale.z);
+			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
+		}
+
 		if (m_flipVertical)
 		{
-			D3DXMatrixScaling(&m, 1, -1, 1);
+			D3DXMatrixScaling(&m, m_scale.x * 1, m_scale.y * -1, m_scale.z * 1);
 			p.y *= -1.0f;
 			Global::GetInstance()->g_SpriteHandler->SetTransform(&m);
 		}
+
 
 		m_center.x = m_textureWidth / 2;
 		m_center.y = m_textureHeight / 2;
@@ -132,6 +139,33 @@ void Sprite::Draw()
 		Global::GetInstance()->g_SpriteHandler->SetTransform(&old);
 
 		//m_sprite->End();
+	}
+}
+
+void Sprite::DrawOnScreen()
+{
+	if (m_sprite && m_texture)
+	{
+		D3DXMATRIX old; //temp var
+		Global::GetInstance()->g_SpriteHandler->GetTransform(&old); //Save the old matrix
+
+		D3DXMATRIX matScale;
+		D3DXMatrixScaling(&matScale, m_scale.x, m_scale.y, m_scale.z);
+		Global::GetInstance()->g_SpriteHandler->SetTransform(&matScale);
+
+		m_center.x = m_textureWidth / 2;
+		m_center.y = m_textureHeight / 2;
+
+		m_sprite->Draw(
+			m_texture,
+			&m_sourceRect,
+			&m_center,
+			&m_position,
+			color);
+
+		//Reset to old matrix
+		Global::GetInstance()->g_SpriteHandler->SetTransform(&old);
+
 	}
 }
 

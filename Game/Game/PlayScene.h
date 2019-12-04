@@ -12,6 +12,7 @@
 #include "GenieJarItem.h"
 #include "RubyItem.h"
 #include "Peddler.h"
+#include "ForegroundChains.h"
 
 #include "ThinGuard.h"
 #include "MustacheGuard.h"
@@ -29,12 +30,21 @@ class PlayScene :
 {
 private:
 	GameMap* m_map;
+	Sprite* m_firstColumn;
+	Sprite* m_secondColumn;
+	Sprite* m_thirdColumn;
+	Sprite* m_fourthColumn;
+
+	Sprite* m_foregroundChains;
+	Sprite* m_foregroundChains2;
+	Sprite* m_foregroundChains3;
 
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Player* m_player;
 
 	Grid* m_grid;
+	Grid* m_foregroundGrid;
 
 public:
 	PlayScene();

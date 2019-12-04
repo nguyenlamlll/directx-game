@@ -288,6 +288,9 @@
     <ClInclude Include="Peddler.h">
       <Filter>Header Files\Game\Peddler</Filter>
     </ClInclude>
+    <ClInclude Include="ForegroundChains.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="FloatingBrick.h">
       <Filter>Header Files\Game\GameObjects\FloatingBrick</Filter>
     </ClInclude>
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="Peddler.cpp">
       <Filter>Source Files\Game\Peddler</Filter>
+    </ClCompile>
+    <ClCompile Include="ForegroundChains.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FloatingBrick.cpp">
       <Filter>Source Files\Game\FloatingBrick</Filter>

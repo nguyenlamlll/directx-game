@@ -37,17 +37,40 @@ void PlayScene::Update(float deltaTime)
 	m_listCanCollideWithPlayer->clear();
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
 	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
+
+	visibleObjects = m_foregroundGrid->getVisibleObjects();
+	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+	{
+		it->second->Update(deltaTime);
+	}
 }
 
 void PlayScene::Draw()
 {
 	m_map->RenderMap();
+
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
 		it->second->Draw();
 	}
 	m_player->Draw();
+
+
+	m_firstColumn->Draw();
+	m_secondColumn->Draw();
+	m_thirdColumn->Draw();
+	m_fourthColumn->Draw();
+
+	/*m_foregroundChains->DrawOnScreen();
+	m_foregroundChains2->DrawOnScreen();
+	m_foregroundChains3->DrawOnScreen();*/
+
+	auto visibleObjects2 = m_foregroundGrid->getVisibleObjects();
+	for (auto it = visibleObjects2->begin(); it != visibleObjects2->end(); it++)
+	{
+		it->second->Draw();
+	}
 }
 
 void PlayScene::OnKeyDown(int keyCode)
@@ -76,9 +99,11 @@ void PlayScene::loadResources()
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();
+	m_foregroundGrid = new Grid();
 
 	//this->SaveGridToFile();
 	this->LoadGridFromFile();
+
 }
 
 void PlayScene::SaveGridToFile()
@@ -135,6 +160,14 @@ void PlayScene::LoadGridFromFile()
 		delete it->second;
 	}
 	m_grid->reset();
+
+	allObjects->clear();
+	allObjects = m_foregroundGrid->getAllObjects();
+	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
+	{
+		delete it->second;
+	}
+	m_foregroundGrid->reset();
 
 	// Open file and read object positions, load them into the grid.
 	std::ifstream file;
@@ -290,6 +323,63 @@ void PlayScene::LoadGridFromFile()
 			file >> type;
 			Spike* spike = new Spike(x, y, w, h, type);
 			m_grid->add(count, spike);
+		}
+		else if (objectName._Equal("first-column"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			m_firstColumn = new Sprite(L"Resources/map/first-column.png", D3DCOLOR_XRGB(255, 255, 255));
+			m_firstColumn->setPositionX(x);
+			m_firstColumn->setPositionY(y);
+		}
+		else if (objectName._Equal("second-column"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			m_secondColumn = new Sprite(L"Resources/map/second-column.png", D3DCOLOR_XRGB(255, 255, 255));
+			m_secondColumn->setPositionX(x);
+			m_secondColumn->setPositionY(y);
+		}
+		else if (objectName._Equal("third-column"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			m_thirdColumn = new Sprite(L"Resources/map/third-column.png", D3DCOLOR_XRGB(255, 255, 255));
+			m_thirdColumn->setPositionX(x);
+			m_thirdColumn->setPositionY(y);
+		}
+		else if (objectName._Equal("fourth-column"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			m_fourthColumn = new Sprite(L"Resources/map/fourth-column.png", D3DCOLOR_XRGB(255, 255, 255));
+			m_fourthColumn->setPositionX(x);
+			m_fourthColumn->setPositionY(y);
+		}
+		else if (objectName._Equal("chains-ui"))
+		{
+			float x, y, w, h;
+			float scaleX, scaleY;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> scaleX;
+			file >> scaleY;
+			ForegroundChains* foregroundChains = new ForegroundChains(x, y, w, h, scaleX, scaleY);
+			m_foregroundGrid->add(count, foregroundChains);
 		}
 	}
 	file.close();

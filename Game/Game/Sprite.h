@@ -12,7 +12,7 @@ protected:
 	RECT m_sourceRect;
 
 	D3DXVECTOR3 m_position;
-	D3DXVECTOR3 m_scale{ D3DXVECTOR3(1,1,1) };
+	D3DXVECTOR3 m_scale { D3DXVECTOR3( 1.0f, 1.0f, 1.0f) };
 	D3DCOLOR color;
 	bool initialized;
 
@@ -56,6 +56,7 @@ public:
 	bool getFlipVertical() { return m_flipVertical; }
 
 	void Draw();
+	void DrawOnScreen();
 
 	RECT getSourceRect() { return m_sourceRect; }
 	void setSourceRect(RECT value) { m_sourceRect = value; }
@@ -63,4 +64,6 @@ public:
 	D3DXVECTOR3 getCenter() { return m_center; }
 	void setCenter(D3DXVECTOR3 value) { m_center = value; }
 
+	D3DXVECTOR3 getScale() { return m_scale; }
+	void setScale(D3DXVECTOR3 value) { m_scale = value; }
 };
