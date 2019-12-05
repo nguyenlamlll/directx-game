@@ -176,6 +176,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MustacheGuard.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Peddler.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Peddler.cpp" />

@@ -11,6 +11,8 @@ PlayScene::PlayScene()
 	m_map = new GameMap(500, 500, 3000 / 500, 2000 / 500,
 		L"Resources/map/dungeon-500-500-tileset.png",
 		L"Resources/map/dungeon-500-500.csv");
+
+	Sound::getInstance()->play("soundtrack", true);
 }
 
 

@@ -22,6 +22,7 @@
 #include "HangingMorningStar.h"
 
 #include "GameMap.h"
+#include "Sound.h"
 
 #include <map>
 #include <iostream>

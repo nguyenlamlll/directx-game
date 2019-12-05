@@ -4,6 +4,8 @@
 
 #include "Global.h"
 
+#include "Sound.h"
+
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 
