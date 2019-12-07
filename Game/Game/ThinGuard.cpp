@@ -22,7 +22,7 @@ ThinGuard::ThinGuard(float x, float y, float width, float height)
 	m_animations[ThinGuardStates::Attacking]->setPositionX(x);
 	m_animations[ThinGuardStates::Attacking]->setPositionY(y);
 
-	m_animations[ThinGuardStates::BeingHit] = new Animation(L"Resources/animations/enemy/thin-guard/being-hit.png", 9, 1, 9, true, 80.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[ThinGuardStates::BeingHit] = new Animation(L"Resources/animations/enemy/thin-guard/being-hit.png", 9, 1, 9, false, 80.f, D3DCOLOR_XRGB(120, 193, 152));
 	m_animations[ThinGuardStates::BeingHit]->setPositionX(x);
 	m_animations[ThinGuardStates::BeingHit]->setPositionY(y);
 
