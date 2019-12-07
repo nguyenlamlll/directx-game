@@ -65,10 +65,24 @@ void PlayerStandAttackState::OnCollision(GameObject* entity, float deltaTime)
 	{
 		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), dynamic_cast<MustacheGuard*>(entity)->GetBoundingBox()))
 		{
-			OutputDebugString(L"[INFO] Player began colliding with Mustache Guard. \n");
+			OutputDebugString(L"[INFO] Player is colliding with Mustache Guard. \n");
 			if (isAttackingHit == false)
 			{
 				dynamic_cast<MustacheGuard*>(entity)->takeDamage(5);
+				dynamic_cast<MustacheGuard*>(entity)->isHit();
+				isAttackingHit = true;
+			}
+		}
+	}
+	if (entity->getTag() == Tag::ThinGuardTag)
+	{
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), dynamic_cast<ThinGuard*>(entity)->GetBoundingBox()))
+		{
+			OutputDebugString(L"[INFO] Player is colliding with Thin Guard. \n");
+			if (isAttackingHit == false)
+			{
+				dynamic_cast<ThinGuard*>(entity)->takeDamage(5);
+				dynamic_cast<ThinGuard*>(entity)->isHit();
 				isAttackingHit = true;
 			}
 		}

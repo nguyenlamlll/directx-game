@@ -6,6 +6,7 @@
 #include "Animation.h"
 
 #include "MustacheGuard.h"
+#include "ThinGuard.h"
 
 class PlayerStandAttackState : public PlayerState
 {

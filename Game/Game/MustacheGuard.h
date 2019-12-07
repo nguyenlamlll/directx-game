@@ -19,8 +19,18 @@ class MustacheGuard :
 	public GameObject,
 	public Health
 {
+private:
+	void checkAndUpdateDirection();
+	bool isPlayerOnTheLeft();
+
 protected:
 	Player* m_player = nullptr;
+	float speed{ 0.1f };
+	bool m_isBeingHit{ false };
+
+	D3DXVECTOR2 m_initialPosition;
+
+
 public:
 	Animation* m_currentAnimation;
 	MustacheGuardStates m_currentState;
@@ -31,6 +41,9 @@ public:
 
 	void attachPlayer(Player* player);
 	void checkPositionWithPlayer();
+
+	// Player calls this function when attacking the guard. The guard will turn itself into "being-hit" state.
+	void isHit();
 
 	Box GetBoundingBox();
 

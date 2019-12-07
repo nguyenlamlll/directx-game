@@ -34,6 +34,13 @@
 #include <dinput.h>
 
 
+namespace MathHelper {
+	inline float findDistance(D3DXVECTOR2 p1, D3DXVECTOR2 p2)
+	{
+		return sqrt(abs(pow(p1.x - p2.x, 2)) + abs(pow(p1.y - p2.y, 2)));
+	}
+}
+
 namespace DebugHelper {
 	inline void DebugOut(const wchar_t *fmt, ...)
 	{
