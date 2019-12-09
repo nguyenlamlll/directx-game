@@ -73,6 +73,18 @@
     <Filter Include="Header Files\Game\GameObjects\Player">
       <UniqueIdentifier>{4b6e091d-2c3f-47db-b93c-f7a46f797473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Skeleton">
+      <UniqueIdentifier>{735f1fe4-c1f8-4f71-b80c-b1238586fe32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Skeleton">
+      <UniqueIdentifier>{a2b4b5cb-03c7-4747-b38b-374bc820ce6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Bat">
+      <UniqueIdentifier>{c6f1dd64-8185-47db-bc25-6e36929efa31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Bat">
+      <UniqueIdentifier>{ff46daad-2151-4e7e-bf0a-4481675996d7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Game\GameObjects\FloatingBrick">
       <UniqueIdentifier>{0fa98611-bda2-4589-9e71-a81b05258f2f}</UniqueIdentifier>
     </Filter>
@@ -306,6 +318,12 @@
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Header Files\Game\GameObjects\Bat</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Game\GameObjects\Skeleton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -499,6 +517,12 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source Files\Game\GameObjects\Bat</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Game\GameObjects\Skeleton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

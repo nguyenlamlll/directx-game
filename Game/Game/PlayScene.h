@@ -16,6 +16,8 @@
 
 #include "ThinGuard.h"
 #include "MustacheGuard.h"
+#include "Bat.h"
+#include "Skeleton.h"
 
 #include "FloatingBrick.h"
 #include "Spike.h"

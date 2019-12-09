@@ -302,6 +302,33 @@ void PlayScene::LoadGridFromFile()
 			FloatingBrick* floatingbrick = new FloatingBrick(x, y, w, h, type);
 			m_grid->add(count, floatingbrick);
 		}
+		else if (objectName._Equal("bat-enemy"))
+		{
+			float x, y, w, h;
+			float lm_left, lm_right;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> lm_left;
+			file >> lm_right;
+			Bat* batObject = new Bat(x, y, w, h, lm_left, lm_right);
+			batObject->attachPlayer(m_player);
+			m_grid->add(count, batObject);
+		}
+		else if (objectName._Equal("skeleton-guard"))
+		{
+			float x, y, w, h;
+			bool isFacingRight;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> isFacingRight;
+			Skeleton* skeleton = new Skeleton(x, y, w, h, isFacingRight);
+			skeleton->attachPlayer(m_player);
+			m_grid->add(count, skeleton);
+		}
 		else if (objectName._Equal("hanging-morning-star"))
 		{
 			float x, y, w, h;

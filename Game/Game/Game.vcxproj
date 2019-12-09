@@ -160,6 +160,7 @@
     <ClInclude Include="AppleBullet.h" />
     <ClInclude Include="AppleItem.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="BlueHeartItem.h" />
     <ClInclude Include="FloatingBrick.h" />
     <ClInclude Include="Camera.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="RubyItem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="KeyboardInput.h" />
@@ -227,6 +229,7 @@
     <ClCompile Include="AppleBullet.cpp" />
     <ClCompile Include="AppleItem.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
     <ClCompile Include="FloatingBrick.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -277,6 +280,7 @@
     <ClCompile Include="RubyItem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />

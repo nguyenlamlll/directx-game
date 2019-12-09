@@ -40,9 +40,19 @@ thin-guard 700 1000 100 100
 
 #Enemies type: 10 mustache guard
 mustache-guard 880 1580 100 100
+mustache-guard 1200 1575 100 100
 mustache-guard 1200 1580 100 100
 
 #Enemies type: 9 skeleton guard
+skeleton-guard 1105 1352 108 111 0
+skeleton-guard 1445 1272 108 111 0
+skeleton-guard 1650 1352 108 111 0
+skeleton-guard 1850 1192 108 111 0
+skeleton-guard 1485 1115 108 111 1
+skeleton-guard 1695 762 108 111 0
+skeleton-guard 2230 1213 108 111 0
+skeleton-guard 2330 1050 108 111 0
+skeleton-guard 2160 970 108 111 1
 
 #Enemies type: 16 spike
 spike-spike 2237 1315 49 35 1
@@ -77,7 +87,14 @@ hanging-morning-star 1200 1020 49 35 1
 hanging-morning-star 1085 1135 49 35 8
 hanging-morning-star 1200 1135 49 35 14
 
-#Enemies type: 6 bat
+#Enemies type: 7 bat
+bat-enemy 848 1460 21 26 780 860
+bat-enemy 1262 1458 21 26 1200 1300
+bat-enemy 1935 1440 21 26 1870 1950
+bat-enemy 737 895 21 26 580 860
+bat-enemy 590 623 21 26 550 800
+bat-enemy 1265 735 21 26 1100 1320 
+bat-enemy 2270 1105 21 26 2100 2300
 
 # Item type: 38 floating brick
 floating-brick 805 1145 40 24 1
@@ -256,5 +273,3 @@ apple-item 1582 1227 16 16
 apple-item 1665 1132 16 16
 apple-item 1810 940 16 16
 apple-item 1872 990 16 16
-
-

@@ -12,6 +12,8 @@ enum Tag {
 	PeddlerTag,
 	ThinGuardTag,
 	MustaheGuardTag,
+	SkeletonTag,
+	BatTag,
 	BrickTag,
 	SpikeTag,
 	HangingMorningStarTag,
