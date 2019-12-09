@@ -190,5 +190,11 @@ void ThinGuard::Draw()
 	if (m_currentHealth > 0.0f)
 	{
 		m_currentAnimation->Draw();
+
+		D3DXVECTOR2 points[2];
+		points[0] = D3DXVECTOR2(this->GetBoundingBox().x, this->GetBoundingBox().y);
+		points[1] = D3DXVECTOR2(this->GetBoundingBox().x + this->GetBoundingBox().width, this->GetBoundingBox().y);
+		HRESULT result = Global::GetInstance()->g_LineHandler->Draw(points, 2, 0xffffffff);
+		int a = 0;
 	}
 }

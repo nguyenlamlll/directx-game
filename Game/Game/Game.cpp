@@ -134,6 +134,17 @@ int Game::InitDirectX()
 	}
 	GLOBAL->g_SpriteHandler = sprite;
 
+	// Create line handler
+	LPD3DXLINE line;
+	if (FAILED(D3DXCreateLine(Global::GetInstance()->g_DirectDevice, &line)))
+	{
+		MessageBox(NULL, L"Cannot create line handler.", L"Error", MB_OK);
+		return 0;
+	}
+	line->SetWidth(10);
+	line->SetPattern(0xffffffff);
+	Global::GetInstance()->g_LineHandler = line;
+
 	//Get back buffer
 	LPDIRECT3DSURFACE9 backbuffer;
 	if (FAILED(dev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer)))
