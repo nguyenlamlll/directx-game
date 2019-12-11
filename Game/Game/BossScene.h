@@ -5,6 +5,8 @@
 
 #include "KeyboardInput.h"
 
+#include "Boss.h"
+
 class BossScene :
 	public Scene
 {

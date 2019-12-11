@@ -162,6 +162,8 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BlueHeartItem.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="BossScene.h" />
     <ClInclude Include="FloatingBrick.h" />
     <ClInclude Include="Camera.h" />
@@ -218,6 +220,7 @@
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThinGuard.h" />
@@ -232,6 +235,8 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="FloatingBrick.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -288,6 +293,7 @@
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MouseInput.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

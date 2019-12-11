@@ -185,6 +185,19 @@ void BossScene::loadObjectsFromFileToGrid()
 			//file >> h;
 			//m_grid->add(new Ground(x, y, w, h));
 		}
+		else if (objectName._Equal("boss"))
+		{
+			float x, y, w, h;
+			bool isFacingRight;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> isFacingRight;
+			Boss* boss = new Boss(x, y, w, h, isFacingRight);
+			boss->attachPlayer(m_player);
+			m_grid->add(count, boss);
+		}
 	}
 	file.close();
 }

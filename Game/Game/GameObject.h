@@ -17,6 +17,9 @@ enum Tag {
 	BrickTag,
 	SpikeTag,
 	HangingMorningStarTag,
+	BossTag,
+	FireTag,
+	StarTag,
 };
 
 class GameObject

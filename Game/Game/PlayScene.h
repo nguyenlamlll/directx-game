@@ -26,6 +26,10 @@
 #include "GameMap.h"
 #include "Sound.h"
 
+#include "Boss.h"
+#include "Star.h"
+#include "Fire.h"
+
 #include "SceneManager.h"
 #include "BossScene.h"
 

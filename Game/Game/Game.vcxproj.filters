@@ -318,6 +318,15 @@
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
     <ClInclude Include="Bat.h">
       <Filter>Header Files\Game\GameObjects\Bat</Filter>
     </ClInclude>
@@ -520,6 +529,15 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Bat.cpp">
       <Filter>Source Files\Game\GameObjects\Bat</Filter>
