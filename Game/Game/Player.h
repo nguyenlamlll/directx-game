@@ -36,6 +36,11 @@
 class PlayerState;
 class Player : public GameObject, public Health
 {
+#if defined(DEBUG) | defined(_DEBUG)
+public:
+	bool m_isMovingFreely{ false };
+#endif
+
 public:
 	D3DXVECTOR2 m_basePosition;
 

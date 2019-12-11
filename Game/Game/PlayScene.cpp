@@ -27,6 +27,11 @@ void PlayScene::Update(float deltaTime)
 		this->LoadGridFromFile();
 		return;
 	}
+	if (KeyboardInput::GetInstance()->isKeyTriggered(0x32))
+	{
+		SceneManager::getInstance()->changeScene(new BossScene());
+		return;
+	}
 
 	auto visibleObjects = m_grid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
@@ -85,6 +90,37 @@ void PlayScene::OnKeyUp(int keyCode)
 
 void PlayScene::ReleaseAll()
 {
+	Sound::getInstance()->stop("soundtrack");
+
+	delete m_player;
+
+	m_map->Release();
+	delete m_map;
+
+	delete m_firstColumn;
+	delete m_secondColumn;
+	delete m_thirdColumn;
+	delete m_fourthColumn;
+
+	m_listCanCollideWithPlayer->clear();
+	delete m_listCanCollideWithPlayer;
+
+	auto allObjects = m_grid->getAllObjects();
+	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
+	{
+		delete it->second;
+	}
+	m_grid->reset();
+	delete m_grid;
+
+	allObjects->clear();
+	allObjects = m_foregroundGrid->getAllObjects();
+	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
+	{
+		delete it->second;
+	}
+	m_foregroundGrid->reset();
+	delete m_foregroundGrid;
 }
 
 void PlayScene::loadResources()

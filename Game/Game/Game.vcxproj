@@ -162,6 +162,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BlueHeartItem.h" />
+    <ClInclude Include="BossScene.h" />
     <ClInclude Include="FloatingBrick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
+    <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="FloatingBrick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />

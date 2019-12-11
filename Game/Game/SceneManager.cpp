@@ -29,6 +29,7 @@ void SceneManager::changeScene(Scene * newScene)
 	if (m_currentScene)
 	{
 		m_currentScene->ReleaseAll();
+		delete m_currentScene;
 		m_currentScene = nullptr;
 	}
 	m_currentScene = newScene;

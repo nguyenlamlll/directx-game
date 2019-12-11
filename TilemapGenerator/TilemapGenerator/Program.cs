@@ -10,16 +10,16 @@ namespace TilemapGenerator
 {
     class Program
     {
-        public static int tileWidth = 500;
-        public static int tileHeight = 500;
+        public static int tileWidth = 250;
+        public static int tileHeight = 250;
 
         public Dictionary<int, Bitmap> lstTileSet = new Dictionary<int, Bitmap>();
         public static string enviroment = System.Environment.CurrentDirectory;
         public string projectDirectory = Directory.GetCurrentDirectory();
         //public string projectDirectory = Directory.GetParent(enviroment).Parent.FullName;
-        public static string InputFileName = "dungeon-500-500.png";
-        public static string CsvFileName = "dungeon-500-500.csv";
-        public static string OutputFileName = "dungeon-500-500-tileset.png";
+        public static string InputFileName = "jafar-small.png";
+        public static string CsvFileName = "jafar-small.csv";
+        public static string OutputFileName = "jafar-small-tileset.png";
         
         public bool Equals(Bitmap bmp1, Bitmap bmp2)
         {

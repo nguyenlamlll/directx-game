@@ -47,7 +47,6 @@ GameMap::GameMap(
 	this->m_numTilesWidth = numTilesWidth;
 
 	m_tileset = new Tileset(tileSetPath, tileWidth, tileHeight);
-	//m_tileset2 = new Tileset(L"Resources/map/dungeon_tileset_02.png", tileWidth, tileHeight);
 
 	//Initialize game world map width and height
 	GLOBAL->g_WorldMapWidth = numTilesWidth * tileWidth;
@@ -60,6 +59,11 @@ GameMap::GameMap(
 
 GameMap::~GameMap()
 {
+}
+
+void GameMap::setMapPosition(D3DXVECTOR2 value)
+{
+	m_mapPosition = value;
 }
 
 void GameMap::RenderMap()

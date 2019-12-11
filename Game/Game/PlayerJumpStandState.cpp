@@ -8,7 +8,7 @@ PlayerJumpStandState::PlayerJumpStandState(Player* player, Animation* animation)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 
-	m_initialY = m_player->m_basePosition.y;
+	m_initialY = m_player->getPosition().y;
 
 	m_travelledJumpDistance = 0.0f;
 	m_longestJumpDistance = 120.0f;

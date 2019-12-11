@@ -103,6 +103,9 @@ Player::~Player()
 	delete m_animationSwingStop;
 	delete m_animationSwingAttack;
 	delete m_animationSwingAttackThrow;
+
+	delete m_currentState;
+	delete m_previousState;
 }
 
 Box Player::GetBoundingBox()
@@ -127,9 +130,15 @@ D3DXVECTOR2 Player::getVelocity()
 
 void Player::Update(float deltaTime)
 {
+#if defined(DEBUG) | defined(_DEBUG)
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2)) 
+	{
+		m_isMovingFreely = !m_isMovingFreely;
+	}
+#endif
+
+
 	m_currentState->Update(deltaTime);
-
-
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
@@ -166,11 +175,21 @@ void Player::Update(float deltaTime)
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
 	{
-		vy = -speed * deltaTime;
+#if defined(DEBUG) | defined(_DEBUG)
+		if (m_isMovingFreely)
+		{
+			vy = -speed * deltaTime;
+		}
+#endif
 	}
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
 	{
-		vy = speed * deltaTime;
+#if defined(DEBUG) | defined(_DEBUG)
+		if (m_isMovingFreely)
+		{
+			vy = speed * deltaTime;
+		}
+#endif
 	}
 	else
 	{

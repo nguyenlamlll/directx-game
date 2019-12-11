@@ -23,9 +23,7 @@ private:
 
 
 	std::vector<int> m_data;
-	std::vector<int> m_data2;
 	Tileset* m_tileset;
-	Tileset* m_tileset2;
 	int m_tileWidth;
 	int m_tileHeight;
 	int	m_numTilesWidth;
@@ -35,6 +33,8 @@ private:
 public:
 	GameMap(int tileWidth, int tileHeight, int numTilesWidth, int numTileHeight, LPCWSTR tileSetPath, LPCWSTR dataFilePath);
 	~GameMap();
+
+	void setMapPosition(D3DXVECTOR2 value);
 
 	void RenderMap();
 

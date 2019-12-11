@@ -26,6 +26,9 @@
 #include "GameMap.h"
 #include "Sound.h"
 
+#include "SceneManager.h"
+#include "BossScene.h"
+
 #include <map>
 #include <iostream>
 class PlayScene :
@@ -37,10 +40,6 @@ private:
 	Sprite* m_secondColumn;
 	Sprite* m_thirdColumn;
 	Sprite* m_fourthColumn;
-
-	Sprite* m_foregroundChains;
-	Sprite* m_foregroundChains2;
-	Sprite* m_foregroundChains3;
 
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
