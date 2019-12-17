@@ -32,21 +32,12 @@ D3DXVECTOR2 Item::getVelocity() {
 }
 
 void Item::Update(float deltaTime) {
-	switch (status)
-	{
-	case NonActive:
+	OnInterSerct();
+	if (!isUsed) 
 		NonActiveAction();
-		image->Update(deltaTime);
-		break;
-	case Active:
+	else
 		ActiveAction();
-		if (!isDead) {
-			image->Update(deltaTime);
-		}
-		break;
-	default:
-		break;
-	}
+	image->Update(deltaTime);
 }
 
 void Item::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {
@@ -86,4 +77,20 @@ void Item::NonActiveAction() {
 
 int Item::getStatus() {
 	return status;
+}
+
+void Item::attachPlayer(Player* player)
+{
+	m_player = player;
+}
+
+void Item::OnInterSerct() {
+	float rangeX, rangeY;
+	rangeX = abs(m_player->getPosition().x - this->x);
+	rangeY = abs(m_player->getPosition().y - this->y);
+
+	if (rangeX <= 15 && rangeY <= 25)
+	{
+		ActiveAction();
+	}
 }

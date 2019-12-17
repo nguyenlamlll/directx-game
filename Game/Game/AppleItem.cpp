@@ -32,7 +32,7 @@ void AppleItem::ActiveAction() {
 	default:
 	{
 		status = Active;
-		image = new Animation(L"Resources/Items/PNG/Apple-Ruby-Heart-collision_20_19_5.png", 5, 1, 5, false, 60.f);
+		image = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;

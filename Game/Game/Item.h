@@ -1,7 +1,8 @@
 #pragma once
-#include "../Game/GameObject.h"
-#include "../Game/Animation.h"
-#include "../Game/Sprite.h"
+#include "GameObject.h"
+#include "Animation.h"
+#include "Sprite.h"
+#include "Player.h"
 
 
 enum ItemStatus
@@ -15,6 +16,7 @@ class Item : public GameObject
 protected:
 	ItemStatus status;
 	Animation* image;
+	Player* m_player;
 	// value check reset load animation
 	DWORD last_time, start_wait;
 
@@ -29,6 +31,8 @@ public:
 	~Item();
 	Item(float x, float y, float width, float height);
 
+
+
 	Box GetBoundingBox();
 
 	D3DXVECTOR2 getVelocity();
@@ -40,6 +44,10 @@ public:
 	//action when item actived
 	virtual void ActiveAction();
 	virtual void NonActiveAction();
+
+	void attachPlayer(Player* player);
+	void OnInterSerct();
+
 
 	//get status item
 	int getStatus();

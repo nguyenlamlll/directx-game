@@ -45,7 +45,6 @@ public:
 	D3DXVECTOR2 m_basePosition;
 
 	float speed;
-
 	Animation* m_currentAnimation;
 	Animation* m_animationStand;
 	Animation* m_animationStandLookAround;
@@ -91,10 +90,5 @@ public:
 	void Draw();
 
 	void changeState(PlayerStates state);
-
-private:
-	Health* m_health;
-public:
-	Health* getHealth();
 };
 

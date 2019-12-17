@@ -1,7 +1,8 @@
 #pragma once
-#include "../Game/GameObject.h"
-#include "../Game/Animation.h"
-#include "../Game/Sprite.h"
+#include "GameObject.h"
+#include "Animation.h"
+#include "Sprite.h"
+#include "Player.h"
 
 enum class PeddlerStatus
 {
@@ -21,18 +22,27 @@ class Peddler : public GameObject
 {
 protected:
 	PeddlerStatus status;
-	PeddlerStates state;
+	PeddlerStates m_state;
 
-	Animation* image1;
-	Animation* image2;
+	Animation* m_image;
+	Animation* m_imageTrf1;
+	Animation* m_imageTrf2;
+	Animation* m_imageTrf3;
+	Animation* m_imageTrf4;
+	Animation* m_imageStanding1;
+	Animation* m_imageStanding2;
+
+
+	Player* m_player;
 	// value check reset load animation
-	DWORD last_time, start_wait;
+	DWORD last_time, start_wait, start_waitStanding2;
 
 	// has been die ? true = not die|| false = die (hidden object to do reset list object when player dead)
 	bool isDead;
 	// has been used ? true = not used || false = used
 	bool isUsed;
 	bool isDied;
+	bool isTransform;
 public:
 	Peddler(float x, float y, float width, float height);
 	~Peddler();
@@ -53,4 +63,7 @@ public:
 
 	//
 	void resetPeddler();
+
+	void attachPlayer(Player* player);
+	void OnInterSerct();
 };

@@ -121,6 +121,12 @@
     <Filter Include="Source Files\Game\GameObjects\Spike">
       <UniqueIdentifier>{7ddd13f6-9dee-4dc0-b07b-522e9f64400f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\GameObjects\BloodBar">
+      <UniqueIdentifier>{bc7c3357-a4fa-4b59-b825-e7fdd812f8e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\BloodBar">
+      <UniqueIdentifier>{de4c49bb-0a87-4129-bf36-82f35da5fe43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -333,6 +339,9 @@
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files\Game\GameObjects\Skeleton</Filter>
     </ClInclude>
+    <ClInclude Include="BloodBar.h">
+      <Filter>Header Files\Game\GameObjects\BloodBar</Filter>
+    </ClInclude>
     <ClInclude Include="BossScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
     </ClInclude>
@@ -544,6 +553,9 @@
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Game\GameObjects\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodBar.cpp">
+      <Filter>Source Files\Game\GameObjects\BloodBar</Filter>
     </ClCompile>
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>

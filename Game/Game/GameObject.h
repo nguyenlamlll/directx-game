@@ -3,6 +3,7 @@
 #include <map>
 enum Tag {
 	PlayerTag,
+	BloodBarTag,
 	GroundTag,
 	PadTag,
 	UnclassifiedTag,

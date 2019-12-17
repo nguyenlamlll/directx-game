@@ -32,7 +32,7 @@ void GenieJarItem::ActiveAction() {
 			vx = 0;
 			image = new Animation(L"Resources/Items/PNG/genie-jar-end_34_38_1.png", 1, 1, 1);
 			image->setPositionX(this->x);
-			image->setPositionY(this->y);
+			image->setPositionY(this->y-3);
 			isDied = true;
 			isUsed = true;
 		}

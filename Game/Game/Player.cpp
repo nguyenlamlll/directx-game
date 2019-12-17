@@ -12,7 +12,7 @@ PlayerState * Player::getCurrentState()
 }
 
 Player::Player(float x, float y, float width, float height)
-	: GameObject(x, y, width, height, Tag::PlayerTag), Health(100)
+	: GameObject(x, y, width, height, Tag::PlayerTag), Health(9)
 {
 	m_basePosition = D3DXVECTOR2(x, y);
 	this->setPosition(m_basePosition);
@@ -349,9 +349,4 @@ void Player::changeState(PlayerStates state)
 	}
 	}
 	m_currentState = newState;
-}
-
-Health * Player::getHealth()
-{
-	return m_health;
 }

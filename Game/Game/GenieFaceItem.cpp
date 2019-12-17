@@ -33,7 +33,7 @@ void GenieFaceItem::ActiveAction() {
 	}
 	default:
 	{
-		image = new Animation(L"Resources/Items/PNG/Explosions-genieFace_43_43_7.png", 5, 1, 5, false, 40.f);
+		image = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 60.f);
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;

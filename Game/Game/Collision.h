@@ -1,4 +1,5 @@
 #pragma once
+
 struct Box {
 	// Possition of top-left corner
 	float x, y;

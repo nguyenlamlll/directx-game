@@ -50,6 +50,8 @@ void PlayScene::Update(float deltaTime)
 	{
 		it->second->Update(deltaTime);
 	}
+
+	m_blood->Update(deltaTime);
 }
 
 void PlayScene::Draw()
@@ -78,6 +80,7 @@ void PlayScene::Draw()
 	{
 		it->second->Draw();
 	}
+	m_blood->Draw();
 }
 
 void PlayScene::OnKeyDown(int keyCode)
@@ -130,6 +133,10 @@ void PlayScene::loadResources()
 		1580.5,
 		106.f,
 		106.f);
+
+	m_blood = new BloodBar(75, 25, 0, 0);
+	m_blood->attachPlayer(m_player);
+
 	Camera::getInstance();
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	D3DXVECTOR2 position(704.25, 1463.75);
@@ -272,6 +279,7 @@ void PlayScene::LoadGridFromFile()
 			file >> w;
 			file >> h;
 			AppleItem* appleItem = new AppleItem(x, y, w, h);
+			appleItem->attachPlayer(m_player);
 			m_grid->add(count, appleItem);
 		}
 		else if (objectName._Equal("blue-heart-item"))
@@ -282,6 +290,7 @@ void PlayScene::LoadGridFromFile()
 			file >> w;
 			file >> h;
 			BlueHeartItem* blueHeartItem = new BlueHeartItem(x, y, w, h);
+			blueHeartItem->attachPlayer(m_player);
 			m_grid->add(count, blueHeartItem);
 		}
 		else if (objectName._Equal("genie-face-item"))
@@ -292,6 +301,7 @@ void PlayScene::LoadGridFromFile()
 			file >> w;
 			file >> h;
 			GenieFaceItem* genieFaceItem = new GenieFaceItem(x, y, w, h);
+			genieFaceItem->attachPlayer(m_player);
 			m_grid->add(count, genieFaceItem);
 		}
 		else if (objectName._Equal("genie-jar-item"))
@@ -302,6 +312,7 @@ void PlayScene::LoadGridFromFile()
 			file >> w;
 			file >> h;
 			GenieJarItem* genieJarItem = new GenieJarItem(x, y, w, h);
+			genieJarItem->attachPlayer(m_player);
 			m_grid->add(count, genieJarItem);
 		}
 		else if (objectName._Equal("ruby-item"))
@@ -314,6 +325,7 @@ void PlayScene::LoadGridFromFile()
 			file >> h;
 			file >> indexFrame;
 			RubyItem* rubyItem = new RubyItem(x, y, w, h, indexFrame);
+			rubyItem->attachPlayer(m_player);
 			m_grid->add(count, rubyItem);
 		}
 		else if (objectName._Equal("peddler"))
@@ -324,6 +336,7 @@ void PlayScene::LoadGridFromFile()
 			file >> w;
 			file >> h;
 			Peddler* peddler = new Peddler(x, y, w, h);
+			peddler->attachPlayer(m_player);
 			m_grid->add(count, peddler);
 		}
 		else if (objectName._Equal("floating-brick"))

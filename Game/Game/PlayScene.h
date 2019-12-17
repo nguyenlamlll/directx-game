@@ -13,6 +13,7 @@
 #include "RubyItem.h"
 #include "Peddler.h"
 #include "ForegroundChains.h"
+#include "BloodBar.h"
 
 #include "ThinGuard.h"
 #include "MustacheGuard.h"
@@ -48,6 +49,7 @@ private:
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Player* m_player;
+	BloodBar* m_blood;
 
 	Grid* m_grid;
 	Grid* m_foregroundGrid;
