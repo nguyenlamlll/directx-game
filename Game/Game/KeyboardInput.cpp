@@ -25,11 +25,11 @@ KeyboardInput * KeyboardInput::GetInstance()
 void KeyboardInput::keyDown(WPARAM keyCode)
 {
 #ifdef _DEBUG
-	std::wstring rawKey(getKeyPressedString(keyCode));
-	std::wstring raw = rawKey + L" is down.";
-	LPCWSTR outputString = raw.c_str();
-	OutputDebugString(outputString);
-	OutputDebugString(L"\n");
+	//std::wstring rawKey(getKeyPressedString(keyCode));
+	//std::wstring raw = rawKey + L" is down.";
+	//LPCWSTR outputString = raw.c_str();
+	//OutputDebugString(outputString);
+	//OutputDebugString(L"\n");
 #endif
 
 	// make sure key code is within buffer range
@@ -42,11 +42,11 @@ void KeyboardInput::keyDown(WPARAM keyCode)
 void KeyboardInput::keyUp(WPARAM keyCode)
 {
 #ifdef _DEBUG
-	std::wstring rawKey(getKeyPressedString(keyCode));
-	std::wstring raw = rawKey + L" is up.";
-	LPCWSTR outputString = raw.c_str();
-	OutputDebugString(outputString);
-	OutputDebugString(L"\n");
+	//std::wstring rawKey(getKeyPressedString(keyCode));
+	//std::wstring raw = rawKey + L" is up.";
+	//LPCWSTR outputString = raw.c_str();
+	//OutputDebugString(outputString);
+	//OutputDebugString(L"\n");
 #endif
 
 	// make sure key code is within buffer range

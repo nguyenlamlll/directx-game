@@ -78,7 +78,8 @@ Sound * Sound::getInstance()
 
 void Sound::loadResources()
 {
-	this->loadSound((char*)"Resources/soundtrack.wav", "soundtrack");
+	this->loadSound((char*)"Resources/sound/background-level-1.wav", "background-level-1");
+	this->loadSound((char*)"Resources/sound/background-boss-level.wav", "background-boss-level");
 }
 
 float Sound::getVolume()

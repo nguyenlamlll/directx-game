@@ -80,6 +80,10 @@ PlayerStates PlayerJumpAttackThrowState::GetState()
 	return PlayerStates::JumpAttackThrow;
 }
 
+void PlayerJumpAttackThrowState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerJumpAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

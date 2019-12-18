@@ -46,6 +46,10 @@ PlayerStates PlayerLookUpState::GetState()
 	return PlayerStates::LookUp;
 }
 
+void PlayerLookUpState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerLookUpState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

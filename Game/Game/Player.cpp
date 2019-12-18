@@ -16,12 +16,13 @@ Player::Player(float x, float y, float width, float height)
 {
 	m_basePosition = D3DXVECTOR2(x, y);
 	this->setPosition(m_basePosition);
-	speed = 0.25f;
+	speed = 0.2f;
+	vx = vy = 0;
 
 	// Stand
 	m_animationStand = new Animation(L"Resources/animations/aladdin/stand.png", 1, 1, 1);
 	// Stand Look Around
-	m_animationStandLookAround = new Animation(L"Resources/animations/aladdin/stand-look-around.png", 7, 1, 7, true, 100.f);
+	m_animationStandLookAround = new Animation(L"Resources/animations/aladdin/stand-look-around.png", 7, 1, 7, true, 150.f);
 	// Stand Throw Apple
 	m_animationStandThrow = new Animation(L"Resources/animations/aladdin/stand-throw.png", 12, 1, 12, true, 40.f);
 	// Stand Attack
@@ -30,7 +31,7 @@ Player::Player(float x, float y, float width, float height)
 	m_animationStandAttackThrow = new Animation(L"Resources/animations/aladdin/stand-attack-throw.png", 6, 1, 6, false, 60.f);
 
 	// Moving
-	m_animationMoving = new Animation(L"Resources/animations/aladdin/Aladdin_Running.png", 13, 1, 13, true, 70.f);
+	m_animationMoving = new Animation(L"Resources/animations/aladdin/Aladdin_Running.png", 13, 1, 13, true, 60.f);
 	//Moving Stop
 	m_animationMovingStop = new Animation(L"Resources/animations/aladdin/moving-stop.png", 9, 1, 9, true, 100.f);
 
@@ -112,8 +113,8 @@ Box Player::GetBoundingBox()
 {
 	Box box;
 
-	box.x = x - width/2;
-	box.y = y - height/2;
+	box.x = x - width / 2;
+	box.y = y - height / 2;
 	box.width = width;
 	box.height = height;
 	box.vx = vx;
@@ -128,15 +129,20 @@ D3DXVECTOR2 Player::getVelocity()
 	return result;
 }
 
+void Player::setVelocity(D3DXVECTOR2 value)
+{
+	vx = value.x;
+	vy = value.y;
+}
+
 void Player::Update(float deltaTime)
 {
 #if defined(DEBUG) | defined(_DEBUG)
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2)) 
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2))
 	{
 		m_isMovingFreely = !m_isMovingFreely;
 	}
 #endif
-
 
 	m_currentState->Update(deltaTime);
 
@@ -145,12 +151,19 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::Moving ||
 			m_currentState->GetState() == PlayerStates::JumpStand ||
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
-			m_currentState->GetState() == PlayerStates::JumpAttack || 
+			m_currentState->GetState() == PlayerStates::JumpAttack ||
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
 		)
 	{
 		this->setIsFacingRight(true);
-		vx = speed * deltaTime;
+		if (m_canMoveRight)
+		{
+			vx = speed * deltaTime;
+		}
+		else
+		{
+			vx = 0.0f;
+		}
 	}
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
@@ -162,7 +175,14 @@ void Player::Update(float deltaTime)
 		)
 	{
 		this->setIsFacingRight(false);
-		vx = -speed * deltaTime;
+		if (m_canMoveLeft)
+		{
+			vx = -speed * deltaTime;
+		}
+		else 
+		{
+			vx = 0.0f;
+		}
 	}
 	else
 	{
@@ -196,6 +216,8 @@ void Player::Update(float deltaTime)
 		vy = 0.0f;
 	}
 
+
+
 	x = x + vx;
 	y = y + vy;
 	this->setPosition(D3DXVECTOR2(x, y));
@@ -207,8 +229,61 @@ void Player::Update(float deltaTime)
 	Camera::getInstance()->updateCamera(D3DXVECTOR2(x, y));
 }
 
+void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
+{
+
+	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
+	{
+		auto entity = it->second;
+		if (entity->getTag() == Tag::VerticleWallTag)
+		{
+			float normalX, normalY;
+			auto result = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox(), normalX, normalY, deltaTime);
+			if (result.isCollide)
+			{
+				if (result.sideCollided == CollisionSide::Right)
+				{
+					OutputDebugString(L"[INFO] Player is about to collide with Vertical Wall on the left side of the player. \n");
+					this->m_canMoveLeft = false;
+					this->m_canMoveRight = true;
+				}
+				if (result.sideCollided == CollisionSide::Left)
+				{
+					OutputDebugString(L"[INFO] Player is about to collide with Vertical Wall on the right side of the player. \n");
+					this->m_canMoveLeft = true;
+					this->m_canMoveRight = false;
+				}
+			}
+			else
+			{
+				if (Collision::getInstance()->isColliding(this->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox()))
+				{
+					OutputDebugString(L"[INFO] Player is colliding with Vertical Wall. \n");
+					this->m_canMoveLeft = false;
+					this->m_canMoveRight = false;
+
+					if (dynamic_cast<VerticalWall*>(entity)->left() < this->left())
+					{
+						this->m_canMoveLeft = false;
+						this->m_canMoveRight = true;
+					}
+					if (this->right() <= dynamic_cast<VerticalWall*>(entity)->getPosition().x)
+					{
+						this->m_canMoveLeft = true;
+						this->m_canMoveRight = false;
+					}
+				}
+			}
+
+		}
+
+		m_currentState->PreCollision(it->second, deltaTime);
+	}
+}
+
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
 {
+
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
 		m_currentState->OnCollision(it->second, deltaTime);
@@ -238,6 +313,7 @@ void Player::Draw()
 // Because it will delete the running state and replace with a new one.
 void Player::changeState(PlayerStates state)
 {
+	m_isOnGround = false;
 	if (m_currentState != nullptr)
 	{
 		if (m_previousState != nullptr)
@@ -261,7 +337,7 @@ void Player::changeState(PlayerStates state)
 	}
 	case PlayerStates::Standing:
 	{
-		newState = new PlayerStandingState(this, m_animationStand);
+		newState = new PlayerStandingState(this, m_animationStand, m_animationStandLookAround);
 		break;
 	}
 	case PlayerStates::StandingLookAround: {
@@ -321,27 +397,27 @@ void Player::changeState(PlayerStates state)
 		break;
 	}
 	case PlayerStates::EndLevel: {
-		newState = new PlayerEndGameState(this, m_animationEndGame);
+		//newState = new PlayerEndGameState(this, m_animationEndGame);
 		break;
 	}
 	case PlayerStates::Climb: {
-		newState = new PlayerClimbState(this, m_animationClimb);
+		//newState = new PlayerClimbState(this, m_animationClimb);
 		break;
 	}
 	case PlayerStates::Swing: {
-		newState = new PlayerSwingState(this, m_animationSwing);
+		//newState = new PlayerSwingState(this, m_animationSwing);
 		break;
 	}
 	case PlayerStates::SwingStop: {
-		newState = new PlayerSwingStopState(this, m_animationSwingStop);
+		//newState = new PlayerSwingStopState(this, m_animationSwingStop);
 		break;
 	}
 	case PlayerStates::SwingAttack: {
-		newState = new PlayerSwingAttackState(this, m_animationSwingAttack);
+		//newState = new PlayerSwingAttackState(this, m_animationSwingAttack);
 		break;
 	}
 	case PlayerStates::SwingAttackThrow: {
-		newState = new PlayerSwingAttackThrowState(this, m_animationSwingAttackThrow);
+		//newState = new PlayerSwingAttackThrowState(this, m_animationSwingAttackThrow);
 		break;
 	}
 	default: {

@@ -19,6 +19,7 @@ void PlayerMovingState::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
 	{
 		m_player->changeState(PlayerStates::Standing);
+		//m_animation->Reset();
 		return;
 	}
 
@@ -26,11 +27,11 @@ void PlayerMovingState::Update(float deltaTime)
 	m_animation->setPositionY(m_player->getPosition().y - SPRITE_OFFSET);
 	m_animation->Update(deltaTime);
 
-	if (m_player->getIsFacingRight() == false) 
+	if (m_player->getIsFacingRight() == false)
 	{
 		m_animation->setFlipHorizontal(true);
 	}
-	if (m_player->getIsFacingRight() == true) 
+	if (m_player->getIsFacingRight() == true)
 	{
 		m_animation->setFlipHorizontal(false);
 	}
@@ -38,6 +39,11 @@ void PlayerMovingState::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyReleased(VK_D) ||
 		KeyboardInput::GetInstance()->isKeyReleased(VK_A))
 	{
+		if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+		{
+			m_player->changeState(PlayerStates::Moving);
+			return;
+		}
 		m_player->changeState(PlayerStates::Standing);
 		return;
 	}
@@ -45,6 +51,14 @@ void PlayerMovingState::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_SPACE))
 	{
 		m_player->changeState(PlayerStates::JumpMoving);
+		return;
+	}
+
+	if (!m_player->m_isOnGround)
+	{
+		m_player->changeState(PlayerStates::JumpStand);
+		auto jumpState = dynamic_cast<PlayerJumpStandState*>(m_player->getCurrentState());
+		jumpState->setTravelledJumpDistance(jumpState->getLongestJumpDistance());
 		return;
 	}
 }
@@ -59,6 +73,55 @@ PlayerStates PlayerMovingState::GetState()
 	return PlayerStates::Moving;
 }
 
+void PlayerMovingState::PreCollision(GameObject * entity, float deltaTime)
+{
+	if (entity->getTag() == Tag::GroundTag)
+	{
+		auto ground = dynamic_cast<Ground*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		playerBox.y -= 20;
+		playerBox.height += 40;
+		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
+		{
+			if (m_player->getPosition().y <= ground->getPosition().y - ground->getHeight()/2)
+			{
+				m_player->m_isOnGround = true;
+			}
+		}
+	}
+
+	if (entity->getTag() == Tag::VerticleWallTag)
+	{
+		float normalX, normalY;
+		auto result = Collision::getInstance()->SweptAABB(m_player->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox(), normalX, normalY, deltaTime);
+		if (result.isCollide)
+		{
+			if (result.sideCollided == CollisionSide::Right)
+			{
+				OutputDebugString(L"[INFO] Player is about to collide with Vertical Wall on the left side of the player. \n");
+				m_player->m_canMoveLeft = false;
+				m_player->m_canMoveRight = true;
+			}
+			if (result.sideCollided == CollisionSide::Left)
+			{
+				OutputDebugString(L"[INFO] Player is about to collide with Vertical Wall on the right side of the player. \n");
+				m_player->m_canMoveLeft = true;
+				m_player->m_canMoveRight = false;
+			}
+		}
+		else
+		{
+			if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox()))
+			{
+				OutputDebugString(L"[INFO] Player is colliding with Vertical Wall. \n");
+				m_player->m_canMoveLeft = false;
+				m_player->m_canMoveRight = false;
+			}
+		}
+	}
+}
+
 void PlayerMovingState::OnCollision(GameObject * entity, float deltaTime)
 {
+
 }

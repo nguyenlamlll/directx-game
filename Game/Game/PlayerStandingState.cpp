@@ -4,7 +4,7 @@
 #define IDLE_TIME 1500
 constexpr auto idle_sprite_offset = 3;
 
-PlayerStandingState::PlayerStandingState(Player* player, Animation* animation)
+PlayerStandingState::PlayerStandingState(Player* player, Animation* animation, Animation* standAndLookAroundAnimadtion)
 {
 	m_player = player;
 	m_animationStand = animation;
@@ -12,7 +12,7 @@ PlayerStandingState::PlayerStandingState(Player* player, Animation* animation)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 
-	m_animationStandLookAround = DBG_NEW Animation(L"Resources/animations/aladdin/stand-look-around.png", 7, 1, 7, true, 150.f);
+	m_animationStandLookAround = standAndLookAroundAnimadtion;
 	m_animationStandLookAround->setPositionX(m_player->getPosition().x);
 	m_animationStandLookAround->setPositionY(m_player->getPosition().y - idle_sprite_offset);
 
@@ -28,10 +28,6 @@ PlayerStandingState::PlayerStandingState(Player* player, Animation* animation)
 
 PlayerStandingState::~PlayerStandingState()
 {
-	if (m_animationStandLookAround != nullptr)
-	{
-		delete m_animationStandLookAround;
-	}
 }
 
 void PlayerStandingState::Update(float deltaTime)
@@ -51,10 +47,10 @@ void PlayerStandingState::Update(float deltaTime)
 			}
 			m_isIdling01 = true;
 		}
-		
+
 		m_idleTime = 0;
 	}
-	else 
+	else
 	{
 		m_idleTime += deltaTime;
 	}
@@ -75,6 +71,11 @@ void PlayerStandingState::Update(float deltaTime)
 	// Prevent moving when pressing both A and D keys.
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
 	{
+		return;
+	}
+	if (KeyboardInput::GetInstance()->isKeyReleased(VK_A) || KeyboardInput::GetInstance()->isKeyReleased(VK_D))
+	{
+		m_player->changeState(PlayerStates::Moving);
 		return;
 	}
 
@@ -118,6 +119,13 @@ void PlayerStandingState::Update(float deltaTime)
 		m_player->changeState(PlayerStates::StandAttackThrow);
 		return;
 	}
+	if (!m_player->m_isOnGround)
+	{
+		m_player->changeState(PlayerStates::JumpStand);
+		auto jumpState = dynamic_cast<PlayerJumpStandState*>(m_player->getCurrentState());
+		jumpState->setTravelledJumpDistance(jumpState->getLongestJumpDistance());
+		return;
+	}
 }
 
 void PlayerStandingState::Draw()
@@ -130,6 +138,74 @@ PlayerStates PlayerStandingState::GetState()
 	return PlayerStates::Standing;
 }
 
+void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
+{
+	if (entity->getTag() == Tag::VerticleWallTag)
+	{
+		float normalX, normalY;
+		auto result = Collision::getInstance()->SweptAABB(m_player->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox(), normalX, normalY, deltaTime);
+		if (!result.isCollide)
+		{
+			m_player->m_canMoveLeft = m_player->m_canMoveRight = true;
+		}
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), dynamic_cast<VerticalWall*>(entity)->GetBoundingBox()))
+		{
+			if (dynamic_cast<VerticalWall*>(entity)->left() < m_player->left())
+			{
+				m_player->m_canMoveLeft = false;
+				m_player->m_canMoveRight = true;
+			}
+			if (dynamic_cast<VerticalWall*>(entity)->left() > m_player->right())
+			{
+				m_player->m_canMoveLeft = true;
+				m_player->m_canMoveRight = false;
+			}
+		}
+	}
+	if (entity->getTag() == Tag::BrickTag) // TODO: For falling if goes out of bricks.
+	{
+		auto brick = dynamic_cast<FloatingBrick*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		playerBox.y -= 30;
+		playerBox.height += 30;
+		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
+		{
+			if (brick->getStatus() == Status::NotAllow)
+			{
+				//m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, brick->getPosition().y - (brick->getHeight() + 5)));
+				m_player->changeState(PlayerStates::JumpStand);
+				auto jumpState = dynamic_cast<PlayerJumpStandState*>(m_player->getCurrentState());
+				jumpState->setTravelledJumpDistance(jumpState->getLongestJumpDistance());
+				return;
+			}
+		}
+	}
+}
+
 void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 {
+	if (entity->getTag() == Tag::GroundTag)
+	{
+		auto ground = dynamic_cast<Ground*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		playerBox.y -= 50;
+		playerBox.height += 150;
+		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
+		{
+			//OutputDebugString(L"[INFO] Stading State is colliding with ground. \n");
+			m_player->m_isOnGround = true;
+		}
+	}
+	if (entity->getTag() == Tag::BrickTag)
+	{
+		auto brick = dynamic_cast<FloatingBrick*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		playerBox.y -= 50;
+		playerBox.height += 150;
+		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
+		{
+			//OutputDebugString(L"[INFO] Stading State is colliding with brick. \n");
+			m_player->m_isOnGround = true;
+		}
+	}
 }

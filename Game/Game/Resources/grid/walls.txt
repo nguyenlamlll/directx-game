@@ -1,0 +1,446 @@
+vertical-wall Resources/vertical-wall.png 500 1550 80 200 1 1 0
+
+vertical-wall Resources/vertical-wall.png 1999 1300 80 200 1 1 0
+
+
+vertical-wall Resources/vertical-wall.png 1999 1520 80 200 1 1 0
+vertical-wall Resources/vertical-wall.png 2060 1520 80 200 1 1 0
+
+ground 536 1623 32 32 1 1 0
+ground 568 1623 32 32 1 1 0
+ground 600 1623 32 32 1 1 0
+ground 632 1623 32 32 1 1 0
+ground 664 1623 32 32 1 1 0
+ground 696 1623 32 32 1 1 0
+ground 728 1623 32 32 1 1 0
+ground 760 1623 32 32 1 1 0
+ground 792 1623 32 32 1 1 0
+ground 824 1623 32 32 1 1 0
+ground 856 1623 32 32 1 1 0
+ground 888 1623 32 32 1 1 0
+ground 920 1623 32 32 1 1 0
+ground 952 1623 32 32 1 1 0
+ground 984 1623 32 32 1 1 0
+ground 1016 1623 32 32 1 1 0
+ground 1048 1623 32 32 1 1 0
+ground 1080 1623 32 32 1 1 0
+ground 1112 1623 32 32 1 1 0
+ground 1144 1623 32 32 1 1 0
+ground 1176 1623 32 32 1 1 0
+ground 1208 1623 32 32 1 1 0
+ground 1240 1623 32 32 1 1 0
+ground 1272 1623 32 32 1 1 0
+ground 1304 1623 32 32 1 1 0
+ground 1336 1623 32 32 1 1 0
+ground 1368 1623 32 32 1 1 0
+ground 1400 1623 32 32 1 1 0
+ground 1432 1623 32 32 1 1 0
+ground 1464 1623 32 32 1 1 0
+ground 1496 1623 32 32 1 1 0
+ground 1528 1623 32 32 1 1 0
+ground 1560 1623 32 32 1 1 0
+ground 1592 1623 32 32 1 1 0
+ground 1624 1623 32 32 1 1 0
+ground 1656 1623 32 32 1 1 0
+ground 1688 1623 32 32 1 1 0
+ground 1720 1623 32 32 1 1 0
+ground 1752 1623 32 32 1 1 0
+ground 1784 1623 32 32 1 1 0
+ground 1816 1623 32 32 1 1 0
+ground 1848 1623 32 32 1 1 0
+ground 1880 1623 32 32 1 1 0
+ground 1912 1623 32 32 1 1 0
+ground 1944 1623 32 32 1 1 0
+ground 1976 1623 32 32 1 1 0
+ground 2008 1623 32 32 1 1 0
+ground 2040 1623 32 32 1 1 0
+ground 2072 1623 32 32 1 1 0
+ground 2104 1623 32 32 1 1 0
+ground 2136 1623 32 32 1 1 0
+ground 2168 1623 32 32 1 1 0
+ground 2200 1623 32 32 1 1 0
+ground 2232 1623 32 32 1 1 0
+ground 2264 1623 32 32 1 1 0
+ground 2296 1623 32 32 1 1 0
+ground 2328 1623 32 32 1 1 0
+ground 2360 1623 32 32 1 1 0
+ground 2392 1623 32 32 1 1 0
+ground 2424 1623 32 32 1 1 0
+ground 2456 1623 32 32 1 1 0
+ground 2488 1623 32 32 1 1 0
+ground 2520 1623 32 32 1 1 0
+ground 2552 1623 32 32 1 1 0
+ground 2584 1623 32 32 1 1 0
+ground 2616 1623 32 32 1 1 0
+ground 2648 1623 32 32 1 1 0
+ground 2680 1623 32 32 1 1 0
+ground 2712 1623 32 32 1 1 0
+ground 2744 1623 32 32 1 1 0
+ground 2776 1623 32 32 1 1 0
+ground 2808 1623 32 32 1 1 0
+ground 1888 1623 32 32 1 1 0
+ground 1920 1623 32 32 1 1 0
+ground 1952 1623 32 32 1 1 0
+ground 1984 1623 32 32 1 1 0
+
+##############################################################
+# Starting from the only possible way up
+# Wood log 01
+ground 1920 1438 32 32 1 1 0
+ground 1952 1438 32 32 1 1 0
+ground 1984 1438 32 32 1 1 0
+
+# Wood log 02
+ground 1952 1375 32 32 1 1 0
+ground 1984 1375 32 32 1 1 0
+
+# Wood log 03
+ground 1800 1325 32 32 1 1 0
+ground 1832 1325 32 32 1 1 0
+ground 1864 1325 32 32 1 1 0
+ground 1890 1325 32 32 1 1 0
+
+# Wood log 04
+ground 1768 1260 32 32 1 1 0
+ground 1800 1260 32 32 1 1 0
+ground 1832 1260 32 32 1 1 0
+#ground 1864 1260 32 32 1 1 0
+
+# Skeleton platform 01
+ground 1646 1420 32 32 1 1 0
+ground 1678 1420 32 32 1 1 0
+ground 1710 1420 32 32 1 1 0
+
+##############################################################
+
+# Second brick platform
+ground 1646 1200 32 32 1 1 0
+ground 1678 1200 32 32 1 1 0
+ground 1710 1200 32 32 1 1 0
+ground 1742 1200 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-200.png 1620 1100 12 200 1 1 0
+
+# Wood log to the right
+ground 1910 1120 32 32 1 1 0
+ground 1942 1120 32 32 1 1 0
+ground 1974 1120 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-200.png 1992 1100 12 200 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 1999 1100 12 200 1 1 1
+
+
+##############################################################
+# Third brick platform - checkpoint
+ground 1580 996 32 32 1 1 0
+ground 1612 996 32 32 1 1 0
+ground 1644 996 32 32 1 1 0
+ground 1676 996 32 32 1 1 0
+ground 1708 996 32 32 1 1 0
+
+# Wood log next to it
+ground 1456 960 32 32 1 1 0
+ground 1486 960 32 32 1 1 0
+ground 1518 960 32 32 1 1 0
+ground 1550 960 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 1456 990 12 20 1 1 1
+# Wood log right below
+ground 1388 1022 32 32 1 1 0
+ground 1420 1022 32 32 1 1 0
+ground 1452 1022 32 32 1 1 0
+
+ground 1279 1096 32 32 1 1 1
+ground 1311 1096 32 32 1 1 1
+ground 1343 1096 32 32 1 1 1
+ground 1375 1096 32 32 1 1 1
+
+# Platform with morning stars
+ground 1020 1096 32 32 1 1 1
+ground 1052 1096 32 32 1 1 1
+ground 1084 1096 32 32 1 1 1
+ground 1116 1096 32 32 1 1 1
+ground 1148 1096 32 32 1 1 1
+ground 1180 1096 32 32 1 1 1
+ground 1212 1096 32 32 1 1 1
+ground 1244 1096 32 32 1 1 1
+ground 1276 1096 32 32 1 1 1
+
+#Platform below (also morning stars)
+ground 950 1212 32 32 1 1 1
+ground 982 1212 32 32 1 1 1
+ground 1014 1212 32 32 1 1 1
+ground 1046 1212 32 32 1 1 1
+ground 1078 1212 32 32 1 1 1
+ground 1110 1212 32 32 1 1 1
+ground 1142 1212 32 32 1 1 1
+ground 1174 1212 32 32 1 1 1
+ground 1206 1212 32 32 1 1 1
+ground 1238 1212 32 32 1 1 1
+ground 1270 1212 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 935 1070 12 200 1 1 1
+
+##############################################################
+# Low wood log near the start
+ground 750 1372 32 32 1 1 1
+ground 782 1372 32 32 1 1 1
+ground 814 1372 32 32 1 1 1
+
+# vertical-wall Resources/vertical-wall-12-20.png 830 1375 12 20 1 1 1
+ground 835 1405 32 32 1 1 1
+ground 867 1405 32 32 1 1 1
+ground 899 1405 32 32 1 1 1
+ground 931 1405 32 32 1 1 1
+ground 963 1405 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 985 1370 12 20 1 1 1
+
+ground 963 1325 32 32 1 1 1
+ground 995 1325 32 32 1 1 1
+ground 1027 1325 32 32 1 1 1
+ground 1059 1325 32 32 1 1 1
+ground 1075 1325 32 32 1 1 1
+
+# Low long brick platform
+vertical-wall Resources/vertical-wall-12-200.png 1620 1300 12 200 1 1 1
+ground 1000 1422 32 32 1 1 1
+ground 1032 1422 32 32 1 1 1
+ground 1064 1422 32 32 1 1 1
+ground 1096 1422 32 32 1 1 1
+ground 1128 1422 32 32 1 1 1
+ground 1160 1422 32 32 1 1 1
+ground 1192 1422 32 32 1 1 1
+ground 1224 1422 32 32 1 1 1
+ground 1256 1422 32 32 1 1 1
+ground 1288 1422 32 32 1 1 1
+ground 1320 1422 32 32 1 1 1
+ground 1352 1422 32 32 1 1 1
+ground 1384 1422 32 32 1 1 1
+ground 1416 1422 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1416 1360 12 20 1 1 0
+
+# Medium log to the right
+ground 1455 1342 32 32 1 1 0
+ground 1480 1342 32 32 1 1 0
+ground 1512 1342 32 32 1 1 0
+ground 1544 1342 32 32 1 1 0
+ground 1576 1342 32 32 1 1 0
+ground 1608 1342 32 32 1 1 0
+
+# Small log
+ground 1585 1280 32 32 1 1 1
+ground 1608 1280 32 32 1 1 1
+
+# The downward steps
+ground 1288 1250 32 32 1 1 1
+ground 1320 1250 32 32 1 1 1
+ground 1352 1250 32 32 1 1 1
+
+ground 1380 1217 32 32 1 1 1
+ground 1408 1217 32 32 1 1 1
+ground 1440 1217 32 32 1 1 1
+
+ground 1470 1185 32 32 1 1 1
+ground 1490 1185 32 32 1 1 1
+
+
+##############################################################
+# The tunnel-way up to the top
+ground 654 1060 32 32 1 1 0
+ground 686 1060 32 32 1 1 0
+ground 718 1060 32 32 1 1 0
+ground 750 1060 32 32 1 1 0
+
+# Down
+ground 654 1260 32 32 1 1 1
+ground 686 1260 32 32 1 1 1
+ground 718 1260 32 32 1 1 1
+ground 750 1260 32 32 1 1 1
+
+ground 524 1215 32 32 1 1 1
+ground 556 1215 32 32 1 1 1
+ground 588 1215 32 32 1 1 1
+ground 620 1215 32 32 1 1 1
+
+# Up
+ground 516 1005 32 32 1 1 0
+ground 548 1005 32 32 1 1 0
+ground 581 1005 32 32 1 1 0
+
+# platform
+ground 654 862 32 32 1 1 1
+ground 686 862 32 32 1 1 1
+ground 718 862 32 32 1 1 1
+ground 740 862 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 745 750 12 20 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 745 800 12 20 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 745 820 12 20 1 1 1
+
+# upper platform
+ground 648 742 32 32 1 1 1
+ground 686 742 32 32 1 1 1
+ground 718 742 32 32 1 1 1
+ground 740 742 32 32 1 1 1
+
+ground 516 800 32 32 1 1 1
+ground 548 800 32 32 1 1 1
+ground 581 800 32 32 1 1 1
+
+# platform above 2 roads with morning stars
+ground 950 960 32 32 1 1 1
+ground 982 960 32 32 1 1 1
+ground 1014 960 32 32 1 1 1
+ground 1046 960 32 32 1 1 1
+ground 1078 960 32 32 1 1 1
+ground 1110 960 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1130 940 12 20 1 1 1
+ground 1140 925 32 32 1 1 1
+ground 1172 925 32 32 1 1 1
+ground 1204 925 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1210 885 12 20 1 1 1
+ground 1210 880 32 32 1 1 1
+ground 1236 880 32 32 1 1 1
+ground 1268 880 32 32 1 1 1
+
+ground 1270 849 32 32 1 1 1
+ground 1302 849 32 32 1 1 1
+ground 1334 849 32 32 1 1 1 
+ground 1366 849 32 32 1 1 1 
+ground 1390 849 32 32 1 1 1 
+
+# Wood log near ruby
+ground 1450 780 32 32 1 1 1 
+ground 1482 780 32 32 1 1 1
+ground 1514 780 32 32 1 1 1
+ground 1546 780 32 32 1 1 1
+ground 1578 780 32 32 1 1 1
+
+##############################################################
+# platform near 2nd ruby
+ground 1610 718 32 32 1 1 1
+ground 1642 718 32 32 1 1 1
+ground 1674 718 32 32 1 1 1
+ground 1706 718 32 32 1 1 1
+ground 1738 718 32 32 1 1 1
+ground 1760 718 32 32 1 1 1
+
+ground 1610 830 32 32 1 1 1
+ground 1642 830 32 32 1 1 1
+ground 1674 830 32 32 1 1 1
+ground 1706 830 32 32 1 1 1
+ground 1738 830 32 32 1 1 1
+
+# Long last platform that player has to jump on some floating bricks
+ground 1760 880 32 32 1 1 1
+ground 1792 880 32 32 1 1 1
+ground 1824 880 32 32 1 1 1
+ground 1856 880 32 32 1 1 1
+ground 1888 880 32 32 1 1 1
+ground 1920 880 32 32 1 1 1
+ground 1952 880 32 32 1 1 1
+ground 1984 880 32 32 1 1 1
+ground 2016 880 32 32 1 1 1
+ground 2048 880 32 32 1 1 1
+ground 2080 880 32 32 1 1 1
+ground 2112 880 32 32 1 1 1
+ground 2144 880 32 32 1 1 1
+ground 2176 880 32 32 1 1 1
+ground 2208 880 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 2220 740 12 200 1 1 1
+
+# The way down
+vertical-wall Resources/vertical-wall-12-200.png 2280 500 12 200 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 2280 700 12 200 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 2280 920 12 200 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 2280 1070 12 20 1 1 1
+ground 2145 1040 32 32 1 1 1
+ground 2164 1040 32 32 1 1 1
+ground 2196 1040 32 32 1 1 1
+ground 2228 1040 32 32 1 1 1
+ground 2260 1040 32 32 1 1 1
+
+ground 2076 1120 32 32 1 1 1
+ground 2108 1120 32 32 1 1 1
+
+ground 2076 1230 32 32 1 1 1
+ground 2108 1230 32 32 1 1 1
+ground 2140 1230 32 32 1 1 1
+
+ground 2172 1280 32 32 1 1 1
+ground 2204 1280 32 32 1 1 1
+ground 2236 1280 32 32 1 1 1
+ground 2268 1280 32 32 1 1 1
+ground 2300 1280 32 32 1 1 1
+
+##############################################################
+# Bottom right part
+# Wood log
+ground 2100 1485 32 32 1 1 0
+ground 2132 1485 32 32 1 1 0
+ground 2164 1485 32 32 1 1 0
+ground 2196 1485 32 32 1 1 0
+ground 2228 1485 32 32 1 1 0
+ground 2260 1485 32 32 1 1 0
+#ground 2292 1485 32 32 1 1 0
+
+# Low brick platform
+ground 2325 1534 32 32 1 1 1
+ground 2357 1534 32 32 1 1 1
+ground 2389 1534 32 32 1 1 1
+ground 2421 1534 32 32 1 1 1
+ground 2440 1534 32 32 1 1 1
+
+
+##############################################################
+# Winning platform. You GOT IT.
+# Brick platform layers
+vertical-wall Resources/vertical-wall-12-200.png 2425 1220 12 200 1 1 1
+ground 2340 1360 32 32 1 1 0
+ground 2372 1360 32 32 1 1 0
+ground 2404 1360 32 32 1 1 0
+
+ground 2325 1120 32 32 1 1 0
+ground 2357 1120 32 32 1 1 0
+ground 2389 1120 32 32 1 1 0
+ground 2421 1120 32 32 1 1 0
+
+ground 2325 880 32 32 1 1 0
+ground 2357 880 32 32 1 1 0
+ground 2389 880 32 32 1 1 0
+ground 2421 880 32 32 1 1 0
+
+# Last wood log
+#ground 2380 750 32 32 1 1 1
+ground 2412 750 32 32 1 1 0
+ground 2444 750 32 32 1 1 0
+ground 2476 750 32 32 1 1 0
+ground 2508 750 32 32 1 1 0
+ground 2540 750 32 32 1 1 0
+ground 2572 750 32 32 1 1 0
+ground 2604 750 32 32 1 1 0
+
+# Small platform
+ground 2590 718 32 32 1 1 0
+ground 2622 718 32 32 1 1 0
+ground 2654 718 32 32 1 1 0
+ground 2686 718 32 32 1 1 0
+ground 2718 718 32 32 1 1 0
+
+# Apple platform
+ground 2700 1330 32 32 1 1 0
+ground 2732 1330 32 32 1 1 0
+
+# Above apple platform
+ground 2668 1215 32 32 1 1 1
+ground 2700 1215 32 32 1 1 1
+ground 2732 1215 32 32 1 1 1
+
+ground 2610 1104 32 32 1 1 1
+ground 2636 1104 32 32 1 1 1
+ground 2668 1104 32 32 1 1 1
+ground 2700 1104 32 32 1 1 1
+ground 2732 1104 32 32 1 1 1
+
+# Ruby platform
+ground 2572 960 32 32 1 1 1
+ground 2604 960 32 32 1 1 1
+ground 2636 960 32 32 1 1 1
+ground 2668 960 32 32 1 1 1
+ground 2700 960 32 32 1 1 1
+ground 2732 960 32 32 1 1 1

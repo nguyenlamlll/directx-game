@@ -30,6 +30,10 @@ PlayerStates PlayerMovingStopState::GetState()
 	return PlayerStates::MovingStop;
 }
 
+void PlayerMovingStopState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerMovingStopState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

@@ -3,6 +3,7 @@
 #include <map>
 enum Tag {
 	PlayerTag,
+	VerticleWallTag,
 	BloodBarTag,
 	GroundTag,
 	PadTag,

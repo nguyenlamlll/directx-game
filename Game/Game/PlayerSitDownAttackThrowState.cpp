@@ -53,6 +53,10 @@ PlayerStates PlayerSitDownAttackThrowState::GetState()
 	return PlayerStates::SitDownAttackThrow;
 }
 
+void PlayerSitDownAttackThrowState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerSitDownAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

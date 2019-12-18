@@ -42,9 +42,14 @@ public:
 #endif
 
 public:
+	bool m_isOnGround{ false };
+
 	D3DXVECTOR2 m_basePosition;
 
 	float speed;
+	bool m_canMoveLeft{ true };
+	bool m_canMoveRight{ true };
+
 	Animation* m_currentAnimation;
 	Animation* m_animationStand;
 	Animation* m_animationStandLookAround;
@@ -84,8 +89,14 @@ public:
 	Box GetBoundingBox();
 
 	D3DXVECTOR2 getVelocity();
+	void setVelocity(D3DXVECTOR2 value);
 
 	void Update(float deltaTime);
+
+	// PreCollision is called before the Update() function is called in the game loop.
+	void PreCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+
+	// OnCollision is called after the Update() function is called in the game loop.
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void Draw();
 

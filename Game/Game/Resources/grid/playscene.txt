@@ -39,8 +39,7 @@ thin-guard 800 1320 100 100
 thin-guard 700 1000 100 100
 
 #Enemies type: 10 mustache guard
-mustache-guard 880 1580 100 100
-mustache-guard 1200 1575 100 100
+mustache-guard 880 1580 100 100d
 mustache-guard 1200 1580 100 100
 
 #Enemies type: 9 skeleton guard
@@ -110,7 +109,8 @@ floating-brick 1170 680 40 24 0
 floating-brick 1125 635 40 24 1
 floating-brick 1065 600 40 24 0
 
-floating-brick 1812 1527 40 24 0
+# On the bottom ground.
+floating-brick 1820 1530 40 24 0
 floating-brick 1765 1480 40 24 1
 floating-brick 1830 1445 40 24 0
 floating-brick 1735 1370 40 24 0

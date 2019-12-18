@@ -5,7 +5,6 @@
 BossScene::BossScene()
 {
 	m_grid = new Grid();
-	m_player = new Player(700, 900, 106.f, 106.f);
 
 	Camera::getInstance();
 	D3DXVECTOR2 position(700, 900);
@@ -20,6 +19,8 @@ BossScene::BossScene()
 
 	this->loadPlayerConfigurationsFromFile();
 	this->loadObjectsFromFileToGrid();
+
+	Sound::getInstance()->play("background-boss-level", true);
 }
 
 
@@ -47,7 +48,13 @@ void BossScene::Update(float deltaTime)
 		it->second->Update(deltaTime);
 	}
 
+	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
+	m_listCanCollideWithPlayer->clear();
+	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
+	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
+
 	m_player->Update(deltaTime);
+
 	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
 	m_listCanCollideWithPlayer->clear();
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
@@ -77,6 +84,8 @@ void BossScene::OnKeyUp(int keyCode)
 
 void BossScene::ReleaseAll()
 {
+	Sound::getInstance()->stop("background-boss-level");
+
 	delete m_player;
 
 	m_map->Release();
@@ -127,6 +136,7 @@ void BossScene::loadPlayerConfigurationsFromFile()
 			file >> y;
 			file >> w;
 			file >> h;
+			m_player = new Player(700, 900, w, h);
 			m_player->setPosition(D3DXVECTOR2(x, y));
 		}
 		else if (objectName._Equal("camera"))
@@ -178,12 +188,35 @@ void BossScene::loadObjectsFromFileToGrid()
 		count++;
 		if (objectName._Equal("ground"))
 		{
-			//float x, y, w, h;
-			//file >> x;
-			//file >> y;
-			//file >> w;
-			//file >> h;
-			//m_grid->add(new Ground(x, y, w, h));
+			float x, y, w, h, scaleWidth, scaleHeight;
+			bool isDebug;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> scaleWidth;
+			file >> scaleHeight;
+			file >> isDebug;
+			Ground* ground = new Ground(x, y, w, h, scaleWidth, scaleHeight, isDebug);
+			ground->setIsDebugVisible(isDebug);
+			m_grid->add(count, ground);
+		}
+		else if (objectName._Equal("vertical-wall"))
+		{
+			string spriteName;
+			float x, y, w, h, scaleWidth, scaleHeight;
+			bool isDebug;
+			file >> spriteName;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> scaleWidth;
+			file >> scaleHeight;
+			file >> isDebug;
+			VerticalWall* wall = new VerticalWall(spriteName, x, y, w, h, scaleWidth, scaleHeight, isDebug);
+			wall->setIsDebugVisible(isDebug);
+			m_grid->add(count, wall);
 		}
 		else if (objectName._Equal("boss"))
 		{

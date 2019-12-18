@@ -36,6 +36,10 @@ PlayerStates PlayerStandLookAround::GetState()
 	return PlayerStates::StandingLookAround;
 }
 
+void PlayerStandLookAround::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerStandLookAround::OnCollision(GameObject* entity, float deltaTime)
 {
 }

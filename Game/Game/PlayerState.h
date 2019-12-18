@@ -38,6 +38,11 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Draw() = 0;
 	virtual PlayerStates GetState() = 0;
+	
+	// PreCollision is called before the Update() function is called in the game loop.
+	virtual void PreCollision(GameObject* entity, float deltaTime) = 0;
+
+	// OnCollision is called after the Update() function is called in the game loop.
 	virtual void OnCollision(GameObject* entity, float deltaTime) = 0;
 };
 

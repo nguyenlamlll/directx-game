@@ -16,12 +16,13 @@ private:
 	bool m_isIdling01 = false;
 
 public:
-	PlayerStandingState(Player* player, Animation* animation);
+	PlayerStandingState(Player* player, Animation* animation, Animation* standAndLookAroundAnimadtion);
 	~PlayerStandingState();
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
 	virtual PlayerStates GetState() override;
+	virtual void PreCollision(GameObject* entity, float deltaTime) override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
 };
 

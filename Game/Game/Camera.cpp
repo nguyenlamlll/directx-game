@@ -49,6 +49,10 @@ Box Camera::getBox()
 
 void Camera::updateCamera(D3DXVECTOR2 playerPosition)
 {
+	if (m_position.y >= 1463.75)
+	{
+		m_position.y = 1463.75;
+	}
 
 	//if (m_position.x + GLOBAL->g_ScreenWidth / 2 >= GLOBAL->g_WorldMapWidth)
 	//{

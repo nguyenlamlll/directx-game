@@ -4,8 +4,10 @@
 #include "Player.h"
 #include "Grid.h"
 
-#include "Pad.h"
-#include "Ball.h"
+
+#include "Ground.h"
+#include "VerticalWall.h"
+
 #include "AppleItem.h"
 #include "BlueHeartItem.h"
 #include "GenieFaceItem.h"
@@ -70,5 +72,6 @@ public:
 
 	void SaveGridToFile();
 	void LoadGridFromFile();
+	void loadWallsFromFileToGrid();
 };
 

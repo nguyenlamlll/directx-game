@@ -12,7 +12,7 @@ PlayScene::PlayScene()
 		L"Resources/map/dungeon-500-500-tileset.png",
 		L"Resources/map/dungeon-500-500.csv");
 
-	Sound::getInstance()->play("soundtrack", true);
+	//Sound::getInstance()->play("background-level-1", true);
 }
 
 
@@ -25,6 +25,7 @@ void PlayScene::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F1))
 	{
 		this->LoadGridFromFile();
+		this->loadWallsFromFileToGrid();
 		return;
 	}
 	if (KeyboardInput::GetInstance()->isKeyTriggered(0x32))
@@ -39,7 +40,13 @@ void PlayScene::Update(float deltaTime)
 		it->second->Update(deltaTime);
 	}
 
+	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
+	m_listCanCollideWithPlayer->clear();
+	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
+	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
+
 	m_player->Update(deltaTime);
+
 	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
 	m_listCanCollideWithPlayer->clear();
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
@@ -65,15 +72,10 @@ void PlayScene::Draw()
 	}
 	m_player->Draw();
 
-
 	m_firstColumn->Draw();
 	m_secondColumn->Draw();
 	m_thirdColumn->Draw();
 	m_fourthColumn->Draw();
-
-	/*m_foregroundChains->DrawOnScreen();
-	m_foregroundChains2->DrawOnScreen();
-	m_foregroundChains3->DrawOnScreen();*/
 
 	auto visibleObjects2 = m_foregroundGrid->getVisibleObjects();
 	for (auto it = visibleObjects2->begin(); it != visibleObjects2->end(); it++)
@@ -93,7 +95,7 @@ void PlayScene::OnKeyUp(int keyCode)
 
 void PlayScene::ReleaseAll()
 {
-	Sound::getInstance()->stop("soundtrack");
+	Sound::getInstance()->stop("background-level-1");
 
 	delete m_player;
 
@@ -131,8 +133,9 @@ void PlayScene::loadResources()
 	m_player = new Player(
 		630,
 		1580.5,
-		106.f,
-		106.f);
+		36.0f,
+		50.f);
+	//m_player->setPosition(D3DXVECTOR2(2200.f, 1580.5f));
 
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);
@@ -140,7 +143,7 @@ void PlayScene::loadResources()
 	Camera::getInstance();
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	D3DXVECTOR2 position(704.25, 1463.75);
-	Camera::getInstance()->setPosition(position);
+	Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, 1463.75));
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();
@@ -148,6 +151,7 @@ void PlayScene::loadResources()
 
 	//this->SaveGridToFile();
 	this->LoadGridFromFile();
+	this->loadWallsFromFileToGrid();
 
 }
 
@@ -458,6 +462,70 @@ void PlayScene::LoadGridFromFile()
 			file >> scaleY;
 			ForegroundChains* foregroundChains = new ForegroundChains(x, y, w, h, scaleX, scaleY);
 			m_foregroundGrid->add(count, foregroundChains);
+		}
+	}
+	file.close();
+}
+
+void PlayScene::loadWallsFromFileToGrid()
+{
+	// Open file and read object positions, load them into the grid.
+	std::ifstream file;
+	std::string filename = "Resources/grid/walls.txt";
+	file.open(filename);
+	
+	int count = m_grid->getAllObjects()->size() + 1;
+	while (!file.eof())
+	{
+		std::string objectName;
+		file >> objectName;
+
+		// If file is empty, don't bother loading.
+		if (objectName._Equal(""))
+		{
+			break;
+		}
+
+		// Ignore comments (strings begin with #)
+		std::string line;
+		if (objectName._Equal("#"))
+		{
+			std::getline(file, line);
+			continue;
+		}
+
+		count++;
+		if (objectName._Equal("ground"))
+		{
+			float x, y, w, h, scaleWidth, scaleHeight;
+			bool isDebug;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> scaleWidth;
+			file >> scaleHeight;
+			file >> isDebug;
+			Ground* ground = new Ground(x, y, w, h, scaleWidth, scaleHeight, isDebug);
+			ground->setIsDebugVisible(isDebug);
+			m_grid->add(count, ground);
+		}
+		else if (objectName._Equal("vertical-wall"))
+		{
+			std::string spriteName;
+			float x, y, w, h, scaleWidth, scaleHeight;
+			bool isDebug;
+			file >> spriteName;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> scaleWidth;
+			file >> scaleHeight;
+			file >> isDebug;
+			VerticalWall* wall = new VerticalWall(spriteName, x, y, w, h, scaleWidth, scaleHeight, isDebug);
+			wall->setIsDebugVisible(isDebug);
+			m_grid->add(count, wall);
 		}
 	}
 	file.close();

@@ -6,6 +6,7 @@
 #include "KeyboardInput.h"
 
 #include "Boss.h"
+#include "VerticalWall.h"
 
 class BossScene :
 	public Scene

@@ -19,14 +19,14 @@ ForegroundChains::~ForegroundChains()
 
 void ForegroundChains::Update(float deltaTime)
 {
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D))
-	{
-		m_sprite->setPositionX(m_sprite->getPositionX() - 0.1f * deltaTime);
-	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
-	{
-		m_sprite->setPositionX(m_sprite->getPositionX() + 0.1f * deltaTime);
-	}
+	//if (KeyboardInput::GetInstance()->isKeyDown(VK_D))
+	//{
+	//	m_sprite->setPositionX(m_sprite->getPositionX() - 0.1f * deltaTime);
+	//}
+	//if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
+	//{
+	//	m_sprite->setPositionX(m_sprite->getPositionX() + 0.1f * deltaTime);
+	//}
 }
 
 void ForegroundChains::Draw()

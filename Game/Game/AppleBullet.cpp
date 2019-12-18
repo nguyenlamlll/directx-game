@@ -108,14 +108,14 @@ D3DXVECTOR2 AppleBullet::getVelocity() {
 void AppleBullet::Update(float deltaTime) {
 	switch (status)
 	{
-	case Burst: {
+	case Status::Burst: {
 		BurstAction();
 		if (!isDead) {
 			image->Update(deltaTime);
 		}
 		break;
 	}
-	case Fling: {
+	case Status::Fling: {
 		x += vx;
 		y += vy;
 		image->Update(deltaTime);
@@ -129,7 +129,7 @@ void AppleBullet::Update(float deltaTime) {
 void AppleBullet::BurstAction() {
 	switch (status)
 	{
-	case Burst:
+	case Status::Burst:
 	{
 		if (image->getIsFinished())
 		{
@@ -146,7 +146,7 @@ void AppleBullet::BurstAction() {
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		isDied = true;
-		status = Burst;
+		status = Status::Burst;
 		break;
 	}
 	}
@@ -155,7 +155,7 @@ void AppleBullet::BurstAction() {
 
 void AppleBullet::Draw() {
 	//m_playerSprite->Draw();
-	if(status == Burst && image->getIsFinished() == true){ }
+	if(status == Status::Burst && image->getIsFinished() == true){ }
 	else {
 		image->Draw();
 	}

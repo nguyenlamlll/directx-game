@@ -29,6 +29,10 @@ PlayerStates PlayerPushWallState::GetState()
 	return PlayerStates::PushWall;
 }
 
+void PlayerPushWallState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerPushWallState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

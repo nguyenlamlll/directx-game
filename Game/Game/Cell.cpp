@@ -4,7 +4,7 @@
 
 Cell::Cell()
 {
-	listOfObjects = DBG_NEW std::map<int, GameObject*>();
+	listOfObjects = new std::map<int, GameObject*>();
 }
 
 

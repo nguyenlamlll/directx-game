@@ -59,6 +59,10 @@ PlayerStates PlayerStandAttackState::GetState()
 	return PlayerStates::StandAttack;
 }
 
+void PlayerStandAttackState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerStandAttackState::OnCollision(GameObject* entity, float deltaTime)
 {
 	if (entity->getTag() == Tag::MustaheGuardTag)

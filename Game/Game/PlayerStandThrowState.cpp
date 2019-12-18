@@ -29,6 +29,10 @@ PlayerStates PlayerStandThrowState::GetState()
 	return PlayerStates::StandingThrow;
 }
 
+void PlayerStandThrowState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerStandThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }

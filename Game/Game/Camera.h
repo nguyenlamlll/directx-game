@@ -24,6 +24,7 @@ public:
 	void setPosition(D3DXVECTOR2 newPosition)
 	{
 		m_position = newPosition;
+		updateCamera(newPosition);
 	}
 
 	RECT getBound();

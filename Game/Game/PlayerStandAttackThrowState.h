@@ -17,5 +17,6 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
 	virtual PlayerStates GetState() override;
+	virtual void PreCollision(GameObject* entity, float deltaTime) override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
 };

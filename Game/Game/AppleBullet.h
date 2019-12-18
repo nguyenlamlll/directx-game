@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include "Player.h"
 
-enum Status {
-	Fling,
-	Burst,
-};
+
 
 class AppleBullet : public GameObject
 {
+enum class Status {
+		Fling,
+		Burst,
+	};
 protected:
 	Status status;
 	Animation* image;

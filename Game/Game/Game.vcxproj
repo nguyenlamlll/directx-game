@@ -177,6 +177,7 @@
     <ClInclude Include="GenieFaceItem.h" />
     <ClInclude Include="GenieJarItem.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="ThinGuard.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Tileset.h" />
+    <ClInclude Include="VerticalWall.h" />
     <ClInclude Include="VirtualKeys.h" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +253,7 @@
     <ClCompile Include="GenieFaceItem.cpp" />
     <ClCompile Include="GenieJarItem.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -305,6 +308,7 @@
     <ClCompile Include="ThinGuard.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tileset.cpp" />
+    <ClCompile Include="VerticalWall.cpp" />
     <ClCompile Include="VirtualKeys.cpp" />
   </ItemGroup>
   <ItemGroup>

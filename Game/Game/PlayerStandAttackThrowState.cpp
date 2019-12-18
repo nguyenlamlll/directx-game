@@ -51,6 +51,10 @@ PlayerStates PlayerStandAttackThrowState::GetState()
 	return PlayerStates::Falling;
 }
 
+void PlayerStandAttackThrowState::PreCollision(GameObject * entity, float deltaTime)
+{
+}
+
 void PlayerStandAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
