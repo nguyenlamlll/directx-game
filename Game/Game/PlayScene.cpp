@@ -59,6 +59,10 @@ void PlayScene::Update(float deltaTime)
 	}
 
 	m_blood->Update(deltaTime);
+	m_rubyScore->Update(deltaTime);
+	m_lifeScore->Update(deltaTime);
+	m_appleScore->Update(deltaTime);
+	m_aladdinScore->Update(deltaTime);
 }
 
 void PlayScene::Draw()
@@ -83,6 +87,10 @@ void PlayScene::Draw()
 		it->second->Draw();
 	}
 	m_blood->Draw();
+	m_rubyScore->Draw();
+	m_lifeScore->Draw();
+	m_appleScore->Draw();
+	m_aladdinScore->Draw();
 }
 
 void PlayScene::OnKeyDown(int keyCode)
@@ -98,6 +106,8 @@ void PlayScene::ReleaseAll()
 	Sound::getInstance()->stop("background-level-1");
 
 	delete m_player;
+	delete m_blood;
+	delete m_rubyScore;
 
 	m_map->Release();
 	delete m_map;
@@ -139,6 +149,11 @@ void PlayScene::loadResources()
 
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);
+	m_rubyScore = new RubyScores(280, 300, 0, 0);
+	m_appleScore = new AppleScores(340, 300, 0, 0);
+	m_lifeScore = new LifeScores(40, 300, 0, 0);
+	m_aladdinScore = new AladdinScores(370, 25, 0, 0);
+	m_aladdinScore->increaseScores(10);
 
 	Camera::getInstance();
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);

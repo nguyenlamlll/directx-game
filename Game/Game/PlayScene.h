@@ -33,6 +33,11 @@
 #include "Star.h"
 #include "Fire.h"
 
+#include "RubyScores.h"
+#include "LifeScores.h"
+#include "AppleScores.h"
+#include "AladdinScores.h"
+
 #include "SceneManager.h"
 #include "BossScene.h"
 
@@ -51,7 +56,12 @@ private:
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Player* m_player;
+
 	BloodBar* m_blood;
+	RubyScores* m_rubyScore;
+	LifeScores* m_lifeScore;
+	AppleScores* m_appleScore;
+	AladdinScores* m_aladdinScore;
 
 	Grid* m_grid;
 	Grid* m_foregroundGrid;

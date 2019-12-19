@@ -27,6 +27,7 @@ public:
 
 	void Reset();
 	int getIndexFrame();
+	void setIndexFrame(int index);
 	bool getIsFinished();
 };
 

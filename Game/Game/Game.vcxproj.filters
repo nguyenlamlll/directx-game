@@ -127,6 +127,12 @@
     <Filter Include="Header Files\Game\GameObjects\BloodBar">
       <UniqueIdentifier>{de4c49bb-0a87-4129-bf36-82f35da5fe43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Scores">
+      <UniqueIdentifier>{5bd78e93-2b3d-4076-8564-164500f44543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Scores">
+      <UniqueIdentifier>{6711273e-bc84-4614-997f-b2a21e3c1f7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -344,6 +350,18 @@
     </ClInclude>
     <ClInclude Include="BossScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="RubyScores.h">
+      <Filter>Header Files\Game\GameObjects\Scores</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeScores.h">
+      <Filter>Header Files\Game\GameObjects\Scores</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleScores.h">
+      <Filter>Header Files\Game\GameObjects\Scores</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinScores.h">
+      <Filter>Header Files\Game\GameObjects\Scores</Filter>
     </ClInclude>
     <ClInclude Include="VerticalWall.h">
       <Filter>Header Files</Filter>
@@ -565,6 +583,18 @@
     </ClCompile>
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleScores.cpp">
+      <Filter>Source Files\Game\GameObjects\Scores</Filter>
+    </ClCompile>
+    <ClCompile Include="RubyScores.cpp">
+      <Filter>Source Files\Game\GameObjects\Scores</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinScores.cpp">
+      <Filter>Source Files\Game\GameObjects\Scores</Filter>
+    </ClCompile>
+    <ClCompile Include="LifeScores.cpp">
+      <Filter>Source Files\Game\GameObjects\Scores</Filter>
     </ClCompile>
     <ClCompile Include="VerticalWall.cpp">
       <Filter>Source Files</Filter>

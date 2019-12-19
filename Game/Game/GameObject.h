@@ -22,6 +22,7 @@ enum Tag {
 	BossTag,
 	FireTag,
 	StarTag,
+	ScoresTag,
 };
 
 class GameObject

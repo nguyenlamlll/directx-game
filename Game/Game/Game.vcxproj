@@ -156,9 +156,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AladdinScores.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AppleBullet.h" />
     <ClInclude Include="AppleItem.h" />
+    <ClInclude Include="AppleScores.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BloodBar.h" />
@@ -181,7 +183,9 @@
     <ClInclude Include="Health.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LifeScores.h" />
     <ClInclude Include="MustacheGuard.h" />
+    <ClInclude Include="RubyScores.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Pad.h" />
@@ -232,9 +236,11 @@
     <ClInclude Include="VirtualKeys.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AladdinScores.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AppleBullet.cpp" />
     <ClCompile Include="AppleItem.cpp" />
+    <ClCompile Include="AppleScores.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BloodBar.cpp" />
@@ -257,7 +263,9 @@
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LifeScores.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
+    <ClCompile Include="RubyScores.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Pad.cpp" />

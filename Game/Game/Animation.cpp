@@ -107,6 +107,16 @@ int Animation::getIndexFrame() {
 	return m_curIndex;
 }
 
+void Animation::setIndexFrame(int index) {
+	this->m_curIndex = index;
+	m_rect.left = (m_curIndex % m_columns) * m_frameWidth;
+	m_rect.top = (m_curIndex % m_rows) * m_frameHeight;
+	m_rect.right = m_rect.left + m_frameWidth;
+	m_rect.bottom = m_rect.top + m_frameHeight;
+	//Set sourceRect
+	m_sourceRect = m_rect;
+}
+
 void Animation::Reset()
 {
 	m_curCol = m_curIndex = m_curRow = 0;
