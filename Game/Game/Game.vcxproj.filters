@@ -351,6 +351,9 @@
     <ClInclude Include="BossScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="BulletBoss.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
     <ClInclude Include="RubyScores.h">
       <Filter>Header Files\Game\GameObjects\Scores</Filter>
     </ClInclude>
@@ -583,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletBoss.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="AppleScores.cpp">
       <Filter>Source Files\Game\GameObjects\Scores</Filter>

@@ -166,6 +166,7 @@
     <ClInclude Include="BloodBar.h" />
     <ClInclude Include="BlueHeartItem.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BulletBoss.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="BossScene.h" />
     <ClInclude Include="FloatingBrick.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="BloodBar.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BulletBoss.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="FloatingBrick.cpp" />
