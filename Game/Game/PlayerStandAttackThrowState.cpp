@@ -74,6 +74,7 @@ void PlayerStandAttackThrowState::createAppleBullet() {
 		appleX = m_animation->getPositionX() - 10;
 	appleY = m_animation->getPositionY() - 30;
 	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
-	list.push_back(apple);
+	m_player->addAppleToList(apple);
+	//list.push_back(apple);
 }
 

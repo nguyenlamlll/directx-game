@@ -11,6 +11,11 @@ PlayerState* Player::getCurrentState()
 	return m_currentState;
 }
 
+void Player::addAppleToList(AppleBullet* bullet)
+{
+	lsAppleBullet.push_back(bullet);
+}
+
 Player::Player(float x, float y, float width, float height)
 	: GameObject(x, y, width, height, Tag::PlayerTag), Health(9)
 {
@@ -148,21 +153,27 @@ void Player::Update(float deltaTime)
 
 	
 	
-	if (m_currentState->getListBullet() != NULL) {
+	//if (m_currentState->getListBullet() != NULL) {
 
-		for (int j = 0; j < m_currentState->getListBullet()->size(); j++)
-		{
-			if (!m_currentState->getListBullet()->at(j)->getIsDead()) {
-				AppleBullet* bullet = m_currentState->getListBullet()->at(j);
-				lsAppleBullet.push_back(bullet);
-				m_currentState->deleteAppleBullet();
-			}
-		}
-	}
+	//	for (int j = 0; j < m_currentState->getListBullet()->size(); j++)
+	//	{
+	//		if (!m_currentState->getListBullet()->at(j)->getIsDead()) {
+	//			AppleBullet* bullet = m_currentState->getListBullet()->at(j);
+	//			lsAppleBullet.push_back(bullet);
+	//			m_currentState->deleteAppleBullet();
+	//		}
+	//	}
+	//}
+
 	if (lsAppleBullet.size() != 0) {
 		for (int j = 0; j < lsAppleBullet.size(); j++) {
 			if(!lsAppleBullet.at(j)->getIsDead())
 				lsAppleBullet.at(j)->Update(deltaTime);
+			else {
+				delete lsAppleBullet.at(j);
+				lsAppleBullet.at(j) = nullptr;
+				lsAppleBullet.erase(lsAppleBullet.begin() + j);
+			}
 		}
 	}
 

@@ -18,7 +18,7 @@ AppleBullet::AppleBullet(float x, float y, float width, float height, bool isToR
 		vx = 14.0f;
 	else
 		vx = -14.0f;
-	vy = -5.5f;
+	vy = -2.5f;
 
 	m_image->setPositionX(x);
 	m_image->setPositionY(y);
