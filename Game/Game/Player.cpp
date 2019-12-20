@@ -146,6 +146,26 @@ void Player::Update(float deltaTime)
 
 	m_currentState->Update(deltaTime);
 
+	
+	
+	if (m_currentState->getListBullet() != NULL) {
+
+		for (int j = 0; j < m_currentState->getListBullet()->size(); j++)
+		{
+			if (!m_currentState->getListBullet()->at(j)->getIsDead()) {
+				AppleBullet* bullet = m_currentState->getListBullet()->at(j);
+				lsAppleBullet.push_back(bullet);
+				m_currentState->deleteAppleBullet();
+			}
+		}
+	}
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if(!lsAppleBullet.at(j)->getIsDead())
+				lsAppleBullet.at(j)->Update(deltaTime);
+		}
+	}
+
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
@@ -307,6 +327,12 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 void Player::Draw()
 {
 	m_currentState->Draw();
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if (!lsAppleBullet.at(j)->getIsDead())
+				lsAppleBullet.at(j)->Draw();
+		}
+	}
 }
 
 // This method should be call at the end of an update loop. 

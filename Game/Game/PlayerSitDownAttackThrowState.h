@@ -10,7 +10,6 @@ class PlayerSitDownAttackThrowState : public PlayerState
 {
 private:
 	Player* m_player;
-	vector<AppleBullet*>list;
 	Animation* m_animation;
 public:
 	PlayerSitDownAttackThrowState(Player* player, Animation* animation);
@@ -22,7 +21,5 @@ public:
 	virtual void PreCollision(GameObject* entity, float deltaTime) override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
 
-	vector<AppleBullet*>* getListBullet();
 	virtual void createAppleBullet() override;
-	virtual void deleteAppleBullet(AppleBullet* apple) override;
 };

@@ -78,6 +78,7 @@ public:
 private:
 	PlayerState* m_previousState;
 	PlayerState* m_currentState;
+	vector<AppleBullet*>lsAppleBullet;
 public:
 	PlayerState* getPreviousState();
 	PlayerState* getCurrentState();

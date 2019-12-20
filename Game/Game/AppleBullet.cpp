@@ -9,15 +9,16 @@ AppleBullet::AppleBullet(float x, float y, float width, float height, bool isToR
 	
 	// Fling
 	m_imageFlying = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 100.f);
-	m_imageBurst = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 50.f);
-	m_imageBurstBoss = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 50.f);
-	achorY = x - 20;
+	m_imageBurst = new Animation(L"Resources/Items/PNG/apple-burst_31_27_6.png", 6, 1, 6, false, 60.f);
+	m_imageBurstBoss = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 150.f);
+	achorY = y - 30;
+	m_isFacingRight = isToRight;
 	m_image = m_imageFlying;
-	if (isToRight)
-		vx = 3.5;
+	if (m_isFacingRight)
+		vx = 14.0f;
 	else
-		vx = -3.5;
-	vy = -2;
+		vx = -14.0f;
+	vy = -5.5f;
 
 	m_image->setPositionX(x);
 	m_image->setPositionY(y);
@@ -73,10 +74,11 @@ void AppleBullet::Update(float deltaTime) {
 }
 
 void AppleBullet::checkPositionBullet() {
-	if (this->getPosition().y <= achorY)
-		vy = 2;
-	if (abs(this->getPosition().y - achorY) >= 200)
-		BurstAction();
+	if (m_image->getPositionY()<= achorY)
+		vy = 6.5f;
+	if (abs(m_image->getPositionY() - achorY) >= 60)
+		BurstBossAction();
+		//isDead = true;
 }
 
 void AppleBullet::FlyingAction() {
@@ -141,7 +143,6 @@ void AppleBullet::BurstBossAction() {
 bool AppleBullet::getIsDead() {
 	return isDead;
 }
-
 
 void AppleBullet::Draw() {
 	if (!isDead)

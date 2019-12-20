@@ -33,6 +33,7 @@ class Player;
 class PlayerState
 {
 protected:
+	vector<AppleBullet*>list;
 	Player* m_player;
 public:
 	PlayerState() {}
@@ -49,6 +50,6 @@ public:
 	virtual void OnCollision(GameObject* entity, float deltaTime) = 0;
 
 	virtual void createAppleBullet() {};
-	virtual void deleteAppleBullet(AppleBullet* apple) {};
+	void deleteAppleBullet();
 };
 
