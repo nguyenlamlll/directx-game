@@ -1,28 +1,31 @@
 ﻿#pragma once
-#include "Player.h"
+#include "GameObject.h"
+#include "Animation.h"
+#include "Sprite.h"
 
+enum BulletAppleStatus {
+	BulletAppleFlying,
+	BulletAppleBurst,
+	BulletAppleBurstBoss,
+};
 
+class PlayerState;
 
 class AppleBullet : public GameObject
 {
-enum class Status {
-		Fling,
-		Burst,
-	};
-protected:
-	Status status;
-	Animation* image;
 
-	// has been deleted? true = not deleted || false = deleted (delete object in list)
-	bool isDead; 
-	// has been used ? true = not used || false = used
-	bool isUsed; 
-	// has been die ? true = not die|| false = die (hidden object to do reset list object when player dead)
-	bool isDied; 
+protected:
+	BulletAppleStatus  m_state;
+	Animation* m_image;
+	Animation* m_imageFlying;
+	Animation* m_imageBurst;
+	Animation* m_imageBurstBoss;
+	float achorY;
+	bool isDead;
 
 public:
 
-	AppleBullet(float x, float y, float width, float height, Player* player);
+	AppleBullet(float x, float y, float width, float height, bool isToRight);
 	
 	~AppleBullet();
 	
@@ -34,6 +37,11 @@ public:
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void Draw();
 
+	void FlyingAction();
 	void BurstAction();
+	void BurstBossAction();
+	
+	void checkPositionBullet();
+	bool getIsDead();
 };
 

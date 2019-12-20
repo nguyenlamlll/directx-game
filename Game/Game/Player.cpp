@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
 
-PlayerState * Player::getPreviousState()
+PlayerState* Player::getPreviousState()
 {
 	return m_previousState;
 }
 
-PlayerState * Player::getCurrentState()
+PlayerState* Player::getCurrentState()
 {
 	return m_currentState;
 }
@@ -179,7 +179,7 @@ void Player::Update(float deltaTime)
 		{
 			vx = -speed * deltaTime;
 		}
-		else 
+		else
 		{
 			vx = 0.0f;
 		}

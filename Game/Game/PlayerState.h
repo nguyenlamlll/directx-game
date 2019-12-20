@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
-
+#include "AppleBullet.h"
+#include <vector> 
+using namespace std;
 enum PlayerStates {
 	Standing,
 	StandingLookAround,
@@ -32,17 +34,21 @@ class PlayerState
 {
 protected:
 	Player* m_player;
-
 public:
 	PlayerState() {}
 	virtual void Update(float deltaTime) = 0;
 	virtual void Draw() = 0;
 	virtual PlayerStates GetState() = 0;
+
+	vector<AppleBullet*>* getListBullet();
 	
 	// PreCollision is called before the Update() function is called in the game loop.
 	virtual void PreCollision(GameObject* entity, float deltaTime) = 0;
 
 	// OnCollision is called after the Update() function is called in the game loop.
 	virtual void OnCollision(GameObject* entity, float deltaTime) = 0;
+
+	virtual void createAppleBullet() {};
+	virtual void deleteAppleBullet(AppleBullet* apple) {};
 };
 

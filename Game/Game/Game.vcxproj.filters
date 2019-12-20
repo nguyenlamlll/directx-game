@@ -133,6 +133,12 @@
     <Filter Include="Source Files\Game\GameObjects\Scores">
       <UniqueIdentifier>{6711273e-bc84-4614-997f-b2a21e3c1f7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Aladdin">
+      <UniqueIdentifier>{12dd6acb-3266-4c77-a509-1bf5d004ce9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Aladdin">
+      <UniqueIdentifier>{4b86a2f7-006c-49a6-9437-67b9a6874060}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -369,6 +375,9 @@
     <ClInclude Include="Ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Aladdin.h">
+      <Filter>Header Files\Game\GameObjects\Aladdin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -601,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Aladdin.cpp">
+      <Filter>Source Files\Game\GameObjects\Aladdin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

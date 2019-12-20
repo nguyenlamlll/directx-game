@@ -46,6 +46,7 @@ void PlayScene::Update(float deltaTime)
 	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
 
 	m_player->Update(deltaTime);
+	m_appleBullet->Update(deltaTime);
 
 	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
 	m_listCanCollideWithPlayer->clear();
@@ -75,6 +76,7 @@ void PlayScene::Draw()
 		it->second->Draw();
 	}
 	m_player->Draw();
+	m_appleBullet->Draw();
 
 	m_firstColumn->Draw();
 	m_secondColumn->Draw();
@@ -145,6 +147,7 @@ void PlayScene::loadResources()
 		1580.5,
 		36.0f,
 		50.f);
+	m_appleBullet = new AppleBullet(600, 1350,0,0,true);
 	//m_player->setPosition(D3DXVECTOR2(2200.f, 1580.5f));
 
 	m_blood = new BloodBar(75, 25, 0, 0);

@@ -41,6 +41,8 @@
 #include "SceneManager.h"
 #include "BossScene.h"
 
+#include "AppleBullet.h"
+
 #include <map>
 #include <iostream>
 class PlayScene :
@@ -56,6 +58,7 @@ private:
 	std::map<int, GameObject*>* m_objectList;
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Player* m_player;
+	AppleBullet* m_appleBullet;
 
 	BloodBar* m_blood;
 	RubyScores* m_rubyScore;

@@ -48,6 +48,10 @@ public:
 
 	virtual void Update(float deltaTime);
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+
+	//void OnCollision(GameObject* obj);
+
+
 	virtual void Draw();
 
 	virtual void setPosition(D3DXVECTOR2);

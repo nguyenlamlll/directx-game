@@ -32,3 +32,14 @@ PlayerStates PlayerSwingAttackThrowState::GetState()
 void PlayerSwingAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
+
+vector<AppleBullet*>* PlayerSwingAttackThrowState::getListBullet() {
+	return &list;
+}
+
+void PlayerSwingAttackThrowState::createAppleBullet() {
+
+}
+void PlayerSwingAttackThrowState::deleteAppleBullet(AppleBullet* apple) {
+
+}

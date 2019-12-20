@@ -87,3 +87,14 @@ void PlayerJumpAttackThrowState::PreCollision(GameObject * entity, float deltaTi
 void PlayerJumpAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
+
+vector<AppleBullet*>* PlayerJumpAttackThrowState::getListBullet() {
+	return &list;
+}
+
+void PlayerJumpAttackThrowState::createAppleBullet() {
+
+}
+
+void PlayerJumpAttackThrowState::deleteAppleBullet(AppleBullet* apple) {
+}

@@ -60,3 +60,14 @@ void PlayerSitDownAttackThrowState::PreCollision(GameObject * entity, float delt
 void PlayerSitDownAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
+
+vector<AppleBullet*>* PlayerSitDownAttackThrowState::getListBullet() {
+	return &list;
+}
+
+void PlayerSitDownAttackThrowState::createAppleBullet() {
+
+}
+void PlayerSitDownAttackThrowState::deleteAppleBullet(AppleBullet* apple) {
+
+}
