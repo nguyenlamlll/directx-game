@@ -10,6 +10,8 @@ class PlayerSitDownAttack : public PlayerState
 private:
 	Player* m_player;
 	Animation* m_animation;
+
+	bool isAttackingHit{ false };
 public:
 	PlayerSitDownAttack(Player* player, Animation* animation);
 	~PlayerSitDownAttack();

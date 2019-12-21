@@ -351,6 +351,9 @@
     <ClInclude Include="BossScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="BulletBoss.h">
+      <Filter>Header Files\Game\GameObjects\Enemies</Filter>
+    </ClInclude>
     <ClInclude Include="RubyScores.h">
       <Filter>Header Files\Game\GameObjects\Scores</Filter>
     </ClInclude>
@@ -368,6 +371,15 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundNames.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,6 +596,9 @@
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="BulletBoss.cpp">
+      <Filter>Source Files\Game\GameObjects\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="AppleScores.cpp">
       <Filter>Source Files\Game\GameObjects\Scores</Filter>
     </ClCompile>
@@ -601,6 +616,12 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveAttackState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveThrowState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

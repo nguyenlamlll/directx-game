@@ -54,6 +54,19 @@ void PlayerMovingState::Update(float deltaTime)
 		return;
 	}
 
+	// From Stand to Attack (swinging the sword).
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J))
+	{
+		m_player->changeState(PlayerStates::MoveAttack);
+		return;
+	}
+	// From Stand to Attack by Throwing apples
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
+	{
+		m_player->changeState(PlayerStates::MoveThrow);
+		return;
+	}
+
 	if (!m_player->m_isOnGround)
 	{
 		m_player->changeState(PlayerStates::JumpStand);

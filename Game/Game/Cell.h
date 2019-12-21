@@ -11,6 +11,7 @@ public:
 	~Cell();
 
 	void add(int id, GameObject* object);
+	void remove(int id);
 	std::map<int, GameObject*>* getAllObjects();
 };
 

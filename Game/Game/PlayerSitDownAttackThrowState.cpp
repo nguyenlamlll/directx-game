@@ -41,6 +41,7 @@ void PlayerSitDownAttackThrowState::Update(float deltaTime)
 	if (m_animation->getIsFinished() == true)
 	{
 		m_player->changeState(PlayerStates::SitDown);
+		dynamic_cast<PlayerSitDownState*>(m_player->getCurrentState())->setIsFixedSittingDown(true);
 		return;
 	}
 }

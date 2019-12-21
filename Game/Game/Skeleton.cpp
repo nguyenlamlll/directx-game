@@ -4,7 +4,9 @@
 #define ATTACK_RANGE 120
 
 
-Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRight) : GameObject(x, y, width, height, Tag::SkeletonTag) {
+Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRight) : 
+	GameObject(x, y, width, height, Tag::SkeletonTag), Health(1)
+{
 	this->setPosition(D3DXVECTOR2(x, y));
 	isDead = false;
 	isDied = false;
@@ -16,7 +18,7 @@ Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRig
 
 	//image = new Animation;
 	m_imageCrawl = new Animation(L"Resources/Enmity/PNG/skeleton_108_111_1.png", 1, 1, 1, false, 10.f);
-	m_imageBurst = new Animation(L"Resources/Enmity/PNG/burst-skeleton_88_56_8.png", 8, 1, 8, true, 50.f);
+	m_imageBurst = new Animation(L"Resources/Enmity/PNG/burst-skeleton_88_56_8.png", 8, 1, 8, false, 50.f);
 	m_imageTransform = new Animation(L"Resources/Enmity/PNG/skeleton-star_108_111_20.png", 20, 1, 20, false, 220.f);
 
 	m_image = m_imageCrawl;
@@ -32,6 +34,17 @@ Skeleton::~Skeleton() {
 	if (m_imageCrawl != NULL){ delete m_imageCrawl; m_imageCrawl = nullptr; }
 	if (m_imageBurst != NULL){ delete m_imageBurst; m_imageBurst = nullptr; }
 	if (m_imageTransform != NULL){ delete m_imageTransform; m_imageTransform = nullptr; }
+}
+
+void Skeleton::deinitialize()
+{
+	if (m_isDeinitialized == false)
+	{
+		delete m_imageCrawl;
+		delete m_imageBurst;
+		delete m_imageTransform;
+		m_isDeinitialized = true;
+	}
 }
 
 Box Skeleton::GetBoundingBox() {
@@ -53,7 +66,7 @@ D3DXVECTOR2 Skeleton::getVelocity() {
 }
 
 void Skeleton::Update(float deltaTime) {
-	if (!isDead) {
+	if (!isDead && this->m_currentHealth > 0.0f) {
 		checkPositionWithPlayer();
 		switch (m_state)
 		{
@@ -71,6 +84,12 @@ void Skeleton::Update(float deltaTime) {
 		default:
 			break;
 		}
+		m_image->Update(deltaTime);
+	}
+
+	if (!isDead && m_currentHealth <= 0.0f)
+	{
+		BurstAction();
 		m_image->Update(deltaTime);
 	}
 }
@@ -170,6 +189,11 @@ void Skeleton::BurstAction() {
 		m_image->setPositionY(this->y);
 		isUsed = true;
 		break;
+	}
+
+	if (isDead == true)
+	{
+		deinitialize();
 	}
 }
 

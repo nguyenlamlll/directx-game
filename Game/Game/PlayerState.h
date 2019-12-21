@@ -9,6 +9,8 @@ enum PlayerStates {
 	StandingThrow,
 	Moving,
 	MovingStop,
+	MoveAttack,
+	MoveThrow,
 	SitDown,
 	LookUp,
 	StandAttack,

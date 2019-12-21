@@ -10,6 +10,8 @@
 #include "PlayerStandThrowState.h"
 #include "PlayerMovingState.h"
 #include "PlayerMovingStopState.h"
+#include "PlayerMoveAttackState.h"
+#include "PlayerMoveThrowState.h"
 #include "PlayerSitDownState.h"
 #include "PlayerLookUpState.h"
 #include "PlayerStandAttackState.h"
@@ -31,11 +33,24 @@
 
 #include "Health.h"
 
+#include "Sound.h"
+#include "SoundNames.h"
+
 #include <map>
 
 class PlayerState;
 class Player : public GameObject, public Health
 {
+private:
+	DWORD start;
+	// Used in flickering animation algorithm.
+	int hurtCount{ 0 };
+	bool m_isHurt{ false };
+public:
+	// Others call this function when attack Aladdin.
+	// Aladdin will start running its own logic when being hurt (such as flickering animation).
+	void isHit();
+
 #if defined(DEBUG) | defined(_DEBUG)
 public:
 	bool m_isMovingFreely{ false };
@@ -54,8 +69,12 @@ public:
 	Animation* m_animationStand;
 	Animation* m_animationStandLookAround;
 	Animation* m_animationStandThrow;
+
 	Animation* m_animationMoving;
 	Animation* m_animationMovingStop;
+	Animation* m_animationMoveAttack;
+	Animation* m_animationMoveThrow;
+
 	Animation* m_animationSitDown;
 	Animation* m_animationLookUp;
 	Animation* m_animationStandAttack;

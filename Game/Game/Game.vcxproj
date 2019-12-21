@@ -166,6 +166,7 @@
     <ClInclude Include="BloodBar.h" />
     <ClInclude Include="BlueHeartItem.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BulletBoss.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="BossScene.h" />
     <ClInclude Include="FloatingBrick.h" />
@@ -185,8 +186,11 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="LifeScores.h" />
     <ClInclude Include="MustacheGuard.h" />
+    <ClInclude Include="PlayerMoveAttackState.h" />
+    <ClInclude Include="PlayerMoveThrowState.h" />
     <ClInclude Include="RubyScores.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundNames.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Peddler.h" />
@@ -246,6 +250,7 @@
     <ClCompile Include="BloodBar.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BulletBoss.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="FloatingBrick.cpp" />
@@ -265,6 +270,8 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LifeScores.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
+    <ClCompile Include="PlayerMoveAttackState.cpp" />
+    <ClCompile Include="PlayerMoveThrowState.cpp" />
     <ClCompile Include="RubyScores.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spike.cpp" />

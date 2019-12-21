@@ -1,24 +1,26 @@
 #include "stdafx.h"
 #include "Fire.h"
 
-#define LIMIT_FIRE 250
+#define LIMIT_FIRE 450
 
-Fire::Fire(float x, float y, float width, float height, bool isFacingRight) : GameObject(x, y, width, height, Tag::FireTag) {
+Fire::Fire(float x, float y, float width, float height, Boss* boss) : BulletBoss(x, y, width, height, Tag::FireTag) {
 	this->setPosition(D3DXVECTOR2(x, y));
-	isDead = false;
 	isDied = false;
+	m_boss = boss;
 
 	m_anchorX = x;
 
-	m_isFacingRight = isFacingRight;
-
 	m_image = new Animation(L"Resources/Boss/PNG/fire-moving_100_51_8.png", 8, 1, 8, true, 40.f);
+	m_isFacingRight = m_boss->getIsFacingRight();
 	m_image->setFlipHorizontal(m_isFacingRight);
 
-	m_image->setPositionX(x);
-	m_image->setPositionY(y);
-	vx = 0;
-	vy = 0;
+	if (!m_isFacingRight)
+		this->x = x + 30;
+	else
+		this->x = x - 30;
+	this->y = y + 35;
+	m_image->setPositionX(this->x);
+	m_image->setPositionY(this->y);
 }
 
 Fire::~Fire() {
@@ -46,7 +48,8 @@ D3DXVECTOR2 Fire::getVelocity() {
 void Fire::Update(float deltaTime) {
 	if (!isDead) {
 		igniteAction();
-		m_image->Update(deltaTime);
+		if(!isDead)
+			m_image->Update(deltaTime);
 	}
 }
 

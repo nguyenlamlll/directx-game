@@ -25,7 +25,7 @@ protected:
 	BossState m_state;
 
 	// list object star and fire
-	vector<GameObject*>list;
+	vector<BulletBoss*>list;
 
 	Animation* m_image;
 	Animation* m_image_WarlockStanding;
@@ -43,7 +43,7 @@ protected:
 
 	Player* m_player;
 
-	DWORD m_startWaitStanding, m_startWaitMagicing, m_startWaitAttack;
+	DWORD m_startWaitStanding, m_startWaitMagicing, m_startWaitAttack, m_WaitCreateStar, m_WaitCreateFire;
 
 	bool isDead, isDied, isTransform, isCloseRange;
 
@@ -54,7 +54,6 @@ public:
 
 	Box GetBoundingBox();
 	D3DXVECTOR2 getVelocity();
-	vector<GameObject*>* GetList();
 	void Update(float deltaTime);
 	void Draw();
 
@@ -70,9 +69,7 @@ public:
 	void BossDiedAction();
 
 	void createStar();
-	void deleteStar(GameObject* star);
 	void createFire();
-	void deleteFire(GameObject* fire);
 
 	int randomPostionFire(bool type);
 	void setPositionFire();

@@ -1,7 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
 
-PlayerState* Player::getPreviousState()
+void Player::isHit()
+{
+	m_isHurt = true;
+}
+
+PlayerState * Player::getPreviousState()
 {
 	return m_previousState;
 }
@@ -31,7 +36,7 @@ Player::Player(float x, float y, float width, float height)
 	// Stand Throw Apple
 	m_animationStandThrow = new Animation(L"Resources/animations/aladdin/stand-throw.png", 12, 1, 12, true, 40.f);
 	// Stand Attack
-	m_animationStandAttack = new Animation(L"Resources/animations/aladdin/stand-attack.png", 5, 1, 5, false, 40.f);
+	m_animationStandAttack = new Animation(L"Resources/animations/aladdin/stand-attack.png", 5, 1, 5, false, 20.f);
 	// Stand Attack Throw
 	m_animationStandAttackThrow = new Animation(L"Resources/animations/aladdin/stand-attack-throw.png", 6, 1, 6, false, 60.f);
 
@@ -39,11 +44,15 @@ Player::Player(float x, float y, float width, float height)
 	m_animationMoving = new Animation(L"Resources/animations/aladdin/Aladdin_Running.png", 13, 1, 13, true, 60.f);
 	//Moving Stop
 	m_animationMovingStop = new Animation(L"Resources/animations/aladdin/moving-stop.png", 9, 1, 9, true, 100.f);
+	// Move and Attack
+	m_animationMoveAttack = new Animation(L"Resources/animations/aladdin/move-attack.png", 6, 1, 6, false, 20.f, D3DCOLOR_XRGB(106, 148, 189));
+	// Move and Throw
+	m_animationMoveThrow = new Animation(L"Resources/animations/aladdin/move-throw.png", 6, 1, 6, false, 20.f, D3DCOLOR_XRGB(106, 148, 189));
 
 	// Sit Down
-	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, false, 60.f);
+	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, false, 30.f);
 	//Sit Down Attack
-	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 50.f);
+	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 20.f);
 	//Sit Down Attack Throw
 	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 100.f);
 
@@ -82,6 +91,8 @@ Player::Player(float x, float y, float width, float height)
 
 	m_currentAnimation = m_animationStand;
 	changeState(PlayerStates::Standing);
+
+	start = GetTickCount();
 }
 
 Player::~Player()
@@ -91,8 +102,11 @@ Player::~Player()
 	delete m_animationStandThrow;
 	delete m_animationStandAttack;
 	delete m_animationStandAttackThrow;
+
 	delete m_animationMoving;
 	delete m_animationMovingStop;
+	delete m_animationMoveAttack;
+
 	delete m_animationSitDown;
 	delete m_animationSitDownAttack;
 	delete m_animationSitDownAttackThrow;
@@ -142,6 +156,14 @@ void Player::setVelocity(D3DXVECTOR2 value)
 
 void Player::Update(float deltaTime)
 {
+	auto now = GetTickCount();
+	auto dt = now - start;
+	if (dt > 3000)
+	{
+		m_isHurt = false;
+		start = GetTickCount();
+	}
+
 #if defined(DEBUG) | defined(_DEBUG)
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2))
 	{
@@ -166,6 +188,8 @@ void Player::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
+			m_currentState->GetState() == PlayerStates::MoveAttack ||
+			m_currentState->GetState() == PlayerStates::MoveThrow ||
 			m_currentState->GetState() == PlayerStates::JumpStand ||
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
@@ -185,6 +209,8 @@ void Player::Update(float deltaTime)
 	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
+			m_currentState->GetState() == PlayerStates::MoveAttack ||
+			m_currentState->GetState() == PlayerStates::MoveThrow ||
 			m_currentState->GetState() == PlayerStates::JumpStand ||
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
@@ -323,12 +349,29 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 
 void Player::Draw()
 {
-	m_currentState->Draw();
 	if (lsAppleBullet.size() != 0) {
 		for (int j = 0; j < lsAppleBullet.size(); j++) {
 			if (!lsAppleBullet.at(j)->getIsDead())
 				lsAppleBullet.at(j)->Draw();
 		}
+	if (m_isHurt) 
+	{
+		// Begin the flickering process. A cycle contains 3 frames: { 0, 1, 2 }
+		// where frame 0 draws the player. 1 and 2 don't. 
+		if (hurtCount == 0)
+		{
+			m_currentState->Draw();
+		}
+		hurtCount++;
+		if (hurtCount == 3)
+		{
+			hurtCount = 0;
+		}
+
+	}
+	else
+	{
+		m_currentState->Draw();
 	}
 }
 
@@ -351,6 +394,16 @@ void Player::changeState(PlayerStates state)
 	case PlayerStates::Moving:
 	{
 		newState = new PlayerMovingState(this, m_animationMoving);
+		break;
+	}
+	case PlayerStates::MoveAttack:
+	{
+		newState = new PlayerMoveAttackState(this, m_animationMoveAttack);
+		break;
+	}
+	case PlayerStates::MoveThrow:
+	{
+		newState = new PlayerMoveThrowState(this, m_animationMoveThrow);
 		break;
 	}
 	case PlayerStates::MovingStop:
@@ -380,7 +433,7 @@ void Player::changeState(PlayerStates state)
 		break;
 	}
 	case PlayerStates::SitDown: {
-		newState = new PlayerSitDownState(this, m_animationSitDown);
+		newState = new PlayerSitDownState(this, m_animationSitDown, false);
 		break;
 	}
 	case PlayerStates::LookUp: {

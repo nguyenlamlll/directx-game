@@ -13,6 +13,7 @@ private:
 	float m_travelledJumpDistance;
 	float m_longestJumpDistance;
 
+	bool isAttackingHit{ false };
 public:
 	PlayerJumpAttackState(Player* player, Animation* animation);
 	~PlayerJumpAttackState();

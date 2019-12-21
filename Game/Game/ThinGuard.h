@@ -25,7 +25,9 @@ protected:
 	Player* m_player = nullptr;
 	float speed{ 0.15f };
 	D3DXVECTOR2 m_initialPosition;
+
 	bool m_isBeingHit{ false };
+	bool m_isAttackingHit{ false };
 
 public:
 	Animation* m_currentAnimation;
@@ -46,6 +48,7 @@ public:
 
 	void Update(float deltaTime);
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void Draw();
 
 };

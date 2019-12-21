@@ -3,11 +3,12 @@
 
 #define ANCHOR_HEALTH_BOSS 0.5
 #define ATTACK_CLOSE_RANGE 30
-#define HEALTH_BOSS 100
+#define HEALTH_BOSS 150
 
 Boss::Boss(float x, float y, float width, float height, bool isFacingRight) 
 	: GameObject(x, y, width, height, Tag::BossTag) 
 {
+	this->setIsFacingRight(isFacingRight);
 	this->setPosition(D3DXVECTOR2(x, y));
 	isDead = false;
 	isDied = false;
@@ -145,6 +146,22 @@ void Boss::Update(float deltaTime) {
 		}
 		// update boss
 		m_image->Update(deltaTime);
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.at(i) != nullptr) {
+				if (list.at(i)->getIsDead())
+				{
+					delete list.at(i);
+					list.at(i) = nullptr;
+					list.erase(list.begin() + i);
+				}
+				else {
+					list.at(i)->Update(deltaTime);
+					//if (list.at(i)->getTag() == StarTag)
+					//	list.at(i)->attachPlayer(m_player);
+				}
+			}
+		}
 	}
 }
 
@@ -158,6 +175,12 @@ void Boss::Draw() {
 		}
 		if (isCloseRange) {
 			m_image_fire0->Draw();
+		}
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.at(i)!= nullptr) {
+				list.at(i)->Draw();
+			}
 		}
 	}
 }
@@ -213,7 +236,7 @@ void Boss::WarlockStandingAction() {
 		if (m_image->getIsFinished()) {
 			// get current time
 			DWORD now = GetTickCount();
-			if (now - m_startWaitStanding > 2000)
+			if (now - m_startWaitStanding > 3000)
 			{
 				// change animation
 				WarlockMagicingAction();
@@ -246,11 +269,17 @@ void Boss::WarlockMagicingAction() {
 	{
 	case WarlockMagicing: {
 		if (m_image->getIsFinished()) {
+			DWORD now1 = GetTickCount();
+			if (now1 - m_WaitCreateStar > 300) {
+				createStar(); 
+				m_WaitCreateStar = GetTickCount();
+			}
+
 			DWORD now = GetTickCount();
-			if (now - m_startWaitStanding > 5000)
+			if (now - m_startWaitMagicing > 5000)
 			{
 				// change animation
-				CobraRenascenceAction();
+				WarlockStandingAction();
 			}
 		}
 		m_health->takeDamage(0.1);
@@ -267,6 +296,7 @@ void Boss::WarlockMagicingAction() {
 		m_image->setPositionX(x);
 		m_image->setPositionY(y);
 		m_startWaitMagicing = GetTickCount();
+		m_WaitCreateStar = GetTickCount();
 		break;
 	}
 }
@@ -311,10 +341,12 @@ void Boss::CobraAttackAction() {
 	switch (m_state)
 	{
 	case CobraAttack: {
+		if (m_image->getIndexFrame()==2) {
+			createFire();
+		}
 		if (m_image->getIsFinished()) {
-			// get current time
 			DWORD now = GetTickCount();
-			if (now - m_startWaitAttack > 1000)
+			if (now - m_startWaitAttack > 2500)
 			{
 				m_image->Reset();
 				// reset start marking time
@@ -364,48 +396,15 @@ void Boss::BossDiedAction() {
 }
 
 void Boss::createStar() {
-	/*Star* star = new Star(x, y, 28, 16, this);
+	Star* star = new Star(x, y, 28, 16, this);
 	star->attachPlayer(m_player);
-	list.push_back(star);*/
-}
-
-void Boss::deleteStar(GameObject* star) {
-	/*for (int i = 0; i < list.size();)
-	{
-		if (list.at(i) == star)
-		{
-			list.erase(list.begin() + i);
-			delete star;
-			star = nullptr;
-			return;
-		}
-		else
-			i++;
-	}*/
+	list.push_back(star);
 }
 
 void Boss::createFire() {
-	/*Fire* fire = new Fire(x, y, 28, 16, this);
-	list.push_back(fire);*/
-}
-
-void Boss::deleteFire(GameObject* fire) {
-	/*for (int i = 0; i < list.size();)
-	{
-		if (list.at(i) == fire)
-		{
-			list.erase(list.begin() + i);
-			delete fire;
-			fire = nullptr;
-			return;
-		}
-		else
-			i++;
-	}*/
-}
-
-vector<GameObject*>* Boss::GetList() {
-	return &list;
+	Fire* fire = new Fire(x, y, 28, 16, this);
+	//fire->attachPlayer(m_player);
+	list.push_back(fire);
 }
 
 int Boss::randomPostionFire(bool type) {
