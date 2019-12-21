@@ -151,20 +151,6 @@ void Player::Update(float deltaTime)
 
 	m_currentState->Update(deltaTime);
 
-	
-	
-	//if (m_currentState->getListBullet() != NULL) {
-
-	//	for (int j = 0; j < m_currentState->getListBullet()->size(); j++)
-	//	{
-	//		if (!m_currentState->getListBullet()->at(j)->getIsDead()) {
-	//			AppleBullet* bullet = m_currentState->getListBullet()->at(j);
-	//			lsAppleBullet.push_back(bullet);
-	//			m_currentState->deleteAppleBullet();
-	//		}
-	//	}
-	//}
-
 	if (lsAppleBullet.size() != 0) {
 		for (int j = 0; j < lsAppleBullet.size(); j++) {
 			if(!lsAppleBullet.at(j)->getIsDead())
