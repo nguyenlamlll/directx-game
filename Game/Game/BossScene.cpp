@@ -53,7 +53,7 @@ void BossScene::Update(float deltaTime)
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
 	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
 
-	m_player->Update(deltaTime);
+	//m_player->Update(deltaTime);
 
 	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
 	m_listCanCollideWithPlayer->clear();

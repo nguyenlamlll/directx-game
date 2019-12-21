@@ -26,6 +26,11 @@ ThinGuard::ThinGuard(float x, float y, float width, float height)
 	m_animations[ThinGuardStates::BeingHit]->setPositionX(x);
 	m_animations[ThinGuardStates::BeingHit]->setPositionY(y);
 
+	isDead = false;
+	m_animations[ThinGuardStates::ThinBurst] = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
+	m_animations[ThinGuardStates::ThinBurst]->setPositionX(x);
+	m_animations[ThinGuardStates::ThinBurst]->setPositionY(y);
+
 	m_currentState = ThinGuardStates::Standing;
 	m_currentAnimation = m_animations[ThinGuardStates::Standing];
 }
@@ -95,6 +100,47 @@ Box ThinGuard::GetBoundingBox()
 	return box;
 }
 
+Box ThinGuard::GetBoundingBoxForApple()
+{
+	Box box;
+	switch (m_currentState)
+	{
+	case ThinGuardStates::Standing:
+		box.x = x;
+		box.y = y + 5;
+		box.width = 45;
+		box.height = 60;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case ThinGuardStates::Moving:
+		box.x = x;
+		box.y = y;
+		box.width = 45;
+		box.height = 70;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case ThinGuardStates::Attacking: case ThinGuardStates::BeingHit:
+		box.x = x;
+		box.y = y + 7;
+		box.width = 40;
+		box.height = 60;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	default:
+		box.x = 500;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	}
+	return box;
+}
+
 void ThinGuard::Update(float deltaTime)
 {
 	if (m_currentHealth > 0.0f)
@@ -159,6 +205,17 @@ void ThinGuard::Update(float deltaTime)
 		}
 		m_currentAnimation->Update(deltaTime);
 	}
+	else {
+		if (!isDead) {
+			m_currentState = ThinGuardStates::ThinBurst;
+			m_currentAnimation = m_animations[ThinGuardStates::ThinBurst];
+			m_currentAnimation->setPositionX(x);
+			m_currentAnimation->setPositionY(y);
+			if (m_currentAnimation->getIsFinished())
+				isDead = true;
+			m_currentAnimation->Update(deltaTime);
+		}
+	}
 }
 
 void ThinGuard::checkAndUpdateDirection()
@@ -192,8 +249,14 @@ void ThinGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, float 
 
 void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 {
-	if (colliableObject->getTag() == Tag::PlayerTag)
+	switch (colliableObject->getTag())
 	{
+	case BulletAppleTag:
+		takeDamage(0.25);
+		if (m_currentHealth > 0)
+			m_isBeingHit = true;
+		break;
+	case PlayerTag: {
 		auto player = dynamic_cast<Player*>(colliableObject);
 		auto self = this->GetBoundingBox();
 		self.x -= 30;
@@ -208,7 +271,12 @@ void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
+		break;
 	}
+	default:
+		break;
+	}
+
 }
 
 void ThinGuard::Draw()
@@ -216,5 +284,8 @@ void ThinGuard::Draw()
 	if (m_currentHealth > 0.0f)
 	{
 		m_currentAnimation->Draw();
+	} else {
+		if (!isDead)
+			m_currentAnimation->Draw();
 	}
 }

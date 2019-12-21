@@ -319,7 +319,7 @@ void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float de
 			}
 
 		}
-
+		
 		m_currentState->PreCollision(it->second, deltaTime);
 	}
 }
@@ -330,7 +330,13 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
 		m_currentState->OnCollision(it->second, deltaTime);
-
+		// check conllision Apple-Bullet with object
+		if (lsAppleBullet.size() != 0) {
+			for (int j = 0; j < lsAppleBullet.size(); j++) {
+				if (!lsAppleBullet.at(j)->getIsDead())
+					lsAppleBullet.at(j)->OnCollision(it->second, deltaTime);
+			}
+		}
 		//float normalX, normalY;
 		//auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
 		//if (collisionResult.isCollide)

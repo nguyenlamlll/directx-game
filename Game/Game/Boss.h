@@ -58,6 +58,7 @@ public:
 	void Draw();
 
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void attachPlayer(Player* player);
 	void checkPositionWithPlayer();
 	void checkHealthBoss();

@@ -60,6 +60,19 @@ public:
 
 		return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 	}
+	bool isCollisionEnemy(const Box& object, const Box& other)
+	{
+		float L, T, R, B;
+		L = (object.x + (object.width / 2)) - (other.x - (other.width / 2));
+		R = (object.x - (object.width / 2)) - (other.x + (other.width / 2));
+		B = (object.y + (object.height / 2)) - (other.y - (other.height / 2));
+		T = (object.y - (object.height / 2)) - (other.y + (other.height / 2));
+
+		if (L >= 0 && R <= 0 && B >= 0 && T <= 0)
+			return true;
+		else
+			return false;
+	}
 
 	bool isColliding(const RECT& object, const RECT& other)
 	{

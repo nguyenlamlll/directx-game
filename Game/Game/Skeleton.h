@@ -28,21 +28,20 @@ protected:
 	DWORD m_lastTime, m_startWait;
 	Player* m_player;
 
-	bool isDead;
-	// has been used ? true = not used || false = used
-	bool isUsed;
-	bool isDied;
+	bool isDead, isUsed;
 public:
 	Skeleton(float x, float y, float width, float height, bool isFacingRight);
 	~Skeleton();
 	virtual void deinitialize() override;
 
 	Box GetBoundingBox();
+	Box GetBoundingBoxForApple();
 	D3DXVECTOR2 getVelocity();
 	void Update(float deltaTime);
 	void Draw();
 
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void attachPlayer(Player* player);
 	void checkPositionWithPlayer();
 
@@ -51,6 +50,4 @@ public:
 	void BurstAction();
 	void AttactAction();
 
-	//get state
-	SkeletonState getState();
 };

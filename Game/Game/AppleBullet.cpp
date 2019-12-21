@@ -6,12 +6,13 @@
 AppleBullet::AppleBullet(float x, float y, float width, float height, bool isToRight)
 	: GameObject(x, y, width, height, Tag::BulletAppleTag){	
 	isDead = false;
+	isChangeList = false;
 	
 	// Fling
 	m_imageFlying = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 100.f);
 	m_imageBurst = new Animation(L"Resources/Items/PNG/apple-burst_31_27_6.png", 6, 1, 6, false, 60.f);
-	m_imageBurstBoss = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 150.f);
-	achorY = y - 30;
+	m_imageBurstBoss = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 30.f);
+	achorY = y - 20;
 	m_isFacingRight = isToRight;
 	m_image = m_imageFlying;
 	if (m_isFacingRight)
@@ -33,6 +34,13 @@ AppleBullet::~AppleBullet() {
 	if (m_imageBurstBoss != NULL) { delete m_imageBurstBoss; m_imageBurstBoss = nullptr; }
 }
 
+bool AppleBullet::getIsChangeList() {
+	return isChangeList;
+}
+
+void AppleBullet::setIsChangeList() {
+	isChangeList - true;
+}
 
 Box AppleBullet::GetBoundingBox() {
 	Box box;
@@ -64,7 +72,6 @@ void AppleBullet::Update(float deltaTime) {
 			BurstAction();
 			break;
 		case BulletAppleBurstBoss:
-			BurstBossAction();
 			break;
 		default:
 			break;
@@ -76,9 +83,8 @@ void AppleBullet::Update(float deltaTime) {
 void AppleBullet::checkPositionBullet() {
 	if (m_image->getPositionY()<= achorY)
 		vy = 6.5f;
-	if (abs(m_image->getPositionY() - achorY) >= 60)
-		BurstBossAction();
-		//isDead = true;
+	if (abs(m_image->getPositionY() - achorY) >= 200)
+		isDead = true;
 }
 
 void AppleBullet::FlyingAction() {
@@ -120,12 +126,13 @@ void AppleBullet::BurstAction() {
 	}
 }
 
-void AppleBullet::BurstBossAction() {
+void AppleBullet::BurstBossAction(GameObject* Obj) {
 	switch (m_state)
 	{
 	case BulletAppleBurstBoss:
 		if (m_image->getIsFinished())
 		{
+			
 			isDead = true;
 		}
 		break;
@@ -136,6 +143,7 @@ void AppleBullet::BurstBossAction() {
 		m_image->setPositionX(this->x);
 		m_image->setPositionY(this->y);
 		m_state = BulletAppleBurstBoss;
+		Obj->OnCollision(Obj, 0);
 		break;
 	}
 }
@@ -152,6 +160,28 @@ void AppleBullet::Draw() {
 
 void AppleBullet::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {
 	// to do change status type when happen collision
+}
+
+void AppleBullet::OnCollision(GameObject* colliableObject, float deltaTime)
+{
+	switch (colliableObject->getTag())
+	{
+	case BatTag: case SkeletonTag: case MustaheGuardTag: case ThinGuardTag: //case VerticleWallTag:
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), colliableObject->GetBoundingBoxForApple()))
+		{
+			colliableObject->OnCollision(this, deltaTime);
+			BurstAction();
+		}
+		break;
+	case BossTag:
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), colliableObject->GetBoundingBox()))
+		{
+			BurstBossAction(colliableObject);
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 

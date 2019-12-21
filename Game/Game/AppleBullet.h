@@ -21,7 +21,7 @@ protected:
 	Animation* m_imageBurst;
 	Animation* m_imageBurstBoss;
 	float achorY;
-	bool isDead;
+	bool isDead, isChangeList;
 
 public:
 
@@ -35,13 +35,16 @@ public:
 
 	void Update(float deltaTime);
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void Draw();
 
 	void FlyingAction();
 	void BurstAction();
-	void BurstBossAction();
+	void BurstBossAction(GameObject* colliableObject);
 	
 	void checkPositionBullet();
 	bool getIsDead();
+	bool getIsChangeList();
+	void setIsChangeList();
 };
 

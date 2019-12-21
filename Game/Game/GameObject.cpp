@@ -40,6 +40,20 @@ Box GameObject::GetBoundingBox()
 	return box;
 }
 
+Box GameObject::GetBoundingBoxForApple()
+{
+	Box box;
+
+	box.x = x;
+	box.y = y;
+	box.width = width;
+	box.height = height;
+	box.vx = vx;
+	box.vy = vy;
+
+	return box;
+}
+
 void GameObject::Update(float deltaTime)
 {
 }

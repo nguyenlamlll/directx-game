@@ -42,13 +42,55 @@ Bat::~Bat() {
 Box Bat::GetBoundingBox() {
 	Box box;
 
-	box.x = x - width /2;
-	box.y = y - height/2;
+	box.x = x - width / 2;
+	box.y = y - height / 2;
 	box.width = width;
 	box.height = height;
 	box.vx = vx;
 	box.vy = vy;
 
+	return box;
+}
+
+Box Bat::GetBoundingBoxForApple() {
+	Box box;
+	switch (m_state)
+	{
+	case BatSwing:
+		box.x = x;
+		box.y = y;
+		box.width = 21;
+		box.height = 26;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case BatMoving:
+		box.x = x;
+		box.y = y;
+		box.width = 21;
+		box.height = 26;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case BatFling:
+		box.x = x;
+		box.y = y;
+		box.width = 34;
+		box.height = 40;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case BatBurst:
+		box.x = 500;
+		box.y = y;
+		box.width = 1;
+		box.height = 1;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	default:
+		break;
+	}
 	return box;
 }
 
@@ -139,7 +181,12 @@ void Bat::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaT
 
 void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	if (colliableObject->getTag() == Tag::PlayerTag)
+	switch (colliableObject->getTag())
+	{
+	case BulletAppleTag:
+		BurstAction();
+		break;
+	case PlayerTag:
 	{
 		auto player = dynamic_cast<Player*>(colliableObject);
 		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
@@ -152,6 +199,10 @@ void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -275,8 +326,8 @@ void Bat::BurstAction() {
 		m_state = BatBurst;
 		m_imageBurst->Reset();
 		m_image = m_imageBurst;
-		m_image->setPositionX(this->x);
-		m_image->setPositionY(this->y);
+		m_image->setPositionX(x);
+		m_image->setPositionY(y);
 		vx = 0;
 		vy = 0;
 	}

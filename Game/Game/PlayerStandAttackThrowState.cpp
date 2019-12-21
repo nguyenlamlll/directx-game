@@ -8,8 +8,6 @@ PlayerStandAttackThrowState::PlayerStandAttackThrowState(Player* player, Animati
 	m_animation->Reset();
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
-	if (m_animation->getIndexFrame() == 2)
-		createAppleBullet();
 	if (m_player->getIsFacingRight() == false)
 	{
 		m_animation->setFlipHorizontal(true);

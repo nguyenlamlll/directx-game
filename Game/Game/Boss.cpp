@@ -3,7 +3,7 @@
 
 #define ANCHOR_HEALTH_BOSS 0.5
 #define ATTACK_CLOSE_RANGE 30
-#define HEALTH_BOSS 150
+#define HEALTH_BOSS 48
 
 Boss::Boss(float x, float y, float width, float height, bool isFacingRight) 
 	: GameObject(x, y, width, height, Tag::BossTag) 
@@ -93,13 +93,37 @@ Boss::~Boss() {
 
 Box Boss::GetBoundingBox() {
 	Box box;
+	switch (m_state)
+	{
+	case WarlockStanding: case WarlockMagicing:
+		box.x = x;
+		box.y = y;
+		box.width = 85 / 2.5;
+		box.height = 75;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case CobraRenascence: case CobraAttack:
+		box.x = x;
+		box.y = y;
+		box.width = 105 / 2.5;
+		box.height = 85;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case BossDied:
+		box.x = x;
+		box.y = y + height/2;
+		box.width = 2;
+		box.height = 2;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	default:
+		break;
+	}
 
-	box.x = x;
-	box.y = y;
-	box.width = width;
-	box.height = height;
-	box.vx = vx;
-	box.vy = vy;
+	
 
 	return box;
 }
@@ -187,6 +211,19 @@ void Boss::Draw() {
 
 void Boss::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {
 
+}
+
+void Boss::OnCollision(GameObject* colliableObject, float deltaTime) {
+	switch (colliableObject->getTag())
+	{
+	case BossTag:
+		m_health->takeDamage(1);
+		break;
+	case PlayerTag:
+		break;
+	default:
+		break;
+	}
 }
 
 void Boss::attachPlayer(Player* player) {
@@ -282,7 +319,6 @@ void Boss::WarlockMagicingAction() {
 				WarlockStandingAction();
 			}
 		}
-		m_health->takeDamage(0.1);
 		m_image->setFlipHorizontal(m_isFacingRight);
 		break;
 	}
@@ -353,7 +389,6 @@ void Boss::CobraAttackAction() {
 				m_startWaitAttack = GetTickCount();
 			}
 		}
-		m_health->takeDamage(0.1);
 		m_image->setFlipHorizontal(m_isFacingRight);
 		setPositionFire();
 		break;
