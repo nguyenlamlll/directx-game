@@ -8,14 +8,15 @@ AppleItem::AppleItem(float x, float y, float width, float height) : Item(x, y, w
 	isDead = false;
 	isDied = false;
 
-
-	// apple
-	image = new Animation(L"Resources/Items/PNG/apple_11_11_1.png", 1, 1, 1);
+	m_imageInitial = new Animation(L"Resources/Items/PNG/apple_11_11_1.png", 1, 1, 1);
+	m_imageUsed = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+	image = m_imageInitial;
 	image->setPositionX(x);
 	image->setPositionY(y);
 }
 
-AppleItem::~AppleItem() {
+AppleItem::~AppleItem() 
+{
 
 }
 
@@ -32,7 +33,7 @@ void AppleItem::ActiveAction() {
 	default:
 	{
 		status = Active;
-		image = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+		image = m_imageUsed;
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;

@@ -44,8 +44,8 @@ Box Bat::GetBoundingBox() {
 
 	box.x = x - width /2;
 	box.y = y - height/2;
-	box.width = width +150;
-	box.height = height +150;
+	box.width = width;
+	box.height = height;
 	box.vx = vx;
 	box.vy = vy;
 
@@ -58,15 +58,16 @@ D3DXVECTOR2 Bat::getVelocity() {
 }
 
 void Bat::Update(float deltaTime) {
-	auto now = GetTickCount();
-	auto dt = now - start;
-	if (dt > 2000)
+	if (!isDead && this->m_currentHealth > 0.0f) 
 	{
-		m_isAttackingHit = false;
-		start = GetTickCount();
-	}
+		auto now = GetTickCount();
+		auto dt = now - start;
+		if (dt > 2000)
+		{
+			m_isAttackingHit = false;
+			start = GetTickCount();
+		}
 
-	if (!isDead && this->m_currentHealth > 0.0f) {
 		checkPositionWithPlayer();
 		switch (m_state)
 		{

@@ -11,14 +11,18 @@ GenieFaceItem::GenieFaceItem(float x, float y, float width, float height) : Item
 	// start marking time
 	start_wait = GetTickCount();
 
-	// Ruby
-	image = new Animation(L"Resources/Items/PNG/genie-face_45_52_4.png", 4, 1, 4, false, 150.f);
+	m_imageGenieFace = new Animation(L"Resources/Items/PNG/genie-face_45_52_4.png", 4, 1, 4, false, 150.f);
+	m_imageBurst = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 60.f);
+
+	image = m_imageGenieFace;
 	image->setPositionX(x);
 	image->setPositionY(y);
 }
 
-GenieFaceItem::~GenieFaceItem() {
-
+GenieFaceItem::~GenieFaceItem() 
+{
+	delete m_imageGenieFace;
+	delete m_imageBurst;
 }
 
 void GenieFaceItem::ActiveAction() {
@@ -33,7 +37,7 @@ void GenieFaceItem::ActiveAction() {
 	}
 	default:
 	{
-		image = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 60.f);
+		image = m_imageBurst;
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;
