@@ -149,6 +149,10 @@ void PlayScene::ReleaseAll()
 	auto allObjects = m_grid->getAllObjects();
 	for (auto it = allObjects->begin(); it != allObjects->end(); it++)
 	{
+		std::wstring raw = L"Item index deleting: " + std::to_wstring(it->first);
+		LPCWSTR outputString = raw.c_str();
+		OutputDebugString(outputString);
+		OutputDebugString(L"\n");
 		delete it->second;
 	}
 	m_grid->reset();
@@ -185,6 +189,8 @@ void PlayScene::loadResources()
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	D3DXVECTOR2 position(704.25, 1463.75);
 	Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, 1463.75));
+	Camera::getInstance()->setBoundaries(700, 2550, 650, 1463.75);
+
 	m_listCanCollideWithPlayer = new std::map<int, GameObject*>();
 
 	m_grid = new Grid();

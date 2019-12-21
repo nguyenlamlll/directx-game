@@ -65,10 +65,10 @@ void MouseInput::mouseMove(HWND hwnd, LPARAM lParam)
 	m_currentPosition = MAKEPOINTS(lParam);
 
 #ifdef _DEBUG
-	std::wstring raw = L"Mouse: " + std::to_wstring(m_currentPosition.x) + L", " + std::to_wstring(m_currentPosition.y);
-	LPCWSTR outputString = raw.c_str();
-	OutputDebugString(outputString);
-	OutputDebugString(L"\n");
+	//std::wstring raw = L"Mouse: " + std::to_wstring(m_currentPosition.x) + L", " + std::to_wstring(m_currentPosition.y);
+	//LPCWSTR outputString = raw.c_str();
+	//OutputDebugString(outputString);
+	//OutputDebugString(L"\n");
 #endif
 
 	ReleaseDC(hwnd, hdc);

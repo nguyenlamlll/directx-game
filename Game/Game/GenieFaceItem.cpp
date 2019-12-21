@@ -21,8 +21,8 @@ GenieFaceItem::GenieFaceItem(float x, float y, float width, float height) : Item
 
 GenieFaceItem::~GenieFaceItem() 
 {
-	delete m_imageGenieFace;
-	delete m_imageBurst;
+	// delete m_imageGenieFace;
+	// delete m_imageBurst;
 }
 
 void GenieFaceItem::ActiveAction() {

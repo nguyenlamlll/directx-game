@@ -145,6 +145,8 @@ void BossScene::loadPlayerConfigurationsFromFile()
 			file >> x;
 			file >> y;
 			Camera::getInstance()->setPosition(D3DXVECTOR2(x, y));
+			auto defaultBoundaries = Camera::getInstance()->getBoundaries();
+			Camera::getInstance()->setBoundaries(defaultBoundaries.x, 1531, defaultBoundaries.z, defaultBoundaries.w);
 		}
 	}
 	file.close();

@@ -49,9 +49,22 @@ Box Camera::getBox()
 
 void Camera::updateCamera(D3DXVECTOR2 playerPosition)
 {
-	if (m_position.y >= 1463.75)
+	if (m_position.x <= m_leftBoundary)
 	{
-		m_position.y = 1463.75;
+		m_position.x = m_leftBoundary;
+	}
+	if (m_position.x >= m_rightBoundary)
+	{
+		m_position.x = m_rightBoundary;
+	}
+
+	if (m_position.y <= m_topBoundary)
+	{
+		m_position.y = m_topBoundary;
+	}
+	if (m_position.y >= m_bottomBoundary)
+	{
+		m_position.y = m_bottomBoundary;
 	}
 
 	//if (m_position.x + GLOBAL->g_ScreenWidth / 2 >= GLOBAL->g_WorldMapWidth)
@@ -77,4 +90,23 @@ void Camera::updateCamera(D3DXVECTOR2 playerPosition)
 	//{
 	//	m_position.y = Global::GetInstance()->g_ScreenHeight / 2;
 	//}
+}
+
+// Return a vector 4 of boundaries in this order: left, right, top, bottom.
+D3DXVECTOR4 Camera::getBoundaries()
+{
+	return D3DXVECTOR4(
+		m_leftBoundary,
+		m_rightBoundary,
+		m_topBoundary,
+		m_bottomBoundary
+	);
+}
+
+void Camera::setBoundaries(float left, float right, float top, float bottom)
+{
+	m_leftBoundary = left;
+	m_rightBoundary = right;
+	m_topBoundary = top;
+	m_bottomBoundary = bottom;
 }

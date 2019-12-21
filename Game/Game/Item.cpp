@@ -89,7 +89,7 @@ void Item::OnInterSerct() {
 	rangeX = abs(m_player->getPosition().x - this->x);
 	rangeY = abs(m_player->getPosition().y - this->y);
 
-	if (rangeX <= 15 && rangeY <= 25)
+	if (rangeX <= 35 && rangeY <= 35)
 	{
 		ActiveAction();
 	}

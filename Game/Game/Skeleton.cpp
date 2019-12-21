@@ -38,13 +38,13 @@ Skeleton::~Skeleton() {
 
 void Skeleton::deinitialize()
 {
-	if (m_isDeinitialized == false)
-	{
-		delete m_imageCrawl;
-		delete m_imageBurst;
-		delete m_imageTransform;
-		m_isDeinitialized = true;
-	}
+	//if (m_isDeinitialized == false)
+	//{
+	//	delete m_imageCrawl;
+	//	delete m_imageBurst;
+	//	delete m_imageTransform;
+	//	m_isDeinitialized = true;
+	//}
 }
 
 Box Skeleton::GetBoundingBox() {

@@ -1,7 +1,7 @@
 boss 1232 840 100 100 0
 
 vertical-wall Resources/vertical-wall.png 785 840 80 200 1 1 0
-vertical-wall Resources/vertical-wall.png 1775 840 80 200 1 1 1
+vertical-wall Resources/vertical-wall.png 1740 840 80 200 1 1 0
 
 ground 800 914 32 32 1 1 0
 ground 832 914 32 32 1 1 0
