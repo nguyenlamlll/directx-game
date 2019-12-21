@@ -73,5 +73,4 @@ void PlayerSitDownAttackThrowState::createAppleBullet() {
 	appleY = m_animation->getPositionY();
 	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
 	m_player->addAppleToList(apple);
-	//list.push_back(apple);
 }

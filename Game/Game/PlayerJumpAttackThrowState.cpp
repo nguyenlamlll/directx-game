@@ -91,10 +91,6 @@ void PlayerJumpAttackThrowState::OnCollision(GameObject* entity, float deltaTime
 {
 }
 
-//vector<AppleBullet*>* PlayerJumpAttackThrowState::getListBullet() {
-//	return &list;
-//}
-
 void PlayerJumpAttackThrowState::createAppleBullet() {
 	int appleX, appleY;
 	if (m_player->getIsFacingRight())
@@ -104,6 +100,5 @@ void PlayerJumpAttackThrowState::createAppleBullet() {
 	appleY = m_animation->getPositionY();
 	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
 	m_player->addAppleToList(apple);
-	//list.push_back(apple);
 }
 
