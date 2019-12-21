@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Animation.h"
 
+
 class PlayerJumpAttackThrowState : public PlayerState
 {
 private:
@@ -22,5 +23,7 @@ public:
 	virtual PlayerStates GetState() override;
 	virtual void PreCollision(GameObject* entity, float deltaTime) override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
+
+	virtual void createAppleBullet() override;
 };
 

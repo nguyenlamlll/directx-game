@@ -17,6 +17,8 @@ void PlayerSwingAttackThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
+	if (m_animation->getIndexFrame() == 3)
+		createAppleBullet();
 }
 
 void PlayerSwingAttackThrowState::Draw()
@@ -31,4 +33,19 @@ PlayerStates PlayerSwingAttackThrowState::GetState()
 
 void PlayerSwingAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
+}
+
+//vector<AppleBullet*>* PlayerSwingAttackThrowState::getListBullet() {
+//	return &list;
+//}
+
+void PlayerSwingAttackThrowState::createAppleBullet() {
+	int appleX, appleY;
+	if (m_player->getIsFacingRight())
+		appleX = m_animation->getPositionX() + 10;
+	else
+		appleX = m_animation->getPositionX() - 10;
+	appleY = m_animation->getPositionY();
+	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
+	m_player->addAppleToList(apple);
 }

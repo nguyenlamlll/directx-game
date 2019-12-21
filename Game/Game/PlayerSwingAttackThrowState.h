@@ -18,5 +18,7 @@ public:
 	virtual void Draw() override;
 	virtual PlayerStates GetState() override;
 	virtual void OnCollision(GameObject* entity, float deltaTime) override;
+
+	virtual void createAppleBullet() override;
 };
 

@@ -101,6 +101,11 @@ public:
 	PlayerState* getPreviousState();
 	PlayerState* getCurrentState();
 
+private: 
+	vector<AppleBullet*>lsAppleBullet;
+public:
+	void addAppleToList(AppleBullet*);
+
 public:
 	Player(float x, float y, float width, float height);
 	~Player();

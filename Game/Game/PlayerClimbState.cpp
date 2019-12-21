@@ -34,3 +34,4 @@ PlayerStates PlayerClimbState::GetState()
 void PlayerClimbState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
+

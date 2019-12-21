@@ -3,87 +3,34 @@
 
 
 
-AppleBullet::AppleBullet(float x, float y, float width, float height, Player* player)
-	: GameObject(x, y, width, height, Tag::BulletAppleTag){
-
-	this->setPosition(D3DXVECTOR2(x, y));
-	
-	isUsed= false;
+AppleBullet::AppleBullet(float x, float y, float width, float height, bool isToRight)
+	: GameObject(x, y, width, height, Tag::BulletAppleTag){	
 	isDead = false;
-	isDied = false;
 	
 	// Fling
-	image = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 50.f);
-	switch (player->getCurrentState()->GetState())
-	{
-	case StandingThrow: {
-		image->setPositionY((player->top() + player->bottom()) / 2);
-		this->vy = -0.45f;
-		if (!player->getIsFacingRight()) {
-			this->vx = 2.0f;
-			// Bullet's postionX = player's positionX + player's width
-			image->setPositionX(player->right());
-		}
-		else {
-			this->vx = -2.0f;
-			// Bullet's postionX = player's positionX 
-			image->setPositionX(player->left());
-		}
-		break;
-	}
-	case StandAttackThrow: {
-		image->setPositionY((player->top() + player->bottom()) / 2);
-		this->vy = -0.45f;
-		if (!player->getIsFacingRight()) {
-			this->vx = 2.0f;
-			// Bullet's postionX = player's positionX + player's width
-			image->setPositionX(player->right());
-		}
-		else {
-			this->vx = -2.0f;
-			// Bullet's postionX = player's positionX 
-			image->setPositionX(player->left());
-		}
-		break;
-	}
-	case JumpAttackThrow: {
-		image->setPositionY((player->top() + player->bottom()) / 2);
-		this->vy = -0.45f;
-		if (!player->getIsFacingRight()) {
-			this->vx = 2.0f;
-			// Bullet's postionX = player's positionX + player's width
-			image->setPositionX(player->right());
-		}
-		else {
-			this->vx = -2.0f;
-			// Bullet's postionX = player's positionX 
-			image->setPositionX(player->left());
-		}
-		break;
-	}
-	case SwingAttackThrow: {
-		image->setPositionY((player->top() + player->bottom()) / 2);
-		this->vy = -0.45f;
-		if (!player->getIsFacingRight()) {
-			this->vx = 2.0f;
-			// Bullet's postionX = player's positionX + player's width
-			image->setPositionX(player->right());
-		}
-		else {
-			this->vx = -2.0f;
-			// Bullet's postionX = player's positionX 
-			image->setPositionX(player->left());
-		}
-		break;
-	}
-	default:
-		break;
-	}
-	this->m_isFacingRight = player->getIsFacingRight();
+	m_imageFlying = new Animation(L"Resources/Items/PNG/apple-fling_12_12_4.png", 4, 1, 4, true, 100.f);
+	m_imageBurst = new Animation(L"Resources/Items/PNG/apple-burst_31_27_6.png", 6, 1, 6, false, 60.f);
+	m_imageBurstBoss = new Animation(L"Resources/Items/PNG/burst-boss-apple_45_50_20.png", 20, 1, 20, false, 150.f);
+	achorY = y - 30;
+	m_isFacingRight = isToRight;
+	m_image = m_imageFlying;
+	if (m_isFacingRight)
+		vx = 14.0f;
+	else
+		vx = -14.0f;
+	vy = -2.5f;
+
+	m_image->setPositionX(x);
+	m_image->setPositionY(y);
+	m_image->setFlipHorizontal(isToRight);
+
+	m_state = BulletAppleFlying;
 }
 
 AppleBullet::~AppleBullet() {
-	
+	if (m_imageFlying != NULL) { delete m_imageFlying; m_imageFlying = nullptr; }
+	if (m_imageBurst != NULL) { delete m_imageBurst; m_imageBurst = nullptr; }
+	if (m_imageBurstBoss != NULL) { delete m_imageBurstBoss; m_imageBurstBoss = nullptr; }
 }
 
 
@@ -106,60 +53,100 @@ D3DXVECTOR2 AppleBullet::getVelocity() {
 }
 
 void AppleBullet::Update(float deltaTime) {
-	switch (status)
-	{
-	case Status::Burst: {
-		BurstAction();
-		if (!isDead) {
-			image->Update(deltaTime);
+	if (!isDead) {
+		checkPositionBullet();
+		switch (m_state)
+		{
+		case BulletAppleFlying:
+			FlyingAction();
+			break;
+		case BulletAppleBurst:
+			BurstAction();
+			break;
+		case BulletAppleBurstBoss:
+			BurstBossAction();
+			break;
+		default:
+			break;
 		}
-		break;
+		m_image->Update(deltaTime);
 	}
-	case Status::Fling: {
+}
+
+void AppleBullet::checkPositionBullet() {
+	if (m_image->getPositionY()<= achorY)
+		vy = 6.5f;
+	if (abs(m_image->getPositionY() - achorY) >= 60)
+		BurstBossAction();
+		//isDead = true;
+}
+
+void AppleBullet::FlyingAction() {
+	switch (m_state)
+	{
+	case BulletAppleFlying:
 		x += vx;
 		y += vy;
-		image->Update(deltaTime);
+		m_image->setPositionX(x);
+		m_image->setPositionY(y);
 		break;
-	}
 	default:
+		m_imageFlying->Reset();
+		m_image = m_imageFlying;
+		m_image->setPositionX(x);
+		m_image->setPositionY(y);
+		m_state = BulletAppleFlying;
 		break;
 	}
 }
 
 void AppleBullet::BurstAction() {
-	switch (status)
+	switch (m_state)
 	{
-	case Status::Burst:
-	{
-		if (image->getIsFinished())
+	case BulletAppleBurst:
+		if (m_image->getIsFinished())
 		{
 			isDead = true;
-			// to do delete apple in list object
 		}
 		break;
-	}
 	default:
-	{
-		vx = 0;
-		vy = 0;
-		image = new Animation(L"Resources/Items/PNG/genie-jar_34_38_10.png", 10, 1, 10, false, 70.f);
-		image->setPositionX(this->x);
-		image->setPositionY(this->y);
-		isDied = true;
-		status = Status::Burst;
+		vx = vy = 0;
+		m_imageBurst->Reset();
+		m_image = m_imageBurst;
+		m_image->setPositionX(this->x);
+		m_image->setPositionY(this->y);
+		m_state = BulletAppleBurst;
 		break;
-	}
 	}
 }
 
+void AppleBullet::BurstBossAction() {
+	switch (m_state)
+	{
+	case BulletAppleBurstBoss:
+		if (m_image->getIsFinished())
+		{
+			isDead = true;
+		}
+		break;
+	default:
+		vx = vy = 0;
+		m_imageBurstBoss->Reset();
+		m_image = m_imageBurstBoss;
+		m_image->setPositionX(this->x);
+		m_image->setPositionY(this->y);
+		m_state = BulletAppleBurstBoss;
+		break;
+	}
+}
+
+bool AppleBullet::getIsDead() {
+	return isDead;
+}
 
 void AppleBullet::Draw() {
-	//m_playerSprite->Draw();
-	if(status == Status::Burst && image->getIsFinished() == true){ }
-	else {
-		image->Draw();
-	}
-	//m_currentAnimation->Draw();
+	if (!isDead)
+		m_image->Draw();
 }
 
 

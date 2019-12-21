@@ -35,6 +35,8 @@ void PlayerSitDownAttackThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
+	if (m_animation->getIndexFrame() == 3)
+		createAppleBullet();
 
 	if (m_animation->getIsFinished() == true)
 	{
@@ -60,4 +62,16 @@ void PlayerSitDownAttackThrowState::PreCollision(GameObject * entity, float delt
 
 void PlayerSitDownAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
+}
+
+
+void PlayerSitDownAttackThrowState::createAppleBullet() {
+	int appleX, appleY;
+	if (m_player->getIsFacingRight())
+		appleX = m_animation->getPositionX() + 10;
+	else
+		appleX = m_animation->getPositionX() - 10;
+	appleY = m_animation->getPositionY();
+	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
+	m_player->addAppleToList(apple);
 }

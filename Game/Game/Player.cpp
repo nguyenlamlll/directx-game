@@ -11,9 +11,14 @@ PlayerState * Player::getPreviousState()
 	return m_previousState;
 }
 
-PlayerState * Player::getCurrentState()
+PlayerState* Player::getCurrentState()
 {
 	return m_currentState;
+}
+
+void Player::addAppleToList(AppleBullet* bullet)
+{
+	lsAppleBullet.push_back(bullet);
 }
 
 Player::Player(float x, float y, float width, float height)
@@ -167,6 +172,18 @@ void Player::Update(float deltaTime)
 #endif
 
 	m_currentState->Update(deltaTime);
+
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if(!lsAppleBullet.at(j)->getIsDead())
+				lsAppleBullet.at(j)->Update(deltaTime);
+			else {
+				delete lsAppleBullet.at(j);
+				lsAppleBullet.at(j) = nullptr;
+				lsAppleBullet.erase(lsAppleBullet.begin() + j);
+			}
+		}
+	}
 
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
@@ -332,6 +349,12 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 
 void Player::Draw()
 {
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if (!lsAppleBullet.at(j)->getIsDead())
+				lsAppleBullet.at(j)->Draw();
+		}
+	}
 	if (m_isHurt) 
 	{
 		// Begin the flickering process. A cycle contains 3 frames: { 0, 1, 2 }

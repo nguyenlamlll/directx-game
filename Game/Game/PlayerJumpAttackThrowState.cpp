@@ -57,6 +57,9 @@ void PlayerJumpAttackThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
+	if (m_animation->getIndexFrame() == 3)
+		createAppleBullet();
+
 
 	if (m_travelledJumpDistance >= m_longestJumpDistance * 2) {
 		m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, m_initialY));
@@ -87,3 +90,15 @@ void PlayerJumpAttackThrowState::PreCollision(GameObject * entity, float deltaTi
 void PlayerJumpAttackThrowState::OnCollision(GameObject* entity, float deltaTime)
 {
 }
+
+void PlayerJumpAttackThrowState::createAppleBullet() {
+	int appleX, appleY;
+	if (m_player->getIsFacingRight())
+		appleX = m_animation->getPositionX() + 15;
+	else
+		appleX = m_animation->getPositionX() - 15;
+	appleY = m_animation->getPositionY();
+	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
+	m_player->addAppleToList(apple);
+}
+
