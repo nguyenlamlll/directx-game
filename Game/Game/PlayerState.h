@@ -33,7 +33,6 @@ class Player;
 class PlayerState
 {
 protected:
-	vector<AppleBullet*>list;
 	Player* m_player;
 public:
 	PlayerState() {}

@@ -62,10 +62,6 @@ void PlayerStandAttackThrowState::OnCollision(GameObject* entity, float deltaTim
 {
 }
 
-//vector<AppleBullet*>* PlayerStandAttackThrowState::getListBullet() {
-//	return &list;
-//}
-
 void PlayerStandAttackThrowState::createAppleBullet() {
 	int appleX, appleY;
 	if (m_player->getIsFacingRight())
@@ -74,6 +70,6 @@ void PlayerStandAttackThrowState::createAppleBullet() {
 		appleX = m_animation->getPositionX() - 10;
 	appleY = m_animation->getPositionY() - 30;
 	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
-	list.push_back(apple);
+	m_player->addAppleToList(apple);
 }
 
