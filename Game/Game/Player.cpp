@@ -354,6 +354,7 @@ void Player::Draw()
 			if (!lsAppleBullet.at(j)->getIsDead())
 				lsAppleBullet.at(j)->Draw();
 		}
+	}
 	if (m_isHurt) 
 	{
 		// Begin the flickering process. A cycle contains 3 frames: { 0, 1, 2 }
