@@ -3,7 +3,9 @@
 
 #define ATTACK_RANGE 200
 
-Bat::Bat(float x, float y, float width, float height, float limit_left, float limit_right) : GameObject(x, y, width, height, Tag::BatTag) {
+Bat::Bat(float x, float y, float width, float height, float limit_left, float limit_right) : 
+	GameObject(x, y, width, height, Tag::BatTag), Health(1)
+{
 	this->setPosition(D3DXVECTOR2(x, y));
 	isDead = false;
 	isDied = false;
@@ -26,6 +28,8 @@ Bat::Bat(float x, float y, float width, float height, float limit_left, float li
 	vx = 0;
 	vy = 0;
 	m_state = BatSwing;
+
+	start = GetTickCount();
 }
 
 Bat::~Bat() {
@@ -38,10 +42,10 @@ Bat::~Bat() {
 Box Bat::GetBoundingBox() {
 	Box box;
 
-	box.x = x;
-	box.y = y;
-	box.width = width;
-	box.height = height;
+	box.x = x - width /2;
+	box.y = y - height/2;
+	box.width = width +150;
+	box.height = height +150;
 	box.vx = vx;
 	box.vy = vy;
 
@@ -54,7 +58,15 @@ D3DXVECTOR2 Bat::getVelocity() {
 }
 
 void Bat::Update(float deltaTime) {
-	if (!isDead) {
+	auto now = GetTickCount();
+	auto dt = now - start;
+	if (dt > 2000)
+	{
+		m_isAttackingHit = false;
+		start = GetTickCount();
+	}
+
+	if (!isDead && this->m_currentHealth > 0.0f) {
 		checkPositionWithPlayer();
 		switch (m_state)
 		{
@@ -72,6 +84,11 @@ void Bat::Update(float deltaTime) {
 		default:
 			break;
 		}
+		m_image->Update(deltaTime);
+	}
+	if (!isDead && m_currentHealth <= 0.0f)
+	{ 
+		BurstAction();
 		m_image->Update(deltaTime);
 	}
 }
@@ -119,6 +136,24 @@ void Bat::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaT
 
 }
 
+void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
+{
+	if (colliableObject->getTag() == Tag::PlayerTag)
+	{
+		auto player = dynamic_cast<Player*>(colliableObject);
+		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
+		{
+			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+			{
+				OutputDebugString(L"[INFO] Bat attacks Player.\n");
+				player->takeDamage(1);
+				player->isHit();
+				m_isAttackingHit = true;
+			}
+		}
+	}
+}
+
 void Bat::ResetAction() {
 	if (!isDead) {
 		m_imageSwing->Reset();
@@ -129,6 +164,7 @@ void Bat::ResetAction() {
 		vy = 0;
 		m_state = BatSwing;
 		isUsed = false;
+		m_isAttackingHit = false;
 	}
 }
 
@@ -213,7 +249,6 @@ void Bat::FlingAction() {
 		y += vy;
 		m_image->setPositionX(x);
 		m_image->setPositionY(y);
-
 		break;
 	}
 	default:

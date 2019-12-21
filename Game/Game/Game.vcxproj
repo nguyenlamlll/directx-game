@@ -186,8 +186,11 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="LifeScores.h" />
     <ClInclude Include="MustacheGuard.h" />
+    <ClInclude Include="PlayerMoveAttackState.h" />
+    <ClInclude Include="PlayerMoveThrowState.h" />
     <ClInclude Include="RubyScores.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundNames.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Peddler.h" />
@@ -267,6 +270,8 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LifeScores.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
+    <ClCompile Include="PlayerMoveAttackState.cpp" />
+    <ClCompile Include="PlayerMoveThrowState.cpp" />
     <ClCompile Include="RubyScores.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spike.cpp" />

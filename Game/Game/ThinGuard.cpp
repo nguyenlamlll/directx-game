@@ -18,7 +18,7 @@ ThinGuard::ThinGuard(float x, float y, float width, float height)
 	m_animations[ThinGuardStates::Moving]->setPositionX(x);
 	m_animations[ThinGuardStates::Moving]->setPositionY(y);
 
-	m_animations[ThinGuardStates::Attacking] = new Animation(L"Resources/animations/enemy/thin-guard/attack.png", 6, 1, 6, true, 80.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[ThinGuardStates::Attacking] = new Animation(L"Resources/animations/enemy/thin-guard/attack.png", 6, 1, 6, false, 80.f, D3DCOLOR_XRGB(120, 193, 152));
 	m_animations[ThinGuardStates::Attacking]->setPositionX(x);
 	m_animations[ThinGuardStates::Attacking]->setPositionY(y);
 
@@ -87,8 +87,8 @@ Box ThinGuard::GetBoundingBox()
 
 	box.x = x - width / 2;
 	box.y = y - height / 2;
-	box.width = width;
-	box.height = height;
+	box.width = width + 50;
+	box.height = height + 50;
 	box.vx = vx;
 	box.vy = vy;
 
@@ -131,6 +131,11 @@ void ThinGuard::Update(float deltaTime)
 			checkAndUpdateDirection();
 			m_currentAnimation->setPositionX(x);
 			m_currentAnimation->setPositionY(y);
+			if (m_currentAnimation->getIsFinished() == true)
+			{
+				m_isAttackingHit = false;
+				m_currentAnimation->Reset();
+			}
 			break;
 		}
 		case (ThinGuardStates::Moving):
@@ -183,6 +188,27 @@ bool ThinGuard::isPlayerOnTheLeft()
 
 void ThinGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
 {
+}
+
+void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
+{
+	if (colliableObject->getTag() == Tag::PlayerTag)
+	{
+		auto player = dynamic_cast<Player*>(colliableObject);
+		auto self = this->GetBoundingBox();
+		self.x -= 30;
+		self.y -= 30;
+		if (Collision::getInstance()->isColliding(self, player->GetBoundingBox()))
+		{
+			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+			{
+				OutputDebugString(L"[INFO] ThinGuard attacks Player.\n");
+				player->takeDamage(0.5);
+				player->isHit();
+				m_isAttackingHit = true;
+			}
+		}
+	}
 }
 
 void ThinGuard::Draw()

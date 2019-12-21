@@ -80,6 +80,17 @@ void Sound::loadResources()
 {
 	this->loadSound((char*)"Resources/sound/background-level-1.wav", "background-level-1");
 	this->loadSound((char*)"Resources/sound/background-boss-level.wav", "background-boss-level");
+
+	this->loadSound((char*)"Resources/sound/aladdin-hurt.wav", SoundNames::ALADDIN_HURT_SOUND);
+	this->loadSound((char*)"Resources/sound/High_Sword.wav", SoundNames::HIGH_ATTACK_SOUND);
+	this->loadSound((char*)"Resources/sound/Low_Sword.wav", SoundNames::LOW_ATTACK_SOUND);
+
+	this->loadSound((char*)"Resources/sound/Guard_Hit_1.wav", SoundNames::GUARD_HIT_1_SOUND);
+	this->loadSound((char*)"Resources/sound/Guard_Hit_2.wav", SoundNames::GUARD_HIT_2_SOUND);
+
+	this->loadSound((char*)"Resources/sound/throw-apple.wav", SoundNames::THROW_APPLE_SOUND);
+
+
 }
 
 float Sound::getVolume()

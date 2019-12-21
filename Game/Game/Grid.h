@@ -44,6 +44,8 @@ public:
 	// Only visible objects should be drawn to save computer resource.
 	std::map<int, GameObject*>* getVisibleObjects();
 
+	void remove(int id, GameObject* object);
+
 private:
 	Cell* cells[NUM_COLUMNS][NUM_ROWS] = {};
 };

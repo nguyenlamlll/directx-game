@@ -22,6 +22,10 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::deinitialize()
+{
+}
+
 Box GameObject::GetBoundingBox()
 {
 	Box box;
@@ -41,6 +45,10 @@ void GameObject::Update(float deltaTime)
 }
 
 void GameObject::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
+{
+}
+
+void GameObject::OnCollision(GameObject * colliableObject, float deltaTime)
 {
 }
 

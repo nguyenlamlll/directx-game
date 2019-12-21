@@ -16,7 +16,7 @@ MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 	m_animations[MustacheGuardStates::Standing]->setPositionX(x);
 	m_animations[MustacheGuardStates::Standing]->setPositionY(y);
 
-	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/attack-1.png", 5, 1, 5, true, 80.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/attack-1.png", 5, 1, 5, false, 80.f, D3DCOLOR_XRGB(120, 193, 152));
 	m_animations[MustacheGuardStates::Attacking1]->setPositionX(x);
 	m_animations[MustacheGuardStates::Attacking1]->setPositionY(y - ATTACKING1_SPRITE_OFFSET);
 
@@ -103,7 +103,7 @@ Box MustacheGuard::GetBoundingBox()
 
 void MustacheGuard::Update(float deltaTime)
 {
-	if (m_currentHealth > 0)
+	if (m_currentHealth > 0.0f)
 	{
 		checkPositionWithPlayer();
 		if (m_isBeingHit)
@@ -121,7 +121,6 @@ void MustacheGuard::Update(float deltaTime)
 				m_isBeingHit = false;
 				m_animations[MustacheGuardStates::BeingHit]->Reset();
 			}
-
 		}
 		switch (m_currentState)
 		{
@@ -137,6 +136,11 @@ void MustacheGuard::Update(float deltaTime)
 			checkAndUpdateDirection();
 			m_currentAnimation->setPositionX(x);
 			m_currentAnimation->setPositionY(y - ATTACKING1_SPRITE_OFFSET);
+			if (m_currentAnimation->getIsFinished() == true)
+			{
+				m_isAttackingHit = false;
+				m_currentAnimation->Reset();
+			}
 			break;
 		}
 		case (MustacheGuardStates::Attacking2):
@@ -198,9 +202,27 @@ void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, fl
 {
 }
 
+void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
+{
+	if (colliableObject->getTag() == Tag::PlayerTag)
+	{
+		auto player = dynamic_cast<Player*>(colliableObject);
+		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
+		{
+			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+			{
+				OutputDebugString(L"[INFO] MustacheGuard attacks Player.\n");
+				player->takeDamage(0.5);
+				player->isHit();
+				m_isAttackingHit = true;
+			}
+		}
+	}
+}
+
 void MustacheGuard::Draw()
 {
-	if (m_currentHealth > 0)
+	if (m_currentHealth > 0.0f)
 	{
 		m_currentAnimation->Draw();
 	}

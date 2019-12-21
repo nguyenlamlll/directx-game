@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Health.h"
 
 #include <unordered_map>
 
@@ -12,9 +13,13 @@ enum BatState {
 	BatFling,
 	BatBurst
 };
-class Bat : public GameObject
+class Bat :
+	public GameObject, 
+	public Health
 {
 protected:
+	DWORD start;
+
 	BatState m_state;
 
 	Player* m_player;
@@ -36,6 +41,9 @@ protected:
 	// has been used ? true = not used || false = used
 	bool isUsed;
 	bool isDied;
+
+	bool m_isAttackingHit{ false };
+
 public:
 	Bat(float x, float y, float width, float height, float limit_left, float limit_right);
 	~Bat();
@@ -49,6 +57,7 @@ public:
 	void attachPlayer(Player* player);
 
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 	
 	void ResetAction();
 	void MovingAction();

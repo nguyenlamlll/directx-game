@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Health.h"
 
 #include <unordered_map>
 
@@ -13,7 +14,9 @@ enum SkeletonState {
 	SkeletonAttact
 };
 
-class Skeleton : public GameObject
+class Skeleton : 
+	public GameObject,
+	public Health
 {
 protected:
 	SkeletonState m_state;
@@ -32,6 +35,7 @@ protected:
 public:
 	Skeleton(float x, float y, float width, float height, bool isFacingRight);
 	~Skeleton();
+	virtual void deinitialize() override;
 
 	Box GetBoundingBox();
 	D3DXVECTOR2 getVelocity();

@@ -5,6 +5,7 @@ PlayerStandThrowState::PlayerStandThrowState(Player* player, Animation* animatio
 {
 	m_player = player;
 	m_animation = animation;
+
 }
 
 

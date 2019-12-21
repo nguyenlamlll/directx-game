@@ -2,7 +2,7 @@
 #include "PlayerSitDownState.h"
 
 
-PlayerSitDownState::PlayerSitDownState(Player* player, Animation* animation)
+PlayerSitDownState::PlayerSitDownState(Player* player, Animation* animation, bool isFixedSatDown)
 {
 	m_player = player;
 	m_animation = animation;
@@ -17,6 +17,8 @@ PlayerSitDownState::PlayerSitDownState(Player* player, Animation* animation)
 	else {
 		m_animation->setFlipHorizontal(false);
 	}
+
+	setIsFixedSittingDown(isFixedSatDown);
 }
 
 
@@ -33,9 +35,20 @@ void PlayerSitDownState::Update(float deltaTime)
 		return;
 	}
 
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_A)) {
+		m_animation->setFlipHorizontal(true);
+	}
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_D)) {
+		m_animation->setFlipHorizontal(false);
+	}
+
+
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
-	m_animation->Update(deltaTime);
+	if (!m_isFixedSatDown)
+	{
+		m_animation->Update(deltaTime);
+	}
 
 	// From Sit to Sit Attack
 	if (KeyboardInput::GetInstance()->isKeyReleased(VK_J))
@@ -68,4 +81,18 @@ void PlayerSitDownState::PreCollision(GameObject * entity, float deltaTime)
 
 void PlayerSitDownState::OnCollision(GameObject* entity, float deltaTime)
 {
+}
+
+void PlayerSitDownState::setIsFixedSittingDown(bool value)
+{
+	m_isFixedSatDown = value;
+	if (m_isFixedSatDown)
+	{
+		m_animation->setIndexFrame(3);
+	}
+}
+
+bool PlayerSitDownState::isSatDown()
+{
+	return m_isFixedSatDown;
 }

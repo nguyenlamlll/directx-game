@@ -203,3 +203,9 @@ std::map<int, GameObject*>* Grid::getVisibleObjects()
 	}
 	return visibleObjects;
 }
+
+void Grid::remove(int id, GameObject* object)
+{
+	auto position = calculateObjectPositionOnGrid(object);
+	cells[(int)position.x][(int)position.y]->remove(id);
+}

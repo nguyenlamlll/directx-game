@@ -12,7 +12,7 @@ PlayScene::PlayScene()
 		L"Resources/map/dungeon-500-500-tileset.png",
 		L"Resources/map/dungeon-500-500.csv");
 
-	//Sound::getInstance()->play("background-level-1", true);
+	Sound::getInstance()->play("background-level-1", true);
 }
 
 
@@ -38,6 +38,14 @@ void PlayScene::Update(float deltaTime)
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
 		it->second->Update(deltaTime);
+		if (it->second->getTag() == Tag::MustaheGuardTag || 
+			it->second->getTag() == Tag::ThinGuardTag ||
+			it->second->getTag() == Tag::SkeletonTag ||
+			it->second->getTag() == Tag::BatTag
+			)
+		{
+			it->second->OnCollision(m_player, deltaTime);
+		}
 	}
 
 	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
@@ -52,6 +60,24 @@ void PlayScene::Update(float deltaTime)
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
 	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
 
+	// Check and delete death objects
+	//auto objects = m_grid->getVisibleObjects();
+	//for (auto it = objects->begin(); it != objects->end();)
+	//{
+	//	auto health = dynamic_cast<Health*>(it->second);
+	//	if (health != nullptr && health->getCurrentHealth() <= 0.0f)
+	//	{
+	//		m_grid->remove(it->first, it->second);
+	//		//delete it->second;
+	//		it = objects->erase(it);
+	//	}
+	//	else
+	//	{
+	//		it++;
+	//	}
+	//}
+
+	visibleObjects->clear();
 	visibleObjects = m_foregroundGrid->getVisibleObjects();
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
@@ -488,7 +514,7 @@ void PlayScene::loadWallsFromFileToGrid()
 	std::ifstream file;
 	std::string filename = "Resources/grid/walls.txt";
 	file.open(filename);
-	
+
 	int count = m_grid->getAllObjects()->size() + 1;
 	while (!file.eof())
 	{

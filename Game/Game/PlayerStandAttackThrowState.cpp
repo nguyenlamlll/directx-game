@@ -16,6 +16,8 @@ PlayerStandAttackThrowState::PlayerStandAttackThrowState(Player* player, Animati
 	else {
 		m_animation->setFlipHorizontal(false);
 	}
+
+	Sound::getInstance()->play(SoundNames::THROW_APPLE_SOUND, false, 1);
 }
 
 
