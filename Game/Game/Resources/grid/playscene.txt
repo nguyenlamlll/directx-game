@@ -1,3 +1,5 @@
+exit-door 2722 660 78 208
+
 # Map details
 first-column 692 1430 32 300
 second-column 1008 1524 32 300
@@ -39,7 +41,7 @@ thin-guard 800 1320 140 69
 thin-guard 700 1000 140 69
 
 #Enemies type: 10 mustache guard
-mustache-guard 880 1580 100 100d
+mustache-guard 880 1580 100 100
 mustache-guard 1200 1580 100 100
 
 #Enemies type: 9 skeleton guard

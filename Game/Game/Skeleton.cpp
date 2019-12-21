@@ -50,8 +50,8 @@ void Skeleton::deinitialize()
 Box Skeleton::GetBoundingBox() {
 	Box box;
 
-	box.x = x;
-	box.y = y;
+	box.x = x - width/2;
+	box.y = y - height/2;
 	box.width = width;
 	box.height = height;
 	box.vx = vx;

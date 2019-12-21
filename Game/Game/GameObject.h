@@ -6,6 +6,8 @@ enum Tag {
 	VerticleWallTag,
 	BloodBarTag,
 	GroundTag,
+	ClimbAreaTag,
+	ExitDoorTag,
 	PadTag,
 	UnclassifiedTag,
 	AppleTag,

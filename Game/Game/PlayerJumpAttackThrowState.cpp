@@ -57,6 +57,11 @@ void PlayerJumpAttackThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
+
+	auto cameraOldPosition = Camera::getInstance()->getPosition();
+	cameraOldPosition.y += vy;
+	Camera::getInstance()->setPosition(cameraOldPosition);
+
 	if (m_animation->getIndexFrame() == 3)
 		createAppleBullet();
 

@@ -8,6 +8,7 @@
 #include "Boss.h"
 #include "VerticalWall.h"
 
+class Player;
 class BossScene :
 	public Scene
 {

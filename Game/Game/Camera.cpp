@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Camera.h"
-
+#include "Player.h"
 Camera* Camera::instance = nullptr;
 Camera::Camera()
 {
@@ -21,6 +21,11 @@ Camera* Camera::getInstance()
 
 		return instance;
 	}
+}
+
+void Camera::attachPlayer(Player * player)
+{
+	m_player = player;
 }
 
 RECT Camera::getBound()
@@ -47,15 +52,24 @@ Box Camera::getBox()
 	return box;
 }
 
-void Camera::updateCamera(D3DXVECTOR2 playerPosition)
+void Camera::updateCamera()
 {
 	if (m_position.x <= m_leftBoundary)
 	{
 		m_position.x = m_leftBoundary;
 	}
+	if (m_position.x > m_leftBoundary && m_position.x <= (m_leftBoundary + 10))
+	{
+		m_position = (D3DXVECTOR2(m_player->getPosition().x + 74, m_position.y));
+	}
+
 	if (m_position.x >= m_rightBoundary)
 	{
 		m_position.x = m_rightBoundary;
+	}
+	if (m_position.x < m_rightBoundary && m_position.x >= (m_rightBoundary - 10))
+	{
+		m_position = (D3DXVECTOR2(m_player->getPosition().x - 74, m_position.y));
 	}
 
 	if (m_position.y <= m_topBoundary)
@@ -67,29 +81,6 @@ void Camera::updateCamera(D3DXVECTOR2 playerPosition)
 		m_position.y = m_bottomBoundary;
 	}
 
-	//if (m_position.x + GLOBAL->g_ScreenWidth / 2 >= GLOBAL->g_WorldMapWidth)
-	//{
-	//	//Set camera position to end of map
-	//	m_position.x = GLOBAL->g_WorldMapWidth - GLOBAL->g_ScreenWidth / 2;
-	//}
-	//if (m_position.x - GLOBAL->g_ScreenWidth / 2 < 0)
-	//{
-	//	//Set camera position to the first
-	//	m_position.x = GLOBAL->g_ScreenWidth / 2;
-	//}
-
-
-	// Hard-coded to not let camera goes below the map
-	//if (m_position.y <= 0) // Global::GetInstance()->g_WorldMapHeight/2)
-	//{
-	//	m_position.y = 0; //GLOBAL->g_WorldMapHeight - GLOBAL->g_ScreenHeight / 2;
-	//}
-
-	// If the camera goes up and hit the map boundary.
-	//if (m_position.y >= Global::GetInstance()->g_ScreenHeight / 2)
-	//{
-	//	m_position.y = Global::GetInstance()->g_ScreenHeight / 2;
-	//}
 }
 
 // Return a vector 4 of boundaries in this order: left, right, top, bottom.

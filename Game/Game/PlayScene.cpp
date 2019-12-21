@@ -60,6 +60,17 @@ void PlayScene::Update(float deltaTime)
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
 	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
 
+	// Exceptionally, check if player hits exit door.
+	if (m_listCanCollideWithPlayer->count(1) == 1)
+	{
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), m_listCanCollideWithPlayer->at(1)->GetBoundingBox()))
+		{
+			SceneManager::getInstance()->changeScene(new BossScene());
+			return;
+		}
+	}
+
+
 	// Check and delete death objects
 	//auto objects = m_grid->getVisibleObjects();
 	//for (auto it = objects->begin(); it != objects->end();)
@@ -186,6 +197,7 @@ void PlayScene::loadResources()
 	m_aladdinScore->increaseScores(10);
 
 	Camera::getInstance();
+	Camera::getInstance()->attachPlayer(m_player);
 	//D3DXVECTOR2 position(Global::GetInstance()->g_ScreenWidth / 2, (Global::GetInstance()->g_ScreenHeight / 2) - 0);
 	D3DXVECTOR2 position(704.25, 1463.75);
 	Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, 1463.75));
@@ -453,6 +465,16 @@ void PlayScene::LoadGridFromFile()
 			Spike* spike = new Spike(x, y, w, h, type);
 			m_grid->add(count, spike);
 		}
+		else if (objectName._Equal("exit-door"))
+		{
+			float x, y, w, h;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			ExitDoor* exitDoor = new ExitDoor(x, y, w, h);
+			m_grid->add(count, exitDoor);
+		}
 		else if (objectName._Equal("first-column"))
 		{
 			float x, y, w, h;
@@ -573,6 +595,18 @@ void PlayScene::loadWallsFromFileToGrid()
 			VerticalWall* wall = new VerticalWall(spriteName, x, y, w, h, scaleWidth, scaleHeight, isDebug);
 			wall->setIsDebugVisible(isDebug);
 			m_grid->add(count, wall);
+		}
+		else if (objectName._Equal("climb-area"))
+		{
+			float x, y, w, h;
+			bool isDebug;
+			file >> x;
+			file >> y;
+			file >> w;
+			file >> h;
+			file >> isDebug;
+			ClimbArea* climbArea = new ClimbArea(x, y, w, h, isDebug);
+			m_grid->add(count, climbArea);
 		}
 	}
 	file.close();
