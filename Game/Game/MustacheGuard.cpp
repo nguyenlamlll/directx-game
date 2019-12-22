@@ -9,33 +9,38 @@ constexpr auto BEING_HIT_SPRITE_OFFSET = 12;
 MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 	: GameObject(x, y, width, height, Tag::MustaheGuardTag), Health(15)
 {
+	m_isFacingRight = false;
 	m_initialPosition = D3DXVECTOR2(x, y);
 	this->setPosition(m_initialPosition);
 
-	m_animations[MustacheGuardStates::Standing] = new Animation(L"Resources/animations/enemy/mustache-guard/mock.png", 6, 1, 6, true, 90.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::Standing] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-Provocative-59_54_6.png", 6, 1, 6, true, 90.f);
 	m_animations[MustacheGuardStates::Standing]->setPositionX(x);
 	m_animations[MustacheGuardStates::Standing]->setPositionY(y);
 
-	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/attack-1.png", 5, 1, 5, false, 80.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-Attack2-118_73_5.png", 5, 1, 5, false, 80.f);
 	m_animations[MustacheGuardStates::Attacking1]->setPositionX(x);
 	m_animations[MustacheGuardStates::Attacking1]->setPositionY(y - ATTACKING1_SPRITE_OFFSET);
 
-	m_animations[MustacheGuardStates::Attacking2] = new Animation(L"Resources/animations/enemy/mustache-guard/attack-2.png", 6, 1, 6, true, 80.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::Attacking2] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-Attack1-95_52_6.png", 6, 1, 6, true, 80.f);
 	m_animations[MustacheGuardStates::Attacking2]->setPositionX(x);
 	m_animations[MustacheGuardStates::Attacking2]->setPositionY(y);
 
-	m_animations[MustacheGuardStates::Moving] = new Animation(L"Resources/animations/enemy/mustache-guard/move.png", 8, 1, 8, true, 100.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::Moving] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-Moving-57-56-8.png", 8, 1, 8, true, 100.f);
 	m_animations[MustacheGuardStates::Moving]->setPositionX(x);
 	m_animations[MustacheGuardStates::Moving]->setPositionY(y);
 
-	m_animations[MustacheGuardStates::BeingHit] = new Animation(L"Resources/animations/enemy/mustache-guard/being-hit.png", 6, 1, 6, false, 70.f, D3DCOLOR_XRGB(120, 193, 152));
+	m_animations[MustacheGuardStates::BeingHit] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-BeHit-74_71_6.png", 6, 1, 6, false, 70.f);
 	m_animations[MustacheGuardStates::BeingHit]->setPositionX(x);
 	m_animations[MustacheGuardStates::BeingHit]->setPositionY(y - BEING_HIT_SPRITE_OFFSET);
+
+	isDead = false;
+	m_animations[MustacheGuardStates::MusBurst] = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
+	m_animations[MustacheGuardStates::MusBurst]->setPositionX(x);
+	m_animations[MustacheGuardStates::MusBurst]->setPositionY(y);
 
 	m_currentState = MustacheGuardStates::Standing;
 	m_currentAnimation = m_animations[MustacheGuardStates::Standing];
 }
-
 
 MustacheGuard::~MustacheGuard()
 {
@@ -97,6 +102,63 @@ Box MustacheGuard::GetBoundingBox()
 	box.height = height;
 	box.vx = vx;
 	box.vy = vy;
+
+	return box;
+}
+
+Box MustacheGuard::GetBoundingBoxForApple()
+{
+	Box box;
+
+	switch (m_currentState)
+	{
+	case MustacheGuardStates::Standing: case MustacheGuardStates::Moving: case MustacheGuardStates::MovingOnLava: case MustacheGuardStates::BeingHit:
+		box.x = x;
+		box.y = y;
+		box.width = 40;
+		box.height = 65;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case MustacheGuardStates::Attacking1:
+		if (m_isFacingRight)
+			box.x = x - 30;
+		else
+			box.x = x + 30;
+		box.y = y + 10;
+		box.width = 60;
+		box.height = 60;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case MustacheGuardStates::Attacking2:
+		if (m_isFacingRight)
+			box.x = x - 20;
+		else
+			box.x = x + 20;
+		box.y = y;
+		box.width = 40;
+		box.height = 60;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case MustacheGuardStates::MusBurst:
+		box.x = x;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	default:
+		box.x = x;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	}
 
 	return box;
 }
@@ -172,6 +234,19 @@ void MustacheGuard::Update(float deltaTime)
 
 		m_currentAnimation->Update(deltaTime);
 	}
+	else {
+		if (!isDead) {
+			m_currentState = MustacheGuardStates::MusBurst;
+			m_currentAnimation = m_animations[MustacheGuardStates::MusBurst];
+			m_currentAnimation->setPositionX(x);
+			m_currentAnimation->setPositionY(y);
+			if (m_currentAnimation->getIsFinished())
+				isDead = true;
+			m_currentAnimation->Update(deltaTime);
+		}
+
+	}
+
 }
 
 void MustacheGuard::checkAndUpdateDirection()
@@ -190,10 +265,12 @@ bool MustacheGuard::isPlayerOnTheLeft()
 {
 	if (m_player->getPosition().x < this->x)
 	{
+		m_isFacingRight = false;
 		return true;
 	}
 	else
 	{
+		m_isFacingRight = true;
 		return false;
 	}
 }
@@ -204,8 +281,7 @@ void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, fl
 
 void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	if (colliableObject->getTag() == Tag::PlayerTag)
-	{
+	if (colliableObject->getTag() == PlayerTag) {
 		auto player = dynamic_cast<Player*>(colliableObject);
 		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
 		{
@@ -218,6 +294,11 @@ void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 			}
 		}
 	}
+	if (colliableObject->getTag() == BulletAppleTag) {
+		takeDamage(0.4);
+		if (m_currentHealth > 0)
+			m_isBeingHit = true;
+	}
 }
 
 void MustacheGuard::Draw()
@@ -225,5 +306,12 @@ void MustacheGuard::Draw()
 	if (m_currentHealth > 0.0f)
 	{
 		m_currentAnimation->Draw();
+	}
+	else
+	{
+		if (!isDead)
+		{
+			m_currentAnimation->Draw();
+		}
 	}
 }

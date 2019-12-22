@@ -49,6 +49,7 @@ public:
 	virtual void deinitialize();
 
 	virtual Box GetBoundingBox();
+	virtual Box GetBoundingBoxForApple();
 
 	virtual void Update(float deltaTime);
 	virtual void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);

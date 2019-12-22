@@ -37,7 +37,7 @@ chains-ui 2289 376 100 100 1 2
 chains-ui 2802 376 100 100 1 2
 
 # Enemies type: 2 thin guard 
-thin-guard 800 1320 140 69
+#thin-guard 880 1580 140 69
 thin-guard 700 1000 140 69
 
 #Enemies type: 10 mustache guard

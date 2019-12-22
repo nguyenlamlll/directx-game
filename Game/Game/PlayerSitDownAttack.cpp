@@ -115,7 +115,7 @@ void PlayerSitDownAttack::OnCollision(GameObject* entity, float deltaTime)
 			OutputDebugString(L"[INFO] Player is colliding with SKELETON. \n");
 			if (isAttackingHit == false && skeleton->getCurrentHealth() > 0.0f)
 			{
-				skeleton->takeDamage(5);
+				skeleton->takeDamage(10);
 				isAttackingHit = true;
 			}
 		}

@@ -49,6 +49,7 @@ public:
 	~Bat();
 
 	Box GetBoundingBox();
+	Box GetBoundingBoxForApple();
 	D3DXVECTOR2 getVelocity();
 	void Update(float deltaTime);
 	void Draw();

@@ -10,7 +10,8 @@ enum class ThinGuardStates {
 	Standing,
 	Moving,
 	Attacking,
-	BeingHit
+	BeingHit,
+	ThinBurst,
 };
 
 class ThinGuard :
@@ -28,6 +29,7 @@ protected:
 
 	bool m_isBeingHit{ false };
 	bool m_isAttackingHit{ false };
+	bool isDead;
 
 public:
 	Animation* m_currentAnimation;
@@ -45,6 +47,7 @@ public:
 	void isHit();
 
 	Box GetBoundingBox();
+	Box GetBoundingBoxForApple();
 
 	void Update(float deltaTime);
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);

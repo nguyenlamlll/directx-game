@@ -129,6 +129,7 @@ public:
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void Draw();
 
+	void OncollisionWithApple(GameObject* obj);
 	void changeState(PlayerStates state);
 };
 

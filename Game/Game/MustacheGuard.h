@@ -13,6 +13,7 @@ enum class MustacheGuardStates {
 	Attacking1,
 	Attacking2,
 	BeingHit,
+	MusBurst
 };
 
 class MustacheGuard :
@@ -30,10 +31,11 @@ protected:
 	bool m_isAttackingHit{ false };
 
 	D3DXVECTOR2 m_initialPosition;
-
+	bool isDead;
 
 public:
 	Animation* m_currentAnimation;
+	Animation* m_imageBurst;
 	MustacheGuardStates m_currentState;
 	std::unordered_map<MustacheGuardStates, Animation*> m_animations;
 
@@ -47,6 +49,7 @@ public:
 	void isHit();
 
 	Box GetBoundingBox();
+	Box GetBoundingBoxForApple();
 
 	void Update(float deltaTime);
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);

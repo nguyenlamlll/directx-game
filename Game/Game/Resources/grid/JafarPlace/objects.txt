@@ -1,4 +1,4 @@
-boss 1232 840 100 100 0
+boss 1232 840 85 85 0
 
 vertical-wall Resources/vertical-wall.png 785 840 80 200 1 1 0
 vertical-wall Resources/vertical-wall.png 1740 840 80 200 1 1 0

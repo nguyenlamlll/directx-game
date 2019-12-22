@@ -5,11 +5,10 @@
 
 
 Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRight) : 
-	GameObject(x, y, width, height, Tag::SkeletonTag), Health(1)
+	GameObject(x, y, width, height, Tag::SkeletonTag), Health(10)
 {
 	this->setPosition(D3DXVECTOR2(x, y));
 	isDead = false;
-	isDied = false;
 	isUsed = false;
 
 	m_startWait = GetTickCount();
@@ -18,7 +17,7 @@ Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRig
 
 	//image = new Animation;
 	m_imageCrawl = new Animation(L"Resources/Enmity/PNG/skeleton_108_111_1.png", 1, 1, 1, false, 10.f);
-	m_imageBurst = new Animation(L"Resources/Enmity/PNG/burst-skeleton_88_56_8.png", 8, 1, 8, false, 50.f);
+	m_imageBurst = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
 	m_imageTransform = new Animation(L"Resources/Enmity/PNG/skeleton-star_108_111_20.png", 20, 1, 20, false, 220.f);
 
 	m_image = m_imageCrawl;
@@ -57,6 +56,56 @@ Box Skeleton::GetBoundingBox() {
 	box.vx = vx;
 	box.vy = vy;
 
+	return box;
+}
+
+Box Skeleton::GetBoundingBoxForApple() {
+	Box box;
+	switch (m_state)
+	{
+	case SkeletonCrawl:
+		box.x = x;
+		box.y = y + 25;
+		box.width = 108;
+		box.height = 55;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	case SkeletonTransform:
+		if (m_image->getIndexFrame() == 0 || m_image->getIndexFrame() == 1 || m_image->getIndexFrame() == 2 || m_image->getIndexFrame() == 3) {
+			box.x = x;
+			box.y = y + 25;
+			box.width = 108;
+			box.height = 55;
+			box.vx = vx;
+			box.vy = vy;
+		}
+		else {
+			box.x = x;
+			box.y = y + 15;
+			box.width = 70;
+			box.height = 80;
+			box.vx = vx;
+			box.vy = vy;
+		}
+		break;
+	case SkeletonBurst: case SkeletonAttact:
+		box.x = 500;
+		box.y = y;
+		box.width = 1;
+		box.height = 1;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	default:
+		box.x = 500;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
+	}
 	return box;
 }
 
@@ -102,6 +151,13 @@ void Skeleton::Draw() {
 
 void Skeleton::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {
 
+}
+
+void Skeleton::OnCollision(GameObject* colliableObject, float deltaTime) {
+	if (colliableObject->getTag() == BulletAppleTag) {
+		m_currentHealth = -1.0f;
+		BurstAction();
+	}
 }
 
 void Skeleton::attachPlayer(Player* player) {
@@ -153,7 +209,7 @@ void Skeleton::TransformAction() {
 	case SkeletonTransform: {
 		if (m_image->getIsFinished()) {
 			m_state = SkeletonAttact;
-			isDied = true;
+			isUsed = true;
 			isDead = true;
 		}
 		break;
@@ -163,9 +219,8 @@ void Skeleton::TransformAction() {
 		m_imageTransform->Reset();
 		m_image = m_imageTransform;
 		m_image->setFlipHorizontal(m_isFacingRight);
-		m_image->setPositionX(this->x);
-		m_image->setPositionY(this->y);
-		isUsed = true;
+		m_image->setPositionX(x);
+		m_image->setPositionY(y);
 		break;
 	}
 }
@@ -174,26 +229,17 @@ void Skeleton::BurstAction() {
 	switch (m_state)
 	{
 	case SkeletonBurst: {
-		if (m_image->getIsFinished()) {
-			isDied = true;
+		if (m_image->getIsFinished())
 			isDead = true;
-		}
 		break;
 	}
 	default:
 		m_state = SkeletonBurst;
 		m_imageBurst->Reset();
 		m_image = m_imageBurst;
-		m_image->setFlipHorizontal(m_isFacingRight);
-		m_image->setPositionX(this->x);
-		m_image->setPositionY(this->y);
-		isUsed = true;
+		m_image->setPositionX(x);
+		m_image->setPositionY(y + width / 4);
 		break;
-	}
-
-	if (isDead == true)
-	{
-		deinitialize();
 	}
 }
 
@@ -205,7 +251,3 @@ void Skeleton::AttactAction() {
 			//     }
 }
 
-//get state
-SkeletonState Skeleton::getState() {
-	return m_state;
-}

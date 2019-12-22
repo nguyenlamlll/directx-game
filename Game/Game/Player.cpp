@@ -49,14 +49,14 @@ Player::Player(float x, float y, float width, float height)
 	// Move and Attack
 	m_animationMoveAttack = new Animation(L"Resources/animations/aladdin/move-attack.png", 6, 1, 6, false, 20.f, D3DCOLOR_XRGB(106, 148, 189));
 	// Move and Throw
-	m_animationMoveThrow = new Animation(L"Resources/animations/aladdin/move-throw.png", 6, 1, 6, false, 20.f, D3DCOLOR_XRGB(106, 148, 189));
+	m_animationMoveThrow = new Animation(L"Resources/animations/aladdin/move-throw.png", 6, 1, 6, false, 60.f, D3DCOLOR_XRGB(106, 148, 189));
 
 	// Sit Down
 	m_animationSitDown = new Animation(L"Resources/animations/aladdin/sit-down.png", 4, 1, 4, false, 30.f);
 	//Sit Down Attack
 	m_animationSitDownAttack = new Animation(L"Resources/animations/aladdin/sit-down-attack.png", 7, 1, 7, false, 20.f);
 	//Sit Down Attack Throw
-	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 100.f);
+	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 60.f);
 
 	// Look up
 	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 200.f);
@@ -67,7 +67,7 @@ Player::Player(float x, float y, float width, float height)
 	// Jump Attack
 	m_animationJumpAttack = new Animation(L"Resources/animations/aladdin/jump-attack.png", 6, 1, 6, false, 40.f);
 	// Jump Attack Throw
-	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, false, 40);
+	m_animationJumpAttackThrow = new Animation(L"Resources/animations/aladdin/jump-attack-throw.png", 5, 1, 5, false, 60.f);
 	// Jump Moving
 	m_animationJumpMoving = new Animation(L"Resources/animations/aladdin/jump-moving.png", 6, 1, 6, true, 100.f);
 	//Jump Stand
@@ -89,7 +89,7 @@ Player::Player(float x, float y, float width, float height)
 	// Swing Attack
 	m_animationSwingAttack = new Animation(L"Resources/animations/aladdin/swing-attack.png", 7, 1, 7, true, 100.f);
 	// Swing Attack Throw
-	m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 100.f);
+	m_animationSwingAttackThrow = new Animation(L"Resources/animations/aladdin/swing-attack-throw.png", 5, 1, 5, true, 60.f);
 
 	m_currentAnimation = m_animationStand;
 	changeState(PlayerStates::Standing);
@@ -326,8 +326,26 @@ void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float de
 			}
 
 		}
-
+		
 		m_currentState->PreCollision(it->second, deltaTime);
+	}
+}
+
+void Player::OncollisionWithApple(GameObject* obj) {
+	// check conllision Apple-Bullet with object
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if (!lsAppleBullet.at(j)->getIsDead()) {
+				switch (obj->getTag())
+				{
+				case BossTag: case MustaheGuardTag: case ThinGuardTag: case BatTag: case SkeletonTag:
+					lsAppleBullet.at(j)->OnCollision(obj, 0);
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 }
 

@@ -40,6 +40,8 @@ void PlayerMoveThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y - SPRITE_OFFSET);
 	m_animation->Update(deltaTime);
+	if (m_animation->getIndexFrame() == 3 && m_animation->getcurTotalTime() > 60.f)
+		createAppleBullet();
 
 	if (m_animation->getIsFinished() == true)
 	{
@@ -68,4 +70,15 @@ void PlayerMoveThrowState::PreCollision(GameObject * entity, float deltaTime)
 
 void PlayerMoveThrowState::OnCollision(GameObject * entity, float deltaTime)
 {
+}
+
+void PlayerMoveThrowState::createAppleBullet() {
+	int appleX, appleY;
+	if (m_player->getIsFacingRight())
+		appleX = m_animation->getPositionX() + 10;
+	else
+		appleX = m_animation->getPositionX() - 10;
+	appleY = m_animation->getPositionY() - 20;
+	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
+	m_player->addAppleToList(apple);
 }
