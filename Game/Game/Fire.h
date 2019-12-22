@@ -15,6 +15,8 @@ protected:
 
 	Boss* m_boss;
 
+	bool m_isAttackingHit{ false };
+
 public:
 	Fire(float x, float y, float width, float height, Boss* boss);
 	~Fire();
@@ -27,4 +29,5 @@ public:
 	void igniteAction();
 
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
+	void OnCollision(GameObject* colliableObject, float deltaTime);
 };

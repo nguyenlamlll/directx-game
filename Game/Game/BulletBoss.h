@@ -16,6 +16,7 @@ public:
 	void Update(float deltaTime) {}
 	void Draw() {}
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {}
+	void OnCollision(GameObject* object, float deltaTime) {}
 
 	bool getIsDead();
 

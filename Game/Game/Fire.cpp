@@ -12,9 +12,9 @@ Fire::Fire(float x, float y, float width, float height, Boss* boss) : BulletBoss
 
 	m_image = new Animation(L"Resources/Boss/PNG/fire-moving_100_51_8.png", 8, 1, 8, true, 40.f);
 	m_isFacingRight = m_boss->getIsFacingRight();
-	m_image->setFlipHorizontal(m_isFacingRight);
+	m_image->setFlipHorizontal(!m_isFacingRight);
 
-	if (!m_isFacingRight)
+	if (m_isFacingRight)
 		this->x = x + 30;
 	else
 		this->x = x - 30;
@@ -60,7 +60,7 @@ void Fire::Draw() {
 
 void Fire::igniteAction() {
 	if (abs(this->x - m_anchorX) <= LIMIT_FIRE) {
-		if (m_isFacingRight) {
+		if (!m_isFacingRight) {
 			vx = -2.0f;
 		}
 		else {
@@ -79,5 +79,22 @@ void Fire::igniteAction() {
 
 void Fire::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime) {
 
+}
+
+void Fire::OnCollision(GameObject * object, float deltaTime)
+{
+	if (object->getTag() == Tag::PlayerTag)
+	{
+		auto player = dynamic_cast<Player*>(object);
+		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
+		{
+			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+			{
+				player->takeDamage(1);
+				player->isHit();
+				m_isAttackingHit = true;
+			}
+		}
+	}
 }
 

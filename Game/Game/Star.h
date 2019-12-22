@@ -33,7 +33,8 @@ public:
 	void Draw();
 
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
-	
+	void OnCollision(GameObject* object, float deltaTime);
+
 	void FlyingAction();
 	void HitAction();
 	void attachPlayer(Player* player);

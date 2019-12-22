@@ -19,6 +19,12 @@ private:
 	std::map<int, GameObject*>* m_listCanCollideWithPlayer;
 	Grid* m_grid;
 
+	BloodBar* m_blood;
+	RubyScores* m_rubyScore;
+	LifeScores* m_lifeScore;
+	AppleScores* m_appleScore;
+	AladdinScores* m_aladdinScore;
+
 public:
 	BossScene();
 	~BossScene();

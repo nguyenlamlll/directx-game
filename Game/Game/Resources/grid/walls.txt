@@ -12,8 +12,8 @@ vertical-wall Resources/vertical-wall.png 2000 1520 80 200 1 1 0
 vertical-wall Resources/vertical-wall.png 2060 1520 80 200 1 1 0
 
 # Climb areas
-climb-area 580 1100 30 200 1
-climb-area 580 880 30 200 1
+climb-area 580 1100 30 200 0
+climb-area 580 880 30 200 0
 
 ground 536 1623 32 32 1 1 0
 ground 568 1623 32 32 1 1 0

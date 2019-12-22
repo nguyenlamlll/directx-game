@@ -21,6 +21,14 @@ BossScene::BossScene()
 	this->loadObjectsFromFileToGrid();
 
 	Sound::getInstance()->play("background-boss-level", true);
+
+	m_blood = new BloodBar(75, 25, 0, 0);
+	m_blood->attachPlayer(m_player);
+	m_rubyScore = new RubyScores(280, 300, 0, 0);
+	m_appleScore = new AppleScores(340, 300, 0, 0);
+	m_lifeScore = new LifeScores(40, 300, 0, 0);
+	m_aladdinScore = new AladdinScores(370, 25, 0, 0);
+	m_aladdinScore->increaseScores(10);
 }
 
 
@@ -46,6 +54,10 @@ void BossScene::Update(float deltaTime)
 	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 	{
 		it->second->Update(deltaTime);
+		if (it->second->getTag() == Tag::BossTag)
+		{
+			it->second->OnCollision(m_player, deltaTime);
+		}
 	}
 
 	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
@@ -59,6 +71,12 @@ void BossScene::Update(float deltaTime)
 	m_listCanCollideWithPlayer->clear();
 	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
 	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
+
+	m_blood->Update(deltaTime);
+	m_rubyScore->Update(deltaTime);
+	m_lifeScore->Update(deltaTime);
+	m_appleScore->Update(deltaTime);
+	m_aladdinScore->Update(deltaTime);
 }
 
 void BossScene::Draw()
@@ -72,6 +90,12 @@ void BossScene::Draw()
 	}
 
 	m_player->Draw();
+
+	m_blood->Draw();
+	m_rubyScore->Draw();
+	m_lifeScore->Draw();
+	m_appleScore->Draw();
+	m_aladdinScore->Draw();
 }
 
 void BossScene::OnKeyDown(int keyCode)

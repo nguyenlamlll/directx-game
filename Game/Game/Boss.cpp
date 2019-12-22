@@ -214,6 +214,14 @@ void Boss::OnCollision(std::map<int, GameObject*>* colliableObjects, float delta
 }
 
 void Boss::OnCollision(GameObject* colliableObject, float deltaTime) {
+	for (int i = 0; i < list.size(); i++)
+	{
+		if (list.at(i) != nullptr) {
+			list.at(i)->OnCollision(colliableObject, deltaTime);
+		}
+	}
+
+	// Todo: Refactor swich case below
 	switch (colliableObject->getTag())
 	{
 	case BossTag:
@@ -233,10 +241,10 @@ void Boss::attachPlayer(Player* player) {
 void Boss::checkPositionWithPlayer() {
 	float distanceX;
 	if (m_player->left() <= this->left()) {
-		m_isFacingRight = true;
+		m_isFacingRight = false;
 	}
 	else {
-		m_isFacingRight = false;
+		m_isFacingRight = true;
 	}
 
 	distanceX = abs(m_player->left() - this->x);
@@ -281,14 +289,14 @@ void Boss::WarlockStandingAction() {
 		}
 		if (isCloseRange)
 			setPositionFireAladdin();
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		break;
 	}
 	default:
 		m_state = WarlockStanding;
 		m_image_WarlockStanding->Reset();
 		m_image = m_image_WarlockStanding;
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		vx = 0;
 		vy = 0;
 		m_image->setPositionX(x);
@@ -319,14 +327,14 @@ void Boss::WarlockMagicingAction() {
 				WarlockStandingAction();
 			}
 		}
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		break;
 	}
 	default:
 		m_state = WarlockMagicing;
 		m_image_WarlockMagicing->Reset();
 		m_image = m_image_WarlockMagicing;
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		vx = 0;
 		vy = 0;
 		m_image->setPositionX(x);
@@ -350,7 +358,7 @@ void Boss::CobraRenascenceAction() {
 				CobraAttackAction();
 			}
 		}
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		vx = 0;
 		vy = 0;
 		m_image->setPositionX(x);
@@ -361,7 +369,7 @@ void Boss::CobraRenascenceAction() {
 	default:
 		m_state = CobraRenascence;
 		m_image_CobraRenascence->Reset();
-		m_image_CobraRenascence->setFlipHorizontal(m_isFacingRight);
+		m_image_CobraRenascence->setFlipHorizontal(!m_isFacingRight);
 		m_image = m_image_CobraRenascence;
 		vx = 0;
 		vy = 0;
@@ -389,7 +397,7 @@ void Boss::CobraAttackAction() {
 				m_startWaitAttack = GetTickCount();
 			}
 		}
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		setPositionFire();
 		break;
 	}
@@ -397,7 +405,7 @@ void Boss::CobraAttackAction() {
 		m_state = CobraAttack;
 		m_image_CobraAttack->Reset();
 		m_image = m_image_CobraAttack;
-		m_image->setFlipHorizontal(m_isFacingRight);
+		m_image->setFlipHorizontal(!m_isFacingRight);
 		vx = 0;
 		vy = 0;
 		m_image->setPositionX(x);
@@ -457,21 +465,21 @@ int Boss::randomPostionFire(bool type) {
 void Boss::setPositionFire() {
 	if (m_image_fire1->getIsFinished()) {
 		m_image_fire1->Reset();
-		m_image_fire1->setFlipHorizontal(m_isFacingRight);
+		m_image_fire1->setFlipHorizontal(!m_isFacingRight);
 		m_image_fire1->setPositionX(randomPostionFire(true));
 		m_image_fire1->setPositionY(randomPostionFire(false));
 	}
 
 	if (m_image_fire2->getIsFinished()) {
 		m_image_fire2->Reset();
-		m_image_fire2->setFlipHorizontal(m_isFacingRight);
+		m_image_fire2->setFlipHorizontal(!m_isFacingRight);
 		m_image_fire2->setPositionX(randomPostionFire(true));
 		m_image_fire2->setPositionY(randomPostionFire(false));
 	}
 
 	if (m_image_fire3->getIsFinished()) {
 		m_image_fire3->Reset();
-		m_image_fire3->setFlipHorizontal(m_isFacingRight);
+		m_image_fire3->setFlipHorizontal(!m_isFacingRight);
 		m_image_fire3->setPositionX(randomPostionFire(true));
 		m_image_fire3->setPositionY(randomPostionFire(false));
 	}
