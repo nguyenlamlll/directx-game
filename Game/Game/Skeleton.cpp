@@ -115,7 +115,7 @@ D3DXVECTOR2 Skeleton::getVelocity() {
 }
 
 void Skeleton::Update(float deltaTime) {
-	if (!isDead) {
+	if (!isDead && this->m_currentHealth > 0.0f) {
 		checkPositionWithPlayer();
 		switch (m_state)
 		{
@@ -135,6 +135,12 @@ void Skeleton::Update(float deltaTime) {
 		}
 		m_image->Update(deltaTime);
 	}
+
+	if (!isDead && m_currentHealth <= 0.0f)
+	{
+		BurstAction();
+		m_image->Update(deltaTime);
+	}
 }
 
 void Skeleton::Draw() {
@@ -148,11 +154,8 @@ void Skeleton::OnCollision(std::map<int, GameObject*>* colliableObjects, float d
 }
 
 void Skeleton::OnCollision(GameObject* colliableObject, float deltaTime) {
-
-	if (colliableObject->getTag() == PlayerTag) {
-		// to do
-	}
 	if (colliableObject->getTag() == BulletAppleTag) {
+		m_currentHealth = -1.0f;
 		BurstAction();
 	}
 }

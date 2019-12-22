@@ -37,7 +37,7 @@ MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 	m_animations[MustacheGuardStates::MusBurst] = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
 	m_animations[MustacheGuardStates::MusBurst]->setPositionX(x);
 	m_animations[MustacheGuardStates::MusBurst]->setPositionY(y);
-	
+
 	m_currentState = MustacheGuardStates::Standing;
 	m_currentAnimation = m_animations[MustacheGuardStates::Standing];
 }
@@ -246,7 +246,7 @@ void MustacheGuard::Update(float deltaTime)
 		}
 
 	}
-	
+
 }
 
 void MustacheGuard::checkAndUpdateDirection()
@@ -306,8 +306,12 @@ void MustacheGuard::Draw()
 	if (m_currentHealth > 0.0f)
 	{
 		m_currentAnimation->Draw();
-	}else {
-		if(!isDead)
+	}
+	else
+	{
+		if (!isDead)
+		{
 			m_currentAnimation->Draw();
+		}
 	}
 }
