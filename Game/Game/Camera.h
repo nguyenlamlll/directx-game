@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Collision.h"
 
+class Player;
 class Camera
 {
 private:
@@ -23,8 +24,12 @@ private:
 	// Bottom boundary. Camera won't go below this line.
 	float m_bottomBoundary{ 5000 };
 
+	Player* m_player;
+
 public:
 	static Camera * getInstance();
+
+	void attachPlayer(Player* player);
 
 	int getWidth() { return m_width; }
 	int getHeight() { return m_height; }
@@ -33,13 +38,13 @@ public:
 	void setPosition(D3DXVECTOR2 newPosition)
 	{
 		m_position = newPosition;
-		updateCamera(newPosition);
+		updateCamera();
 	}
 
 	RECT getBound();
 	Box getBox();
 
-	void updateCamera(D3DXVECTOR2 playerPosition);
+	void updateCamera();
 
 	D3DXVECTOR4 getBoundaries();
 	void setBoundaries(float left, float right, float top, float bottom);

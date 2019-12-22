@@ -61,7 +61,7 @@ void PlayerJumpAttackState::Update(float deltaTime)
 	m_animation->Update(deltaTime);
 
 	auto cameraOldPosition = Camera::getInstance()->getPosition();
-	cameraOldPosition.y += vy + 2;
+	cameraOldPosition.y += vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
 
 	if (m_travelledJumpDistance >= m_longestJumpDistance * 2) {

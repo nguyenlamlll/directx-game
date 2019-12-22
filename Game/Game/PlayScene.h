@@ -4,9 +4,10 @@
 #include "Player.h"
 #include "Grid.h"
 
-
+#include "ExitDoor.h"
 #include "Ground.h"
 #include "VerticalWall.h"
+#include "ClimbArea.h"
 
 #include "AppleItem.h"
 #include "BlueHeartItem.h"

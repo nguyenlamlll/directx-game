@@ -103,7 +103,16 @@ void PlayerStandingState::Update(float deltaTime)
 	// From Stand to Look Up.
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_W))
 	{
-		m_player->changeState(PlayerStates::LookUp);
+		if (m_player->m_canClimb)
+		{
+			m_player->changeState(PlayerStates::Climb);
+			auto climbState = dynamic_cast<PlayerClimbState*>(m_player->getCurrentState());
+			climbState->attachClimbArea(m_climbArea);
+		}
+		else
+		{
+			m_player->changeState(PlayerStates::LookUp);
+		}
 		return;
 	}
 
@@ -140,6 +149,18 @@ PlayerStates PlayerStandingState::GetState()
 
 void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
 {
+	if (entity->getTag() == Tag::ClimbAreaTag)
+	{
+
+		auto climbArea = dynamic_cast<ClimbArea*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		if (Collision::getInstance()->isColliding(playerBox, climbArea->GetBoundingBox()))
+		{
+			m_player->m_canClimb = true;
+			m_climbArea = climbArea;
+		}
+	}
+
 	if (entity->getTag() == Tag::VerticleWallTag)
 	{
 		float normalX, normalY;
@@ -166,8 +187,10 @@ void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
 	{
 		auto brick = dynamic_cast<FloatingBrick*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 30;
-		playerBox.height += 30;
+		playerBox.x += 10;
+		playerBox.y += 10;
+		playerBox.width -= 10;
+		playerBox.height += 10;
 		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
 		{
 			if (brick->getStatus() == Status::NotAllow)
@@ -184,12 +207,25 @@ void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
 
 void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 {
+	if (entity->getTag() == Tag::ClimbAreaTag)
+	{
+		if (entity == m_climbArea)
+		{
+			auto climbArea = dynamic_cast<ClimbArea*>(entity);
+			Box playerBox = m_player->GetBoundingBox();
+			if (!Collision::getInstance()->isColliding(playerBox, climbArea->GetBoundingBox()))
+			{
+				m_player->m_canClimb = false;
+			}
+		}
+	}
+
 	if (entity->getTag() == Tag::GroundTag)
 	{
 		auto ground = dynamic_cast<Ground*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 50;
-		playerBox.height += 150;
+		//playerBox.y -= 50;
+		playerBox.height += 20;
 		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
 		{
 			//OutputDebugString(L"[INFO] Stading State is colliding with ground. \n");
@@ -200,11 +236,12 @@ void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 	{
 		auto brick = dynamic_cast<FloatingBrick*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 50;
-		playerBox.height += 150;
+		playerBox.x += 10;
+		playerBox.y += 10;
+		playerBox.width -= 10;
+		playerBox.height += 10;
 		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
 		{
-			//OutputDebugString(L"[INFO] Stading State is colliding with brick. \n");
 			m_player->m_isOnGround = true;
 		}
 	}

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Camera.h"
+#include "BossScene.h"
 
 void Player::isHit()
 {
@@ -78,7 +80,7 @@ Player::Player(float x, float y, float width, float height)
 	m_animationEndGame = new Animation(L"Resources/animations/aladdin/end-level.png", 8, 1, 8, true, 100.f);
 
 	// Climb
-	m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 100.f);
+	m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 60.f);
 
 	// Swing
 	m_animationSwing = new Animation(L"Resources/animations/aladdin/swing.png", 10, 1, 10, true, 100.f);
@@ -175,7 +177,7 @@ void Player::Update(float deltaTime)
 
 	if (lsAppleBullet.size() != 0) {
 		for (int j = 0; j < lsAppleBullet.size(); j++) {
-			if(!lsAppleBullet.at(j)->getIsDead())
+			if (!lsAppleBullet.at(j)->getIsDead())
 				lsAppleBullet.at(j)->Update(deltaTime);
 			else {
 				delete lsAppleBullet.at(j);
@@ -193,7 +195,8 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpStand ||
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
-			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
+			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
+			m_currentState->GetState() == PlayerStates::Climb)
 		)
 	{
 		this->setIsFacingRight(true);
@@ -214,7 +217,8 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpStand ||
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
-			m_currentState->GetState() == PlayerStates::JumpAttackThrow)
+			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
+			m_currentState->GetState() == PlayerStates::Climb)
 		)
 	{
 		this->setIsFacingRight(false);
@@ -236,29 +240,32 @@ void Player::Update(float deltaTime)
 		vx = 0.0f;
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_W) && (m_currentState->GetState() == PlayerStates::Climb))
 	{
-#if defined(DEBUG) | defined(_DEBUG)
-		if (m_isMovingFreely)
-		{
-			vy = -speed * deltaTime;
-		}
-#endif
+		vy = -speed * deltaTime;
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
+	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S) && (m_currentState->GetState() == PlayerStates::Climb))
 	{
-#if defined(DEBUG) | defined(_DEBUG)
-		if (m_isMovingFreely)
-		{
-			vy = speed * deltaTime;
-		}
-#endif
+		vy = speed * deltaTime;
 	}
 	else
 	{
 		vy = 0.0f;
 	}
 
+#if defined(DEBUG) | defined(_DEBUG)
+	if (m_isMovingFreely)
+	{
+		if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
+		{
+			vy = -speed * deltaTime;
+		}
+		else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
+		{
+			vy = speed * deltaTime;
+		}
+	}
+#endif
 
 
 	x = x + vx;
@@ -269,7 +276,7 @@ void Player::Update(float deltaTime)
 	cameraOldPosition.x += vx;
 	cameraOldPosition.y += vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
-	Camera::getInstance()->updateCamera(D3DXVECTOR2(x, y));
+	Camera::getInstance()->updateCamera();
 }
 
 void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
@@ -344,24 +351,20 @@ void Player::OncollisionWithApple(GameObject* obj) {
 
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
 {
-
+#if defined(DEBUG) | defined(_DEBUG)
+	if (m_isMovingFreely)
+	{
+		// Leave empty
+	}
+	else {
+		m_isOnGround = false;
+	}
+#else
+	m_isOnGround = false;
+#endif
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
 		m_currentState->OnCollision(it->second, deltaTime);
-		
-		//float normalX, normalY;
-		//auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
-		//if (collisionResult.isCollide)
-		//{
-		//	OutputDebugString(L"[INFO] Player began colliding with something!!! \n");
-		//	m_currentState->OnCollision(it->second, deltaTime);
-		//}
-
-		//if (Collision::getInstance()->isColliding(this->GetBoundingBox(), it->second->GetBoundingBox()))
-		//{
-		//	OutputDebugString(L"[INFO] Player is colliding with something!!! \n");
-		//	m_currentState->OnCollision(it->second, deltaTime);
-		//}
 	}
 }
 
@@ -373,7 +376,7 @@ void Player::Draw()
 				lsAppleBullet.at(j)->Draw();
 		}
 	}
-	if (m_isHurt) 
+	if (m_isHurt)
 	{
 		// Begin the flickering process. A cycle contains 3 frames: { 0, 1, 2 }
 		// where frame 0 draws the player. 1 and 2 don't. 
@@ -496,7 +499,7 @@ void Player::changeState(PlayerStates state)
 		break;
 	}
 	case PlayerStates::Climb: {
-		//newState = new PlayerClimbState(this, m_animationClimb);
+		newState = new PlayerClimbState(this, m_animationClimb);
 		break;
 	}
 	case PlayerStates::Swing: {

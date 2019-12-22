@@ -88,20 +88,17 @@ PlayerStates PlayerMovingState::GetState()
 
 void PlayerMovingState::PreCollision(GameObject * entity, float deltaTime)
 {
-	if (entity->getTag() == Tag::GroundTag)
-	{
-		auto ground = dynamic_cast<Ground*>(entity);
-		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 20;
-		playerBox.height += 40;
-		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
-		{
-			if (m_player->getPosition().y <= ground->getPosition().y - ground->getHeight()/2)
-			{
-				m_player->m_isOnGround = true;
-			}
-		}
-	}
+	//if (entity->getTag() == Tag::GroundTag)
+	//{
+	//	auto ground = dynamic_cast<Ground*>(entity);
+	//	Box playerBox = m_player->GetBoundingBox();
+	//	//playerBox.y -= 50;
+	//	playerBox.height += 10;
+	//	if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
+	//	{
+	//		m_player->m_isOnGround = true;
+	//	}
+	//}
 
 	if (entity->getTag() == Tag::VerticleWallTag)
 	{
@@ -136,5 +133,17 @@ void PlayerMovingState::PreCollision(GameObject * entity, float deltaTime)
 
 void PlayerMovingState::OnCollision(GameObject * entity, float deltaTime)
 {
-
+	if (entity->getTag() == Tag::GroundTag)
+	{
+		auto ground = dynamic_cast<Ground*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		playerBox.x += 10;
+		playerBox.y += 10;
+		playerBox.width -= 10;
+		playerBox.height += 10;
+		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
+		{
+			m_player->m_isOnGround = true;
+		}
+	}
 }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BossScene.h"
-
+#include "Player.h"
 
 BossScene::BossScene()
 {
@@ -145,8 +145,9 @@ void BossScene::loadPlayerConfigurationsFromFile()
 			file >> x;
 			file >> y;
 			Camera::getInstance()->setPosition(D3DXVECTOR2(x, y));
+			Camera::getInstance()->attachPlayer(m_player);
 			auto defaultBoundaries = Camera::getInstance()->getBoundaries();
-			Camera::getInstance()->setBoundaries(defaultBoundaries.x, 1531, defaultBoundaries.z, defaultBoundaries.w);
+			Camera::getInstance()->setBoundaries(945, 1531, defaultBoundaries.z, defaultBoundaries.w);
 		}
 	}
 	file.close();

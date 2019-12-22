@@ -1,3 +1,5 @@
+exit-door 2722 660 78 208
+
 # Map details
 first-column 692 1430 32 300
 second-column 1008 1524 32 300

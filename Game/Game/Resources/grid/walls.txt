@@ -1,10 +1,19 @@
-vertical-wall Resources/vertical-wall.png 500 1550 80 200 1 1 0
+# Leftmost walls
+vertical-wall Resources/vertical-wall.png 480 1550 80 200 1 1 1
+vertical-wall Resources/vertical-wall.png 480 1300 80 200 1 1 1
+vertical-wall Resources/vertical-wall.png 480 1100 80 200 1 1 1
+vertical-wall Resources/vertical-wall.png 480 900 80 200 1 1 1
+vertical-wall Resources/vertical-wall.png 480 800 80 200 1 1 1
 
-vertical-wall Resources/vertical-wall.png 1999 1300 80 200 1 1 0
 
+vertical-wall Resources/vertical-wall-12-200.png 1995 1300 12 200 1 1 1
 
-vertical-wall Resources/vertical-wall.png 1999 1520 80 200 1 1 0
+vertical-wall Resources/vertical-wall.png 2000 1520 80 200 1 1 0
 vertical-wall Resources/vertical-wall.png 2060 1520 80 200 1 1 0
+
+# Climb areas
+climb-area 580 1100 30 200 1
+climb-area 580 880 30 200 1
 
 ground 536 1623 32 32 1 1 0
 ground 568 1623 32 32 1 1 0
@@ -86,25 +95,28 @@ ground 1984 1623 32 32 1 1 0
 ##############################################################
 # Starting from the only possible way up
 # Wood log 01
-ground 1920 1438 32 32 1 1 0
-ground 1952 1438 32 32 1 1 0
-ground 1984 1438 32 32 1 1 0
+ground 1930 1438 32 32 1 1 1
+ground 1952 1438 32 32 1 1 1
+ground 1984 1438 32 32 1 1 1
 
 # Wood log 02
-ground 1952 1375 32 32 1 1 0
-ground 1984 1375 32 32 1 1 0
+ground 1952 1375 32 32 1 1 1
+ground 1984 1375 32 32 1 1 1
 
 # Wood log 03
 ground 1800 1325 32 32 1 1 0
 ground 1832 1325 32 32 1 1 0
 ground 1864 1325 32 32 1 1 0
 ground 1890 1325 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 1830 1300 12 20 1 1 0
+
 
 # Wood log 04
-ground 1768 1260 32 32 1 1 0
-ground 1800 1260 32 32 1 1 0
-ground 1832 1260 32 32 1 1 0
-#ground 1864 1260 32 32 1 1 0
+ground 1768 1260 32 32 1 1 1
+ground 1800 1260 32 32 1 1 1
+ground 1832 1260 32 32 1 1 1
+ground 1864 1260 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 1750 1230 12 20 1 1 1
 
 # Skeleton platform 01
 ground 1646 1420 32 32 1 1 0
@@ -162,6 +174,8 @@ ground 1180 1096 32 32 1 1 1
 ground 1212 1096 32 32 1 1 1
 ground 1244 1096 32 32 1 1 1
 ground 1276 1096 32 32 1 1 1
+
+climb-area 970 1135 30 200 1
 
 #Platform below (also morning stars)
 ground 950 1212 32 32 1 1 1
@@ -239,6 +253,11 @@ ground 1440 1217 32 32 1 1 1
 ground 1470 1185 32 32 1 1 1
 ground 1490 1185 32 32 1 1 1
 
+climb-area 780 930 30 200 1
+ground 825 885 32 32 1 1 1
+ground 857 885 32 32 1 1 1
+ground 889 885 32 32 1 1 1
+ground 921 885 32 32 1 1 1
 
 ##############################################################
 # The tunnel-way up to the top
@@ -248,15 +267,15 @@ ground 718 1060 32 32 1 1 0
 ground 750 1060 32 32 1 1 0
 
 # Down
-ground 654 1260 32 32 1 1 1
-ground 686 1260 32 32 1 1 1
-ground 718 1260 32 32 1 1 1
-ground 750 1260 32 32 1 1 1
+ground 654 1260 32 32 1 1 0
+ground 686 1260 32 32 1 1 0
+ground 718 1260 32 32 1 1 0
+ground 750 1260 32 32 1 1 0
 
-ground 524 1215 32 32 1 1 1
-ground 556 1215 32 32 1 1 1
-ground 588 1215 32 32 1 1 1
-ground 620 1215 32 32 1 1 1
+ground 524 1215 32 32 1 1 0
+ground 556 1215 32 32 1 1 0
+ground 588 1215 32 32 1 1 0
+ground 620 1215 32 32 1 1 0
 
 # Up
 ground 516 1005 32 32 1 1 0
@@ -264,19 +283,28 @@ ground 548 1005 32 32 1 1 0
 ground 581 1005 32 32 1 1 0
 
 # platform
-ground 654 862 32 32 1 1 1
-ground 686 862 32 32 1 1 1
-ground 718 862 32 32 1 1 1
-ground 740 862 32 32 1 1 1
-vertical-wall Resources/vertical-wall-12-20.png 745 750 12 20 1 1 1
-vertical-wall Resources/vertical-wall-12-20.png 745 800 12 20 1 1 1
-vertical-wall Resources/vertical-wall-12-20.png 745 820 12 20 1 1 1
+ground 654 862 32 32 1 1 0
+ground 686 862 32 32 1 1 0
+ground 718 862 32 32 1 1 0
+ground 740 862 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 745 750 12 20 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 745 800 12 20 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 745 820 12 20 1 1 0
 
 # upper platform
 ground 648 742 32 32 1 1 1
 ground 686 742 32 32 1 1 1
 ground 718 742 32 32 1 1 1
 ground 740 742 32 32 1 1 1
+
+ground 770 780 32 32 1 1 1
+ground 802 780 32 32 1 1 1
+ground 834 780 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 875 750 12 20 1 1 1
+
+ground 875 735 32 32 1 1 1
+ground 907 735 32 32 1 1 1
+ground 939 735 32 32 1 1 1
 
 ground 516 800 32 32 1 1 1
 ground 548 800 32 32 1 1 1
@@ -298,11 +326,21 @@ ground 1210 880 32 32 1 1 1
 ground 1236 880 32 32 1 1 1
 ground 1268 880 32 32 1 1 1
 
+
+
+ground 970 800 32 32 1 1 1
+ground 1002 800 32 32 1 1 1
+ground 1034 800 32 32 1 1 1
+
+ground 1120 820 32 32 1 1 1
+
+vertical-wall Resources/vertical-wall-12-200.png 950 840 12 200 1 1 1
 ground 1270 849 32 32 1 1 1
 ground 1302 849 32 32 1 1 1
 ground 1334 849 32 32 1 1 1 
 ground 1366 849 32 32 1 1 1 
 ground 1390 849 32 32 1 1 1 
+
 
 # Wood log near ruby
 ground 1450 780 32 32 1 1 1 
@@ -324,7 +362,18 @@ ground 1610 830 32 32 1 1 1
 ground 1642 830 32 32 1 1 1
 ground 1674 830 32 32 1 1 1
 ground 1706 830 32 32 1 1 1
-ground 1738 830 32 32 1 1 1
+ground 1730 830 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1755 850 12 20 1 1 1
+
+ground 1835 765 32 32 1 1 1
+ground 1867 765 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1900 740 12 20 1 1 1
+
+ground 1915 718 32 32 1 1 1
+ground 1947 718 32 32 1 1 1
+ground 1979 718 32 32 1 1 1
+#ground 2011 718 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-200.png 2040 600 12 200 1 1 1
 
 # Long last platform that player has to jump on some floating bricks
 ground 1760 880 32 32 1 1 1
@@ -336,6 +385,7 @@ ground 1920 880 32 32 1 1 1
 ground 1952 880 32 32 1 1 1
 ground 1984 880 32 32 1 1 1
 ground 2016 880 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 2020 840 12 20 1 1 1
 ground 2048 880 32 32 1 1 1
 ground 2080 880 32 32 1 1 1
 ground 2112 880 32 32 1 1 1
@@ -362,11 +412,12 @@ ground 2076 1230 32 32 1 1 1
 ground 2108 1230 32 32 1 1 1
 ground 2140 1230 32 32 1 1 1
 
-ground 2172 1280 32 32 1 1 1
-ground 2204 1280 32 32 1 1 1
-ground 2236 1280 32 32 1 1 1
-ground 2268 1280 32 32 1 1 1
-ground 2300 1280 32 32 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 2150 1250 12 20 1 1 1
+ground 2172 1280 32 32 1 1 0
+ground 2204 1280 32 32 1 1 0
+ground 2236 1280 32 32 1 1 0
+ground 2268 1280 32 32 1 1 0
+ground 2300 1280 32 32 1 1 0
 
 ##############################################################
 # Bottom right part

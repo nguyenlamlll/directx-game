@@ -36,8 +36,12 @@
 #include "Sound.h"
 #include "SoundNames.h"
 
-#include <map>
+#include "ExitDoor.h"
+#include "SceneManager.h"
 
+#include <map>
+class Camera;
+class BossScene;
 class PlayerState;
 class Player : public GameObject, public Health
 {
@@ -57,6 +61,7 @@ public:
 #endif
 
 public:
+	bool m_canClimb{ false };
 	bool m_isOnGround{ false };
 
 	D3DXVECTOR2 m_basePosition;

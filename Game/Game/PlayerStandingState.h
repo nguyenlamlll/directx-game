@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Animation.h"
 
+#include "ClimbArea.h"
+
 class PlayerStandingState : public PlayerState
 {
 private:
@@ -14,6 +16,9 @@ private:
 	float m_idleTime = 0.0f;
 
 	bool m_isIdling01 = false;
+
+	// If player stands inside a climb area. That area reference will be added here (in PreCollision) and be passed to Climbing state in Update.
+	ClimbArea* m_climbArea;
 
 public:
 	PlayerStandingState(Player* player, Animation* animation, Animation* standAndLookAroundAnimadtion);
