@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Animation.h"
 
+#include "AppleBullet.h"
+
 #include "PlayerState.h"
 #include "PlayerStandingState.h"
 #include "PlayerStandLookAround.h"
@@ -43,6 +45,7 @@
 class Camera;
 class BossScene;
 class PlayerState;
+class AppleBullet;
 class Player : public GameObject, public Health
 {
 private:
@@ -129,7 +132,7 @@ public:
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void Draw();
 
-	void OncollisionWithApple(GameObject* obj);
+	void OncollisionWithApple(GameObject* obj, float deltaTime);
 	void changeState(PlayerStates state);
 };
 

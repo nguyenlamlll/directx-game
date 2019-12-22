@@ -3,7 +3,7 @@
 
 #define ATTACK_RANGE 200
 
-Bat::Bat(float x, float y, float width, float height, float limit_left, float limit_right) : 
+Bat::Bat(float x, float y, float width, float height, float limit_left, float limit_right) :
 	GameObject(x, y, width, height, Tag::BatTag), Health(1)
 {
 	this->setPosition(D3DXVECTOR2(x, y));
@@ -100,7 +100,7 @@ D3DXVECTOR2 Bat::getVelocity() {
 }
 
 void Bat::Update(float deltaTime) {
-	if (!isDead && this->m_currentHealth > 0.0f) 
+	if (!isDead && this->m_currentHealth > 0.0f)
 	{
 		auto now = GetTickCount();
 		auto dt = now - start;
@@ -121,7 +121,7 @@ void Bat::Update(float deltaTime) {
 		case BatFling: {
 			FlingAction();
 			break;
-		}			
+		}
 		case BatBurst:
 			BurstAction();
 		default:
@@ -130,7 +130,7 @@ void Bat::Update(float deltaTime) {
 		m_image->Update(deltaTime);
 	}
 	if (!isDead && m_currentHealth <= 0.0f)
-	{ 
+	{
 		BurstAction();
 		m_image->Update(deltaTime);
 	}
@@ -193,9 +193,6 @@ void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
-	}
-	if (colliableObject->getTag() == BulletAppleTag) {
-		BurstAction();
 	}
 }
 

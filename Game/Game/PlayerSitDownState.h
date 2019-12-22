@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include "PlayerState.h"
 #include "Player.h"
 #include "Animation.h"

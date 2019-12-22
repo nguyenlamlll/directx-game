@@ -294,11 +294,6 @@ void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 			}
 		}
 	}
-	if (colliableObject->getTag() == BulletAppleTag) {
-		takeDamage(0.4);
-		if (m_currentHealth > 0)
-			m_isBeingHit = true;
-	}
 }
 
 void MustacheGuard::Draw()

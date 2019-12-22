@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "Animation.h"
 
-
 class PlayerJumpAttackThrowState : public PlayerState
 {
 private:

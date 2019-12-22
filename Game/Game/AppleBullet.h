@@ -2,14 +2,13 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Sprite.h"
+#include "MustacheGuard.h"
 
 enum BulletAppleStatus {
 	BulletAppleFlying,
 	BulletAppleBurst,
 	BulletAppleBurstBoss,
 };
-
-class PlayerState;
 
 class AppleBullet : public GameObject
 {

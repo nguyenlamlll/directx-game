@@ -47,7 +47,6 @@ void PlayScene::Update(float deltaTime)
 			it->second->getTag() == Tag::BatTag
 			)
 		{
-			m_player->OncollisionWithApple(it->second);
 			it->second->OnCollision(m_player, deltaTime);
 		}
 	}

@@ -166,13 +166,48 @@ void AppleBullet::OnCollision(GameObject* colliableObject, float deltaTime)
 {
 	switch (colliableObject->getTag())
 	{
-	case BatTag: case SkeletonTag: case MustaheGuardTag: case ThinGuardTag: //case VerticleWallTag:
-		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), colliableObject->GetBoundingBoxForApple()))
+	case MustaheGuardTag:
+	{
+		auto guard = dynamic_cast<MustacheGuard*>(colliableObject);
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), guard->GetBoundingBoxForApple()))
 		{
-			colliableObject->OnCollision(this, deltaTime);
+			guard->takeDamage(0.4);
+			guard->isHit();
 			BurstAction();
 		}
 		break;
+	}
+	case ThinGuardTag:
+	{
+		auto guard = dynamic_cast<ThinGuard*>(colliableObject);
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), guard->GetBoundingBoxForApple()))
+		{
+			guard->takeDamage(0.4);
+			guard->isHit();
+			BurstAction();
+		}
+		break;
+	}
+	case BatTag:
+	{
+		auto bat = dynamic_cast<Bat*>(colliableObject);
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), bat->GetBoundingBoxForApple()))
+		{
+			bat->takeDamage(1);
+			BurstAction();
+		}
+		break;
+	}
+	case SkeletonTag:
+	{
+		auto skeleton = dynamic_cast<Skeleton*>(colliableObject);
+		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), skeleton->GetBoundingBoxForApple()))
+		{
+			skeleton->takeDamage(10);
+			BurstAction();
+		}
+		break;
+	}
 	case BossTag:
 		if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), colliableObject->GetBoundingBox()))
 		{
