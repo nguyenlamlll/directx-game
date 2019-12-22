@@ -187,8 +187,10 @@ void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
 	{
 		auto brick = dynamic_cast<FloatingBrick*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 30;
-		playerBox.height += 30;
+		playerBox.x += 10;
+		playerBox.y += 10;
+		playerBox.width -= 10;
+		playerBox.height += 10;
 		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
 		{
 			if (brick->getStatus() == Status::NotAllow)
@@ -222,8 +224,8 @@ void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 	{
 		auto ground = dynamic_cast<Ground*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 50;
-		playerBox.height += 150;
+		//playerBox.y -= 50;
+		playerBox.height += 20;
 		if (Collision::getInstance()->isColliding(playerBox, ground->GetBoundingBox()))
 		{
 			//OutputDebugString(L"[INFO] Stading State is colliding with ground. \n");
@@ -234,11 +236,12 @@ void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 	{
 		auto brick = dynamic_cast<FloatingBrick*>(entity);
 		Box playerBox = m_player->GetBoundingBox();
-		playerBox.y -= 50;
-		playerBox.height += 150;
+		playerBox.x += 10;
+		playerBox.y += 10;
+		playerBox.width -= 10;
+		playerBox.height += 10;
 		if (Collision::getInstance()->isColliding(playerBox, brick->GetBoundingBox()))
 		{
-			//OutputDebugString(L"[INFO] Stading State is colliding with brick. \n");
 			m_player->m_isOnGround = true;
 		}
 	}

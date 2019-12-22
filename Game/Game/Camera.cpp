@@ -71,6 +71,10 @@ void Camera::updateCamera()
 	{
 		m_position = (D3DXVECTOR2(m_player->getPosition().x - 74, m_position.y));
 	}
+	if (m_position.x < (m_rightBoundary - 10) && m_position.x > (m_rightBoundary - 100))
+	{
+		m_position = (D3DXVECTOR2(m_player->getPosition().x, m_position.y));
+	}
 
 	if (m_position.y <= m_topBoundary)
 	{

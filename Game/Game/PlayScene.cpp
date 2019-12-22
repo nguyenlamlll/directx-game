@@ -24,6 +24,9 @@ void PlayScene::Update(float deltaTime)
 {
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F1))
 	{
+		//m_player->setPosition(D3DXVECTOR2(630, 1580.5));
+		//Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, 1463.75));
+		//Camera::getInstance()->setBoundaries(700, 2550, 650, 1463.75);
 		this->LoadGridFromFile();
 		this->loadWallsFromFileToGrid();
 		return;

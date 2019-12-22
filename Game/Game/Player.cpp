@@ -333,6 +333,17 @@ void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float de
 
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
 {
+#if defined(DEBUG) | defined(_DEBUG)
+	if (m_isMovingFreely)
+	{
+		// Leave empty
+	}
+	else {
+		m_isOnGround = false;
+	}
+#else
+	m_isOnGround = false;
+#endif
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
 		m_currentState->OnCollision(it->second, deltaTime);

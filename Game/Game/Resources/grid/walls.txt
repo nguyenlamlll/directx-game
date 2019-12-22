@@ -95,27 +95,28 @@ ground 1984 1623 32 32 1 1 0
 ##############################################################
 # Starting from the only possible way up
 # Wood log 01
-ground 1920 1438 32 32 1 1 0
-ground 1952 1438 32 32 1 1 0
-ground 1984 1438 32 32 1 1 0
+ground 1930 1438 32 32 1 1 1
+ground 1952 1438 32 32 1 1 1
+ground 1984 1438 32 32 1 1 1
 
 # Wood log 02
-ground 1952 1375 32 32 1 1 0
-ground 1984 1375 32 32 1 1 0
+ground 1952 1375 32 32 1 1 1
+ground 1984 1375 32 32 1 1 1
 
 # Wood log 03
 ground 1800 1325 32 32 1 1 0
 ground 1832 1325 32 32 1 1 0
 ground 1864 1325 32 32 1 1 0
 ground 1890 1325 32 32 1 1 0
-vertical-wall Resources/vertical-wall-12-20.png 1830 1300 12 20 1 1 1
+vertical-wall Resources/vertical-wall-12-20.png 1830 1300 12 20 1 1 0
 
 
 # Wood log 04
-ground 1768 1260 32 32 1 1 0
-ground 1800 1260 32 32 1 1 0
-ground 1832 1260 32 32 1 1 0
-#ground 1864 1260 32 32 1 1 0
+ground 1768 1260 32 32 1 1 1
+ground 1800 1260 32 32 1 1 1
+ground 1832 1260 32 32 1 1 1
+ground 1864 1260 32 32 1 1 0
+vertical-wall Resources/vertical-wall-12-20.png 1750 1230 12 20 1 1 1
 
 # Skeleton platform 01
 ground 1646 1420 32 32 1 1 0
