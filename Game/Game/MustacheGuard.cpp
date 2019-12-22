@@ -142,8 +142,16 @@ Box MustacheGuard::GetBoundingBoxForApple()
 		box.vx = vx;
 		box.vy = vy;
 		break;
+	case MustacheGuardStates::MusBurst:
+		box.x = x;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
 	default:
-		box.x = 500;
+		box.x = x;
 		box.y = y;
 		box.width = 0;
 		box.height = 0;
@@ -273,15 +281,7 @@ void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, fl
 
 void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	switch (colliableObject->getTag())
-	{
-	case BulletAppleTag: {
-		takeDamage(0.4);
-		if (m_currentHealth > 0)
-			m_isBeingHit = true;
-		break;
-	}
-	case PlayerTag: {
+	if (colliableObject->getTag() == PlayerTag) {
 		auto player = dynamic_cast<Player*>(colliableObject);
 		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
 		{
@@ -293,10 +293,11 @@ void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
-		break;
 	}
-	default:
-		break;
+	if (colliableObject->getTag() == BulletAppleTag) {
+		takeDamage(0.4);
+		if (m_currentHealth > 0)
+			m_isBeingHit = true;
 	}
 }
 

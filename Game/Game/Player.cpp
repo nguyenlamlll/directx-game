@@ -324,19 +324,31 @@ void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float de
 	}
 }
 
+void Player::OncollisionWithApple(GameObject* obj) {
+	// check conllision Apple-Bullet with object
+	if (lsAppleBullet.size() != 0) {
+		for (int j = 0; j < lsAppleBullet.size(); j++) {
+			if (!lsAppleBullet.at(j)->getIsDead()) {
+				switch (obj->getTag())
+				{
+				case BossTag: case MustaheGuardTag: case ThinGuardTag: case BatTag: case SkeletonTag:
+					lsAppleBullet.at(j)->OnCollision(obj, 0);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
+}
+
 void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime)
 {
 
 	for (auto it = colliableObjects->begin(); it != colliableObjects->end(); it++)
 	{
 		m_currentState->OnCollision(it->second, deltaTime);
-		// check conllision Apple-Bullet with object
-		if (lsAppleBullet.size() != 0) {
-			for (int j = 0; j < lsAppleBullet.size(); j++) {
-				if (!lsAppleBullet.at(j)->getIsDead())
-					lsAppleBullet.at(j)->OnCollision(it->second, deltaTime);
-			}
-		}
+		
 		//float normalX, normalY;
 		//auto collisionResult = Collision::getInstance()->SweptAABB(this->GetBoundingBox(), it->second->GetBoundingBox(), normalX, normalY, deltaTime);
 		//if (collisionResult.isCollide)

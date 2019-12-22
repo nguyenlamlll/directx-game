@@ -129,8 +129,16 @@ Box ThinGuard::GetBoundingBoxForApple()
 		box.vx = vx;
 		box.vy = vy;
 		break;
+	case ThinGuardStates::ThinBurst:
+		box.x = x;
+		box.y = y;
+		box.width = 0;
+		box.height = 0;
+		box.vx = vx;
+		box.vy = vy;
+		break;
 	default:
-		box.x = 500;
+		box.x = x;
 		box.y = y;
 		box.width = 0;
 		box.height = 0;
@@ -249,14 +257,7 @@ void ThinGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, float 
 
 void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 {
-	switch (colliableObject->getTag())
-	{
-	case BulletAppleTag:
-		takeDamage(0.5);
-		if (m_currentHealth > 0)
-			m_isBeingHit = true;
-		break;
-	case PlayerTag: {
+	if (colliableObject->getTag() == PlayerTag) {
 		auto player = dynamic_cast<Player*>(colliableObject);
 		auto self = this->GetBoundingBox();
 		self.x -= 30;
@@ -271,12 +272,12 @@ void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
-		break;
 	}
-	default:
-		break;
-	}
-
+	if (colliableObject->getTag()== BulletAppleTag) {
+		takeDamage(0.5);
+		if (m_currentHealth > 0)
+			m_isBeingHit = true;
+	}	
 }
 
 void ThinGuard::Draw()

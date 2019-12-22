@@ -81,10 +81,10 @@ Box Bat::GetBoundingBoxForApple() {
 		box.vy = vy;
 		break;
 	case BatBurst:
-		box.x = 500;
+		box.x = x;
 		box.y = y;
-		box.width = 1;
-		box.height = 1;
+		box.width = 0;
+		box.height = 0;
 		box.vx = vx;
 		box.vy = vy;
 		break;
@@ -181,13 +181,7 @@ void Bat::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaT
 
 void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	switch (colliableObject->getTag())
-	{
-	case BulletAppleTag:
-		BurstAction();
-		break;
-	case PlayerTag:
-	{
+	if (colliableObject->getTag() == PlayerTag) {
 		auto player = dynamic_cast<Player*>(colliableObject);
 		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
 		{
@@ -199,10 +193,9 @@ void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 				m_isAttackingHit = true;
 			}
 		}
-		break;
 	}
-	default:
-		break;
+	if (colliableObject->getTag() == BulletAppleTag) {
+		BurstAction();
 	}
 }
 

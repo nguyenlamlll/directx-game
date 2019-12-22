@@ -148,17 +148,12 @@ void Skeleton::OnCollision(std::map<int, GameObject*>* colliableObjects, float d
 }
 
 void Skeleton::OnCollision(GameObject* colliableObject, float deltaTime) {
-	switch (colliableObject->getTag())
-	{
-	case BulletAppleTag:
-		BurstAction();
-		break;
-	case PlayerTag:
-	{
-		break;
+
+	if (colliableObject->getTag() == PlayerTag) {
+		// to do
 	}
-	default:
-		break;
+	if (colliableObject->getTag() == BulletAppleTag) {
+		BurstAction();
 	}
 }
 
