@@ -276,7 +276,7 @@ void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 	switch (colliableObject->getTag())
 	{
 	case BulletAppleTag: {
-		takeDamage(0.2);
+		takeDamage(0.4);
 		if (m_currentHealth > 0)
 			m_isBeingHit = true;
 		break;

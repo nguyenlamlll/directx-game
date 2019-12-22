@@ -252,7 +252,7 @@ void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 	switch (colliableObject->getTag())
 	{
 	case BulletAppleTag:
-		takeDamage(0.25);
+		takeDamage(0.5);
 		if (m_currentHealth > 0)
 			m_isBeingHit = true;
 		break;

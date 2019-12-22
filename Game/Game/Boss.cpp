@@ -217,7 +217,7 @@ void Boss::OnCollision(GameObject* colliableObject, float deltaTime) {
 	switch (colliableObject->getTag())
 	{
 	case BossTag:
-		m_health->takeDamage(1);
+		m_health->takeDamage(3);
 		break;
 	case PlayerTag:
 		break;

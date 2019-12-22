@@ -69,6 +69,7 @@ void Animation::Update(float deltaTime)
 		m_isFinished = true;
 		return;
 	}
+	
 	//update frame
 	if (m_curTotalTime >= m_timePerFrame)
 	{
@@ -101,6 +102,10 @@ void Animation::Update(float deltaTime)
 	{
 		m_curTotalTime += deltaTime;
 	}
+}
+
+float Animation::getcurTotalTime() {
+	return m_curTotalTime;
 }
 
 int Animation::getIndexFrame() {

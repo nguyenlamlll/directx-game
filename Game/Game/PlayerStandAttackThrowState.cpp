@@ -29,7 +29,7 @@ void PlayerStandAttackThrowState::Update(float deltaTime)
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
-	if (m_animation->getIndexFrame() == 3)
+	if (m_animation->getIndexFrame() == 3&& m_animation->getcurTotalTime()>60.f)
 		createAppleBullet();
 
 	if (m_animation->getIsFinished() == true)
@@ -51,7 +51,7 @@ void PlayerStandAttackThrowState::Draw()
 
 PlayerStates PlayerStandAttackThrowState::GetState()
 {
-	return PlayerStates::Falling;
+	return PlayerStates::StandAttackThrow;
 }
 
 void PlayerStandAttackThrowState::PreCollision(GameObject * entity, float deltaTime)

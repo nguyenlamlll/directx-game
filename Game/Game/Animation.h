@@ -29,5 +29,6 @@ public:
 	int getIndexFrame();
 	void setIndexFrame(int index);
 	bool getIsFinished();
+	float getcurTotalTime();
 };
 
