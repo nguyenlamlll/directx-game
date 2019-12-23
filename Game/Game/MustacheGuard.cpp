@@ -17,7 +17,7 @@ MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 	m_animations[MustacheGuardStates::Standing]->setPositionX(x);
 	m_animations[MustacheGuardStates::Standing]->setPositionY(y);
 
-	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/Mus-Gaurd-Attack2-118_73_5.png", 5, 1, 5, false, 80.f);
+	m_animations[MustacheGuardStates::Attacking1] = new Animation(L"Resources/animations/enemy/mustache-guard/attack-1.png", 5, 1, 5, false, 80.f, D3DCOLOR_XRGB(120, 193, 152));
 	m_animations[MustacheGuardStates::Attacking1]->setPositionX(x);
 	m_animations[MustacheGuardStates::Attacking1]->setPositionY(y - ATTACKING1_SPRITE_OFFSET);
 

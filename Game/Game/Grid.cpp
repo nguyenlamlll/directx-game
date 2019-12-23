@@ -164,6 +164,28 @@ void Grid::getCollidableObjects(std::map<int, GameObject*>* result, int column, 
 		objects = cells[column - 1][row + 1]->getAllObjects();
 		result->insert(objects->begin(), objects->end());
 	}
+
+	if (row > 0 && row < NUM_ROWS - 1)
+	{
+		objects = cells[column][row + 1]->getAllObjects();
+		result->insert(objects->begin(), objects->end());
+	}
+	if (column > 0 && column < NUM_COLUMNS - 1) 
+	{
+		objects = cells[column + 1][row]->getAllObjects();
+		result->insert(objects->begin(), objects->end());
+	}
+	if (row > 0 && column < NUM_COLUMNS - 1)
+	{
+		objects = cells[column + 1][row - 1]->getAllObjects();
+		result->insert(objects->begin(), objects->end());
+	}
+
+	if (column < NUM_COLUMNS - 1 && row < NUM_ROWS - 1)
+	{
+		objects = cells[column + 1][row + 1]->getAllObjects();
+		result->insert(objects->begin(), objects->end());
+	}
 }
 
 std::map<int, GameObject*>* Grid::getVisibleObjects()
