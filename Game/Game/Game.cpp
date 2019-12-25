@@ -10,24 +10,11 @@
 #define BALL_TEXTURE_PATH L"Resources\\ball.png"
 #define PLAYER_TEXTURE_PATH L"Resources\\player.png"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH Global::GetInstance()->g_ScreenWidth
 #define SCREEN_HEIGHT Global::GetInstance()->g_ScreenHeight
 
 #define MAX_FRAME_RATE 60
-
-
-//LPDIRECT3D9 d3d = NULL;						// Direct3D handle
-//LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
-//
-//LPDIRECT3DSURFACE9 backBuffer = NULL;
-//LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
-//
-LPDIRECT3DTEXTURE9 texBrick;				// texture object to store brick image
-
-int brick_x = 0;
-int brick_y = 0;
-
 
 /*
 	Load all game resources.
@@ -236,7 +223,7 @@ bool Game::GameInit()
 		return false;
 	}
 
-	SceneManager::getInstance()->changeScene(new PlayScene());
+	SceneManager::getInstance()->changeScene(new MainMenuScene());
 	LoadResources();
 
 	return true;

@@ -152,7 +152,7 @@ peddler 850 833 60 60
 blue-heart-item 2095 1310 50 50
 blue-heart-item 1290 800 50 50
 # Item type:: 5 genie gace
-genie-face-item 520 825 50 50
+genie-face-item 550 860 50 50
 genie-face-item 770 1320 50 50
 genie-face-item 1650 780 50 50
 genie-face-item 1670 1250 50 50

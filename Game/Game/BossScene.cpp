@@ -20,8 +20,6 @@ BossScene::BossScene()
 	this->loadPlayerConfigurationsFromFile();
 	this->loadObjectsFromFileToGrid();
 
-	Sound::getInstance()->play("background-boss-level", true);
-
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);
 	m_rubyScore = new RubyScores(280, 300, 0, 0);
@@ -31,6 +29,10 @@ BossScene::BossScene()
 	m_aladdinScore->increaseScores(10);
 }
 
+void BossScene::initialize()
+{
+	Sound::getInstance()->play("background-boss-level", true);
+}
 
 BossScene::~BossScene()
 {
@@ -46,7 +48,7 @@ void BossScene::Update(float deltaTime)
 	}
 	if (KeyboardInput::GetInstance()->isKeyTriggered(0x31))
 	{
-		SceneManager::getInstance()->changeScene(new PlayScene());
+		SceneManager::getInstance()->changeScene(new DungeonScene());
 		return;
 	}
 
@@ -126,6 +128,7 @@ void BossScene::ReleaseAll()
 	m_grid->reset();
 	delete m_grid;
 }
+
 
 void BossScene::loadPlayerConfigurationsFromFile()
 {

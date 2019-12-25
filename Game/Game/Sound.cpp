@@ -81,6 +81,9 @@ void Sound::loadResources()
 	this->loadSound((char*)"Resources/sound/background-level-1.wav", "background-level-1");
 	this->loadSound((char*)"Resources/sound/background-boss-level.wav", "background-boss-level");
 
+	this->loadSound((char*)"Resources/sound/AWholeNewWorld.wav", SoundNames::MAIN_MENU_SOUD);
+	this->loadSound((char*)"Resources/sound/LevelComplete.wav", SoundNames::LEVEL_COMPLETE_SOUD);
+
 	this->loadSound((char*)"Resources/sound/aladdin-hurt.wav", SoundNames::ALADDIN_HURT_SOUND);
 	this->loadSound((char*)"Resources/sound/High_Sword.wav", SoundNames::HIGH_ATTACK_SOUND);
 	this->loadSound((char*)"Resources/sound/Low_Sword.wav", SoundNames::LOW_ATTACK_SOUND);

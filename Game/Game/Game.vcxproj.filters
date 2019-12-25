@@ -189,9 +189,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Framework\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Header Files\Game\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
@@ -387,6 +384,18 @@
     <ClInclude Include="ExitDoor.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="DungeonScene.h">
+      <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCompleteScene.h">
+      <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -442,9 +451,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Framework\Map</Filter>
@@ -634,6 +640,18 @@
     </ClCompile>
     <ClCompile Include="ExitDoor.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonScene.cpp">
+      <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCompleteScene.cpp">
+      <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

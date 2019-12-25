@@ -2,6 +2,9 @@
 
 namespace SoundNames
 {
+	constexpr auto MAIN_MENU_SOUD = "main-menu";
+	constexpr auto LEVEL_COMPLETE_SOUD = "level-complete";
+
 	constexpr auto DUNGEON_BACKGROUND = "dungeon-background";
 	constexpr auto JAFAR_BACKGROUND = "jafar-background";
 

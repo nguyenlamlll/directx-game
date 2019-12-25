@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "SceneManager.h"
-#include "PlayScene.h"
+#include "DungeonScene.h"
 
 #include "KeyboardInput.h"
 
@@ -36,6 +36,7 @@ public:
 	virtual void OnKeyUp(int keyCode) override;
 
 	virtual void ReleaseAll() override;
+	virtual void initialize() override;
 
 	void loadPlayerConfigurationsFromFile();
 	void loadObjectsFromFileToGrid();

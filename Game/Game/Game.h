@@ -19,7 +19,8 @@
 #include "Grid.h"
 #include "SceneManager.h"
 
-#include "PlayScene.h"
+#include "DungeonScene.h"
+#include "MainMenuScene.h"
 
 class Game
 {

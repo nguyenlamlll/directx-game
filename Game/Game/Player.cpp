@@ -59,7 +59,7 @@ Player::Player(float x, float y, float width, float height)
 	m_animationSitDownAttackThrow = new Animation(L"Resources/animations/aladdin/sit-down-attack-throw.png", 5, 1, 5, false, 60.f);
 
 	// Look up
-	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 200.f);
+	m_animationLookUp = new Animation(L"Resources/animations/aladdin/look-up.png", 3, 1, 3, false, 100.f);
 
 	//Falling
 	m_animationFalling = new Animation(L"Resources/animations/aladdin/falling.png", 4, 1, 4, true, 100.f);

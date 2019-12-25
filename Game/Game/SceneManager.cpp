@@ -33,4 +33,5 @@ void SceneManager::changeScene(Scene * newScene)
 		m_currentScene = nullptr;
 	}
 	m_currentScene = newScene;
+	m_currentScene->initialize();
 }

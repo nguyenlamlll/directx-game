@@ -175,6 +175,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="LevelCompleteScene.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="ForegroundChains.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
@@ -187,6 +189,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LifeScores.h" />
+    <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="MustacheGuard.h" />
     <ClInclude Include="PlayerMoveAttackState.h" />
     <ClInclude Include="PlayerMoveThrowState.h" />
@@ -222,7 +225,7 @@
     <ClInclude Include="PlayerSwingAttackThrowState.h" />
     <ClInclude Include="PlayerSwingState.h" />
     <ClInclude Include="PlayerSwingStopState.h" />
-    <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="RubyItem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -261,6 +264,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="LevelCompleteScene.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="ForegroundChains.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -273,6 +278,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LifeScores.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MustacheGuard.cpp" />
     <ClCompile Include="PlayerMoveAttackState.cpp" />
     <ClCompile Include="PlayerMoveThrowState.cpp" />
@@ -307,7 +313,7 @@
     <ClCompile Include="PlayerSwingAttackThrowState.cpp" />
     <ClCompile Include="PlayerSwingState.cpp" />
     <ClCompile Include="PlayerSwingStopState.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="RubyItem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
