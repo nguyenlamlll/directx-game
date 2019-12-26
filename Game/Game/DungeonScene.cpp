@@ -343,24 +343,32 @@ void DungeonScene::LoadGridFromFile()
 		}
 		else if (objectName._Equal("thin-guard"))
 		{
-			float x, y, w, h;
+			float x, y, w, h, attackRange, moveRange;
 			file >> x;
 			file >> y;
 			file >> w;
 			file >> h;
+			file >> attackRange;
+			file >> moveRange;
 			ThinGuard* thinGuard = new ThinGuard(x, y, w, h);
 			thinGuard->attachPlayer(m_player);
+			thinGuard->setAttackRange(attackRange);
+			thinGuard->setMoveRange(moveRange);
 			m_grid->add(count, thinGuard);
 		}
 		else if (objectName._Equal("mustache-guard"))
 		{
-			float x, y, w, h;
+			float x, y, w, h, attackRange, moveRange;
 			file >> x;
 			file >> y;
 			file >> w;
 			file >> h;
+			file >> attackRange;
+			file >> moveRange;
 			MustacheGuard* mustacheGuard = new MustacheGuard(x, y, w, h);
 			mustacheGuard->attachPlayer(m_player);
+			mustacheGuard->setAttackRange(attackRange);
+			mustacheGuard->setMoveRange(moveRange);
 			m_grid->add(count, mustacheGuard);
 		}
 		else if (objectName._Equal("apple-item"))

@@ -1,11 +1,8 @@
 #include "stdafx.h"
 #include "ThinGuard.h"
 
-constexpr auto ATTACK_RANGE = 90;
-constexpr auto MOVE_RANGE = 200;
-
 ThinGuard::ThinGuard(float x, float y, float width, float height)
-	: GameObject(x, y, width, height, Tag::ThinGuardTag), Health(20)
+	: GameObject(x, y, width, height, Tag::ThinGuardTag), Health(15)
 {
 	m_initialPosition = D3DXVECTOR2(x, y);
 	this->setPosition(m_initialPosition);
@@ -52,17 +49,17 @@ void ThinGuard::attachPlayer(Player * player)
 void ThinGuard::checkPositionWithPlayer()
 {
 	float distance = MathHelper::findDistance(m_player->getPosition(), this->getPosition());
-	if (distance <= ATTACK_RANGE)
+	if (distance <= m_attackRange)
 	{
 		m_currentState = ThinGuardStates::Attacking;
 		m_currentAnimation = m_animations[ThinGuardStates::Attacking];
 	}
 	else
 	{
-		if (distance <= MOVE_RANGE)
+		if (distance <= m_moveRange)
 		{
-			if (m_player->getPosition().x < (m_initialPosition.x - MOVE_RANGE) ||
-				(m_player->getPosition().x > (m_initialPosition.x + MOVE_RANGE)))
+			if (m_player->getPosition().x < (m_initialPosition.x - m_moveRange) ||
+				(m_player->getPosition().x > (m_initialPosition.x + m_moveRange)))
 			{
 				m_currentState = ThinGuardStates::Standing;
 				m_currentAnimation = m_animations[ThinGuardStates::Standing];
@@ -84,6 +81,7 @@ void ThinGuard::checkPositionWithPlayer()
 void ThinGuard::isHit()
 {
 	m_isBeingHit = true;
+	Sound::getInstance()->play(SoundNames::GUARD_HIT_2_SOUND, false);
 }
 
 Box ThinGuard::GetBoundingBox()
@@ -289,4 +287,14 @@ void ThinGuard::Draw()
 		if (!isDead)
 			m_currentAnimation->Draw();
 	}
+}
+
+void ThinGuard::setAttackRange(int value)
+{
+	m_attackRange = value;
+}
+
+void ThinGuard::setMoveRange(int value)
+{
+	m_moveRange = value;
 }

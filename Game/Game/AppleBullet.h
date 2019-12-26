@@ -22,6 +22,8 @@ protected:
 	float achorY;
 	bool isDead, isChangeList;
 
+	// One apple can only deal damage one time. After this variable is set to true. Damage no longer applies.
+	bool isAttackingHit{ false };
 public:
 
 	AppleBullet(float x, float y, float width, float height, bool isToRight);

@@ -31,6 +31,9 @@ protected:
 	bool m_isAttackingHit{ false };
 	bool isDead;
 
+	int m_attackRange{ 90 };
+	int m_moveRange{ 200 };
+
 public:
 	Animation* m_currentAnimation;
 	std::unordered_map<ThinGuardStates, Animation*> m_animations;
@@ -54,5 +57,7 @@ public:
 	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void Draw();
 
+	void setAttackRange(int value);
+	void setMoveRange(int value);
 };
 

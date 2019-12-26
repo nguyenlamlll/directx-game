@@ -13,7 +13,7 @@ enum class MustacheGuardStates {
 	Attacking1,
 	Attacking2,
 	BeingHit,
-	MusBurst
+	Burst
 };
 
 class MustacheGuard :
@@ -32,6 +32,9 @@ protected:
 
 	D3DXVECTOR2 m_initialPosition;
 	bool isDead;
+
+	int m_attackRange{ 90 };
+	int m_moveRange{ 200 };
 
 public:
 	Animation* m_currentAnimation;
@@ -55,5 +58,8 @@ public:
 	void OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaTime);
 	void OnCollision(GameObject* colliableObject, float deltaTime);
 	void Draw();
+
+	void setAttackRange(int value);
+	void setMoveRange(int value);
 };
 

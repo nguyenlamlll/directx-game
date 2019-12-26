@@ -1,13 +1,11 @@
 #include "stdafx.h"
 #include "MustacheGuard.h"
 
-constexpr auto ATTACK_RANGE = 90;
-constexpr auto MOVE_RANGE = 200;
 constexpr auto ATTACKING1_SPRITE_OFFSET = 12;
 constexpr auto BEING_HIT_SPRITE_OFFSET = 12;
 
 MustacheGuard::MustacheGuard(float x, float y, float width, float height)
-	: GameObject(x, y, width, height, Tag::MustaheGuardTag), Health(15)
+	: GameObject(x, y, width, height, Tag::MustaheGuardTag), Health(10)
 {
 	m_isFacingRight = false;
 	m_initialPosition = D3DXVECTOR2(x, y);
@@ -34,9 +32,9 @@ MustacheGuard::MustacheGuard(float x, float y, float width, float height)
 	m_animations[MustacheGuardStates::BeingHit]->setPositionY(y - BEING_HIT_SPRITE_OFFSET);
 
 	isDead = false;
-	m_animations[MustacheGuardStates::MusBurst] = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
-	m_animations[MustacheGuardStates::MusBurst]->setPositionX(x);
-	m_animations[MustacheGuardStates::MusBurst]->setPositionY(y);
+	m_animations[MustacheGuardStates::Burst] = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
+	m_animations[MustacheGuardStates::Burst]->setPositionX(x);
+	m_animations[MustacheGuardStates::Burst]->setPositionY(y);
 
 	m_currentState = MustacheGuardStates::Standing;
 	m_currentAnimation = m_animations[MustacheGuardStates::Standing];
@@ -48,6 +46,7 @@ MustacheGuard::~MustacheGuard()
 	delete m_animations[MustacheGuardStates::Attacking1];
 	delete m_animations[MustacheGuardStates::Attacking2];
 	delete m_animations[MustacheGuardStates::Moving];
+	delete m_animations[MustacheGuardStates::Burst];
 }
 
 void MustacheGuard::attachPlayer(Player * player)
@@ -58,17 +57,17 @@ void MustacheGuard::attachPlayer(Player * player)
 void MustacheGuard::checkPositionWithPlayer()
 {
 	float distance = MathHelper::findDistance(m_player->getPosition(), this->getPosition());
-	if (distance <= ATTACK_RANGE)
+	if (distance <= m_attackRange)
 	{
 		m_currentState = MustacheGuardStates::Attacking1;
 		m_currentAnimation = m_animations[MustacheGuardStates::Attacking1];
 	}
 	else
 	{
-		if (distance <= MOVE_RANGE)
+		if (distance <= m_moveRange)
 		{
-			if (m_player->getPosition().x < (m_initialPosition.x - MOVE_RANGE) ||
-				(m_player->getPosition().x > (m_initialPosition.x + MOVE_RANGE)))
+			if (m_player->getPosition().x < (m_initialPosition.x - m_moveRange) ||
+				(m_player->getPosition().x > (m_initialPosition.x + m_moveRange)))
 			{
 				m_currentState = MustacheGuardStates::Standing;
 				m_currentAnimation = m_animations[MustacheGuardStates::Standing];
@@ -90,6 +89,7 @@ void MustacheGuard::checkPositionWithPlayer()
 void MustacheGuard::isHit()
 {
 	m_isBeingHit = true;
+	Sound::getInstance()->play(SoundNames::GUARD_HIT_1_SOUND, false);
 }
 
 Box MustacheGuard::GetBoundingBox()
@@ -142,7 +142,7 @@ Box MustacheGuard::GetBoundingBoxForApple()
 		box.vx = vx;
 		box.vy = vy;
 		break;
-	case MustacheGuardStates::MusBurst:
+	case MustacheGuardStates::Burst:
 		box.x = x;
 		box.y = y;
 		box.width = 0;
@@ -236,8 +236,8 @@ void MustacheGuard::Update(float deltaTime)
 	}
 	else {
 		if (!isDead) {
-			m_currentState = MustacheGuardStates::MusBurst;
-			m_currentAnimation = m_animations[MustacheGuardStates::MusBurst];
+			m_currentState = MustacheGuardStates::Burst;
+			m_currentAnimation = m_animations[MustacheGuardStates::Burst];
 			m_currentAnimation->setPositionX(x);
 			m_currentAnimation->setPositionY(y);
 			if (m_currentAnimation->getIsFinished())
@@ -309,4 +309,14 @@ void MustacheGuard::Draw()
 			m_currentAnimation->Draw();
 		}
 	}
+}
+
+void MustacheGuard::setAttackRange(int value)
+{
+	m_attackRange = value;
+}
+
+void MustacheGuard::setMoveRange(int value)
+{
+	m_moveRange = value;
 }
