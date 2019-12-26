@@ -60,7 +60,14 @@ void PlayerSitDownState::Update(float deltaTime)
 	// From Sit to Sit Attack Throw
 	if (KeyboardInput::GetInstance()->isKeyReleased(VK_K))
 	{
-		m_player->changeState(PlayerStates::SitDownAttackThrow);
+		if (m_player->m_appleCount > 0)
+		{
+			m_player->changeState(PlayerStates::SitDownAttackThrow);
+		}
+		else
+		{
+			Sound::getInstance()->play(SoundNames::OUTTA_APPLE_SOUND, false);
+		}
 		return;
 	}
 }

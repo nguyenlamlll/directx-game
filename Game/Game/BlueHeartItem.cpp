@@ -4,21 +4,32 @@
 BlueHeartItem::BlueHeartItem(float x, float y, float width, float height) : Item(x, y, width, height) {
 	this->setPosition(D3DXVECTOR2(x, y));
 
-	isUsed= false;
+	isUsed = false;
 	isDead = false;
 	isDied = false;
 
 	// start marking time
 	start_wait = GetTickCount();
 
-	// Ruby
-	image = new Animation(L"Resources/Items/PNG/blue-heart_19_26_8.png", 8, 1, 8, false, 40.f);
+	m_imageInitial = new Animation(L"Resources/Items/PNG/blue-heart_19_26_8.png", 8, 1, 8, false, 40.f);
+	m_imageActivated = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+	image = m_imageInitial;
 	image->setPositionX(x);
 	image->setPositionY(y);
 }
 
-BlueHeartItem::~BlueHeartItem() {
-
+BlueHeartItem::~BlueHeartItem()
+{
+	if (m_imageInitial != nullptr)
+	{
+		delete m_imageInitial;
+		m_imageInitial = nullptr;
+	}
+	if (m_imageActivated != nullptr)
+	{
+		delete m_imageActivated;
+		m_imageActivated = nullptr;
+	}
 }
 
 void BlueHeartItem::ActiveAction() {
@@ -33,13 +44,14 @@ void BlueHeartItem::ActiveAction() {
 	}
 	default:
 	{
-		image = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+		image = m_imageActivated;
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;
 		vx = 0;
 		isDied = true;
-		isUsed= true;
+		isUsed = true;
+		m_player->m_score += 150;
 		status = Active;
 		break;
 	}

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Sprite.h"
+#include "Player.h"
 
 class AppleScores : public GameObject
 {
@@ -14,6 +15,9 @@ protected:
 	Animation* m_imageHundred;
 
 	bool ischange;
+
+	Player* m_player;
+
 public:
 	AppleScores(float x, float y, float width, float height);
 	~AppleScores();
@@ -21,8 +25,12 @@ public:
 	void abstractScores();
 	void changeDisplayScores();
 	void resetLifeAladdin();
+
 	int getScore();
+	void setScore(int value);
 
 	void Update(float deltaTime);
 	void Draw();
+
+	void attachPlayer(Player* player);
 };

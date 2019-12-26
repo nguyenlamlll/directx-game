@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Sprite.h"
+#include "Player.h"
 
 class AladdinScores : public GameObject
 {
@@ -17,6 +18,8 @@ protected:
 	bool changing, changeTen, changeHundred, changeThousand;
 	int tenThousand, thousand, hundred, ten, one;
 
+	Player* m_player;
+
 public:
 	AladdinScores(float x, float y, float width, float height);
 	~AladdinScores();
@@ -27,4 +30,9 @@ public:
 
 	void Update(float deltaTime);
 	void Draw();
+
+	int getScore();
+	void setScore(int value);
+
+	void attachPlayer(Player* player);
 };

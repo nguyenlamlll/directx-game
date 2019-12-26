@@ -23,14 +23,28 @@ BossScene::BossScene()
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);
 	m_rubyScore = new RubyScores(280, 300, 0, 0);
+	m_rubyScore->attachPlayer(m_player);
 	m_appleScore = new AppleScores(340, 300, 0, 0);
+	m_appleScore->attachPlayer(m_player);
 	m_lifeScore = new LifeScores(40, 300, 0, 0);
+	m_lifeScore->attachPlayer(m_player);
+
 	m_aladdinScore = new AladdinScores(370, 25, 0, 0);
-	m_aladdinScore->increaseScores(10);
+	m_aladdinScore->attachPlayer(m_player);
 }
 
 void BossScene::initialize()
 {
+	m_player->setCurrentHealth(AladdinGlobal::getInstance()->getHealth());
+
+	m_player->m_score = AladdinGlobal::getInstance()->getScores();
+
+	m_player->m_appleCount = AladdinGlobal::getInstance()->getAppleCount();
+
+	m_player->m_lifeCount = AladdinGlobal::getInstance()->getLifeCount();
+
+	m_player->m_rubyCount = AladdinGlobal::getInstance()->getRubyCount();
+
 	Sound::getInstance()->play("background-boss-level", true);
 }
 

@@ -8,6 +8,8 @@
 #include "Boss.h"
 #include "VerticalWall.h"
 
+#include "AladdinGlobal.h"
+
 class Player;
 class BossScene :
 	public Scene

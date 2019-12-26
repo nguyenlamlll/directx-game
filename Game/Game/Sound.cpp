@@ -92,6 +92,7 @@ void Sound::loadResources()
 	this->loadSound((char*)"Resources/sound/Guard_Hit_2.wav", SoundNames::GUARD_HIT_2_SOUND);
 
 	this->loadSound((char*)"Resources/sound/throw-apple.wav", SoundNames::THROW_APPLE_SOUND);
+	this->loadSound((char*)"Resources/sound/Outta_Apples.wav", SoundNames::OUTTA_APPLE_SOUND);
 
 
 }

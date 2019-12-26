@@ -24,8 +24,12 @@ RubyScores::~RubyScores() {
 }
 
 void RubyScores::Update(float deltaTime) {
-	//test
+	if (m_player->m_rubyCount != currentScores)
+	{
+		this->setScore(m_player->m_rubyCount);
+	}
 
+	//test
 	/*if (currentScores < 999)
 	{
 		test += 1;
@@ -72,6 +76,22 @@ void RubyScores::Draw() {
 			}
 		}
 	}
+}
+
+int RubyScores::getScore()
+{
+	return currentScores;
+}
+
+void RubyScores::setScore(int value)
+{
+	currentScores = value;
+	changeDisplayScores();
+}
+
+void RubyScores::attachPlayer(Player * player)
+{
+	m_player = player;
 }
 
 void RubyScores::increaseScores() {

@@ -22,9 +22,9 @@ LifeScores::~LifeScores() {
 }
 
 void LifeScores::Update(float deltaTime) {
-	if (!ischange) {
+	if (m_player->m_lifeCount != currentScores) 
+	{
 		changeDisplayScores();
-		ischange = true;
 	}
 	//test
 	/*test += 1;
@@ -43,6 +43,11 @@ void LifeScores::Draw() {
 	}
 }
 
+void LifeScores::attachPlayer(Player * player)
+{
+	m_player = player;
+}
+
 void LifeScores::increaseScores() {
 	currentScores++;
 	changeDisplayScores();
@@ -57,7 +62,14 @@ int LifeScores::getScore() {
 	return currentScores;
 }
 
+void LifeScores::setScore(int value)
+{
+	currentScores = value;
+	changeDisplayScores();
+}
+
 void LifeScores::changeDisplayScores() {
+	currentScores = m_player->m_lifeCount;
 	if (currentScores > 9)
 		currentScores = 9;
 	if (currentScores < 0)

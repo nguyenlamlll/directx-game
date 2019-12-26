@@ -17,6 +17,9 @@ public:
 	void recover(float amount);
 
 	float getCurrentHealth();
+	void setCurrentHealth(float value);
+
 	float getMaximumHealth();
+	void setMaximumHealth(float value);
 };
 

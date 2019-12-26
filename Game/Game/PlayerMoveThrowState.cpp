@@ -20,7 +20,7 @@ PlayerMoveThrowState::PlayerMoveThrowState(Player* player, Animation* animation)
 		m_animation->setFlipHorizontal(true);
 	}
 
-	Sound::getInstance()->play(SoundNames::THROW_APPLE_SOUND, false, 1);
+
 }
 
 
@@ -41,7 +41,10 @@ void PlayerMoveThrowState::Update(float deltaTime)
 	m_animation->setPositionY(m_player->getPosition().y - SPRITE_OFFSET);
 	m_animation->Update(deltaTime);
 	if (m_animation->getIndexFrame() == 3 && m_animation->getcurTotalTime() > 60.f)
+	{
+		Sound::getInstance()->play(SoundNames::THROW_APPLE_SOUND, false, 1);
 		createAppleBullet();
+	}
 
 	if (m_animation->getIsFinished() == true)
 	{

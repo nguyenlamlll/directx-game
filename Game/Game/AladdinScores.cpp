@@ -1,7 +1,9 @@
 #include "stdafx.h"#include "stdafx.h"
 #include "AladdinScores.h"
 
-AladdinScores::AladdinScores(float x, float y, float width, float height) : GameObject(x, y, width, height, Tag::ScoresTag) {
+AladdinScores::AladdinScores(float x, float y, float width, float height) 
+	: GameObject(x, y, width, height, Tag::ScoresTag) 
+{
 	currentScores = 0;
 	changing = changeTen = changeHundred = changeThousand = false;
 	//test = 0;
@@ -26,6 +28,11 @@ AladdinScores::~AladdinScores() {
 }
 
 void AladdinScores::Update(float deltaTime) {
+	if (m_player->m_score != currentScores)
+	{
+		this->setScore(m_player->m_score);
+	}
+
 	if (changing)
 	{
 		styleBeforeChange();
@@ -97,6 +104,23 @@ void AladdinScores::Draw() {
 			}
 		}
 	}
+}
+
+int AladdinScores::getScore()
+{
+	return currentScores;
+}
+
+void AladdinScores::setScore(int value)
+{
+	currentScores = value;
+	setNumberScores();
+	changing = true;
+}
+
+void AladdinScores::attachPlayer(Player * player)
+{
+	m_player = player;
 }
 
 void AladdinScores::increaseScores(int value) {

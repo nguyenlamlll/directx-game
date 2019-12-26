@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Sprite.h"
+#include "Player.h"
 
 class RubyScores : public GameObject
 {
@@ -12,6 +13,9 @@ protected:
 	Animation* m_imageOne;
 	Animation* m_imageTen;
 	Animation* m_imageHundred;
+
+	Player* m_player;
+
 public:
 	RubyScores(float x, float y, float width, float height);
 	~RubyScores();
@@ -22,4 +26,8 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 
+	int getScore();
+	void setScore(int value);
+
+	void attachPlayer(Player* player);
 };

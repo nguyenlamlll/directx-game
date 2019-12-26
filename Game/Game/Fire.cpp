@@ -90,7 +90,7 @@ void Fire::OnCollision(GameObject * object, float deltaTime)
 		{
 			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
 			{
-				player->takeDamage(1);
+				player->takeDamage(0.5);
 				player->isHit();
 				m_isAttackingHit = true;
 			}

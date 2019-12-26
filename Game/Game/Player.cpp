@@ -21,6 +21,7 @@ PlayerState* Player::getCurrentState()
 void Player::addAppleToList(AppleBullet* bullet)
 {
 	lsAppleBullet.push_back(bullet);
+	m_appleCount -= 1;
 }
 
 Player::Player(float x, float y, float width, float height)

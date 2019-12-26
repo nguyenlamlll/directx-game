@@ -11,14 +11,17 @@ RubyItem::RubyItem(float x, float y, float width, float height, int indexFrame) 
 	// start marking time
 	start_wait = GetTickCount();
 
-	// Ruby
-	image = new Animation(L"Resources/Items/PNG/ruby_32_25_9.png", 9, 1, 9, indexFrame, false, 40.f);
+	m_imageInitial = new Animation(L"Resources/Items/PNG/ruby_32_25_9.png", 9, 1, 9, indexFrame, false, 40.f);
+	m_imageActivated = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+	image = m_imageInitial;
 	image->setPositionX(x);
 	image->setPositionY(y);
 }
 
-RubyItem::~RubyItem() {
-
+RubyItem::~RubyItem() 
+{
+	delete m_imageInitial;
+	delete m_imageActivated;
 }
 
 void RubyItem::ActiveAction() {
@@ -40,6 +43,8 @@ void RubyItem::ActiveAction() {
 		vx = 0;
 		isDied = true;
 		isUsed = true;
+		m_player->m_rubyCount += 1;
+		m_player->m_score += 150;
 		status = Active;
 		break;
 	}

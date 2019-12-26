@@ -65,7 +65,14 @@ void PlayerJumpMovingState::Update(float deltaTime)
 	// Attack by throwing apples while jumping
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
 	{
-		m_player->changeState(PlayerStates::JumpAttackThrow);
+		if (m_player->m_appleCount > 0)
+		{
+			m_player->changeState(PlayerStates::JumpAttackThrow);
+		}
+		else
+		{
+			Sound::getInstance()->play(SoundNames::OUTTA_APPLE_SOUND, false);
+		}
 		return;
 	}
 

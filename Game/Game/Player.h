@@ -46,8 +46,16 @@ class Camera;
 class BossScene;
 class PlayerState;
 class AppleBullet;
-class Player : public GameObject, public Health
+class Player : 
+	public GameObject, 
+	public Health
 {
+public:
+	int m_appleCount{ 0 };
+	int m_lifeCount{ 4 };
+	int m_rubyCount{ 0 };
+	int m_score{ 0 };
+
 private:
 	DWORD start;
 	// Used in flickering animation algorithm.

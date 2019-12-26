@@ -363,12 +363,6 @@
     <ClInclude Include="AladdinScores.h">
       <Filter>Header Files\Game\GameObjects\Scores</Filter>
     </ClInclude>
-    <ClInclude Include="VerticalWall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SoundNames.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
@@ -377,9 +371,6 @@
     </ClInclude>
     <ClInclude Include="PlayerMoveThrowState.h">
       <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ClimbArea.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExitDoor.h">
       <Filter>Header Files\Game</Filter>
@@ -395,6 +386,18 @@
     </ClInclude>
     <ClInclude Include="LevelCompleteScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ClimbArea.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinGlobal.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalWall.h">
+      <Filter>Header Files\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -623,20 +626,11 @@
     <ClCompile Include="LifeScores.cpp">
       <Filter>Source Files\Game\GameObjects\Scores</Filter>
     </ClCompile>
-    <ClCompile Include="VerticalWall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerMoveAttackState.cpp">
       <Filter>Source Files\Game\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMoveThrowState.cpp">
       <Filter>Source Files\Game\GameObjects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="ClimbArea.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExitDoor.cpp">
       <Filter>Source Files\Game</Filter>
@@ -652,6 +646,18 @@
     </ClCompile>
     <ClCompile Include="LevelCompleteScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClimbArea.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinGlobal.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalWall.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

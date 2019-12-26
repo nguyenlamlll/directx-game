@@ -61,7 +61,14 @@ void PlayerJumpStandState::Update(float deltaTime)
 	// Attack by throwing apples while jumping
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
 	{
-		m_player->changeState(PlayerStates::JumpAttackThrow);
+		if (m_player->m_appleCount > 0)
+		{
+			m_player->changeState(PlayerStates::JumpAttackThrow);
+		}
+		else
+		{
+			Sound::getInstance()->play(SoundNames::OUTTA_APPLE_SOUND, false);
+		}
 		return;
 	}
 
@@ -111,10 +118,10 @@ void PlayerJumpStandState::OnCollision(GameObject* entity, float deltaTime)
 			if (brick->getStatus() == Status::Allow)
 			{
 				OutputDebugString(L"[INFO] Player should stand on this brick. \n");
-				
+
 				if (isFalling() && m_player->getPosition().y <= brick->getPosition().y)
 				{
-					m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, brick->getPosition().y - (brick->getHeight() + 5) ));
+					m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, brick->getPosition().y - (brick->getHeight() + 5)));
 					m_player->changeState(PlayerStates::Standing);
 					return;
 				}

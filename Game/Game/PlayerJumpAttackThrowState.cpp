@@ -63,7 +63,10 @@ void PlayerJumpAttackThrowState::Update(float deltaTime)
 	Camera::getInstance()->setPosition(cameraOldPosition);
 
 	if (m_animation->getIndexFrame() == 3 && m_animation->getcurTotalTime() > 60.f)
+	{
+		Sound::getInstance()->play(SoundNames::THROW_APPLE_SOUND, false, 1);
 		createAppleBullet();
+	}
 
 	if (m_travelledJumpDistance >= m_longestJumpDistance * 2) {
 		m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, m_initialY));

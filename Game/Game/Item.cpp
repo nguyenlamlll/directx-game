@@ -1,16 +1,24 @@
 #include "stdafx.h"
 #include "Item.h"
 
-Item::Item(float x, float y, float width, float height) : GameObject(x, y, width, height, Tag::ItemTag) {
+Item::Item(float x, float y, float width, float height) 
+	: GameObject(x, y, width, height, Tag::ItemTag) 
+{
+	status = NonActive;
+}
+
+Item::Item(float x, float y, float width, float height, Tag tag)
+	: GameObject(x, y, width, height, tag)
+{
 	status = NonActive;
 }
 
 Item::~Item() {
-	if (image != NULL)
-	{
-		delete image;
-		image = nullptr;
-	}
+	//if (image != NULL)
+	//{
+	//	delete image;
+	//	image = nullptr;
+	//}
 }
 
 Box Item::GetBoundingBox() {

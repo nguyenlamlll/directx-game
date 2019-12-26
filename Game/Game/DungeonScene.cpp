@@ -15,6 +15,16 @@ DungeonScene::DungeonScene()
 
 void DungeonScene::initialize()
 {
+	m_player->setCurrentHealth(AladdinGlobal::getInstance()->getHealth());
+
+	m_player->m_score = AladdinGlobal::getInstance()->getScores();
+
+	m_player->m_appleCount = AladdinGlobal::getInstance()->getAppleCount();
+
+	m_player->m_lifeCount = AladdinGlobal::getInstance()->getLifeCount();
+
+	m_player->m_rubyCount = AladdinGlobal::getInstance()->getRubyCount();
+
 	Sound::getInstance()->play("background-level-1", true);
 }
 
@@ -150,6 +160,12 @@ void DungeonScene::OnKeyUp(int keyCode)
 
 void DungeonScene::ReleaseAll()
 {
+	AladdinGlobal::getInstance()->setHealth(m_player->getCurrentHealth());
+	AladdinGlobal::getInstance()->setScores(m_aladdinScore->getScore());
+	AladdinGlobal::getInstance()->setAppleCount(m_appleScore->getScore());
+	AladdinGlobal::getInstance()->setLifeCount(m_lifeScore->getScore());
+	AladdinGlobal::getInstance()->setRubyCount(m_rubyScore->getScore());
+
 	Sound::getInstance()->stop("background-level-1");
 
 	delete m_player;
@@ -201,10 +217,13 @@ void DungeonScene::loadResources()
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);
 	m_rubyScore = new RubyScores(280, 300, 0, 0);
+	m_rubyScore->attachPlayer(m_player);
 	m_appleScore = new AppleScores(340, 300, 0, 0);
+	m_appleScore->attachPlayer(m_player);
 	m_lifeScore = new LifeScores(40, 300, 0, 0);
+	m_lifeScore->attachPlayer(m_player);
 	m_aladdinScore = new AladdinScores(370, 25, 0, 0);
-	m_aladdinScore->increaseScores(10);
+	m_aladdinScore->attachPlayer(m_player);
 
 	Camera::getInstance();
 	Camera::getInstance()->attachPlayer(m_player);

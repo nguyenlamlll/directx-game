@@ -30,6 +30,7 @@ public:
 	//destructor of item class
 	~Item();
 	Item(float x, float y, float width, float height);
+	Item(float x, float y, float width, float height, Tag tag);
 
 
 

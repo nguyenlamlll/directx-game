@@ -1,4 +1,4 @@
-#include "stdafx.h"#include "stdafx.h"
+#include "stdafx.h"
 #include "AppleScores.h"
 
 AppleScores::AppleScores(float x, float y, float width, float height) : GameObject(x, y, width, height, Tag::ScoresTag) {
@@ -24,10 +24,11 @@ AppleScores::~AppleScores() {
 }
 
 void AppleScores::Update(float deltaTime) {
-	if (!ischange) {
+	if (m_player->m_appleCount != currentScores)
+	{
 		changeDisplayScores();
-		ischange = true;
 	}
+
 	//test
 	/*if (currentScores < 999)
 	{
@@ -75,6 +76,11 @@ void AppleScores::Draw() {
 	}
 }
 
+void AppleScores::attachPlayer(Player * player)
+{
+	m_player = player;
+}
+
 void AppleScores::increaseScores() {
 	currentScores++;
 	changeDisplayScores();
@@ -94,7 +100,14 @@ int AppleScores::getScore() {
 	return currentScores;
 }
 
+void AppleScores::setScore(int value)
+{
+	currentScores = value;
+	changeDisplayScores();
+}
+
 void AppleScores::changeDisplayScores() {
+	currentScores = m_player->m_appleCount;
 	int hundred, ten, one, remainder;
 
 	hundred = currentScores / 100;
@@ -105,5 +118,5 @@ void AppleScores::changeDisplayScores() {
 	m_imageHundred->setIndexFrame(hundred);
 	m_imageTen->setIndexFrame(ten);
 	m_imageOne->setIndexFrame(one);
-	
+
 }

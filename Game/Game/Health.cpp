@@ -31,7 +31,17 @@ float Health::getCurrentHealth()
 	return m_currentHealth;
 }
 
+void Health::setCurrentHealth(float value)
+{
+	m_currentHealth = value;
+}
+
 float Health::getMaximumHealth()
 {
 	return m_maximumHealth;
+}
+
+void Health::setMaximumHealth(float value)
+{
+	m_maximumHealth = value;
 }

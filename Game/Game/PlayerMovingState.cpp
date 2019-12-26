@@ -63,7 +63,14 @@ void PlayerMovingState::Update(float deltaTime)
 	// From Stand to Attack by Throwing apples
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
 	{
-		m_player->changeState(PlayerStates::MoveThrow);
+		if (m_player->m_appleCount > 0)
+		{
+			m_player->changeState(PlayerStates::MoveThrow);
+		}
+		else
+		{
+			Sound::getInstance()->play(SoundNames::OUTTA_APPLE_SOUND, false);
+		}
 		return;
 	}
 

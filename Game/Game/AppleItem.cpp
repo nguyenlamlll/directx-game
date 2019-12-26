@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "AppleItem.h"
 
-AppleItem::AppleItem(float x, float y, float width, float height) : Item(x, y, width, height){
+AppleItem::AppleItem(float x, float y, float width, float height) : 
+	Item(x, y, width, height, Tag::AppleItemTag)
+{
 	this->setPosition(D3DXVECTOR2(x, y));
 
 	isUsed = false;
@@ -17,7 +19,8 @@ AppleItem::AppleItem(float x, float y, float width, float height) : Item(x, y, w
 
 AppleItem::~AppleItem() 
 {
-
+	delete m_imageInitial;
+	delete m_imageUsed;
 }
 
 void AppleItem::ActiveAction() {
@@ -40,6 +43,7 @@ void AppleItem::ActiveAction() {
 		vx = 0;
 		isDied = true;
 		isUsed= true;
+		m_player->m_appleCount += 1;
 		break;
 	}
 	}

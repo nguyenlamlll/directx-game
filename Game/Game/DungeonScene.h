@@ -1,4 +1,5 @@
 #pragma once
+#include "AladdinGlobal.h"
 #include "Scene.h"
 #include "GameObject.h"
 #include "Player.h"
