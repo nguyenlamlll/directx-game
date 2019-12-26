@@ -11,8 +11,8 @@ Spike::Spike(float x, float y, float width, float height, int type) : GameObject
 	1 : get in
 	*/
 
-	m_spikeInside = new Animation(L"Resources/Enmity/PNG/spike-go-inside_49_35_6.png", 6, 1, 6, false, 200.f);
-	m_spikeOutside = new Animation(L"Resources/Enmity/PNG/spike-go-outside_49_35_6.png", 6, 1, 6, false, 200.f);
+	m_spikeInside = new Animation(L"Resources/Enmity/PNG/spike-go-inside_49_35_6.png", 6, 1, 6, false, 100.f);
+	m_spikeOutside = new Animation(L"Resources/Enmity/PNG/spike-go-outside_49_35_6.png", 6, 1, 6, false, 100.f);
 
 	switch (type)
 	{
@@ -109,6 +109,7 @@ void Spike::ChangeDirection() {
 				image->setPositionY(y);
 				vx = 0;
 				vy = 0;
+				m_isAttackingHit = false;
 				state = GoOutside;
 				// reset start marking time
 				start_wait = GetTickCount();
@@ -120,10 +121,10 @@ void Spike::ChangeDirection() {
 		// set value check collision
 		switch (image->getIndexFrame())
 		{
-		case 0: case 1:
+		case 0: case 1: case 2: case 3: case 4:
 			status = NotDamage;
 			break;
-		case 2: case 3: case 4: case 5:
+		case 5:
 			status = Damage;
 			break;
 		default:

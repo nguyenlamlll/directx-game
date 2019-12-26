@@ -31,4 +31,6 @@ public:
 	void ChangeDirection();
 
 	StatusDamage getStatus();
+
+	bool m_isAttackingHit{ false };
 };

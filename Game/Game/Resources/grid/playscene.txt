@@ -89,8 +89,8 @@ spike-spike 639 1155 49 35 0
 
 #Enemies type: 7 hanging morning star
 hanging-morning-star 1485 1530 49 35 0
-hanging-morning-star 1545 1530 49 35 5
-hanging-morning-star 1620 1530 49 35 10
+hanging-morning-star 1555 1530 49 35 5
+hanging-morning-star 1640 1530 49 35 10
 
 hanging-morning-star 1085 1020 49 35 8
 hanging-morning-star 1200 1020 49 35 1

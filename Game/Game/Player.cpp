@@ -6,6 +6,7 @@
 void Player::isHit()
 {
 	m_isHurt = true;
+	Sound::getInstance()->play(SoundNames::ALADDIN_HURT_SOUND, false);
 }
 
 PlayerState * Player::getPreviousState()
@@ -332,7 +333,7 @@ void Player::PreCollision(std::map<int, GameObject*>* colliableObjects, float de
 	}
 }
 
-void Player::OncollisionWithApple(GameObject* obj, float deltaTime) 
+void Player::OncollisionWithApple(GameObject* obj, float deltaTime)
 {
 	if (lsAppleBullet.size() != 0) {
 		for (int j = 0; j < lsAppleBullet.size(); j++) {
@@ -361,8 +362,38 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 	{
 		m_currentState->OnCollision(it->second, deltaTime);
 		this->OncollisionWithApple(it->second, deltaTime);
+
+		auto entity = it->second;
+		if (entity->getTag() == Tag::SpikeTag)
+		{
+			auto spike = dynamic_cast<Spike*>(entity);
+			if (Collision::getInstance()->isColliding(this->GetBoundingBox(), spike->GetBoundingBox()))
+			{
+				if (spike->m_isAttackingHit == false &&
+					spike->getStatus() == _StatusDamage::Damage)
+				{
+					spike->m_isAttackingHit = true;
+					this->isHit();
+					m_currentHealth -= 0.5;
+				}
+			}
+		}
+		if (entity->getTag() == Tag::HangingMorningStarTag)
+		{
+			auto morningStar = dynamic_cast<HangingMorningStar*>(entity);
+			if (Collision::getInstance()->isColliding(this->GetBoundingBox(), morningStar->GetBoundingBox()))
+			{
+				if (morningStar->m_isAttackingHit == false &&
+					morningStar->getStatus() == _StatusDamage::Damage)
+				{
+					morningStar->m_isAttackingHit = true;
+					this->isHit();
+					m_currentHealth -= 0.5;
+				}
+			}
+		}
 	}
-	}
+}
 
 void Player::Draw()
 {

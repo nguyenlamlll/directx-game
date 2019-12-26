@@ -10,8 +10,8 @@ HangingMorningStar::HangingMorningStar(float x, float y, float width, float heig
 	1 : get in
 	*/
 
-	m_morningStarInside = new Animation(L"Resources/Enmity/PNG/HangingMorningStar-go-inside_34_67_15.png", 15, 1, 15, indexFrame, false, 150.f);
-	m_morningStarOutside = new Animation(L"Resources/Enmity/PNG/HangingMorningStar-go-outside_34_67_15.png", 15, 1, 15, false, 150.f);
+	m_morningStarInside = new Animation(L"Resources/Enmity/PNG/HangingMorningStar-go-inside_34_67_15.png", 15, 1, 15, indexFrame, false, 90.f);
+	m_morningStarOutside = new Animation(L"Resources/Enmity/PNG/HangingMorningStar-go-outside_34_67_15.png", 15, 1, 15, false, 90.f);
 
 	image = m_morningStarInside;
 	state = GoInside;
@@ -37,10 +37,10 @@ HangingMorningStar::~HangingMorningStar() {
 Box HangingMorningStar::GetBoundingBox() {
 	Box box;
 
-	box.x = x;
-	box.y = y;
-	box.width = width;
-	box.height = height;
+	box.x = x - width / 2;
+	box.y = y - height / 2;
+	box.width = width - 10;
+	box.height = height + 30;
 	box.vx = vx;
 	box.vy = vy;
 
@@ -94,6 +94,7 @@ void HangingMorningStar::ChangeDirection() {
 				image->setPositionY(y);
 				vx = 0;
 				vy = 0;
+				m_isAttackingHit = false;
 				state = GoOutside;
 				// reset start marking time
 				start_wait = GetTickCount();
@@ -128,6 +129,7 @@ void HangingMorningStar::ChangeDirection() {
 				image->setPositionY(y);
 				vx = 0;
 				vy = 0;
+				m_isAttackingHit = false;
 				state = GoInside;
 				// reset start marking time
 				start_wait = GetTickCount();

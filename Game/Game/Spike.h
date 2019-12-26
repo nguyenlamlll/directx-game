@@ -24,6 +24,7 @@ protected:
 
 	// value check reset load animation
 	DWORD last_time, start_wait;
+
 public:
 	Spike(float x, float y, float width, float height, int type);
 	~Spike();
@@ -39,4 +40,6 @@ public:
 	void ChangeDirection();
 
 	StatusDamage getStatus();
+
+	bool m_isAttackingHit{ false };
 };
