@@ -218,6 +218,11 @@ void AppleBullet::OnCollision(GameObject* colliableObject, float deltaTime)
 				BurstBossAction(colliableObject);
 			}
 			break;
+		case VerticleWallTag: case GroundTag:
+			if (Collision::getInstance()->isCollisionEnemy(this->GetBoundingBox(), colliableObject->GetBoundingBox()))
+			{
+				BurstAction();
+			}
 		default:
 			break;
 		}
