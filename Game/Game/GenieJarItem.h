@@ -1,6 +1,6 @@
 #pragma once
 #include "Item.h"
-
+#include "AladdinGlobal.h"
 class GenieJarItem : public Item
 {
 protected:

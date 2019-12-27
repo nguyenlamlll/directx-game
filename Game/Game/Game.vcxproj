@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AladdinDeath.h" />
     <ClInclude Include="AladdinGlobal.h" />
     <ClInclude Include="AladdinScores.h" />
     <ClInclude Include="Animation.h" />
@@ -250,6 +251,7 @@
     <ClInclude Include="VirtualKeys.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AladdinDeath.cpp" />
     <ClCompile Include="AladdinGlobal.cpp" />
     <ClCompile Include="AladdinScores.cpp" />
     <ClCompile Include="Animation.cpp" />

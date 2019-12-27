@@ -31,6 +31,7 @@ void GenieJarItem::ActiveAction() {
 	{
 		// load frame last old
 		if (image->getIsFinished()) {
+			AladdinGlobal::getInstance()->setLastCheckpoint(D3DXVECTOR2(x, y));
 			vy = 0;
 			vx = 0;
 			image = m_imageGenieJarUsed;

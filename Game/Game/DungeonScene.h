@@ -40,6 +40,8 @@
 #include "AppleScores.h"
 #include "AladdinScores.h"
 
+#include "AladdinDeath.h"
+
 #include "SceneManager.h"
 #include "BossScene.h"
 #include "LevelCompleteScene.h"
@@ -50,6 +52,10 @@ class DungeonScene :
 	public Scene
 {
 private:
+	AladdinDeath* m_aladdinDeathOverlay;
+	bool m_isAladdinDeathOverlaying{ false };
+	DWORD m_overlayTimer{ 0 }, m_waiter;
+
 	GameMap* m_map;
 	Sprite* m_firstColumn;
 	Sprite* m_secondColumn;

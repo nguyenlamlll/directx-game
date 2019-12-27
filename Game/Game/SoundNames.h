@@ -22,6 +22,9 @@ namespace SoundNames
 	constexpr auto GUARD_HIT_1_SOUND = "guard-hit-1";
 	constexpr auto GUARD_HIT_2_SOUND = "guard-hit-2";
 
+
+	constexpr auto RESTART_LIFE_SOUND = "restart-life";
+
 }
 
 

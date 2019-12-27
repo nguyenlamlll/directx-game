@@ -13,6 +13,9 @@ private:
 	int m_lifeCount{ 4 };
 	int m_appleCount{ 15 };
 	int m_rubyCount{ 10 };
+
+	D3DXVECTOR2 m_lastCheckpoint = D3DXVECTOR2(0,0);
+
 public:
 	void setHealth(int value);
 	int getHealth();
@@ -28,5 +31,8 @@ public:
 
 	void setRubyCount(int value);
 	int getRubyCount();
+
+	void setLastCheckpoint(D3DXVECTOR2 value);
+	D3DXVECTOR2 getLastCheckpoint();
 };
 

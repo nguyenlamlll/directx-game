@@ -6,6 +6,9 @@
 
 DungeonScene::DungeonScene()
 {
+	m_aladdinDeathOverlay = new AladdinDeath();
+	m_overlayTimer = m_overlayTimer - m_overlayTimer;
+
 	loadResources();
 
 	m_map = new GameMap(500, 500, 3000 / 500, 2000 / 500,
@@ -54,100 +57,135 @@ void DungeonScene::Update(float deltaTime)
 		return;
 	}
 
-	auto visibleObjects = m_grid->getVisibleObjects();
-	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+	if (m_player->getCurrentHealth() <= 0 && m_player->m_lifeCount > 0)
 	{
-		it->second->Update(deltaTime);
-		if (it->second->getTag() == Tag::MustaheGuardTag || 
-			it->second->getTag() == Tag::ThinGuardTag ||
-			it->second->getTag() == Tag::SkeletonTag ||
-			it->second->getTag() == Tag::BatTag
-			)
+		m_isAladdinDeathOverlaying = true;
+		m_aladdinDeathOverlay->Update(deltaTime);
+		if (m_overlayTimer > 3000)
 		{
-			it->second->OnCollision(m_player, deltaTime);
+			m_player->setPosition(AladdinGlobal::getInstance()->getLastCheckpoint());
+			m_player->setCurrentHealth(m_player->getMaximumHealth());
+			m_player->m_lifeCount -= 1;
+			Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, m_player->getPosition().y - 116.75));
+			Camera::getInstance()->setBoundaries(700, 2550, 650, 1463.75);
+			m_player->changeState(PlayerStates::Standing);
+
+			m_isAladdinDeathOverlaying = false;
+			m_aladdinDeathOverlay->reset();
+			m_overlayTimer -= m_overlayTimer;
+		}
+		else
+		{
+			m_overlayTimer += deltaTime;
 		}
 	}
 
-	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
-	m_listCanCollideWithPlayer->clear();
-	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
-	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
-
-	m_player->Update(deltaTime);
-
-	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
-	m_listCanCollideWithPlayer->clear();
-	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
-	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
-
-	// Exceptionally, check if player hits exit door.
-	if (m_listCanCollideWithPlayer->count(1) == 1)
+	if (m_isAladdinDeathOverlaying != true)
 	{
-		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), m_listCanCollideWithPlayer->at(1)->GetBoundingBox()))
+		auto visibleObjects = m_grid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
 		{
-			SceneManager::getInstance()->changeScene(new LevelCompleteScene(new BossScene()));
-			return;
+			it->second->Update(deltaTime);
+			if (it->second->getTag() == Tag::MustaheGuardTag ||
+				it->second->getTag() == Tag::ThinGuardTag ||
+				it->second->getTag() == Tag::SkeletonTag ||
+				it->second->getTag() == Tag::BatTag
+				)
+			{
+				it->second->OnCollision(m_player, deltaTime);
+			}
 		}
+
+		auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
+		m_listCanCollideWithPlayer->clear();
+		m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
+		m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
+
+		m_player->Update(deltaTime);
+
+		auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
+		m_listCanCollideWithPlayer->clear();
+		m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
+		m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
+
+		// Exceptionally, check if player hits exit door.
+		if (m_listCanCollideWithPlayer->count(1) == 1)
+		{
+			if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), m_listCanCollideWithPlayer->at(1)->GetBoundingBox()))
+			{
+				SceneManager::getInstance()->changeScene(new LevelCompleteScene(new BossScene()));
+				return;
+			}
+		}
+
+
+		// Check and delete death objects
+		//auto objects = m_grid->getVisibleObjects();
+		//for (auto it = objects->begin(); it != objects->end();)
+		//{
+		//	auto health = dynamic_cast<Health*>(it->second);
+		//	if (health != nullptr && health->getCurrentHealth() <= 0.0f)
+		//	{
+		//		m_grid->remove(it->first, it->second);
+		//		//delete it->second;
+		//		it = objects->erase(it);
+		//	}
+		//	else
+		//	{
+		//		it++;
+		//	}
+		//}
+
+		visibleObjects->clear();
+		visibleObjects = m_foregroundGrid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+		{
+			it->second->Update(deltaTime);
+		}
+
+		m_blood->Update(deltaTime);
+		m_rubyScore->Update(deltaTime);
+		m_lifeScore->Update(deltaTime);
+		m_appleScore->Update(deltaTime);
+		m_aladdinScore->Update(deltaTime);
 	}
 
-
-	// Check and delete death objects
-	//auto objects = m_grid->getVisibleObjects();
-	//for (auto it = objects->begin(); it != objects->end();)
-	//{
-	//	auto health = dynamic_cast<Health*>(it->second);
-	//	if (health != nullptr && health->getCurrentHealth() <= 0.0f)
-	//	{
-	//		m_grid->remove(it->first, it->second);
-	//		//delete it->second;
-	//		it = objects->erase(it);
-	//	}
-	//	else
-	//	{
-	//		it++;
-	//	}
-	//}
-
-	visibleObjects->clear();
-	visibleObjects = m_foregroundGrid->getVisibleObjects();
-	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
-	{
-		it->second->Update(deltaTime);
-	}
-
-	m_blood->Update(deltaTime);
-	m_rubyScore->Update(deltaTime);
-	m_lifeScore->Update(deltaTime);
-	m_appleScore->Update(deltaTime);
-	m_aladdinScore->Update(deltaTime);
 }
 
 void DungeonScene::Draw()
 {
-	m_map->RenderMap();
-
-	auto visibleObjects = m_grid->getVisibleObjects();
-	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+	if (m_isAladdinDeathOverlaying == true)
 	{
-		it->second->Draw();
+		m_aladdinDeathOverlay->Draw();
 	}
-	m_player->Draw();
-
-	m_firstColumn->Draw();
-	m_secondColumn->Draw();
-	m_thirdColumn->Draw();
-	m_fourthColumn->Draw();
-
-	auto visibleObjects2 = m_foregroundGrid->getVisibleObjects();
-	for (auto it = visibleObjects2->begin(); it != visibleObjects2->end(); it++)
+	else
 	{
-		it->second->Draw();
+		m_map->RenderMap();
+
+		auto visibleObjects = m_grid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+		{
+			it->second->Draw();
+		}
+		m_player->Draw();
+
+		m_firstColumn->Draw();
+		m_secondColumn->Draw();
+		m_thirdColumn->Draw();
+		m_fourthColumn->Draw();
+
+		auto visibleObjects2 = m_foregroundGrid->getVisibleObjects();
+		for (auto it = visibleObjects2->begin(); it != visibleObjects2->end(); it++)
+		{
+			it->second->Draw();
+		}
+		m_blood->Draw();
+		m_rubyScore->Draw();
+		m_lifeScore->Draw();
+		m_appleScore->Draw();
+		m_aladdinScore->Draw();
+
 	}
-	m_blood->Draw();
-	m_rubyScore->Draw();
-	m_lifeScore->Draw();
-	m_appleScore->Draw();
-	m_aladdinScore->Draw();
 }
 
 void DungeonScene::OnKeyDown(int keyCode)
@@ -212,7 +250,7 @@ void DungeonScene::loadResources()
 		1580.5,
 		36.0f,
 		50.f);
-	//m_player->setPosition(D3DXVECTOR2(2200.f, 1580.5f));
+	AladdinGlobal::getInstance()->setLastCheckpoint(D3DXVECTOR2(630, 1580.5));
 
 	m_blood = new BloodBar(75, 25, 0, 0);
 	m_blood->attachPlayer(m_player);

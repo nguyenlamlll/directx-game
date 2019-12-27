@@ -64,3 +64,13 @@ int AladdinGlobal::getRubyCount()
 {
 	return m_rubyCount;
 }
+
+void AladdinGlobal::setLastCheckpoint(D3DXVECTOR2 value)
+{
+	m_lastCheckpoint = value;
+}
+
+D3DXVECTOR2 AladdinGlobal::getLastCheckpoint()
+{
+	return m_lastCheckpoint;
+}

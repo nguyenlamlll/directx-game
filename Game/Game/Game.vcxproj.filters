@@ -441,6 +441,9 @@
     <ClInclude Include="PlayerClimbThrowState.h">
       <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
     </ClInclude>
+    <ClInclude Include="AladdinDeath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -709,6 +712,9 @@
     </ClCompile>
     <ClCompile Include="PlayerClimbThrowState.cpp">
       <Filter>Source Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinDeath.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

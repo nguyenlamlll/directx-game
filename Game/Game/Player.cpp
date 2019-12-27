@@ -129,6 +129,7 @@ Player::~Player()
 	delete m_animationClimb;
 	delete m_animationClimbAttack;
 	delete m_animationClimbThrow;
+	delete m_animationClimbJump;
 
 	delete m_animationSwing;
 	delete m_animationSwingStop;
@@ -167,6 +168,13 @@ void Player::setVelocity(D3DXVECTOR2 value)
 
 void Player::Update(float deltaTime)
 {
+#if defined(DEBUG) | defined(_DEBUG)
+	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2))
+	{
+		m_isMovingFreely = !m_isMovingFreely;
+	}
+#endif
+
 	auto now = GetTickCount();
 	auto dt = now - start;
 	if (dt > 3000)
@@ -174,13 +182,6 @@ void Player::Update(float deltaTime)
 		m_isHurt = false;
 		start = GetTickCount();
 	}
-
-#if defined(DEBUG) | defined(_DEBUG)
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_F2))
-	{
-		m_isMovingFreely = !m_isMovingFreely;
-	}
-#endif
 
 	m_currentState->Update(deltaTime);
 
