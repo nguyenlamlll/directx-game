@@ -93,11 +93,11 @@ void Star::OnCollision(GameObject * object, float deltaTime)
 			auto extraVx = 0.0f;
 			if (m_boss->getIsFacingRight() == true)
 			{
-				extraVx = -0.025;
+				extraVx = -0.05;
 			}
 			else
 			{
-				extraVx = 0.025;
+				extraVx = 0.05;
 			}
 			m_player->setPosition(D3DXVECTOR2(old.x + extraVx  *deltaTime, old.y));
 			auto cameraOldPosition = Camera::getInstance()->getPosition();

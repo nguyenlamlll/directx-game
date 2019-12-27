@@ -35,6 +35,8 @@ Boss::Boss(float x, float y, float width, float height, bool isFacingRight)
 	vx = 0;
 	vy = 0;
 	m_startWaitStanding = GetTickCount();
+
+	m_closeRangeFireTimer = 1000;
 }
 
 Boss::~Boss() {
@@ -146,6 +148,21 @@ void Boss::Update(float deltaTime) {
 		// update image fire 
 		if (isCloseRange) {
 			m_image_fire0->Update(deltaTime);
+
+			if (m_closeRangeFireTimer >= 1000)
+			{
+				m_player->isHit();
+				m_player->takeDamage(1);
+				m_closeRangeFireTimer = 0;
+			}
+			else
+			{
+				m_closeRangeFireTimer += deltaTime;
+			}
+		}
+		else
+		{
+			m_closeRangeFireTimer = 1000;
 		}
 
 		switch (m_state)
@@ -491,4 +508,5 @@ void Boss::setPositionFireAladdin() {
 	}
 	m_image_fire0->setPositionX(m_player->getPosition().x);
 	m_image_fire0->setPositionY(m_player->getPosition().y + 10);
+
 }

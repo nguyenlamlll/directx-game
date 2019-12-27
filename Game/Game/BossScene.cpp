@@ -4,6 +4,9 @@
 
 BossScene::BossScene()
 {
+	m_aladdinDeathOverlay = new AladdinDeath();
+	m_overlayTimer = m_overlayTimer - m_overlayTimer;
+
 	m_grid = new Grid();
 
 	Camera::getInstance();
@@ -66,52 +69,102 @@ void BossScene::Update(float deltaTime)
 		return;
 	}
 
-	auto visibleObjects = m_grid->getVisibleObjects();
-	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+	if (m_player->getCurrentHealth() <= 0 && m_player->m_lifeCount > 0)
 	{
-		it->second->Update(deltaTime);
-		if (it->second->getTag() == Tag::BossTag)
+		m_isAladdinDeathOverlaying = true;
+		m_aladdinDeathOverlay->Update(deltaTime);
+		if (m_overlayTimer > 3000)
 		{
-			it->second->OnCollision(m_player, deltaTime);
+			m_player->setPosition(AladdinGlobal::getInstance()->getLastCheckpoint());
+			m_player->setCurrentHealth(m_player->getMaximumHealth());
+			m_player->m_lifeCount -= 1;
+			Camera::getInstance()->setPosition(D3DXVECTOR2(m_player->getPosition().x + 74, m_player->getPosition().y - 116.75));
+			Camera::getInstance()->setBoundaries(700, 2550, 650, 1463.75);
+			m_player->changeState(PlayerStates::Standing);
+
+			m_isAladdinDeathOverlaying = false;
+			m_aladdinDeathOverlay->reset();
+			m_overlayTimer -= m_overlayTimer;
+		}
+		else
+		{
+			m_overlayTimer += deltaTime;
 		}
 	}
 
-	auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
-	m_listCanCollideWithPlayer->clear();
-	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
-	m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
+	if (m_isAladdinDeathOverlaying != true)
+	{
+		if (m_player->m_appleCount <= 0)
+		{
+			m_shouldGenerateApples = true;
+		}
+		if (m_shouldGenerateApples)
+		{
+			if (m_generateTimer >= 5000)
+			{
+				generateApples();
+				m_generateTimer = 0;
+			}
+			else
+			{
+				m_generateTimer += deltaTime;
+			}
+		}
 
-	m_player->Update(deltaTime);
+		auto visibleObjects = m_grid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+		{
+			it->second->Update(deltaTime);
+			if (it->second->getTag() == Tag::BossTag)
+			{
+				it->second->OnCollision(m_player, deltaTime);
+			}
+		}
 
-	auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
-	m_listCanCollideWithPlayer->clear();
-	m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
-	m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
+		auto playerPosition01 = m_grid->calculateObjectPositionOnGrid(m_player);
+		m_listCanCollideWithPlayer->clear();
+		m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition01.x, playerPosition01.y);
+		m_player->PreCollision(m_listCanCollideWithPlayer, deltaTime);
 
-	m_blood->Update(deltaTime);
-	m_rubyScore->Update(deltaTime);
-	m_lifeScore->Update(deltaTime);
-	m_appleScore->Update(deltaTime);
-	m_aladdinScore->Update(deltaTime);
+		m_player->Update(deltaTime);
+
+		auto playerPosition = m_grid->calculateObjectPositionOnGrid(m_player);
+		m_listCanCollideWithPlayer->clear();
+		m_grid->getCollidableObjects(m_listCanCollideWithPlayer, playerPosition.x, playerPosition.y);
+		m_player->OnCollision(m_listCanCollideWithPlayer, deltaTime);
+
+		m_blood->Update(deltaTime);
+		m_rubyScore->Update(deltaTime);
+		m_lifeScore->Update(deltaTime);
+		m_appleScore->Update(deltaTime);
+		m_aladdinScore->Update(deltaTime);
+	}
 }
 
 void BossScene::Draw()
 {
-	m_map->RenderMap();
-
-	auto visibleObjects = m_grid->getVisibleObjects();
-	for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+	if (m_isAladdinDeathOverlaying == true)
 	{
-		it->second->Draw();
+		m_aladdinDeathOverlay->Draw();
 	}
+	else
+	{
+		m_map->RenderMap();
 
-	m_player->Draw();
+		auto visibleObjects = m_grid->getVisibleObjects();
+		for (auto it = visibleObjects->begin(); it != visibleObjects->end(); it++)
+		{
+			it->second->Draw();
+		}
 
-	m_blood->Draw();
-	m_rubyScore->Draw();
-	m_lifeScore->Draw();
-	m_appleScore->Draw();
-	m_aladdinScore->Draw();
+		m_player->Draw();
+
+		m_blood->Draw();
+		m_rubyScore->Draw();
+		m_lifeScore->Draw();
+		m_appleScore->Draw();
+		m_aladdinScore->Draw();
+	}
 }
 
 void BossScene::OnKeyDown(int keyCode)
@@ -179,6 +232,7 @@ void BossScene::loadPlayerConfigurationsFromFile()
 			file >> h;
 			m_player = new Player(700, 900, w, h);
 			m_player->setPosition(D3DXVECTOR2(x, y));
+			AladdinGlobal::getInstance()->setLastCheckpoint(D3DXVECTOR2(x, y));
 		}
 		else if (objectName._Equal("camera"))
 		{
@@ -277,4 +331,20 @@ void BossScene::loadObjectsFromFileToGrid()
 		}
 	}
 	file.close();
+}
+
+void BossScene::generateApples()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		AppleItem* appleItem = new AppleItem(990 + i * 30, 880, 16, 16);
+		appleItem->attachPlayer(m_player);
+		m_grid->add(m_generatedAppleCount++, appleItem);
+
+		AppleItem* appleItem2 = new AppleItem(1500 + i * 30, 880, 16, 16);
+		appleItem2->attachPlayer(m_player);
+		m_grid->add(m_generatedAppleCount++, appleItem2);
+	}
+
+	m_shouldGenerateApples = false;
 }

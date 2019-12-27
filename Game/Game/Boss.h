@@ -43,6 +43,8 @@ protected:
 
 	Player* m_player;
 
+	DWORD m_closeRangeFireTimer;
+
 	DWORD m_startWaitStanding, m_startWaitMagicing, m_startWaitAttack, m_WaitCreateStar, m_WaitCreateFire;
 
 	bool isDead, isDied, isTransform, isCloseRange;

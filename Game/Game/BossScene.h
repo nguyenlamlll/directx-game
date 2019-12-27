@@ -8,6 +8,8 @@
 #include "Boss.h"
 #include "VerticalWall.h"
 
+#include "AladdinDeath.h"
+
 #include "AladdinGlobal.h"
 
 class Player;
@@ -15,6 +17,10 @@ class BossScene :
 	public Scene
 {
 private:
+	AladdinDeath* m_aladdinDeathOverlay;
+	bool m_isAladdinDeathOverlaying{ false };
+	DWORD m_overlayTimer{ 0 }, m_waiter;
+
 	GameMap* m_map;
 	Player* m_player;
 
@@ -26,6 +32,10 @@ private:
 	LifeScores* m_lifeScore;
 	AppleScores* m_appleScore;
 	AladdinScores* m_aladdinScore;
+
+	DWORD m_generateTimer;
+	bool m_shouldGenerateApples{ false };
+	int m_generatedAppleCount{ 1000 };
 
 public:
 	BossScene();
@@ -42,5 +52,8 @@ public:
 
 	void loadPlayerConfigurationsFromFile();
 	void loadObjectsFromFileToGrid();
+	
+	// When the user runs out of apple in this scene, the map automatically generate new apples.
+	void generateApples();
 };
 

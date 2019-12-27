@@ -16,7 +16,7 @@ PlayerJumpMovingState::PlayerJumpMovingState(Player* player, Animation* animatio
 	m_initialY = m_player->getPosition().y;
 
 	m_travelledJumpDistance = 0.0f;
-	m_longestJumpDistance = 90.0f;
+	m_longestJumpDistance = 70.0f;
 
 	m_initialCameraY = Camera::getInstance()->getPosition().y;
 }
@@ -49,7 +49,7 @@ void PlayerJumpMovingState::Update(float deltaTime)
 	m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, m_player->getPosition().y + vy));
 
 	auto cameraOldPosition = Camera::getInstance()->getPosition();
-	cameraOldPosition.y += vy * 0.5;
+	cameraOldPosition.y += vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
 
 	m_animation->setPositionX(m_player->getPosition().x);

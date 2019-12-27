@@ -265,7 +265,7 @@ void ThinGuard::OnCollision(GameObject* colliableObject, float deltaTime)
 			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
 			{
 				OutputDebugString(L"[INFO] ThinGuard attacks Player.\n");
-				player->takeDamage(0.5);
+				player->takeDamage(1);
 				player->isHit();
 				m_isAttackingHit = true;
 			}

@@ -11,7 +11,7 @@ PlayerJumpStandState::PlayerJumpStandState(Player* player, Animation* animation)
 	m_initialY = m_player->getPosition().y;
 
 	m_travelledJumpDistance = 0.0f;
-	m_longestJumpDistance = 80.0f;
+	m_longestJumpDistance = 70.0f;
 
 	if (m_player->getIsFacingRight() == true)
 	{
