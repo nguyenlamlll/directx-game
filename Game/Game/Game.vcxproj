@@ -167,6 +167,7 @@
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BloodBar.h" />
     <ClInclude Include="BlueHeartItem.h" />
+    <ClInclude Include="BoneBullet.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BulletBoss.h" />
     <ClInclude Include="ClimbArea.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BloodBar.cpp" />
     <ClCompile Include="BlueHeartItem.cpp" />
+    <ClCompile Include="BoneBullet.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BulletBoss.cpp" />
     <ClCompile Include="ClimbArea.cpp" />

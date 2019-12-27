@@ -10,7 +10,6 @@ Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRig
 	this->setPosition(D3DXVECTOR2(x, y));
 	isDead = false;
 	isUsed = false;
-
 	m_startWait = GetTickCount();
 	// 1 == true || 0 == false
 	m_isFacingRight = isFacingRight;
@@ -33,6 +32,12 @@ Skeleton::~Skeleton() {
 	if (m_imageCrawl != NULL){ delete m_imageCrawl; m_imageCrawl = nullptr; }
 	if (m_imageBurst != NULL){ delete m_imageBurst; m_imageBurst = nullptr; }
 	if (m_imageTransform != NULL){ delete m_imageTransform; m_imageTransform = nullptr; }
+
+	for (auto p : list)
+	{
+		delete p;
+	}
+	list.clear();
 }
 
 void Skeleton::deinitialize()
@@ -115,6 +120,7 @@ D3DXVECTOR2 Skeleton::getVelocity() {
 }
 
 void Skeleton::Update(float deltaTime) {
+	m_deltaTime = deltaTime;
 	if (!isDead && this->m_currentHealth > 0.0f) {
 		checkPositionWithPlayer();
 		switch (m_state)
@@ -128,7 +134,7 @@ void Skeleton::Update(float deltaTime) {
 			BurstAction();
 			break;
 		case SkeletonAttact:
-			AttactAction();
+			//AttactAction();
 			break;
 		default:
 			break;
@@ -141,11 +147,34 @@ void Skeleton::Update(float deltaTime) {
 		BurstAction();
 		m_image->Update(deltaTime);
 	}
+	if (isUsed) {
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.at(i) != nullptr) {
+				if (list.at(i)->getIsDead()) {
+					delete list.at(i);
+					list.at(i) = nullptr;
+					list.erase(list.begin() + i);
+				}
+				else {
+					list.at(i)->Update(m_deltaTime);
+					list.at(i)->OnCollision(m_player, m_deltaTime);
+				}
+			}
+		}
+	}
 }
 
 void Skeleton::Draw() {
 	if (!isDead) {
 		m_image->Draw();
+	}
+	if (isUsed) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.at(i) != nullptr && !list.at(i)->getIsDead()) {
+				list.at(i)->Draw();
+			}
+		}
 	}
 }
 
@@ -208,7 +237,7 @@ void Skeleton::TransformAction() {
 	{
 	case SkeletonTransform: {
 		if (m_image->getIsFinished()) {
-			m_state = SkeletonAttact;
+			AttactAction();
 			isUsed = true;
 			isDead = true;
 		}
@@ -244,10 +273,20 @@ void Skeleton::BurstAction() {
 }
 
 void Skeleton::AttactAction() {
-	// to do create bom bone
-			//{
-
-
-			//     }
+	switch (m_state)
+	{
+	case SkeletonAttact: {
+		
+		break;
+	}
+	default:
+		m_state = SkeletonAttact;
+		int line;
+		for (line = 0; line < 16; line++) {
+			BoneBullet* bone = new BoneBullet(x, y, 16, 16, line);
+			list.push_back(bone);
+		}
+		break;
+	}
 }
 

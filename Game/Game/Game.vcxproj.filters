@@ -387,6 +387,9 @@
     <ClInclude Include="ExitDoor.h">
       <Filter>Header Files\Game\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="BoneBullet.h">
+      <Filter>Header Files\Game\GameObjects\Bullet</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerClimbState.h">
       <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
     </ClInclude>
@@ -664,6 +667,9 @@
     </ClCompile>
     <ClCompile Include="ExitDoor.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneBullet.cpp">
+      <Filter>Source Files\Game\GameObjects\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="PlayerClimbAttackState.cpp">
       <Filter>Source Files\Game\GameObjects\Player\States\Climb</Filter>

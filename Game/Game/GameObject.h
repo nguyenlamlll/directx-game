@@ -11,6 +11,7 @@ enum Tag {
 	PadTag,
 	UnclassifiedTag,
 	AppleTag,
+	BulletBoneTag,
 	AppleItemTag,
 	ItemTag,
 	BulletAppleTag,

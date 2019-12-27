@@ -4,8 +4,12 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Health.h"
+#include "BoneBullet.h"
 
 #include <unordered_map>
+
+using namespace std;
+class BoneBullet;
 
 enum SkeletonState {
 	SkeletonCrawl,
@@ -27,8 +31,10 @@ protected:
 	// value check reset load animation
 	DWORD m_lastTime, m_startWait;
 	Player* m_player;
+	vector<BoneBullet*>list;
 
 	bool isDead, isUsed;
+	float m_deltaTime;
 public:
 	Skeleton(float x, float y, float width, float height, bool isFacingRight);
 	~Skeleton();

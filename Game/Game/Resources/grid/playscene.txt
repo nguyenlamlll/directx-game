@@ -64,6 +64,7 @@ skeleton-guard 2230 1213 108 111 0
 skeleton-guard 2330 1050 108 111 0
 skeleton-guard 2160 970 108 111 1
 
+
 #Enemies type: 16 spike
 spike-spike 2237 1315 49 35 1
 spike-spike 2237 1348 49 35 1
