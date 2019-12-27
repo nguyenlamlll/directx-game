@@ -51,6 +51,7 @@ void BlueHeartItem::ActiveAction() {
 		vx = 0;
 		isDied = true;
 		isUsed = true;
+		m_player->recover(2);
 		m_player->m_score += 150;
 		status = Active;
 		break;

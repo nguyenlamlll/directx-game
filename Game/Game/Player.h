@@ -28,6 +28,9 @@
 #include "PlayerPushWallState.h"
 #include "PlayerEndGameState.h"
 #include "PlayerClimbState.h"
+#include "PlayerClimbAttackState.h"
+#include "PlayerClimbThrowState.h"
+#include "PlayerClimbJumpState.h"
 #include "PlayerSwingState.h"
 #include "PlayerSwingStopState.h"
 #include "PlayerSwingAttackState.h"
@@ -104,7 +107,12 @@ public:
 	Animation* m_animationSitDownAttackThrow;
 	Animation* m_animationPushWall;
 	Animation* m_animationEndGame;
+
 	Animation* m_animationClimb;
+	Animation* m_animationClimbAttack;
+	Animation* m_animationClimbThrow;
+	Animation* m_animationClimbJump;
+
 	Animation* m_animationSwing;
 	Animation* m_animationSwingStop;
 	Animation* m_animationSwingAttack;

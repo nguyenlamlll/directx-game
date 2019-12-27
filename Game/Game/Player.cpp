@@ -83,6 +83,9 @@ Player::Player(float x, float y, float width, float height)
 
 	// Climb
 	m_animationClimb = new Animation(L"Resources/animations/aladdin/climb.png", 10, 1, 10, true, 60.f);
+	m_animationClimbAttack = new Animation(L"Resources/AladdinState/PNG/AladdinClimbAttack_7.png", 7, 1, 7, false, 40.f);
+	m_animationClimbThrow = new Animation(L"Resources/AladdinState/PNG/AladdinClimbAttackThrow_5.png", 5, 1, 5, false, 40.f);
+	m_animationClimbJump = new Animation(L"Resources/AladdinState/PNG/AladdinClimbJumb_9.png", 9, 1, 9, true, 40.f);
 
 	// Swing
 	m_animationSwing = new Animation(L"Resources/animations/aladdin/swing.png", 10, 1, 10, true, 100.f);
@@ -122,7 +125,11 @@ Player::~Player()
 	delete m_animationJumpStand;
 	delete m_animationPushWall;
 	delete m_animationEndGame;
+
 	delete m_animationClimb;
+	delete m_animationClimbAttack;
+	delete m_animationClimbThrow;
+
 	delete m_animationSwing;
 	delete m_animationSwingStop;
 	delete m_animationSwingAttack;
@@ -198,7 +205,8 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
-			m_currentState->GetState() == PlayerStates::Climb)
+			// m_currentState->GetState() == PlayerStates::Climb ||
+			m_currentState->GetState() == PlayerStates::ClimbJump )
 		)
 	{
 		this->setIsFacingRight(true);
@@ -220,7 +228,8 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpMoving ||
 			m_currentState->GetState() == PlayerStates::JumpAttack ||
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
-			m_currentState->GetState() == PlayerStates::Climb)
+			// m_currentState->GetState() == PlayerStates::Climb ||
+			m_currentState->GetState() == PlayerStates::ClimbJump)
 		)
 	{
 		this->setIsFacingRight(false);
@@ -527,6 +536,18 @@ void Player::changeState(PlayerStates state)
 	}
 	case PlayerStates::Climb: {
 		newState = new PlayerClimbState(this, m_animationClimb);
+		break;
+	}
+	case PlayerStates::ClimbAttack: {
+		newState = new PlayerClimbAttackState(this, m_animationClimbAttack);
+		break;
+	}
+	case PlayerStates::ClimbThrow: {
+		newState = new PlayerClimbThrowState(this, m_animationClimbThrow);
+		break;
+	}
+	case PlayerStates::ClimbJump: {
+		newState = new PlayerClimbJumpState(this, m_animationClimbJump);
 		break;
 	}
 	case PlayerStates::Swing: {

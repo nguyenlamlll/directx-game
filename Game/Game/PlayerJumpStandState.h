@@ -5,6 +5,8 @@
 #include "Animation.h"
 #include "FloatingBrick.h"
 #include "Ground.h"
+#include "ClimbArea.h"
+#include "PlayerInputConfigurations.h"
 
 class PlayerJumpStandState : public PlayerState
 {
@@ -20,6 +22,9 @@ private:
 	float m_longestJumpDistance;
 
 	bool isFalling();
+
+	// If player stands inside a climb area. That area reference will be added here (in PreCollision) and be passed to Climbing state in Update.
+	ClimbArea* m_climbArea;
 
 public:
 	PlayerJumpStandState(Player* player, Animation* animation);

@@ -19,6 +19,9 @@ private:
 
 	bool isFalling();
 
+	// If player stands inside a climb area. That area reference will be added here (in PreCollision) and be passed to Climbing state in Update.
+	ClimbArea* m_climbArea;
+
 public:
 	PlayerJumpMovingState(Player* player, Animation* animation);
 	~PlayerJumpMovingState();

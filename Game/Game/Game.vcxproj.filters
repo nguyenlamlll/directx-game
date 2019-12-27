@@ -139,6 +139,30 @@
     <Filter Include="Header Files\Game\GameObjects\UI\Scores">
       <UniqueIdentifier>{5bd78e93-2b3d-4076-8564-164500f44543}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States">
+      <UniqueIdentifier>{15892134-54a2-4c4d-b658-55ce13f5dae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States\Stand">
+      <UniqueIdentifier>{0d8e386c-3a0c-4351-b8f6-eb09fff0e373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States\Climb">
+      <UniqueIdentifier>{5eafb29b-d679-4da8-b2bb-5f28a89e8ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States\Jump">
+      <UniqueIdentifier>{50e7950e-39da-4c32-a261-1f8450a67506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States\SitDown">
+      <UniqueIdentifier>{a5ef8626-411d-4881-acf3-dd406da36cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjects\Player\States\Move">
+      <UniqueIdentifier>{e5bccdc8-4af0-4258-ab2c-6e591748b1fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Player\States">
+      <UniqueIdentifier>{7c04f944-269d-4790-8c58-c9dae04c4204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjects\Player\States\Climb">
+      <UniqueIdentifier>{6eadf88a-9b64-4d0c-8eb1-fb239b31904b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -213,52 +237,7 @@
     <ClInclude Include="PlayerFallingState.h">
       <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerJumpAttackState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpMovingState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerLookUpState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovingState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovingStopState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSitDownAttack.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSitDownAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSitDownState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandAttackState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandAttackThrowState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandingState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandLookAround.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStandThrowState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerClimbState.h">
       <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerEndGameState.h">
@@ -284,9 +263,6 @@
     </ClInclude>
     <ClInclude Include="ThinGuard.h">
       <Filter>Header Files\Game\GameObjects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpStandState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
     </ClInclude>
     <ClInclude Include="MustacheGuard.h">
       <Filter>Header Files\Game\GameObjects\Enemies</Filter>
@@ -372,12 +348,6 @@
     <ClInclude Include="SoundNames.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMoveAttackState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMoveThrowState.h">
-      <Filter>Header Files\Game\GameObjects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="DungeonScene.h">
       <Filter>Header Files\Game\Scenes</Filter>
     </ClInclude>
@@ -404,6 +374,72 @@
     </ClInclude>
     <ClInclude Include="ExitDoor.h">
       <Filter>Header Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerClimbState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerClimbAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpAttackThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpMovingState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpStandState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSitDownAttack.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\SitDown</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSitDownAttackThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\SitDown</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSitDownState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\SitDown</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandAttackThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandingState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandLookAround.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStandThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovingStopState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovingState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveAttackState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerLookUpState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Stand</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInputConfigurations.h">
+      <Filter>Header Files\Game\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerClimbJumpState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerClimbThrowState.h">
+      <Filter>Header Files\Game\GameObjects\Player\States\Climb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -664,6 +700,15 @@
     </ClCompile>
     <ClCompile Include="ExitDoor.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerClimbAttackState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerClimbJumpState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player\States\Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerClimbThrowState.cpp">
+      <Filter>Source Files\Game\GameObjects\Player\States\Climb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

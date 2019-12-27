@@ -214,18 +214,18 @@ void PlayerStandingState::PreCollision(GameObject * entity, float deltaTime)
 
 void PlayerStandingState::OnCollision(GameObject * entity, float deltaTime)
 {
-	if (entity->getTag() == Tag::ClimbAreaTag)
-	{
-		if (entity == m_climbArea)
-		{
-			auto climbArea = dynamic_cast<ClimbArea*>(entity);
-			Box playerBox = m_player->GetBoundingBox();
-			if (!Collision::getInstance()->isColliding(playerBox, climbArea->GetBoundingBox()))
-			{
-				m_player->m_canClimb = false;
-			}
-		}
-	}
+	//if (entity->getTag() == Tag::ClimbAreaTag)
+	//{
+	//	if (entity == m_climbArea)
+	//	{
+	//		auto climbArea = dynamic_cast<ClimbArea*>(entity);
+	//		Box playerBox = m_player->GetBoundingBox();
+	//		if (!Collision::getInstance()->isColliding(playerBox, climbArea->GetBoundingBox()))
+	//		{
+	//			m_player->m_canClimb = false;
+	//		}
+	//	}
+	//}
 
 	if (entity->getTag() == Tag::GroundTag)
 	{

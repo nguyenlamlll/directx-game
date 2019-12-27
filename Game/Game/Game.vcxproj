@@ -177,6 +177,10 @@
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="LevelCompleteScene.h" />
+    <ClInclude Include="PlayerClimbAttackState.h" />
+    <ClInclude Include="PlayerClimbJumpState.h" />
+    <ClInclude Include="PlayerClimbThrowState.h" />
+    <ClInclude Include="PlayerInputConfigurations.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="ForegroundChains.h" />
     <ClInclude Include="Game.h" />
@@ -267,6 +271,9 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="LevelCompleteScene.cpp" />
+    <ClCompile Include="PlayerClimbAttackState.cpp" />
+    <ClCompile Include="PlayerClimbJumpState.cpp" />
+    <ClCompile Include="PlayerClimbThrowState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="ForegroundChains.cpp" />
     <ClCompile Include="Game.cpp" />

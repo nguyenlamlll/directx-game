@@ -37,9 +37,9 @@ Box ClimbArea::GetBoundingBox()
 {
 	Box box;
 
-	box.x = x - width / 2;
+	box.x = x - width / 2 + 20;
 	box.y = y - height / 2;
-	box.width = width;
+	box.width = width - 40;
 	box.height = height;
 	box.vx = vx;
 	box.vy = vy;

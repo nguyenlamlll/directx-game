@@ -1,5 +1,3 @@
-
-
 #include "stdafx.h"
 #include "PlayerClimbState.h"
 
@@ -37,6 +35,29 @@ void PlayerClimbState::Update(float deltaTime)
 	if (KeyboardInput::GetInstance()->isKeyDown(VK_W) || KeyboardInput::GetInstance()->isKeyDown(VK_S))
 	{
 		m_animation->Update(deltaTime);
+	}
+
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::JUMP))
+	{
+		m_player->changeState(PlayerStates::ClimbJump);
+		auto climbState = dynamic_cast<PlayerClimbJumpState*>(m_player->getCurrentState());
+		climbState->attachClimbArea(m_climbingArea);
+		return;
+	}
+
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::ATTACK))
+	{
+		m_player->changeState(PlayerStates::ClimbAttack);
+		auto climbState = dynamic_cast<PlayerClimbAttackState*>(m_player->getCurrentState());
+		climbState->attachClimbArea(m_climbingArea);
+		return;
+	}
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::THROW_APPLE))
+	{
+		m_player->changeState(PlayerStates::ClimbThrow);
+		auto climbState = dynamic_cast<PlayerClimbThrowState*>(m_player->getCurrentState());
+		climbState->attachClimbArea(m_climbingArea);
+		return;
 	}
 
 	if (m_player->m_canClimb == false)

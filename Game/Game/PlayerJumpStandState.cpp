@@ -51,6 +51,17 @@ void PlayerJumpStandState::Update(float deltaTime)
 	cameraOldPosition.y += vy;
 	Camera::getInstance()->setPosition(cameraOldPosition);
 
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::LOOK_UP) || 
+		KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::SIT_DOWN))
+	{
+		if (m_player->m_canClimb)
+		{
+			m_player->changeState(PlayerStates::Climb);
+			auto climbState = dynamic_cast<PlayerClimbState*>(m_player->getCurrentState());
+			climbState->attachClimbArea(m_climbArea);
+			return;
+		}
+	}
 
 	// Attack with sword while jumping
 	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J))
@@ -105,7 +116,17 @@ PlayerStates PlayerJumpStandState::GetState()
 
 void PlayerJumpStandState::PreCollision(GameObject * entity, float deltaTime)
 {
+	if (entity->getTag() == Tag::ClimbAreaTag)
+	{
 
+		auto climbArea = dynamic_cast<ClimbArea*>(entity);
+		Box playerBox = m_player->GetBoundingBox();
+		if (Collision::getInstance()->isColliding(playerBox, climbArea->GetBoundingBox()))
+		{
+			m_player->m_canClimb = true;
+			m_climbArea = climbArea;
+		}
+	}
 }
 
 void PlayerJumpStandState::OnCollision(GameObject* entity, float deltaTime)
