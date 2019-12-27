@@ -94,10 +94,13 @@ void Sound::loadResources()
 	this->loadSound((char*)"Resources/sound/throw-apple.wav", SoundNames::THROW_APPLE_SOUND);
 	this->loadSound((char*)"Resources/sound/Outta_Apples.wav", SoundNames::OUTTA_APPLE_SOUND);
 	this->loadSound((char*)"Resources/sound/apple-collect.wav", SoundNames::APPLE_COLLECT_SOUND);
+	this->loadSound((char*)"Resources/sound/gem-collect.wav", SoundNames::GEM_COLLECT_SOUND);
 
 	this->loadSound((char*)"Resources/sound/Boxing Bell.wav", SoundNames::RESTART_LIFE_SOUND);
 
 	this->loadSound((char*)"Resources/sound/extra-health.wav", SoundNames::EXTRA_HEALTH_SOUND);
+
+	this->loadSound((char*)"Resources/sound/Jafar_Snake.wav", SoundNames::JAFAR_SOUND);
 }
 
 float Sound::getVolume()

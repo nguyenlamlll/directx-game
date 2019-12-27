@@ -143,6 +143,7 @@ void AppleBullet::BurstBossAction(GameObject* Obj) {
 		m_image->setPositionX(this->x);
 		m_image->setPositionY(this->y);
 		m_state = BulletAppleBurstBoss;
+		Sound::getInstance()->play(SoundNames::JAFAR_SOUND, false);
 		Obj->OnCollision(Obj, 0);
 		break;
 	}

@@ -75,6 +75,10 @@ void BloodBar::changeImage() {
 		m_image = m_imageHealth9;
 		break;
 	}
+	if (healthCurrent <= 0)
+	{
+		m_image = m_imageHealth1;
+	}
 	m_image->setPositionX(x);
 	m_image->setPositionY(y);
 }

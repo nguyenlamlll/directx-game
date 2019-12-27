@@ -13,6 +13,7 @@ namespace SoundNames
 	constexpr auto ALADDIN_HURT_SOUND = "aladdin-hurt";
 
 	constexpr auto APPLE_COLLECT_SOUND = "apple-collect";
+	constexpr auto GEM_COLLECT_SOUND = "gem-collect";
 
 	// Play this sound when Aladdin runs out of apples
 	constexpr auto OUTTA_APPLE_SOUND = "outta-apple";
@@ -22,10 +23,10 @@ namespace SoundNames
 	constexpr auto GUARD_HIT_1_SOUND = "guard-hit-1";
 	constexpr auto GUARD_HIT_2_SOUND = "guard-hit-2";
 
-
 	constexpr auto RESTART_LIFE_SOUND = "restart-life";
 	constexpr auto EXTRA_HEALTH_SOUND = "extra-health";
 
+	constexpr auto JAFAR_SOUND = "jafar-hurt";
 }
 
 

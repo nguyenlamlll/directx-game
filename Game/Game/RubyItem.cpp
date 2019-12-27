@@ -36,7 +36,7 @@ void RubyItem::ActiveAction() {
 	}
 	default:
 	{
-		image = new Animation(L"Resources/Items/PNG/apple-actived_20_19_4.png", 4, 1, 4, false, 80.f);
+		image = m_imageActivated;
 		image->setPositionX(this->x);
 		image->setPositionY(this->y);
 		vy = 0;
@@ -45,6 +45,7 @@ void RubyItem::ActiveAction() {
 		isUsed = true;
 		m_player->m_rubyCount += 1;
 		m_player->m_score += 150;
+		Sound::getInstance()->play(SoundNames::GEM_COLLECT_SOUND, false);
 		status = Active;
 		break;
 	}
