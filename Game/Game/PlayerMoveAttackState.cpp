@@ -99,7 +99,10 @@ void PlayerMoveAttackState::OnCollision(GameObject * entity, float deltaTime)
 	if (entity->getTag() == Tag::BatTag)
 	{
 		auto bat = dynamic_cast<Bat*>(entity);
-		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), bat->GetBoundingBox()))
+		auto batBox = bat->GetBoundingBox();
+		batBox.x -= 20;
+		batBox.width += 30;
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), batBox))
 		{
 			OutputDebugString(L"[INFO] Player is colliding with BAT. \n");
 			if (isAttackingHit == false && bat->getCurrentHealth() > 0.0f)

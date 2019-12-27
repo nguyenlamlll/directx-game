@@ -30,7 +30,9 @@ void AppleItem::ActiveAction() {
 	case Active:
 	{
 		if (image->getIsFinished())
+		{
 			isDead = true;
+		}
 		break;
 	}
 	default:
@@ -44,6 +46,7 @@ void AppleItem::ActiveAction() {
 		isDied = true;
 		isUsed= true;
 		m_player->m_appleCount += 1;
+		Sound::getInstance()->play(SoundNames::APPLE_COLLECT_SOUND, false);
 		break;
 	}
 	}

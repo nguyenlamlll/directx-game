@@ -11,11 +11,11 @@ PlayerClimbAttackState::PlayerClimbAttackState(Player* player, Animation* animat
 
 	if (m_player->getIsFacingRight() == false)
 	{
-		m_animation->setFlipHorizontal(true);
+		m_animation->setFlipHorizontal(false);
 	}
 	else
 	{
-		m_animation->setFlipHorizontal(false);
+		m_animation->setFlipHorizontal(true);
 	}
 
 	Sound::getInstance()->play(SoundNames::HIGH_ATTACK_SOUND, false, 1);
@@ -33,18 +33,19 @@ void PlayerClimbAttackState::attachClimbArea(ClimbArea * climbArea)
 
 void PlayerClimbAttackState::Update(float deltaTime)
 {
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT)) {
+		m_animation->setFlipHorizontal(false);
+	}
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT)) {
+		m_animation->setFlipHorizontal(true);
+	}
+
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
 
 	if (m_animation->getIsFinished() == true)
 	{
-		if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) || 
-			KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT)) 
-		{
-			m_player->changeState(PlayerStates::Moving);
-			return;
-		}
 		m_player->changeState(PlayerStates::Climb);
 		auto climbState = dynamic_cast<PlayerClimbState*>(m_player->getCurrentState());
 		climbState->attachClimbArea(m_climbingArea);
@@ -99,7 +100,10 @@ void PlayerClimbAttackState::OnCollision(GameObject * entity, float deltaTime)
 	if (entity->getTag() == Tag::BatTag)
 	{
 		auto bat = dynamic_cast<Bat*>(entity);
-		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), bat->GetBoundingBox()))
+		auto batBox = bat->GetBoundingBox();
+		batBox.x -= 20;
+		batBox.width += 30;
+		if (Collision::getInstance()->isColliding(m_player->GetBoundingBox(), batBox))
 		{
 			OutputDebugString(L"[INFO] Player is colliding with BAT. \n");
 			if (m_isAttackingHit == false && bat->getCurrentHealth() > 0.0f)

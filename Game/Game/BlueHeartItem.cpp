@@ -53,6 +53,7 @@ void BlueHeartItem::ActiveAction() {
 		isUsed = true;
 		m_player->recover(2);
 		m_player->m_score += 150;
+		Sound::getInstance()->play(SoundNames::EXTRA_HEALTH_SOUND, false);
 		status = Active;
 		break;
 	}

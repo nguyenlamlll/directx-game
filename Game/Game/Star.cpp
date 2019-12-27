@@ -15,7 +15,7 @@ Star::Star(float x, float y, float width, float height, Boss* boss) : BulletBoss
 	m_image = m_imageFling;
 	m_isFacingRight = m_boss->getIsFacingRight();
 	m_image->setFlipHorizontal(false);
-	if (!m_isFacingRight)
+	if (m_isFacingRight)
 		this->x = x + 30;
 	else
 		this->x = x - 30;

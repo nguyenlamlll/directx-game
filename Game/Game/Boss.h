@@ -39,7 +39,7 @@ protected:
 	Animation* m_image_fire2;
 	Animation* m_image_fire3;
 
-	Health* m_health;
+
 
 	Player* m_player;
 
@@ -79,4 +79,5 @@ public:
 
 	void setPositionFireAladdin();
 
+	Health* m_health;
 };

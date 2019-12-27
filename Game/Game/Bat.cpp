@@ -181,16 +181,19 @@ void Bat::OnCollision(std::map<int, GameObject*>* colliableObjects, float deltaT
 
 void Bat::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	if (colliableObject->getTag() == PlayerTag) {
-		auto player = dynamic_cast<Player*>(colliableObject);
-		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
-		{
-			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+	if (m_currentHealth > 0 && !isDead)
+	{
+		if (colliableObject->getTag() == PlayerTag) {
+			auto player = dynamic_cast<Player*>(colliableObject);
+			if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
 			{
-				OutputDebugString(L"[INFO] Bat attacks Player.\n");
-				player->takeDamage(1);
-				player->isHit();
-				m_isAttackingHit = true;
+				if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+				{
+					OutputDebugString(L"[INFO] Bat attacks Player.\n");
+					player->takeDamage(1);
+					player->isHit();
+					m_isAttackingHit = true;
+				}
 			}
 		}
 	}

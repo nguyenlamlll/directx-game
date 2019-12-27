@@ -117,6 +117,11 @@ void BossScene::Update(float deltaTime)
 			it->second->Update(deltaTime);
 			if (it->second->getTag() == Tag::BossTag)
 			{
+				if (dynamic_cast<Boss*>(it->second)->m_health->getCurrentHealth() <= 0)
+				{
+					SceneManager::getInstance()->changeScene(new LevelCompleteScene(new MainMenuScene()));
+					return;
+				}
 				it->second->OnCollision(m_player, deltaTime);
 			}
 		}

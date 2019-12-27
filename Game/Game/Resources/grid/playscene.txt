@@ -41,15 +41,15 @@ thin-guard 2135 1435 140 69 80 100
 thin-guard 2700 1271 140 69 80 80
 
 #Enemies type: 10 mustache guard
-mustache-guard 1240 1380 100 100 80 170	
-mustache-guard 1900 1580 100 100 80 260
-mustache-guard 700 1022 100 100 80 100
-mustache-guard 540 1175 100 100 80 150
-mustache-guard 1500 740 100 100 80 130
-mustache-guard 1670 676 100 100 80 130
-mustache-guard 1880 838 100 100 80 140
+mustache-guard 1240 1380 100 100 60 170	
+mustache-guard 1900 1580 100 100 60 260
+mustache-guard 700 1022 100 100 60 100
+mustache-guard 540 1175 100 100 60 140
+mustache-guard 1500 740 100 100 60 120
+mustache-guard 1670 676 100 100 60 120
+mustache-guard 1880 838 100 100 60 130
 
-mustache-guard 2600 1580 100 100 80 200
+mustache-guard 2600 1580 100 100 80 190
 mustache-guard 2725 1060 100 100 80 130
 mustache-guard 2510 710 100 100 80 130
 

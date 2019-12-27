@@ -24,6 +24,7 @@ namespace SoundNames
 
 
 	constexpr auto RESTART_LIFE_SOUND = "restart-life";
+	constexpr auto EXTRA_HEALTH_SOUND = "extra-health";
 
 }
 

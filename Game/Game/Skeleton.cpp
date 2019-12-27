@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Skeleton.h"
 
-#define ATTACK_RANGE 120
+#define ATTACK_RANGE 180
 
 
 Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRight) : 
@@ -17,7 +17,7 @@ Skeleton::Skeleton(float x, float y, float width, float height, bool isFacingRig
 	//image = new Animation;
 	m_imageCrawl = new Animation(L"Resources/Enmity/PNG/skeleton_108_111_1.png", 1, 1, 1, false, 10.f);
 	m_imageBurst = new Animation(L"Resources/Enmity/PNG/burst-bat_88_56_8.png", 8, 1, 8, false, 60.f);
-	m_imageTransform = new Animation(L"Resources/Enmity/PNG/skeleton-star_108_111_20.png", 20, 1, 20, false, 220.f);
+	m_imageTransform = new Animation(L"Resources/Enmity/PNG/skeleton-star_108_111_20.png", 20, 1, 20, false, 100.f);
 
 	m_image = m_imageCrawl;
 	m_image->setFlipHorizontal(m_isFacingRight);

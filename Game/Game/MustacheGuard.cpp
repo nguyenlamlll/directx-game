@@ -96,7 +96,7 @@ Box MustacheGuard::GetBoundingBox()
 {
 	Box box;
 
-	box.x = x - width / 2 - 20;
+	box.x = x - width / 2;
 	box.y = y - height / 2;
 	box.width = width;
 	box.height = height;
@@ -281,16 +281,19 @@ void MustacheGuard::OnCollision(std::map<int, GameObject*>* colliableObjects, fl
 
 void MustacheGuard::OnCollision(GameObject * colliableObject, float deltaTime)
 {
-	if (colliableObject->getTag() == PlayerTag) {
-		auto player = dynamic_cast<Player*>(colliableObject);
-		if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
-		{
-			if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+	if (m_currentHealth > 0 && !isDead)
+	{
+		if (colliableObject->getTag() == PlayerTag) {
+			auto player = dynamic_cast<Player*>(colliableObject);
+			if (Collision::getInstance()->isColliding(this->GetBoundingBox(), player->GetBoundingBox()))
 			{
-				OutputDebugString(L"[INFO] MustacheGuard attacks Player.\n");
-				player->takeDamage(1);
-				player->isHit();
-				m_isAttackingHit = true;
+				if (m_isAttackingHit == false && player->getCurrentHealth() > 0.0f)
+				{
+					OutputDebugString(L"[INFO] MustacheGuard attacks Player.\n");
+					player->takeDamage(1);
+					player->isHit();
+					m_isAttackingHit = true;
+				}
 			}
 		}
 	}

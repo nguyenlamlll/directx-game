@@ -11,11 +11,11 @@ PlayerClimbThrowState::PlayerClimbThrowState(Player* player, Animation* animatio
 	m_animation->setPositionY(m_player->getPosition().y);
 	if (m_player->getIsFacingRight() == true)
 	{
-		m_animation->setFlipHorizontal(false);
-	}
-	if (m_player->getIsFacingRight() == false)
-	{
 		m_animation->setFlipHorizontal(true);
+	}
+	else
+	{
+		m_animation->setFlipHorizontal(false);
 	}
 }
 
@@ -31,6 +31,13 @@ void PlayerClimbThrowState::attachClimbArea(ClimbArea * area)
 
 void PlayerClimbThrowState::Update(float deltaTime)
 {
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT)) {
+		m_animation->setFlipHorizontal(false);
+	}
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT)) {
+		m_animation->setFlipHorizontal(true);
+	}
+
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
@@ -44,12 +51,6 @@ void PlayerClimbThrowState::Update(float deltaTime)
 
 	if (m_animation->getIsFinished() == true)
 	{
-		if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) ||
-			KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
-		{
-			m_player->changeState(PlayerStates::Moving);
-			return;
-		}
 		m_player->changeState(PlayerStates::Climb);
 		auto climbState = dynamic_cast<PlayerClimbState*>(m_player->getCurrentState());
 		climbState->attachClimbArea(m_climbArea);
@@ -82,7 +83,7 @@ void PlayerClimbThrowState::createAppleBullet()
 		appleX = m_animation->getPositionX() + 10;
 	else
 		appleX = m_animation->getPositionX() - 10;
-	appleY = m_animation->getPositionY() - 30;
+	appleY = m_animation->getPositionY() - 20;
 	AppleBullet* apple = new AppleBullet(appleX, appleY, 0, 0, m_player->getIsFacingRight());
 	m_player->addAppleToList(apple);
 }
