@@ -64,13 +64,13 @@ void PlayerJumpStandState::Update(float deltaTime)
 	}
 
 	// Attack with sword while jumping
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::ATTACK))
 	{
 		m_player->changeState(PlayerStates::JumpAttack);
 		return;
 	}
 	// Attack by throwing apples while jumping
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::THROW_APPLE))
 	{
 		if (m_player->m_appleCount > 0)
 		{
@@ -160,7 +160,7 @@ void PlayerJumpStandState::OnCollision(GameObject* entity, float deltaTime)
 			if (isFalling() && m_player->getPosition().y <= ground->getPosition().y)
 			{
 				m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, ground->getPosition().y - 43.f));
-				if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+				if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT) || KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT))
 				{
 
 					cameraOldPosition.y = m_player->getPosition().y - 118;

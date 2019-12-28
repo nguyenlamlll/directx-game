@@ -32,7 +32,7 @@ void PlayerClimbState::Update(float deltaTime)
 {
 	m_animation->setPositionX(m_player->getPosition().x);
 	m_animation->setPositionY(m_player->getPosition().y);
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_W) || KeyboardInput::GetInstance()->isKeyDown(VK_S))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::LOOK_UP) || KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::SIT_DOWN))
 	{
 		m_animation->Update(deltaTime);
 	}

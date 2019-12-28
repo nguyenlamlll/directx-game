@@ -43,11 +43,11 @@ void PlayerClimbJumpState::attachClimbArea(ClimbArea * climbArea)
 
 void PlayerClimbJumpState::Update(float deltaTime)
 {
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT))
 	{
 		m_animation->setFlipHorizontal(true);
 	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 	{
 		m_animation->setFlipHorizontal(false);
 	}
@@ -118,7 +118,7 @@ void PlayerClimbJumpState::OnCollision(GameObject * entity, float deltaTime)
 			if (isFalling() && m_player->getPosition().y <= ground->getPosition().y)
 			{
 				m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, ground->getPosition().y - 43.f));
-				if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+				if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) || KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 				{
 
 					cameraOldPosition.y = m_player->getPosition().y - 118;

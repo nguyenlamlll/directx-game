@@ -70,7 +70,7 @@ void PlayerJumpAttackThrowState::Update(float deltaTime)
 
 	if (m_travelledJumpDistance >= m_longestJumpDistance * 2) {
 		m_player->setPosition(D3DXVECTOR2(m_player->getPosition().x, m_initialY));
-		if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+		if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) || KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 		{
 			m_player->changeState(PlayerStates::Moving);
 			return;

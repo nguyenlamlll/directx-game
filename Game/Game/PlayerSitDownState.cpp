@@ -29,16 +29,16 @@ PlayerSitDownState::~PlayerSitDownState()
 void PlayerSitDownState::Update(float deltaTime)
 {
 	// From Sit Down back to Standing
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_S))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::SIT_DOWN))
 	{
 		m_player->changeState(PlayerStates::Standing);
 		return;
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A)) {
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT)) {
 		m_animation->setFlipHorizontal(true);
 	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D)) {
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT)) {
 		m_animation->setFlipHorizontal(false);
 	}
 
@@ -51,14 +51,14 @@ void PlayerSitDownState::Update(float deltaTime)
 	}
 
 	// From Sit to Sit Attack
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_J))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::ATTACK))
 	{
 		m_player->changeState(PlayerStates::SitDownAttack);
 		return;
 	}
 
 	// From Sit to Sit Attack Throw
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_K))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::THROW_APPLE))
 	{
 		if (m_player->m_appleCount > 0)
 		{

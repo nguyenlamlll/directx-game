@@ -10,7 +10,7 @@ namespace PlayerInputs
 	constexpr auto SIT_DOWN = VK_S;
 
 	constexpr auto ATTACK = VK_J;
-	constexpr auto THROW_APPLE = VK_K;
+	constexpr auto THROW_APPLE = VK_J;
 
 	constexpr auto JUMP = VK_SPACE;
 

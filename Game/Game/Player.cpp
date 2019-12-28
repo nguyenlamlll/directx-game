@@ -197,7 +197,7 @@ void Player::Update(float deltaTime)
 		}
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
 			m_currentState->GetState() == PlayerStates::MoveAttack ||
@@ -220,7 +220,7 @@ void Player::Update(float deltaTime)
 			vx = 0.0f;
 		}
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
+	else if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) &&
 		(m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
 			m_currentState->GetState() == PlayerStates::MoveAttack ||
@@ -247,16 +247,16 @@ void Player::Update(float deltaTime)
 	{
 		vx = 0.0f;
 	}
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) && KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 	{
 		vx = 0.0f;
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_W) && (m_currentState->GetState() == PlayerStates::Climb))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::LOOK_UP) && (m_currentState->GetState() == PlayerStates::Climb))
 	{
 		vy = -speed * deltaTime;
 	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_S) && (m_currentState->GetState() == PlayerStates::Climb))
+	else if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::SIT_DOWN) && (m_currentState->GetState() == PlayerStates::Climb))
 	{
 		vy = speed * deltaTime;
 	}
@@ -268,11 +268,11 @@ void Player::Update(float deltaTime)
 #if defined(DEBUG) | defined(_DEBUG)
 	if (m_isMovingFreely)
 	{
-		if (KeyboardInput::GetInstance()->isKeyDown(VK_W))
+		if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::LOOK_UP))
 		{
 			vy = -speed * deltaTime;
 		}
-		else if (KeyboardInput::GetInstance()->isKeyDown(VK_S))
+		else if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::SIT_DOWN))
 		{
 			vy = speed * deltaTime;
 		}

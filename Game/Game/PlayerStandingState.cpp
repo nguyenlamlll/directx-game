@@ -69,39 +69,39 @@ void PlayerStandingState::Update(float deltaTime)
 	}
 
 	// Prevent moving when pressing both A and D keys.
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) && KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 	{
 		return;
 	}
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_A) || KeyboardInput::GetInstance()->isKeyReleased(VK_D))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::MOVE_LEFT) || KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::MOVE_RIGHT))
 	{
 		m_player->changeState(PlayerStates::Moving);
 		return;
 	}
 
 	// From Stand to Moving state.
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_D) || KeyboardInput::GetInstance()->isKeyTriggered(VK_A))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::MOVE_LEFT) || KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::MOVE_RIGHT))
 	{
 		m_player->changeState(PlayerStates::Moving);
 		return;
 	}
 
 	// From Stand to Sit
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_S))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::SIT_DOWN))
 	{
 		m_player->changeState(PlayerStates::SitDown);
 		return;
 	}
 
 	// From Stand to JumpStand (jump while standing).
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_SPACE))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::JUMP))
 	{
 		m_player->changeState(PlayerStates::JumpStand);
 		return;
 	}
 
 	// From Stand to Look Up.
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_W))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::LOOK_UP))
 	{
 		if (m_player->m_canClimb)
 		{
@@ -117,13 +117,13 @@ void PlayerStandingState::Update(float deltaTime)
 	}
 
 	// From Stand to Attack (swinging the sword).
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::ATTACK))
 	{
 		m_player->changeState(PlayerStates::StandAttack);
 		return;
 	}
 	// From Stand to Attack by Throwing apples
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::THROW_APPLE))
 	{
 		if (m_player->m_appleCount > 0)
 		{

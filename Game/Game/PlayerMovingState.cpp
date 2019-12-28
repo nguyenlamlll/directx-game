@@ -16,7 +16,7 @@ PlayerMovingState::~PlayerMovingState()
 void PlayerMovingState::Update(float deltaTime)
 {
 	// Prevent moving when pressing both A and D keys.
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_A) && KeyboardInput::GetInstance()->isKeyDown(VK_D))
+	if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT) && KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT))
 	{
 		m_player->changeState(PlayerStates::Standing);
 		//m_animation->Reset();
@@ -36,10 +36,10 @@ void PlayerMovingState::Update(float deltaTime)
 		m_animation->setFlipHorizontal(false);
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_D) ||
-		KeyboardInput::GetInstance()->isKeyReleased(VK_A))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::MOVE_RIGHT) ||
+		KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::MOVE_LEFT))
 	{
-		if (KeyboardInput::GetInstance()->isKeyDown(VK_D) || KeyboardInput::GetInstance()->isKeyDown(VK_A))
+		if (KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_RIGHT) || KeyboardInput::GetInstance()->isKeyDown(PlayerInputs::MOVE_LEFT))
 		{
 			m_player->changeState(PlayerStates::Moving);
 			return;
@@ -48,20 +48,20 @@ void PlayerMovingState::Update(float deltaTime)
 		return;
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_SPACE))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::JUMP))
 	{
 		m_player->changeState(PlayerStates::JumpMoving);
 		return;
 	}
 
 	// From Stand to Attack (swinging the sword).
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_J))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::ATTACK))
 	{
 		m_player->changeState(PlayerStates::MoveAttack);
 		return;
 	}
 	// From Stand to Attack by Throwing apples
-	if (KeyboardInput::GetInstance()->isKeyTriggered(VK_K))
+	if (KeyboardInput::GetInstance()->isKeyTriggered(PlayerInputs::THROW_APPLE))
 	{
 		if (m_player->m_appleCount > 0)
 		{

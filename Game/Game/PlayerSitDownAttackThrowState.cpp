@@ -26,7 +26,7 @@ PlayerSitDownAttackThrowState::~PlayerSitDownAttackThrowState()
 void PlayerSitDownAttackThrowState::Update(float deltaTime)
 {
 	// From Sit Down back to Standing
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_S))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::SIT_DOWN))
 	{
 		m_player->changeState(PlayerStates::Standing);
 		return;
