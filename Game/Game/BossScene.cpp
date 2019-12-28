@@ -23,16 +23,39 @@ BossScene::BossScene()
 	this->loadPlayerConfigurationsFromFile();
 	this->loadObjectsFromFileToGrid();
 
-	m_blood = new BloodBar(75, 25, 0, 0);
+	m_blood = new BloodBar(
+		75, 
+		25, 
+		0, 
+		0);
 	m_blood->attachPlayer(m_player);
-	m_rubyScore = new RubyScores(280, 300, 0, 0);
+
+	m_rubyScore = new RubyScores(
+		Global::GetInstance()->g_ScreenWidth - 120, // 280, 
+		Global::GetInstance()->g_ScreenHeight - 20, // 300, 
+		0, 
+		0);
 	m_rubyScore->attachPlayer(m_player);
-	m_appleScore = new AppleScores(340, 300, 0, 0);
+	
+	m_appleScore = new AppleScores(
+		340, 
+		300, 
+		0, 
+		0);
 	m_appleScore->attachPlayer(m_player);
-	m_lifeScore = new LifeScores(40, 300, 0, 0);
+	
+	m_lifeScore = new LifeScores(
+		40, 
+		300, 
+		0, 
+		0);
 	m_lifeScore->attachPlayer(m_player);
 
-	m_aladdinScore = new AladdinScores(370, 25, 0, 0);
+	m_aladdinScore = new AladdinScores(
+		370, 
+		25, 
+		0, 
+		0);
 	m_aladdinScore->attachPlayer(m_player);
 }
 

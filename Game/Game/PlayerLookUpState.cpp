@@ -29,7 +29,7 @@ void PlayerLookUpState::Update(float deltaTime)
 	m_animation->setPositionY(m_player->getPosition().y);
 	m_animation->Update(deltaTime);
 
-	if (KeyboardInput::GetInstance()->isKeyReleased(VK_W))
+	if (KeyboardInput::GetInstance()->isKeyReleased(PlayerInputs::LOOK_UP))
 	{
 		m_player->changeState(PlayerStates::Standing);
 		return;
