@@ -132,6 +132,11 @@ void Spike::ChangeDirection() {
 		}
 		// check time wait and change state
 		if (image->getIsFinished()) {
+			if (m_isSoundPlayed == false)
+			{
+				Sound::getInstance()->play(SoundNames::SPIKE_SOUND);
+				m_isSoundPlayed = true;
+			}
 			// get current time
 			DWORD now = GetTickCount();
 			if (now - start_wait > 1500)
@@ -144,6 +149,7 @@ void Spike::ChangeDirection() {
 				vx = 0;
 				vy = 0;
 				state = GoInside;
+				m_isSoundPlayed = false;
 				// reset start marking time
 				start_wait = GetTickCount();
 			}

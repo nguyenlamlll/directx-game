@@ -38,6 +38,8 @@ private:
 	bool m_shouldGenerateApples{ false };
 	int m_generatedAppleCount{ 1000 };
 
+	DWORD m_bossDiedTimer{ 0 };
+
 public:
 	BossScene();
 	~BossScene();

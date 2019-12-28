@@ -119,8 +119,15 @@ void BossScene::Update(float deltaTime)
 			{
 				if (dynamic_cast<Boss*>(it->second)->m_health->getCurrentHealth() <= 0)
 				{
-					SceneManager::getInstance()->changeScene(new LevelCompleteScene(new MainMenuScene()));
-					return;
+					if (m_bossDiedTimer >= 2000)
+					{
+						SceneManager::getInstance()->changeScene(new LevelCompleteScene(new MainMenuScene()));
+						return;
+					}
+					else
+					{
+						m_bossDiedTimer += deltaTime;
+					}
 				}
 				it->second->OnCollision(m_player, deltaTime);
 			}

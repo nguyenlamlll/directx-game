@@ -16,7 +16,7 @@ PlayerJumpMovingState::PlayerJumpMovingState(Player* player, Animation* animatio
 	m_initialY = m_player->getPosition().y;
 
 	m_travelledJumpDistance = 0.0f;
-	m_longestJumpDistance = 70.0f;
+	m_longestJumpDistance = 60.0f;
 
 	m_initialCameraY = Camera::getInstance()->getPosition().y;
 }

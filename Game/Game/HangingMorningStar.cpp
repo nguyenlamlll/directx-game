@@ -94,7 +94,7 @@ void HangingMorningStar::ChangeDirection() {
 				image->setPositionY(y);
 				vx = 0;
 				vy = 0;
-				m_isAttackingHit = false;
+				//m_isAttackingHit = false;
 				state = GoOutside;
 				// reset start marking time
 				start_wait = GetTickCount();

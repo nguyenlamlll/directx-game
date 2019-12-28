@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Animation.h"
+#include "Sound.h"
 #include "FloatingBrick.h"
 
 namespace _StatusDamage {
@@ -24,6 +25,8 @@ protected:
 
 	// value check reset load animation
 	DWORD last_time, start_wait;
+
+	bool m_isSoundPlayed{ false };
 
 public:
 	Spike(float x, float y, float width, float height, int type);

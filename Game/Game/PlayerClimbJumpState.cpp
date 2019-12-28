@@ -17,7 +17,7 @@ PlayerClimbJumpState::PlayerClimbJumpState(Player* player, Animation* animation)
 	m_initialY = m_player->getPosition().y;
 
 	m_travelledJumpDistance = 0.0f;
-	m_longestJumpDistance = 90.0f;
+	m_longestJumpDistance = 50.0f;
 
 	m_initialCameraY = Camera::getInstance()->getPosition().y;
 
