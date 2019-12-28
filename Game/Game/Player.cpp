@@ -197,31 +197,11 @@ void Player::Update(float deltaTime)
 		}
 	}
 
-	if (KeyboardInput::GetInstance()->isKeyDown(VK_D) &&
-		(m_currentState->GetState() == PlayerStates::Standing ||
-			m_currentState->GetState() == PlayerStates::Moving ||
-			m_currentState->GetState() == PlayerStates::MoveAttack ||
-			m_currentState->GetState() == PlayerStates::MoveThrow ||
-			m_currentState->GetState() == PlayerStates::JumpStand ||
-			m_currentState->GetState() == PlayerStates::JumpMoving ||
-			m_currentState->GetState() == PlayerStates::JumpAttack ||
-			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
-			// m_currentState->GetState() == PlayerStates::Climb ||
-			m_currentState->GetState() == PlayerStates::ClimbJump )
-		)
+	if (KeyboardInput::GetInstance()->isKeyDown(VK_D))
 	{
 		this->setIsFacingRight(true);
-		if (m_canMoveRight)
-		{
-			vx = speed * deltaTime;
-		}
-		else
-		{
-			vx = 0.0f;
-		}
-	}
-	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A) &&
-		(m_currentState->GetState() == PlayerStates::Standing ||
+
+		if (m_currentState->GetState() == PlayerStates::Standing ||
 			m_currentState->GetState() == PlayerStates::Moving ||
 			m_currentState->GetState() == PlayerStates::MoveAttack ||
 			m_currentState->GetState() == PlayerStates::MoveThrow ||
@@ -231,16 +211,41 @@ void Player::Update(float deltaTime)
 			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
 			// m_currentState->GetState() == PlayerStates::Climb ||
 			m_currentState->GetState() == PlayerStates::ClimbJump)
-		)
+
+		{
+			if (m_canMoveRight)
+			{
+				vx = speed * deltaTime;
+			}
+			else
+			{
+				vx = 0.0f;
+			}
+		}
+	}
+	else if (KeyboardInput::GetInstance()->isKeyDown(VK_A))
 	{
 		this->setIsFacingRight(false);
-		if (m_canMoveLeft)
+
+		if (m_currentState->GetState() == PlayerStates::Standing ||
+			m_currentState->GetState() == PlayerStates::Moving ||
+			m_currentState->GetState() == PlayerStates::MoveAttack ||
+			m_currentState->GetState() == PlayerStates::MoveThrow ||
+			m_currentState->GetState() == PlayerStates::JumpStand ||
+			m_currentState->GetState() == PlayerStates::JumpMoving ||
+			m_currentState->GetState() == PlayerStates::JumpAttack ||
+			m_currentState->GetState() == PlayerStates::JumpAttackThrow ||
+			// m_currentState->GetState() == PlayerStates::Climb ||
+			m_currentState->GetState() == PlayerStates::ClimbJump)
 		{
-			vx = -speed * deltaTime;
-		}
-		else
-		{
-			vx = 0.0f;
+			if (m_canMoveLeft)
+			{
+				vx = -speed * deltaTime;
+			}
+			else
+			{
+				vx = 0.0f;
+			}
 		}
 	}
 	else
@@ -403,7 +408,7 @@ void Player::OnCollision(std::map<int, GameObject*>* colliableObjects, float del
 			}
 		}
 	}
-}
+	}
 
 void Player::Draw()
 {
